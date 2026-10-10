@@ -2,21 +2,22 @@
 # requires-python = ">=3.11"
 # dependencies = ["pillow"]
 # ///
-"""Whole-lot overview: the CAD property line over the aerial, with side lengths.
+"""Whole-lot overview: the 1991 survey over the aerial, with plat dimensions,
+easements, building line, well and electric lines.
 
 Same lot-aligned foot grid as site_plan.py.
 
 Run: uv run tools/lot_plan.py
 """
 
-import math
-
-from site_plan import BLUE, GARAGE, MAGENTA, ORANGE, PARCEL, PURPLE, RED, REPO, WHITE, Plan
+from site_plan import (
+    CYAN, ELECTRIC, MAGENTA, ORANGE, PARCEL, PURPLE, RED, REPO, WELL, YELLOW,
+    Plan, draw_survey, en_to_site, site,
+)
 
 OUT = REPO / "site" / "lot.png"
 VIEW = (45, 85, 340, 285)
 
-HOUSE = [(180, 168), (224, 168), (224, 171), (252, 171), (252, 239), (189, 239), (189, 196), (180, 196)]
 REMOVED = [
     [(161, 129), (205, 129), (205, 150), (161, 150)],  # teal carport canopies
     [(83, 133), (99, 133), (99, 144), (83, 144)],  # small shed
@@ -32,44 +33,45 @@ def main() -> None:
     plan = Plan(view=VIEW)
     plan.grid()
 
-    nw, ne, se, sw, jog = PARCEL
-    plan.poly(PARCEL, PURPLE, width=6)
-
-    plan.line([(100, 116.1), (183, 128)], RED, width=4)
-    plan.line([(183, 128), (232, 135.6)], RED, width=4, dash=True)
-
     for outline in REMOVED:
         plan.poly(outline, (200, 200, 200), width=2, dash=True)
     plan.label(163, 137, "old carport\n(removed)", fill=ORANGE, size=18)
     plan.label(70, 150, "sheds\n(removed)", fill=(220, 220, 220), size=16)
 
-    plan.poly(HOUSE, BLUE, width=4)
-    plan.label(200, 205, "HOUSE", fill=(160, 210, 255), size=28)
-    plan.poly(GARAGE, BLUE, fill=(120, 190, 255, 70), width=3)
-    plan.label(227, 180, "attached garage\n(CAD 441 sq ft)", fill=(160, 210, 255), size=18)
+    for a, b in ELECTRIC:
+        plan.line(site([a, b]), YELLOW, width=2, dash=True)
+    draw_survey(plan)
+    plan.line([(100, 116.1), (183, 128)], RED, width=3)
+    plan.line([(183, 128), (232, 135.6)], RED, width=3, dash=True)
+
+    plan.label(198, 222, "HOUSE", fill=(160, 210, 255), size=28)
+    plan.label(221, 178, "garage", fill=(160, 210, 255), size=18)
     plan.label(292, 186, "driveway", size=16)
+    well = en_to_site(WELL)
+    plan.label(well[0] + 2.5, well[1] - 1, "well (1991 plat) - still there?", fill=CYAN, size=18)
+    plan.label(72, 243, "overhead electric\nservice (plat)", fill=YELLOW, size=16)
+    plan.label(48, 196, "7.5' + 10'\nutility\neasement\n+ overhead\nelectric", fill=PURPLE, size=16)
+    plan.label(265, 238, "45' building\nline (plat)", fill=PURPLE, size=16)
 
-    plan.label(80, 205, "back yard:\nseptic + big oak somewhere here\n(to be located)", fill=MAGENTA, size=22)
+    plan.label(80, 200, "back yard:\nseptic + big oak somewhere here\n(to be located)", fill=MAGENTA, size=22)
 
-    north = math.dist(nw, ne)
-    west = math.dist(sw, jog) + math.dist(jog, nw)
-    plan.label(150, 96, f"~{north:.0f} ft along US-290 (fence ~ on the line)", fill=PURPLE, size=22)
-    plan.label(316, 200, f"~{math.dist(ne, se):.0f} ft\nfrontage", fill=PURPLE, size=22)
-    plan.label(160, 268, f"~{math.dist(se, sw):.0f} ft  (neighbor to the south)", fill=PURPLE, size=22)
-    plan.label(47, 255, f"~{west:.0f} ft\nwest", fill=PURPLE, size=20)
+    plan.label(150, 93, "N50°46'W 253.50' along US-290 (fence ~3-6 ft inside?)", fill=PURPLE, size=22)
+    plan.label(311, 196, "N30°05'E\n114.95'\nfrontage", fill=PURPLE, size=20)
+    plan.label(150, 264, "N59°52'W 250.05'  (neighbor to the south)", fill=PURPLE, size=22)
+    plan.label(47, 108, "N30°00'E\n155.05'\nback", fill=PURPLE, size=18)
 
     area = shoelace(PARCEL)
     plan.label(
-        47, 87,
-        f"Lot 176 Granada Hills Amd: CAD 34,036 sq ft (outline here {area:,.0f}). "
-        "Line from the CAD map, +/-5 ft. Up = NNE, right = ESE.",
+        47, 276,
+        f"Lot 176 Granada Hills Amd, from the Apr 1991 survey: {area:,.0f} sq ft by bearings (CAD lists 34,036). "
+        "Placed on the aerial by the house, +/-3 ft. Up = NNE, right = ESE.",
         size=16,
     )
     plan.scale_bar()
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     plan.img.save(OUT)
-    print(f"wrote {OUT.relative_to(REPO)} {plan.img.size}; outline area {area:,.0f} sq ft")
+    print(f"wrote {OUT.relative_to(REPO)} {plan.img.size}; survey area {area:,.0f} sq ft")
 
 
 if __name__ == "__main__":

@@ -9,9 +9,9 @@ use them to place everything on a to-scale plan.
 
 | Point | Where |
 |---|---|
-| **A** | NW corner of the house: the west end of the north wall. Use the wall corner at the ground, not the roof eave. |
-| **B** | East end of the north wall on the brown-roofed section, where it meets the attached garage. |
-| **C** | South end of the house's west wall: the SW corner of the brown-roofed section, next to the light-colored metal roof. |
+| **A** | NW corner of the house: the west end of the north wall, the outside corner nearest the old carport. Use the wall corner at the ground, not the roof eave. |
+| **B** | East end of the north wall: the garage's front corner, where the front porch starts. |
+| **C** | Where the house's west wall steps back east, about 21 ft south of A. |
 | **F1, F2** | Tape marks you put on the fence during shots 3 and 4. |
 | **F3** | A tape mark on the fence at the far west end of the open strip, about where the small shed used to be (all the sheds are gone now). |
 
@@ -25,22 +25,22 @@ use them to place everything on a to-scale plan.
 - For trunk shots, just hit the near face of the trunk. I'll add the radius from the girth (shot 11).
 - If a line is blocked by a tree, shoot from any other lettered point and say which one.
 - The nearest inch is plenty.
-- The estimates come from the aerial, which shows rooflines rather than walls, so
-  a foot or two of difference is normal. If you're 5+ ft off an estimate, a point
+- Shots 1–2 are checked against the 1991 survey. The other estimates come from the
+  aerial, which shows rooflines rather than walls, so a foot or two of difference is normal. If you're 5+ ft off an estimate, a point
   is probably mixed up, so it's worth a second look.
 
 ## Shots
 
 | # | From → To | How | Aerial est. | Measured |
 |---|---|---|---|---|
-| 1 | A → B | along the north wall | ~44 ft | |
-| 2 | A → C | along the west wall | ~28 ft | |
-| 3 | A → fence | square off the north wall; tape the spot = **F1** | ~40 ft | |
-| 4 | B → fence | square off the north wall; tape the spot = **F2** | ~34 ft | |
-| 5 | A → F3 | aim the dot at the tape mark | ~105 ft | |
-| 6 | F1 → F3 | along the fence; bucket or helper at the far end | ~91 ft | |
-| 7 | A → old pad SW corner | bucket on the corner (skip if you can't find the old footprint) | ~26 ft | |
-| 8 | B → old pad SE corner | bucket on the corner (skip if you can't find the old footprint) | ~26 ft | |
+| 1 | A → B | along the north wall | 59.4 ft (survey) | |
+| 2 | A → C | along the west wall | 21.3 ft (survey) | |
+| 3 | A → fence | square off the north wall; tape the spot = **F1**. The surveyed line is 44.6 ft out. | ~42 ft | |
+| 4 | B → fence | square off the north wall; tape the spot = **F2**. The surveyed line is 35.2 ft out. | ~34 ft | |
+| 5 | A → F3 | aim the dot at the tape mark | ~107 ft | |
+| 6 | F1 → F3 | along the fence; bucket or helper at the far end | ~92 ft | |
+| 7 | A → old pad SW corner | bucket on the corner (skip if you can't find the old footprint) | ~28 ft | |
+| 8 | B → old pad SE corner | bucket on the corner (skip if you can't find the old footprint) | ~41 ft | |
 | 9 | A → big oak trunk | hit the trunk face | ? | |
 | 10 | C → big oak trunk | hit the trunk face | ? | |
 | 11 | Big oak girth | tape around the trunk at 4.5 ft off the ground | ? | |
@@ -51,6 +51,7 @@ use them to place everything on a to-scale plan.
 | 16 | Drive, narrowest gap | trunk-to-trunk (or other obstacle) at the tightest spot on the way in | ? | |
 | 17 | Lowest branches | aim straight up: a few spots over the pad and over the drive | ? | |
 | 18 | Slope (optional) | which way the pad area drops, and roughly how much | ? | |
+| 19 | Well | the 1991 plat shows a well near the NW corner, ~28 ft in from the back line and ~12 ft from the US-290 line. Is it still there (casing, cap or pump)? If so: from A and from F1. | ~108 ft from A | |
 
 ## Also note
 
@@ -58,5 +59,5 @@ use them to place everything on a to-scale plan.
   A **survey** shows the property lines and easements. A **septic inspection report**
   or permit often has a sketch of where the tank and field are.
 - Septic type: a conventional drain field (buried lines) or aerobic with spray heads?
-- The CAD parcel map already puts the property line within ~3 ft of the fence, so
-  shots 3–6 are now a cross-check and lower priority than the oak and septic shots.
+- The 1991 survey puts the US-290 property line 44.6 ft from A and 35.2 ft from B.
+  The aerial suggests the fence is ~3–6 ft inside that line, and shots 3–4 will settle it.

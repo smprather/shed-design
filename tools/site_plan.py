@@ -36,31 +36,108 @@ GREEN = (80, 220, 120)
 BLUE = (120, 190, 255)
 MAGENTA = (255, 110, 230)
 PURPLE = (200, 140, 255)
+CYAN = (90, 230, 255)
 
-# Parcel 315319 (Lot 176, Granada Hills Amended) from the Travis CAD GIS map.
-# Vertices were read by eye from a north-up screenshot (shared in chat, not in
-# the repo). Scale is set so the outline encloses the CAD land area
-# (34,035.73 sq ft). The shift lines up the house and the two since-removed
-# sheds, which appear on both maps (residuals <= 5 ft). Treat as +/-5 ft; only
-# a survey is exact.
-GIS_FT_PER_PX = 0.4376
-GIS_SHIFT = (-221.5, 246.3)
-GIS_PARCEL_PX = [(722, 35), (1175, 400), (1047, 632), (551, 352), (695, 93)]
+# Survey plat: Samford & Associates, Apr 16 1991 (rev Apr 18 1991), Lot 176,
+# Granada Hills Amended (Vol. 55 Pg. 69, Plat Records of Travis County).
+# Bearings as true azimuths (degrees), distances in feet. The back line,
+# N30°00'E 155.05', closes to 0.01 ft.
+SV_FRONT = (30 + 5 / 60, 114.95)  # N30°05'E along Candelaria Dr, south pin -> north pin
+SV_NORTH = (360 - (50 + 46 / 60), 253.50)  # N50°46'W, US-290 side, front -> back
+SV_SOUTH = (360 - (59 + 52 / 60), 250.05)  # N59°52'W, south neighbor side, front -> back
 
-
-def gis_to_site(x: float, y: float) -> tuple[float, float]:
-    t = math.radians(ROTATE_DEG)
-    return (
-        GIS_FT_PER_PX * (x * math.cos(t) + y * math.sin(t)) + GIS_SHIFT[0],
-        GIS_FT_PER_PX * (-x * math.sin(t) + y * math.cos(t)) + GIS_SHIFT[1],
-    )
+Pt = tuple[float, float]
 
 
-# NE (US-290 side) -> SE (street) -> SW -> W jog -> back to NE.
-PARCEL = [gis_to_site(*v) for v in GIS_PARCEL_PX]
+def _dir(az: float) -> Pt:
+    r = math.radians(az)
+    return (math.sin(r), math.cos(r))
 
-# Attached garage (CAD: 441 sq ft), the house's NE block, as marked by the owner on lot.png.
-GARAGE = [(224, 171.5), (252, 171.5), (252, 195), (224, 195)]
+
+def _step(p: Pt, az: float, dist: float) -> Pt:
+    u = _dir(az)
+    return (p[0] + dist * u[0], p[1] + dist * u[1])
+
+
+# Corners in east/north feet from the front-south pin.
+_FS = (0.0, 0.0)
+_FN = _step(_FS, *SV_FRONT)
+_RN = _step(_FN, *SV_NORTH)
+_RS = _step(_FS, *SV_SOUTH)
+
+
+def st(s: float, t: float) -> Pt:
+    """Survey-local point: s ft back from the front line along the south line, t ft toward US-290."""
+    return _step(_step(_FS, SV_SOUTH[0], s), SV_SOUTH[0] + 90, t)
+
+
+def offset_line(a: Pt, b: Pt, dist: float, toward: Pt) -> tuple[Pt, Pt]:
+    """Line a-b shifted `dist` ft toward the side containing `toward`."""
+    dx, dy = b[0] - a[0], b[1] - a[1]
+    n = (-dy / math.hypot(dx, dy), dx / math.hypot(dx, dy))
+    if (toward[0] - a[0]) * n[0] + (toward[1] - a[1]) * n[1] < 0:
+        n = (-n[0], -n[1])
+    return (a[0] + dist * n[0], a[1] + dist * n[1]), (b[0] + dist * n[0], b[1] + dist * n[1])
+
+
+def intersect(l1: tuple[Pt, Pt], l2: tuple[Pt, Pt]) -> Pt:
+    (x1, y1), (x2, y2) = l1
+    (x3, y3), (x4, y4) = l2
+    den = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)
+    a, b = x1 * y2 - y1 * x2, x3 * y4 - y3 * x4
+    return ((a * (x3 - x4) - (x1 - x2) * b) / den, (a * (y3 - y4) - (y1 - y2) * b) / den)
+
+
+# House walls rebuilt from the plat's dimensions; reproduces its ties (44.6 / 35.2 ft
+# to the US-290 line, 22.9 / 22.7 ft to the south line) to 0.1 ft.
+HOUSE_ST = [
+    (59.3, 22.7), (100.8, 22.9), (100.8, 68.8), (126.2, 68.8), (126.2, 90.1),
+    (66.8, 90.1), (66.8, 57.6), (71.8, 57.6), (71.8, 50.4), (59.3, 50.4),
+]
+PORCH_ST = [(57.1, 57.6), (66.8, 57.6), (66.8, 90.1), (57.1, 90.1)]  # CAD open porch 315 sq ft
+# CAD attached garage 441 sq ft = 21 x 21. The plat's driveway flares to the house's NE
+# corner behind the porch, so the garage sits there with its door facing north.
+GARAGE_ST = [(66.8, 69.1), (87.8, 69.1), (87.8, 90.1), (66.8, 90.1)]
+HOUSE_NW = st(126.2, 90.1)  # point A on the measurement plan
+
+_CENTER = ((_FS[0] + _RN[0]) / 2, (_FS[1] + _RN[1]) / 2)
+BUILDING_LINE = (
+    intersect(offset_line(_FS, _FN, 45, _CENTER), (_FS, _RS)),
+    intersect(offset_line(_FS, _FN, 45, _CENTER), (_FN, _RN)),
+)  # 45' B.L. (plat), measured from the front line
+PUE = [
+    (intersect(offset_line(_RS, _RN, w, _CENTER), (_FS, _RS)), intersect(offset_line(_RS, _RN, w, _CENTER), (_FN, _RN)))
+    for w in (7.5, 10)
+]  # 7.5' and 10' P.U.E. (plat) along the back line
+# Plat shows "Well" ~28 ft in from the back line and ~12 ft from the US-290 line (read off
+# the sketch, +/-3 ft). Overhead electric runs along the back line; a service line runs
+# from it to the house's back wall ~30 ft north of the south line.
+WELL = intersect(offset_line(_RS, _RN, 28, _CENTER), offset_line(_FN, _RN, 12, _CENTER))
+ELECTRIC = [(_RS, _RN), (intersect(((st(0, 30)), st(1, 30)), (_RS, _RN)), st(100.8, 30))]
+
+# Register to the aerial frame: the house's NW wall corner sits ~1.5 ft inside the
+# roof corner seen at (180, 168).
+ANCHOR_SITE = (181.5, 169.5)
+
+
+def en_to_site(p: Pt) -> Pt:
+    r = _dir(ROTATE_DEG + 90), _dir(ROTATE_DEG)
+    x = p[0] * r[0][0] + p[1] * r[0][1]
+    y = -(p[0] * r[1][0] + p[1] * r[1][1])
+    ax = HOUSE_NW[0] * r[0][0] + HOUSE_NW[1] * r[0][1]
+    ay = -(HOUSE_NW[0] * r[1][0] + HOUSE_NW[1] * r[1][1])
+    return (x - ax + ANCHOR_SITE[0], y - ay + ANCHOR_SITE[1])
+
+
+def site(pts) -> list[Pt]:
+    return [en_to_site(p) for p in pts]
+
+
+# Front-south, front-north (US-290), back-north, back-south.
+PARCEL = site([_FS, _FN, _RN, _RS])
+HOUSE = site(st(*q) for q in HOUSE_ST)
+PORCH = site(st(*q) for q in PORCH_ST)
+GARAGE = site(st(*q) for q in GARAGE_ST)
 
 
 class Plan:
@@ -130,51 +207,68 @@ class Plan:
         self.d.text((a[0], a[1] - 26), f"{feet} ft", fill=WHITE, font=ImageFont.load_default(size=18))
 
 
+def draw_survey(plan: Plan) -> None:
+    """Property line, plat easements and building line, well, and the house as surveyed."""
+    for a, b in PUE:
+        plan.line(site([a, b]), PURPLE, width=2, dash=True)
+    plan.line(site(BUILDING_LINE), PURPLE, width=2, dash=True)
+    plan.poly(PARCEL, PURPLE, width=4)
+    plan.poly(HOUSE, BLUE, width=4)
+    plan.poly(PORCH, BLUE, width=2, dash=True)
+    plan.poly(GARAGE, BLUE, fill=(120, 190, 255, 70), width=3)
+    cx, cy = plan.p(*en_to_site(WELL))
+    plan.d.ellipse([cx - 10, cy - 10, cx + 10, cy + 10], outline=CYAN, width=4)
+
+
+def north_line_y(x: float) -> float:
+    """y of the surveyed US-290 line at a given x (site frame)."""
+    (x0, y0), (x1, y1) = PARCEL[2], PARCEL[1]
+    return y0 + (x - x0) * (y1 - y0) / (x1 - x0)
+
+
 def main() -> None:
     plan = Plan()
     plan.grid()
 
-    # Fence along the US-290 side: solid where visible, dashed where hidden by shadow.
-    plan.line([(105, 116.8), (183, 128)], RED, width=5)
-    plan.line([(183, 128), (215, 133)], RED, width=5, dash=True)
-    plan.label(118, 101, "Fence, US-290 side: within ~3 ft of the CAD property line", fill=(255, 150, 150))
+    # Open strip west of the old canopies, from the back-line easement to the old canopy site.
+    zone = [(70, 111.8), (161, 126.5), (161, 149), (70, 149)]
+    plan.poly(zone, GREEN, fill=(80, 220, 120, 45), width=3, dash=True)
+    plan.label(97, 128.5, "Open strip: ~90 ft x 25-35 ft\nCHECK: septic, big oak, well", fill=(170, 255, 190))
 
-    # Property line from the CAD map.
-    plan.poly(PARCEL, PURPLE, width=3, dash=True)
-    plan.label(66, 103, "property line\n(CAD map, +/-5 ft)", fill=PURPLE, size=16)
+    draw_survey(plan)
+    # Fence along the US-290 side (aerial): solid where visible, dashed where hidden by shadow.
+    plan.line([(105, 116.8), (183, 128)], RED, width=4)
+    plan.line([(183, 128), (215, 133)], RED, width=4, dash=True)
+    plan.label(108, 97, "Purple = property line (1991 survey). Red = fence, ~3-6 ft inside it?", fill=(255, 170, 170))
 
-    # Open ground west of the old canopies: only usable once septic + oak are located.
-    zone = [(85, 114), (161, 126.5), (161, 149), (85, 149)]
-    plan.poly(zone, GREEN, fill=(80, 220, 120, 50), width=3, dash=True)
-    plan.label(103, 128.5, "Open ground west of old canopies\n~75 ft run x ~25-35 ft deep\nCHECK: septic + large oak?", fill=(170, 255, 190))
+    well = en_to_site(WELL)
+    plan.label(well[0] + 2.5, well[1] - 1, "well? (1991 plat)", fill=CYAN, size=16)
+    plan.label(62, 186, "10' utility\neasement\n(back line)", fill=PURPLE, size=16)
 
-    # Unknowns to confirm with the owner.
     plan.label(123, 140, "light circle:\nfire pit? septic lid?", fill=MAGENTA, size=18)
     plan.label(118, 170, "large tree canopy -\nthe oak? (trunk + drip\nline to be located)", fill=MAGENTA, size=18)
 
-    # Old canopy footprint (removed).
     plan.poly([(161, 129), (205, 129), (205, 150), (161, 150)], ORANGE, width=5)
-    plan.label(163, 151.5, "Old canopies (gone)\ntape: 20 x 40\naerial: ~21 x 44", fill=(255, 190, 110))
+    plan.label(162.5, 130.5, "Old canopies (gone)\ntape: 20 x 40", fill=(255, 190, 110))
 
-    # House: north wall plus the east wing.
-    plan.poly([(180, 168), (224, 168), (224, 196), (180, 196)], BLUE)
-    plan.line([(224, 171), (252, 171), (252, 235)], BLUE)
-    plan.label(196, 179, "HOUSE", fill=(160, 210, 255), size=26)
-    plan.poly(GARAGE, BLUE, fill=(120, 190, 255, 70), width=3)
-    plan.label(226, 181, "attached\ngarage", fill=(160, 210, 255), size=18)
+    plan.label(186, 213, "HOUSE (surveyed walls)", fill=(160, 210, 255), size=22)
+    plan.label(222, 177, "garage", fill=(160, 210, 255), size=18)
+    plan.label(242, 188, "porch", fill=(160, 210, 255), size=14)
 
-    plan.dim((208, 131.5), (208, 168), "~40 ft fence\nto house", at=(209.5, 150))
-    plan.dim((186, 150), (186, 168), "~18 ft", at=(187.5, 157))
+    a, ne = HOUSE[4], HOUSE[5]
+    plan.dim(a, (a[0], north_line_y(a[0])), "44.6 ft\n(survey)", at=(183, 153))
+    plan.dim(ne, (ne[0], north_line_y(ne[0])), "35.2 ft\n(survey)", at=(242.5, 149))
+    plan.dim((200, 150), (200, 169.5), "~19 ft", at=(201.5, 158))
 
-    plan.label(222, 138, "Live oaks\n(avoid root zones)", fill=(200, 255, 170))
-    plan.label(62, 124, "shed\n(removed)", fill=(230, 230, 230), size=18)
-    plan.label(62, 163, "shed (removed)", fill=(230, 230, 230), size=18)
+    plan.label(222, 132, "Live oaks\n(avoid root zones)", fill=(200, 255, 170))
+    plan.label(62, 160, "sheds\n(removed)", fill=(230, 230, 230), size=16)
     plan.label(62, 225, "Aerial predates the sale: all sheds and the\nteal carport canopies have been removed.", fill=ORANGE, size=20)
 
-    # Drive approach from Candelaria Dr (route under the oaks unconfirmed).
+    # Drive approach from Candelaria Dr toward the garage's north side.
     plan.line([(283, 170), (259, 162)], WHITE, width=5)
     plan.d.polygon([plan.p(256, 161), plan.p(261, 159.3), plan.p(260, 164.6)], fill=WHITE)
-    plan.label(252, 172, "Drive from\nCandelaria Dr\n(route?)", size=18)
+    plan.label(256, 166, "drive", size=18)
+    plan.label(256, 145, "45' building\nline (plat)", fill=PURPLE, size=16)
 
     plan.label(229, 217, "Up = NNE (toward US-290)\nRight = ESE (toward Candelaria)", size=16)
     plan.scale_bar()

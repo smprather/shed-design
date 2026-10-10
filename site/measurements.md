@@ -13,14 +13,14 @@ use them to place everything on a to-scale plan.
 | **B** | East end of the north wall: the garage's front corner, where the front porch starts. |
 | **C** | Where the house's west wall steps back east, about 21 ft south of A. |
 | **F1, F2** | Tape marks you put on the fence during shots 3 and 4. |
-| **F3** | A tape mark on the fence at the far west end of the open strip, about where the small shed used to be (all the sheds are gone now). |
+| **F3** | A tape mark on the fence at the far west end of the open grass strip along it. |
 
 ## How to shoot
 
 - The laser measures from its back edge (check the setting). Rest the back edge on the point.
 - **Square off a wall:** lay the laser's back flat against the wall and the beam shoots straight out from it.
 - The beam needs something to hit. Walls, trunks and the fence all work.
-  For a spot on open ground (septic lid, field corner, pad corner), set a bucket
+  For a spot on open ground (septic lid, field corner), set a bucket
   or box on it. Shoot its near side and add half its width.
 - For trunk shots, just hit the near face of the trunk. I'll add the radius from the girth (shot 11).
 - If a line is blocked by a tree, shoot from any other lettered point and say which one.
@@ -39,18 +39,16 @@ use them to place everything on a to-scale plan.
 | 4 | B → fence | square off the north wall; tape the spot = **F2**. The surveyed line is 35.2 ft out. | ~34 ft | |
 | 5 | A → F3 | aim the dot at the tape mark | ~107 ft | |
 | 6 | F1 → F3 | along the fence; bucket or helper at the far end | ~92 ft | |
-| 7 | A → old pad SW corner | bucket on the corner (skip if you can't find the old footprint) | ~28 ft | |
-| 8 | B → old pad SE corner | bucket on the corner (skip if you can't find the old footprint) | ~41 ft | |
 | 9 | A → big oak trunk | hit the trunk face | ? | |
 | 10 | C → big oak trunk | hit the trunk face | ? | |
 | 11 | Big oak girth | tape around the trunk at 4.5 ft off the ground | ? | |
 | 12 | Big oak drip line | trunk → outer edge of the branches, on the side facing the build site | ? | |
 | 13 | Septic tank lid(s) | bucket on each lid; one shot from A, one from C | ? | |
 | 14 | Drain field corners or spray heads | bucket on each; one shot from A, one from C | ? | |
-| 15 | East oak trunks | any trunk within ~15 ft of the pad's east end: from B and A, plus girth | ? | |
+| 15 | East oak trunks | trunks in the strip between the garage's north wall and the fence: from B and A, plus girth | ? | |
 | 16 | Drive, narrowest gap | trunk-to-trunk (or other obstacle) at the tightest spot on the way in | ? | |
-| 17 | Lowest branches | aim straight up: a few spots over the pad and over the drive | ? | |
-| 18 | Slope (optional) | which way the pad area drops, and roughly how much | ? | |
+| 17 | Lowest branches | aim straight up: a few spots over the build strip and over the drive | ? | |
+| 18 | Slope (optional) | which way the build strip drops, and roughly how much | ? | |
 | 19 | Well | the 1991 plat shows a well near the NW corner, ~28 ft in from the back line and ~12 ft from the US-290 line. Is it still there (casing, cap or pump)? If so: from A and from F1. | ~108 ft from A | |
 
 ## Also note

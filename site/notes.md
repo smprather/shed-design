@@ -10,6 +10,8 @@ as they come in.
   the previous owners removed **all the sheds** and the **teal-roofed carport
   canopies**, so nothing in the north and west yards shown on the aerial is still
   standing.
+- **The only structures on the lot now are the house, the fences and the driveway**
+  (owner, Oct 2026). Everything else visible on the aerial is gone.
 
 ## Property record (Travis CAD, 2026)
 

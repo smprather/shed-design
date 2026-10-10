@@ -15,7 +15,7 @@ import math
 
 from PIL import ImageFont
 from site_plan import (
-    BLUE, CYAN, GREEN, HOUSE, MAGENTA, ORANGE, RED, REPO, WELL, YELLOW,
+    BLUE, CYAN, GREEN, HOUSE, MAGENTA, RED, REPO, WELL, YELLOW,
     Plan, draw_survey, en_to_site, north_line_y,
 )
 
@@ -31,12 +31,6 @@ def fence_y(x: float) -> float:
 
 
 F1, F2, F3 = (A[0], fence_y(A[0])), (B[0], fence_y(B[0])), (90, fence_y(90))
-PAD = [(161, 129), (205, 129), (205, 150), (161, 150)]
-# Removed since the aerial was taken; outlined so the photo still makes sense.
-REMOVED = [
-    [(83, 133), (99, 133), (99, 144), (83, 144)],
-    [(74, 167), (96, 167), (96, 181), (74, 181)],
-]
 
 
 def marker(plan: Plan, pt, text: str, fill, r: int = 16) -> None:
@@ -60,12 +54,7 @@ def main() -> None:
     draw_survey(plan)
     plan.line([(100, 116.1), (183, 128)], RED, width=4)
     plan.line([(183, 128), (232, 135.6)], RED, width=4, dash=True)
-    plan.poly(PAD, ORANGE, width=4)
-    plan.label(170, 137, "old pad", fill=(255, 190, 110), size=20)
-    for outline in REMOVED:
-        plan.poly(outline, (200, 200, 200), width=2, dash=True)
-    plan.label(84, 145, "removed", fill=(200, 200, 200), size=16)
-    plan.label(75, 182, "removed", fill=(200, 200, 200), size=16)
+    plan.label(184.5, 131, "old photo: only the house,\nfences + driveway remain", fill=(255, 190, 110), size=18)
     plan.label(222, 180, "garage", fill=(160, 210, 255), size=18)
 
     # 1-2 baseline along the house walls (calibration against the survey).
@@ -82,10 +71,6 @@ def main() -> None:
     shot(plan, A, F3, "5", at=(118, 136), dash=True)
     shot(plan, F1, F3, "6", at=(132, 113.5))
     plan.label(84, 105, "F3", fill=(255, 150, 150), size=20)
-
-    # 7-8 old pad corners from A and B (bucket on each corner).
-    shot(plan, A, PAD[3], "7", at=(166, 156), dash=True)
-    shot(plan, B, PAD[2], "8", at=(213, 156), dash=True)
 
     # 19 the well on the 1991 plat, if it is still there.
     well = en_to_site(WELL)
@@ -111,7 +96,6 @@ def main() -> None:
         "1 A-B": math.dist(A, B), "2 A-C": math.dist(A, C),
         "3 A-fence (aerial)": A[1] - F1[1], "3 A-line (survey, vertical)": A[1] - north_line_y(A[0]),
         "4 B-fence (aerial)": B[1] - F2[1], "5 A-F3": math.dist(A, F3), "6 F1-F3": math.dist(F1, F3),
-        "7 A-pad SW": math.dist(A, PAD[3]), "8 B-pad SE": math.dist(B, PAD[2]),
         "19 A-well": math.dist(A, well), "19 F1-well": math.dist(F1, well),
     }
     for k, v in est.items():

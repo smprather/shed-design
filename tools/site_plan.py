@@ -35,11 +35,12 @@ MAGENTA = (255, 110, 230)
 
 
 class Plan:
-    def __init__(self) -> None:
+    def __init__(self, view: tuple[int, int, int, int] = VIEW) -> None:
+        self.view = view
         raw = Image.open(SRC).convert("RGB").rotate(
             ROTATE_DEG, expand=True, resample=Image.BICUBIC, fillcolor=(40, 40, 40)
         )
-        self.box = tuple(round(v * PX_PER_FT) for v in VIEW)
+        self.box = tuple(round(v * PX_PER_FT) for v in view)
         w, h = self.box[2] - self.box[0], self.box[3] - self.box[1]
         self.img = raw.crop(self.box).resize((w * UPSCALE, h * UPSCALE), Image.LANCZOS)
         self.d = ImageDraw.Draw(self.img, "RGBA")
@@ -51,7 +52,7 @@ class Plan:
         )
 
     def grid(self, step: int = 10) -> None:
-        x0, y0, x1, y1 = VIEW
+        x0, y0, x1, y1 = self.view
         for ft in range(x0, x1 + 1, step):
             self.d.line([self.p(ft, y0), self.p(ft, y1)], fill=(255, 255, 255, 40))
         for ft in range(y0, y1 + 1, step):
@@ -93,7 +94,7 @@ class Plan:
         self.label(*at, text, fill=fill)
 
     def scale_bar(self, feet: int = 20) -> None:
-        x1, y1 = VIEW[2], VIEW[3]
+        x1, y1 = self.view[2], self.view[3]
         a, b = self.p(x1 - feet - 8, y1 - 6), self.p(x1 - 8, y1 - 6)
         self.d.rectangle([a[0] - 8, a[1] - 30, b[0] + 8, a[1] + 12], fill=(0, 0, 0, 175))
         self.d.line([a, b], fill=WHITE, width=4)

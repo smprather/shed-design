@@ -116,6 +116,22 @@ How it lines up with what we've seen:
   garage apron (option B) would sit right on that route: it would need to be a
   drive-through with ~14 ft clear, or go somewhere else.
 
+## Field measurements so far (laser, Oct 10 2026)
+
+| Shot | Measured | Expected | Read |
+|---|---|---|---|
+| 1: A → B (north wall) | 62.0 ft | 62.2 ft from the plat drawing | Matches; the house model now uses 62.0 |
+| 2: A → C | 21.5 ft | 21.3 ft (survey) | Matches |
+| 3: A → fence, square off the wall | 49.5 ft | 45.2 ft to the surveyed line (44.6 ft tie ÷ cos 9.1°) | **Fence ~4.3 ft beyond the line** |
+| 4: B → fence, square off the wall | 42.0 ft | ~35 ft to the surveyed line | **Fence ~6–7 ft beyond the line** |
+
+- The **new tall fence on the US-290 side stands outside the 1991 property line**, by
+  more toward the east. It's also ~8 ft farther out than the older fence in the aerial.
+  The strip between the line and the fence is probably highway right-of-way, not ours.
+- **Design to the surveyed line, not the fence.** Before building anything near that
+  side, get a current boundary survey, or check TxDOT's right-of-way map. A surveyor can
+  also set pins on the line.
+
 ## Goal
 
 - Build a shed first, possibly combined with a 2-car covered parking structure.
@@ -128,7 +144,7 @@ How it lines up with what we've seen:
 | **Septic system** in the back yard | Location unknown: shots 13–14, or the septic report from closing |
 | **Large oak** in the back yard | Trunk, size and drip line unknown: shots 9–12 |
 | **Live oaks** east of the old canopy site | Avoid root zones; trunks not located yet (shot 15) |
-| **Fence**, US-290 side | Probably ~3–6 ft inside the surveyed line, which runs 9.1° off square from the house and gets closer going east |
+| **Fence**, US-290 side | The new tall fence is **~4–7 ft outside** the surveyed line (shots 3–4). Use the line, which runs 9.1° off square from the house and gets closer going east, as the edge. |
 | **Septic truck access** | A pump truck has to keep reaching the tank. Keep a lane open from the driveway to within hose reach of the tank lid. Rules of thumb (confirm with the pumping company): ~12 ft wide, ~14 ft overhead clear (branches and the low wire), and a truck parked within ~100 ft of hose of the lid. The lane can't cross the tank or the drain field, and the tank lids stay uncovered. Worksheet shot 21 records where the truck parks today. |
 | **Garage apron** | The garage door faces north. The ~33–35 ft between the garage and the fence/line (x ≈ 219–241) is where cars turn in and out, and it's also the route west to the carport site. **Keep it clear.** The new structure should stay west of about x ≈ 210. |
 | **House** north wall | ~19 ft south of the old canopy footprint |

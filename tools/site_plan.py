@@ -88,17 +88,18 @@ def intersect(l1: tuple[Pt, Pt], l2: tuple[Pt, Pt]) -> Pt:
     return ((a * (x3 - x4) - (x1 - x2) * b) / den, (a * (y3 - y4) - (y1 - y2) * b) / den)
 
 
-# House walls rebuilt from the plat's dimensions; reproduces its ties (44.6 / 35.2 ft
-# to the US-290 line, 22.9 / 22.7 ft to the south line) to 0.1 ft.
+# House walls rebuilt from the plat's dimensions and ties (44.6 / 35.2 ft to the US-290
+# line, 22.9 / 22.7 ft to the south line). The north wall is 62.0 ft as laser-measured
+# (owner, Oct 2026: A->B), which matches the plat drawing; the NE tie then checks to ~0.6 ft.
 HOUSE_ST = [
-    (59.3, 22.7), (100.8, 22.9), (100.8, 68.8), (126.2, 68.8), (126.2, 90.1),
-    (66.8, 90.1), (66.8, 57.6), (71.8, 57.6), (71.8, 50.4), (59.3, 50.4),
+    (56.7, 22.7), (100.8, 22.9), (100.8, 68.8), (126.2, 68.8), (126.2, 90.1),
+    (64.2, 90.1), (64.2, 57.6), (69.2, 57.6), (69.2, 50.4), (56.7, 50.4),
 ]
-PORCH_ST = [(57.1, 57.6), (66.8, 57.6), (66.8, 90.1), (57.1, 90.1)]  # CAD open porch 315 sq ft
+PORCH_ST = [(54.5, 57.6), (64.2, 57.6), (64.2, 90.1), (54.5, 90.1)]  # CAD open porch 315 sq ft
 # CAD attached garage 441 sq ft = 21 x 21, at the house's NE corner behind the porch
 # (owner marked it on the plat). The door faces north, onto the concrete driveway.
-GARAGE_ST = [(66.8, 69.1), (87.8, 69.1), (87.8, 90.1), (66.8, 90.1)]
-GARAGE_DOOR = (st(77.3, 90.1), st(77.3, 98))  # arrow out of the north wall
+GARAGE_ST = [(64.2, 69.1), (85.2, 69.1), (85.2, 90.1), (64.2, 90.1)]
+GARAGE_DOOR = (st(74.7, 90.1), st(74.7, 98))  # arrow out of the north wall
 HOUSE_NW = st(126.2, 90.1)  # point A on the measurement plan
 
 _CENTER = ((_FS[0] + _RN[0]) / 2, (_FS[1] + _RN[1]) / 2)

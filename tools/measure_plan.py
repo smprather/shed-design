@@ -77,8 +77,8 @@ def main() -> None:
     plan.label(well[0] + 2.5, well[1] + 1.5, "19 well?", fill=CYAN, size=20)
 
     # Unknowns: large oak, septic, east oaks, drive.
-    plan.label(118, 172, "9-12  BIG OAK?\ntrunk from A + C,\ngirth, drip line", fill=MAGENTA, size=22)
-    plan.label(92, 205, "13-14  SEPTIC?\nbucket on each lid / field corner\nmeasure from A + C", fill=MAGENTA, size=22)
+    plan.label(118, 172, "9-12  BIG OAK?\ntrunk from A + B\n(C if west of house),\ngirth, drip line", fill=MAGENTA, size=22)
+    plan.label(92, 205, "13-14  SEPTIC\nbucket on each lid / corner,\nshoot from A, B, F1 (C if west)", fill=MAGENTA, size=22)
     plan.label(250, 128, "15  east oak\ntrunks", fill=GREEN, size=20)
     plan.label(252, 160, "16 drive gap\n17 branches", size=20)
 

@@ -23,7 +23,8 @@ use them to place everything on a to-scale plan.
   For a spot on open ground (septic lid, field corner), set a bucket
   or box on it. Shoot its near side and add half its width.
 - For trunk shots, just hit the near face of the trunk. I'll add the radius from the girth (shot 11).
-- If a line is blocked by a tree, shoot from any other lettered point and say which one.
+- To locate a spot, shoot it from two lettered points that are far apart and not in line
+  with it; a third is a free check. If a line is blocked, use another point and say which.
 - The nearest inch is plenty.
 - Shots 1–2 are checked against the 1991 survey. The other estimates come from the
   aerial, which shows rooflines rather than walls, so a foot or two of difference is normal. If you're 5+ ft off an estimate, a point
@@ -40,11 +41,11 @@ use them to place everything on a to-scale plan.
 | 5 | A → F3 | aim the dot at the tape mark | ~107 ft | |
 | 6 | F1 → F3 | along the fence; bucket or helper at the far end | ~92 ft | |
 | 9 | A → big oak trunk | hit the trunk face | ? | |
-| 10 | C → big oak trunk | hit the trunk face | ? | |
+| 10 | B → big oak trunk | hit the trunk face. Use C instead if the trunk is west of the house where B can't see it; all three is a free check. | ? | |
 | 11 | Big oak girth | tape around the trunk at 4.5 ft off the ground | ? | |
 | 12 | Big oak drip line | trunk → outer edge of the branches, on the side facing the build site | ? | |
-| 13 | Septic tank lid(s) | bucket on each lid; one shot from A, one from C | ? | |
-| 14 | Drain field corners or spray heads | bucket on each; one shot from A, one from C | ? | |
+| 13 | Septic tank lid(s) | bucket on each lid; shoot from two or three of A, B, F1 (C for anything west of the house) | ? | |
+| 14 | Drain field corners or spray heads | bucket on each; shoot from two or three of A, B, F1 (C for anything west of the house) | ? | |
 | 15 | East oak trunks | trunks in the strip between the garage's north wall and the fence: from B and A, plus girth | ? | |
 | 16 | Drive, narrowest gap | trunk-to-trunk (or other obstacle) at the tightest spot on the way in | ? | |
 | 17 | Lowest branches | aim straight up: a few spots over the build strip and over the drive | ? | |

@@ -12,14 +12,14 @@ use them to place everything on a to-scale plan.
 | **A** | NW corner of the house: the west end of the north wall. Use the wall corner at the ground, not the roof eave. |
 | **B** | East end of the north wall on the brown-roofed section, where the wall steps back to the newer section. If it doesn't step, use the house's NE corner. |
 | **C** | South end of the house's west wall: the SW corner of the brown-roofed section, next to the metal-roofed room. |
-| **E** | The small shed nearest the fence in the NW yard. |
 | **F1, F2** | Tape marks you put on the fence during shots 3 and 4. |
+| **F3** | A tape mark on the fence at the far west end of the open strip, about where the small shed used to be (all the sheds are gone now). |
 
 ## How to shoot
 
 - The laser measures from its back edge (check the setting). Rest the back edge on the point.
 - **Square off a wall:** lay the laser's back flat against the wall and the beam shoots straight out from it.
-- The beam needs something to hit. Walls, trunks, sheds and the fence all work.
+- The beam needs something to hit. Walls, trunks and the fence all work.
   For a spot on open ground (septic lid, field corner, pad corner), set a bucket
   or box on it. Shoot its near side and add half its width.
 - For trunk shots, just hit the near face of the trunk. I'll add the radius from the girth (shot 11).
@@ -37,10 +37,10 @@ use them to place everything on a to-scale plan.
 | 2 | A → C | along the west wall | ~28 ft | |
 | 3 | A → fence | square off the north wall; tape the spot = **F1** | ~40 ft | |
 | 4 | B → fence | square off the north wall; tape the spot = **F2** | ~34 ft | |
-| 5 | E → fence | square off the shed's north wall | ~18 ft | |
-| 6 | E → old pad | square off the shed's east wall to the pad's west edge | ~62 ft | |
-| 7 | A → old pad SW corner | bucket on the corner (skip if the pad isn't visible anymore) | ~26 ft | |
-| 8 | B → old pad SE corner | bucket on the corner (skip if the pad isn't visible anymore) | ~26 ft | |
+| 5 | A → F3 | aim the dot at the tape mark | ~105 ft | |
+| 6 | F1 → F3 | along the fence; bucket or helper at the far end | ~91 ft | |
+| 7 | A → old pad SW corner | bucket on the corner (skip if you can't find the old footprint) | ~26 ft | |
+| 8 | B → old pad SE corner | bucket on the corner (skip if you can't find the old footprint) | ~26 ft | |
 | 9 | A → big oak trunk | hit the trunk face | ? | |
 | 10 | C → big oak trunk | hit the trunk face | ? | |
 | 11 | Big oak girth | tape around the trunk at 4.5 ft off the ground | ? | |
@@ -54,5 +54,8 @@ use them to place everything on a to-scale plan.
 
 ## Also note
 
+- Check your closing papers first, since they may answer some of these outright.
+  A **survey** shows the property lines and easements. A **septic inspection report**
+  or permit often has a sketch of where the tank and field are.
 - Septic type: a conventional drain field (buried lines) or aerobic with spray heads?
 - Is the fence on the property line, or does the lot extend past it?

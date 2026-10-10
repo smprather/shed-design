@@ -19,9 +19,13 @@ VIEW = (55, 100, 275, 250)
 
 # Roofline estimates from the aerial (walls sit ~1-2 ft inside these).
 A, B, C = (180, 168), (224, 168), (180, 196)
-F1, F2 = (180, 127.6), (224, 134.4)
+F1, F2, F3 = (180, 127.6), (224, 134.4), (90, 114.7)
 PAD = [(161, 129), (205, 129), (205, 150), (161, 150)]
-SHED_E = [(83, 133), (99, 133), (99, 144), (83, 144)]
+# Removed since the aerial was taken; outlined so the photo still makes sense.
+REMOVED = [
+    [(83, 133), (99, 133), (99, 144), (83, 144)],
+    [(74, 167), (96, 167), (96, 181), (74, 181)],
+]
 
 
 def marker(plan: Plan, pt, text: str, fill, r: int = 16) -> None:
@@ -42,15 +46,17 @@ def main() -> None:
     plan = Plan(view=VIEW)
     plan.grid()
 
-    # Context: fence, house, old pad, small shed E.
+    # Context: fence, house, old pad, removed sheds.
     plan.line([(100, 116.1), (183, 128)], RED, width=4)
     plan.line([(183, 128), (232, 135.6)], RED, width=4, dash=True)
     plan.poly([A, B, (224, 196), C], BLUE, width=3)
     plan.line([(224, 171), (252, 171), (252, 230)], BLUE, width=3)
     plan.poly(PAD, ORANGE, width=4)
     plan.label(170, 137, "old pad", fill=(255, 190, 110), size=20)
-    plan.poly(SHED_E, WHITE, width=3)
-    marker(plan, (91, 138.5), "E", WHITE, r=14)
+    for outline in REMOVED:
+        plan.poly(outline, (200, 200, 200), width=2, dash=True)
+    plan.label(84, 145, "removed", fill=(200, 200, 200), size=16)
+    plan.label(75, 182, "removed", fill=(200, 200, 200), size=16)
 
     # 1-2 baseline along the house walls (calibration).
     plan.label(199, 172, "1", fill=BLUE, size=24)
@@ -62,9 +68,10 @@ def main() -> None:
     plan.label(172, 121.5, "F1", fill=(255, 150, 150), size=20)
     plan.label(226, 129, "F2", fill=(255, 150, 150), size=20)
 
-    # 5 shed E to fence, 6 shed E to old pad along the strip.
-    shot(plan, (91, 133), (91, 114.9), "5", at=(92.5, 117.5))
-    shot(plan, (99, 140), (161, 140), "6", at=(126, 141.5))
+    # 5-6 far-west fence mark F3, tied to A and to F1.
+    shot(plan, A, F3, "5", at=(118, 136), dash=True)
+    shot(plan, F1, F3, "6", at=(132, 114))
+    plan.label(84, 107, "F3", fill=(255, 150, 150), size=20)
 
     # 7-8 old pad corners from A and B (bucket on each corner).
     shot(plan, A, PAD[3], "7", at=(166, 156), dash=True)

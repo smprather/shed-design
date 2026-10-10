@@ -111,9 +111,9 @@ def main() -> None:
     plan.label(118, 101, "Fence, US-290 side (approx.): angles ~9 deg toward the house going east", fill=(255, 150, 150))
 
     # Open ground west of the old canopies: only usable once septic + oak are located.
-    zone = [(100, 117.5), (161, 126.5), (161, 149), (100, 149)]
+    zone = [(85, 114), (161, 126.5), (161, 149), (85, 149)]
     plan.poly(zone, GREEN, fill=(80, 220, 120, 50), width=3, dash=True)
-    plan.label(103, 128.5, "Open ground west of old canopies\n~60 ft run x ~25-30 ft deep\nCHECK: septic + large oak?", fill=(170, 255, 190))
+    plan.label(103, 128.5, "Open ground west of old canopies\n~75 ft run x ~25-35 ft deep\nCHECK: septic + large oak?", fill=(170, 255, 190))
 
     # Unknowns to confirm with the owner.
     plan.label(123, 140, "light circle:\nfire pit? septic lid?", fill=MAGENTA, size=18)
@@ -132,8 +132,9 @@ def main() -> None:
     plan.dim((186, 150), (186, 168), "~18 ft", at=(187.5, 157))
 
     plan.label(222, 138, "Live oaks\n(avoid root zones)", fill=(200, 255, 170))
-    plan.label(62, 124, "Existing\nshed\n~15x11", fill=(230, 230, 230), size=18)
-    plan.label(62, 163, "Existing shed ~20x12", fill=(230, 230, 230), size=18)
+    plan.label(62, 124, "shed\n(removed)", fill=(230, 230, 230), size=18)
+    plan.label(62, 163, "shed (removed)", fill=(230, 230, 230), size=18)
+    plan.label(62, 225, "Aerial predates the sale: all sheds and the\nteal carport canopies have been removed.", fill=ORANGE, size=20)
 
     # Drive approach from Candelaria Dr (route under the oaks unconfirmed).
     plan.line([(283, 170), (259, 162)], WHITE, width=5)

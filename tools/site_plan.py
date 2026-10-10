@@ -95,9 +95,10 @@ HOUSE_ST = [
     (66.8, 90.1), (66.8, 57.6), (71.8, 57.6), (71.8, 50.4), (59.3, 50.4),
 ]
 PORCH_ST = [(57.1, 57.6), (66.8, 57.6), (66.8, 90.1), (57.1, 90.1)]  # CAD open porch 315 sq ft
-# CAD attached garage 441 sq ft = 21 x 21. The plat's driveway flares to the house's NE
-# corner behind the porch, so the garage sits there with its door facing north.
+# CAD attached garage 441 sq ft = 21 x 21, at the house's NE corner behind the porch
+# (owner marked it on the plat). The door faces north, onto the concrete driveway.
 GARAGE_ST = [(66.8, 69.1), (87.8, 69.1), (87.8, 90.1), (66.8, 90.1)]
+GARAGE_DOOR = (st(77.3, 90.1), st(77.3, 98))  # arrow out of the north wall
 HOUSE_NW = st(126.2, 90.1)  # point A on the measurement plan
 
 _CENTER = ((_FS[0] + _RN[0]) / 2, (_FS[1] + _RN[1]) / 2)
@@ -218,6 +219,11 @@ def draw_survey(plan: Plan) -> None:
     plan.poly(HOUSE, BLUE, width=4)
     plan.poly(PORCH, BLUE, width=2, dash=True)
     plan.poly(GARAGE, BLUE, fill=(120, 190, 255, 70), width=3)
+    tail, tip = site(GARAGE_DOOR)
+    plan.line([tail, tip], WHITE, width=5)
+    (tx, ty), (bx, by) = plan.p(*tip), plan.p(*tail)
+    ux, uy = (tx - bx) / math.hypot(tx - bx, ty - by), (ty - by) / math.hypot(tx - bx, ty - by)
+    plan.d.polygon([(tx + 10 * ux, ty + 10 * uy), (tx - 10 * uy, ty + 10 * ux), (tx + 10 * uy, ty - 10 * ux)], fill=WHITE)
     cx, cy = plan.p(*en_to_site(WELL))
     plan.d.ellipse([cx - 10, cy - 10, cx + 10, cy + 10], outline=CYAN, width=4)
 

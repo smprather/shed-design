@@ -53,11 +53,10 @@ How it lines up with what we've seen:
 - The house walls rebuilt from the plat reproduce both US-290 ties to 0.1 ft. Placed on
   the aerial by the house, the outline matches the rooflines. The light metal roof
   west of the main block sits outside the 1991 walls (the deck, or a later patio cover).
-- **The garage** (CAD 441 sq ft = 21 × 21) fits the house's NE corner, behind the
-  covered front porch, and the plat's driveway flares to exactly that corner. So the
-  **garage door almost certainly faces north**, onto the driveway along the north side
-  of the house. On the maps it sits a little west of the owner's red square; the east
-  ~10 ft of that square is the porch roof.
+- **The garage** (CAD 441 sq ft = 21 × 21) is at the house's NE corner, behind the
+  covered front porch; the owner marked it on the plat. **Its door faces north**, onto
+  the concrete driveway, which flares to that corner on the plat. The east ~10 ft of the
+  gray roof there is the porch.
 - **The US-290 fence looks ~3–6 ft inside the surveyed line**, more toward the west.
   Shots 3–4 compare it to the 44.6 / 35.2 ft ties directly.
 - The house sits ~57 ft back from the front line and ~23 ft from the south line.
@@ -84,7 +83,8 @@ How it lines up with what we've seen:
 | **Large oak** in the back yard | Trunk, size and drip line unknown: shots 9–12 |
 | **Live oaks** east of the old canopy site | Avoid root zones; trunks not located yet (shot 15) |
 | **Fence**, US-290 side | Probably ~3–6 ft inside the surveyed line, which runs 9.1° off square from the house and gets closer going east |
-| **House** north wall | ~19 ft south of the old canopy footprint; the garage door opens onto this side |
+| **Garage apron** | The garage door faces north. The ~33–35 ft between the garage and the fence/line (x ≈ 219–241) is where cars turn in and out, and it's also the route west to the carport site. **Keep it clear.** The new structure should stay west of about x ≈ 210. |
+| **House** north wall | ~19 ft south of the old canopy footprint |
 | **Well** (1991 plat) | Near the NW corner; if it's still there, don't build over it and keep access for pump service |
 | **Back-line easement** | 7.5' / 10' utility easement, still on record even though the overhead line is gone: no structures in it |
 | **Neighbor behind (west)** | Apartments + retail under construction. Think about screening, noise, drainage changes along the back line, and who owns the new fence. |
@@ -111,8 +111,6 @@ How it lines up with what we've seen:
 - Where are the septic tank and field, and what type of system is it (conventional or aerobic)?
 - Which oak is "the large oak", and how big is it?
 - What should "larger" hold: 2 cars plus a shed of what size, and anything else?
-- Confirm the garage door faces north, onto the driveway. The survey points that way, and
-  if so, the area in front of it has to stay clear for getting in and out.
 - Is the plat's well still there, and is it used (irrigation?) or capped?
 - Where does the house's power come in now, after the back-line overhead was removed: from the street, or underground across the yard?
 - Is the graded dirt area north of the US-290 fence part of the same apartment/retail

@@ -11,7 +11,7 @@ Run: uv run tools/lot_plan.py
 """
 
 from site_plan import (
-    CYAN, ELECTRIC, MAGENTA, ORANGE, PARCEL, PURPLE, RED, REPO, WELL, YELLOW,
+    CYAN, ELECTRIC_1991, MAGENTA, ORANGE, PARCEL, PURPLE, RED, REPO, WELL, YELLOW,
     Plan, draw_survey, en_to_site, site,
 )
 
@@ -38,8 +38,7 @@ def main() -> None:
     plan.label(163, 137, "old carport\n(removed)", fill=ORANGE, size=18)
     plan.label(70, 150, "sheds\n(removed)", fill=(220, 220, 220), size=16)
 
-    for a, b in ELECTRIC:
-        plan.line(site([a, b]), YELLOW, width=2, dash=True)
+    plan.line(site(ELECTRIC_1991), YELLOW, width=2, dash=True)
     draw_survey(plan)
     plan.line([(100, 116.1), (183, 128)], RED, width=3)
     plan.line([(183, 128), (232, 135.6)], RED, width=3, dash=True)
@@ -49,8 +48,9 @@ def main() -> None:
     plan.label(292, 186, "driveway", size=16)
     well = en_to_site(WELL)
     plan.label(well[0] + 2.5, well[1] - 1, "well (1991 plat) - still there?", fill=CYAN, size=18)
-    plan.label(72, 243, "overhead electric\nservice (plat)", fill=YELLOW, size=16)
-    plan.label(48, 196, "7.5' + 10'\nutility\neasement\n+ overhead\nelectric", fill=PURPLE, size=16)
+    plan.label(72, 233, "1991 electric service - current route? (call 811 before digging)", fill=YELLOW, size=16)
+    plan.label(48, 186, "7.5' + 10'\nutility\neasement\n(overhead\nline now\nremoved)", fill=PURPLE, size=16)
+    plan.label(47, 150, "west:\napartments\n+ retail\n(under\nconstruction)", fill=(255, 200, 120), size=16)
     plan.label(265, 238, "45' building\nline (plat)", fill=PURPLE, size=16)
 
     plan.label(80, 200, "back yard:\nseptic + big oak somewhere here\n(to be located)", fill=MAGENTA, size=22)

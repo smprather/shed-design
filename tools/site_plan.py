@@ -110,10 +110,12 @@ PUE = [
     for w in (7.5, 10)
 ]  # 7.5' and 10' P.U.E. (plat) along the back line
 # Plat shows "Well" ~28 ft in from the back line and ~12 ft from the US-290 line (read off
-# the sketch, +/-3 ft). Overhead electric runs along the back line; a service line runs
-# from it to the house's back wall ~30 ft north of the south line.
+# the sketch, +/-3 ft).
 WELL = intersect(offset_line(_RS, _RN, 28, _CENTER), offset_line(_FN, _RN, 12, _CENTER))
-ELECTRIC = [(_RS, _RN), (intersect(((st(0, 30)), st(1, 30)), (_RS, _RN)), st(100.8, 30))]
+# 1991 electric service: from the overhead line on the back line to the house's back wall,
+# ~30 ft north of the south line. The overhead line on the back line has since been removed
+# (owner, Oct 2026, with the redevelopment next door), so the house's current feed is unknown.
+ELECTRIC_1991 = (intersect((st(0, 30), st(1, 30)), (_RS, _RN)), st(100.8, 30))
 
 # Register to the aerial frame: the house's NW wall corner sits ~1.5 ft inside the
 # roof corner seen at (180, 168).

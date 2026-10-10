@@ -39,10 +39,10 @@ names and signatures. These are its facts:
 | Back (west) line | **N30°00'E 155.05'**; the bearings close to 0.01 ft |
 | Area by bearings | 33,769 sq ft (CAD lists 34,036) |
 | Front building line | **45 ft** from the front line (plat) |
-| Utility easements | **7.5' and 10' P.U.E.** (plat) along the back line, with overhead electric on that line |
+| Utility easements | **7.5' and 10' P.U.E.** (plat) along the back line. The plat's overhead electric line on it is **gone** (owner, Oct 2026), but the easements are still on record. |
 | Blanket easements | Cable TV (Vol. 9167 Pg. 659) and electric (Vol. 4094 Pg. 1490); a CATV grant, Vol. 9505 Pg. 970 |
 | Well | A **"Well"** marked near the NW corner, ~28 ft in from the back line and ~12 ft from the US-290 line (read off the sketch, ±3 ft) |
-| Electric service | A line from the back line to the house's back wall, ~30 ft north of the south line, plus one from the street's south corner to the house |
+| Electric service (1991) | A line from the back line to the house's back wall, ~30 ft north of the south line, plus one from the street's south corner to the house. With the back-line overhead gone, the current route is unknown. |
 | House ties | NW corner 44.6 ft and NE corner 35.2 ft from the US-290 line; 22.9 ft and 22.7 ft from the south line |
 | House | "2 story rock/frame". Main block ~41.5 ft (E-W) × 67.2 ft (N-S), with a 21.3 × 25.4 ft wing at the NW corner reaching toward the back. Covered porch across the front of the north half. Concrete driveway on the north side, flaring to the house's NE corner. |
 | Flood | Zone C (minimal flooding), FIRM 481026-0300-D, 1987 |
@@ -65,9 +65,10 @@ How it lines up with what we've seen:
   end (x ≈ 205), about **135 ft**. It's 25–40 ft deep between the fence and the trees and
   house, and the plat's well is near its west end.
 - The big open lawn in the zoomed-out aerial, south-west of the house, is mostly the
-  **neighbor's** lot. Our back yard is the smaller lawn west of the house, crossed by the
-  overhead electric service. The lot behind ours to the west is the Broadstone Scenic
-  Brook subdivision.
+  **neighbor's** lot. Our back yard is the smaller lawn west of the house.
+- The land **behind the back (west) line is being developed into apartments and retail**
+  (Broadstone Scenic Brook on the CAD map). The overhead electric line that ran along our
+  back line went with it.
 - The Travis CAD parcel map agreed with all of this to within ~5 ft.
 
 ## Goal
@@ -85,7 +86,9 @@ How it lines up with what we've seen:
 | **Fence**, US-290 side | Probably ~3–6 ft inside the surveyed line, which runs 9.1° off square from the house and gets closer going east |
 | **House** north wall | ~19 ft south of the old canopy footprint; the garage door opens onto this side |
 | **Well** (1991 plat) | Near the NW corner; if it's still there, don't build over it and keep access for pump service |
-| **Back-line easement** | 7.5' / 10' utility easement with overhead electric: no structures in it |
+| **Back-line easement** | 7.5' / 10' utility easement, still on record even though the overhead line is gone: no structures in it |
+| **Neighbor behind (west)** | Apartments + retail under construction. Think about screening, noise, drainage changes along the back line, and who owns the new fence. |
+| **Buried utilities** | The house's electric feed may have been rerouted underground when the back-line overhead came down. **Call 811 (Texas811) before digging** footings. |
 | **Front building line** | 45 ft from Candelaria Dr: no structures in front of it, so no carport in front of the garage |
 | **Drive** from Candelaria Dr | Route and clearance into the site to be confirmed (shots 16–17) |
 | **Jurisdiction** | Outside Austin city limits (probably the ETJ): permits go through Travis County, not the City. City tree rules shouldn't apply, but the oaks' roots still need protecting. |
@@ -111,6 +114,9 @@ How it lines up with what we've seen:
 - Confirm the garage door faces north, onto the driveway. The survey points that way, and
   if so, the area in front of it has to stay clear for getting in and out.
 - Is the plat's well still there, and is it used (irrigation?) or capped?
+- Where does the house's power come in now, after the back-line overhead was removed: from the street, or underground across the yard?
+- Is the graded dirt area north of the US-290 fence part of the same apartment/retail
+  development, or highway work? It decides who the neighbor on that side will be.
 - Is the garage still used for cars, and is the new covered parking in addition to it?
 - Does Travis County's septic (OSSF) office need to review a new structure on a lot
   with a septic system? Ask before designing the foundation.

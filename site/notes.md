@@ -110,6 +110,9 @@ How it lines up with what we've seen:
   the front-south corner to the house, so call 811 before digging.
 - With cars out front, **the north strip no longer has to hold a carport**: it can be
   all shed or workshop.
+- The north-side drive still has to stay open for the septic truck. A carport on the old
+  garage apron (option B) would sit right on that route: it would need to be a
+  drive-through with ~14 ft clear, or go somewhere else.
 
 ## Goal
 
@@ -124,6 +127,7 @@ How it lines up with what we've seen:
 | **Large oak** in the back yard | Trunk, size and drip line unknown: shots 9–12 |
 | **Live oaks** east of the old canopy site | Avoid root zones; trunks not located yet (shot 15) |
 | **Fence**, US-290 side | Probably ~3–6 ft inside the surveyed line, which runs 9.1° off square from the house and gets closer going east |
+| **Septic truck access** | A pump truck has to keep reaching the tank. Keep a lane open from the driveway to within hose reach of the tank lid. Rules of thumb (confirm with the pumping company): ~12 ft wide, ~14 ft overhead clear (branches and the low wire), and a truck parked within ~100 ft of hose of the lid. The lane can't cross the tank or the drain field, and the tank lids stay uncovered. Worksheet shot 21 records where the truck parks today. |
 | **Garage apron** | The garage door faces north. The ~33–35 ft between the garage and the fence/line (x ≈ 219–241) is where cars turn in and out, and it's also the route west to the carport site. **Keep it clear.** The new structure should stay west of about x ≈ 210. |
 | **House** north wall | ~19 ft south of the old canopy footprint |
 | **Well** (1991 plat) | Near the NW corner; if it's still there, don't build over it and keep access for pump service |

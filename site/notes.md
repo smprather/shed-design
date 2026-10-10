@@ -11,6 +11,22 @@ as they come in.
   canopies**, so nothing in the north and west yards shown on the aerial is still
   standing.
 
+## Property facts
+
+These come from listing sites via web search. The Travis CAD record
+(property ID 315319) couldn't be fetched from this environment, so they still need
+checking against it.
+
+| Fact | Value | Source |
+|---|---|---|
+| Subdivision | Granada Hills | listings |
+| Lot | **0.78 ac (~34,000 sq ft)** | listings (34,038 sq ft) |
+| House | 3,711 sq ft, 4 bd / 3.5 ba, built 1972 | listings |
+| Sold | May 28, 2026 | listing site |
+| Sewer / water | Septic + public water (typical for the subdivision; this lot not confirmed) | neighbor listings |
+| Jurisdiction | Likely **Austin ETJ**, not inside city limits; to be confirmed from the CAD taxing-entity list | neighbor listings |
+| HOA | Voluntary (pool, tennis/pickleball); deed restrictions may still apply | listings |
+
 ## Goal
 
 - Build a shed first, possibly combined with a 2-car covered parking structure.
@@ -41,6 +57,7 @@ as they come in.
 - Where are the septic tank and field, and what type of system is it (conventional or aerobic)?
 - Which oak is "the large oak", and how big is it?
 - Is the fence on the property line? Does the lot extend past it, or did the US-290 work take any of it?
-- Is the property inside Austin city limits or in unincorporated county? That decides permits, setbacks and tree rules.
+- Is the property in Austin's ETJ (likely) or inside city limits? The CAD taxing-entity list will say. It decides permits, setbacks and tree rules.
+- Are there deed restrictions (Granada Hills) with setbacks or rules for outbuildings? They'd be in the title commitment.
 - What should "larger" hold: 2 cars plus a shed of what size, and anything else?
 - Paperwork from closing to dig out: the survey/plat, the septic inspection report or permit, and the title commitment (for easements).

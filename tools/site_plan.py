@@ -59,6 +59,9 @@ def gis_to_site(x: float, y: float) -> tuple[float, float]:
 # NE (US-290 side) -> SE (street) -> SW -> W jog -> back to NE.
 PARCEL = [gis_to_site(*v) for v in GIS_PARCEL_PX]
 
+# Attached garage (CAD: 441 sq ft), the house's NE block, as marked by the owner on lot.png.
+GARAGE = [(224, 171.5), (252, 171.5), (252, 195), (224, 195)]
+
 
 class Plan:
     def __init__(self, view: tuple[int, int, int, int] = VIEW) -> None:
@@ -157,6 +160,8 @@ def main() -> None:
     plan.poly([(180, 168), (224, 168), (224, 196), (180, 196)], BLUE)
     plan.line([(224, 171), (252, 171), (252, 235)], BLUE)
     plan.label(196, 179, "HOUSE", fill=(160, 210, 255), size=26)
+    plan.poly(GARAGE, BLUE, fill=(120, 190, 255, 70), width=3)
+    plan.label(226, 181, "attached\ngarage", fill=(160, 210, 255), size=18)
 
     plan.dim((208, 131.5), (208, 168), "~40 ft fence\nto house", at=(209.5, 150))
     plan.dim((186, 150), (186, 168), "~18 ft", at=(187.5, 157))

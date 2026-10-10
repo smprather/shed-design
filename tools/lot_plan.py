@@ -11,7 +11,7 @@ Run: uv run tools/lot_plan.py
 
 import math
 
-from site_plan import BLUE, MAGENTA, ORANGE, PARCEL, PURPLE, RED, REPO, WHITE, Plan
+from site_plan import BLUE, GARAGE, MAGENTA, ORANGE, PARCEL, PURPLE, RED, REPO, WHITE, Plan
 
 OUT = REPO / "site" / "lot.png"
 VIEW = (45, 85, 340, 285)
@@ -45,6 +45,8 @@ def main() -> None:
 
     plan.poly(HOUSE, BLUE, width=4)
     plan.label(200, 205, "HOUSE", fill=(160, 210, 255), size=28)
+    plan.poly(GARAGE, BLUE, fill=(120, 190, 255, 70), width=3)
+    plan.label(227, 180, "attached garage\n(CAD 441 sq ft)", fill=(160, 210, 255), size=18)
     plan.label(292, 186, "driveway", size=16)
 
     plan.label(80, 205, "back yard:\nseptic + big oak somewhere here\n(to be located)", fill=MAGENTA, size=22)

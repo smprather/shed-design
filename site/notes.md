@@ -38,6 +38,11 @@ Granada Hills, and the HOA is voluntary. Deed restrictions may still apply.
   real answer.
 - The house sits about 55–60 ft back from the front line and about 25 ft from the
   south line.
+- The **attached garage** (CAD 441 sq ft) is the house's NE block, east of the
+  brown-roofed section and nearest the driveway: x ≈ 224–252, y ≈ 171–195 on the grid,
+  roughly 28 × 23 ft to the roof edges. The aerial shows a light strip running from the
+  driveway apron west-north-west under the oaks, along the north side of the garage
+  toward the old carport. That's probably the drive to the carport site.
 - The north strip runs from the back line (x ≈ 64) to the east end of the old
   carport (x ≈ 205), **~140 ft** in all. It's 25–40 ft deep between the fence and the
   trees and house.
@@ -80,8 +85,10 @@ Granada Hills, and the HOA is voluntary. Deed restrictions may still apply.
 - Where are the septic tank and field, and what type of system is it (conventional or aerobic)?
 - Which oak is "the large oak", and how big is it?
 - What should "larger" hold: 2 cars plus a shed of what size, and anything else?
-- The CAD record lists a 441 sq ft attached garage. Is it still a garage, and do you
-  want the new covered parking in addition to it?
+- Which way does the garage door face: north (onto the strip by the fence) or east
+  (toward the street)? If it faces north, the area in front of it has to stay clear for
+  getting in and out of the garage.
+- Is the garage still used for cars, and is the new covered parking in addition to it?
 - Does Travis County's septic (OSSF) office need to review a new structure on a lot
   with a septic system? Ask before designing the foundation.
 - Paperwork to dig out:

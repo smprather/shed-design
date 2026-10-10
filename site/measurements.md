@@ -10,7 +10,7 @@ use them to place everything on a to-scale plan.
 | Point | Where |
 |---|---|
 | **A** | NW corner of the house: the west end of the north wall. Use the wall corner at the ground, not the roof eave. |
-| **B** | East end of the north wall on the brown-roofed section, where the wall steps back to the newer section. If it doesn't step, use the house's NE corner. |
+| **B** | East end of the north wall on the brown-roofed section, where it meets the attached garage. |
 | **C** | South end of the house's west wall: the SW corner of the brown-roofed section, next to the light-colored metal roof. |
 | **F1, F2** | Tape marks you put on the fence during shots 3 and 4. |
 | **F3** | A tape mark on the fence at the far west end of the open strip, about where the small shed used to be (all the sheds are gone now). |

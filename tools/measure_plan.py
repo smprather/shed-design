@@ -11,7 +11,7 @@ unknown, so they are only flagged.
 Run: uv run tools/measure_plan.py
 """
 
-from site_plan import BLUE, GREEN, MAGENTA, ORANGE, PARCEL, PURPLE, RED, REPO, WHITE, YELLOW, Plan
+from site_plan import BLUE, GARAGE, GREEN, MAGENTA, ORANGE, PARCEL, PURPLE, RED, REPO, WHITE, YELLOW, Plan
 from PIL import ImageFont
 
 OUT = REPO / "site" / "measure-plan.png"
@@ -52,6 +52,8 @@ def main() -> None:
     plan.line([(183, 128), (232, 135.6)], RED, width=4, dash=True)
     plan.poly([A, B, (224, 196), C], BLUE, width=3)
     plan.line([(224, 171), (252, 171), (252, 230)], BLUE, width=3)
+    plan.poly(GARAGE, BLUE, fill=(120, 190, 255, 70), width=3)
+    plan.label(232, 185, "garage", fill=(160, 210, 255), size=18)
     plan.poly(PAD, ORANGE, width=4)
     plan.label(170, 137, "old pad", fill=(255, 190, 110), size=20)
     for outline in REMOVED:

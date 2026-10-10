@@ -50,7 +50,7 @@ def main() -> None:
     plan.label(well[0] + 2.5, well[1] - 1, "well (1991 plat) - still there?", fill=CYAN, size=18)
     plan.label(72, 233, "1991 electric service - current route? (call 811 before digging)", fill=YELLOW, size=16)
     plan.label(48, 186, "7.5' + 10'\nutility\neasement\n(overhead\nline now\nremoved)", fill=PURPLE, size=16)
-    plan.label(47, 150, "west:\napartments\n+ retail\n(under\nconstruction)", fill=(255, 200, 120), size=16)
+    plan.label(47, 150, "west:\ncleared for\napartments\n+ retail", fill=(255, 200, 120), size=16)
     plan.label(265, 238, "45' building\nline (plat)", fill=PURPLE, size=16)
 
     plan.label(80, 200, "back yard:\nseptic + big oak somewhere here\n(to be located)", fill=MAGENTA, size=22)

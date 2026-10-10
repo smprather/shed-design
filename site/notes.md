@@ -68,6 +68,9 @@ How it lines up with what we've seen:
 - The land **behind the back (west) line is being developed into apartments and retail**
   (Broadstone Scenic Brook on the CAD map). The overhead electric line that ran along our
   back line went with it.
+- That parcel (~$1.31M on Zillow) is now **completely cleared of trees** (owner, Oct
+  2026). The aerial still shows woods there, so the back yard is more exposed than it
+  looks: afternoon sun, wind, views and noise from the west.
 - The Travis CAD parcel map agreed with all of this to within ~5 ft.
 
 ## Goal
@@ -87,7 +90,7 @@ How it lines up with what we've seen:
 | **House** north wall | ~19 ft south of the old canopy footprint |
 | **Well** (1991 plat) | Near the NW corner; if it's still there, don't build over it and keep access for pump service |
 | **Back-line easement** | 7.5' / 10' utility easement, still on record even though the overhead line is gone: no structures in it |
-| **Neighbor behind (west)** | Apartments + retail under construction. Think about screening, noise, drainage changes along the back line, and who owns the new fence. |
+| **Neighbor behind (west)** | Cleared; apartments + retail under construction. Think about screening, noise, drainage changes along the back line, and who owns the new fence. Our trees near the back line may have lost roots to the clearing, so watch for stress or dieback. |
 | **Buried utilities** | The house's electric feed may have been rerouted underground when the back-line overhead came down. **Call 811 (Texas811) before digging** footings. |
 | **Front building line** | 45 ft from Candelaria Dr: no structures in front of it, so no carport in front of the garage |
 | **Drive** from Candelaria Dr | Route and clearance into the site to be confirmed (shots 16–17) |

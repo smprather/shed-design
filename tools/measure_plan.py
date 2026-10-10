@@ -11,7 +11,7 @@ unknown, so they are only flagged.
 Run: uv run tools/measure_plan.py
 """
 
-from site_plan import BLUE, GREEN, MAGENTA, ORANGE, RED, REPO, WHITE, YELLOW, Plan
+from site_plan import BLUE, GREEN, MAGENTA, ORANGE, PARCEL, PURPLE, RED, REPO, WHITE, YELLOW, Plan
 from PIL import ImageFont
 
 OUT = REPO / "site" / "measure-plan.png"
@@ -47,6 +47,7 @@ def main() -> None:
     plan.grid()
 
     # Context: fence, house, old pad, removed sheds.
+    plan.poly(PARCEL, PURPLE, width=3, dash=True)
     plan.line([(100, 116.1), (183, 128)], RED, width=4)
     plan.line([(183, 128), (232, 135.6)], RED, width=4, dash=True)
     plan.poly([A, B, (224, 196), C], BLUE, width=3)

@@ -5,13 +5,16 @@
 """Annotated site plan of the north yard, drawn over the Google Maps aerial.
 
 Coordinates are in feet on a lot-aligned grid: the aerial is rotated 29 deg CCW
-so the house and Candelaria Dr are square to the frame. +x runs toward
-Candelaria Dr, +y runs away from US-290. Scale comes from the map's 20 ft bar
+so the house and Candelaria Dr are square to the frame. +x runs ESE toward
+Candelaria Dr, +y runs SSW away from US-290. Scale comes from the map's 20 ft bar
 (96.5 px), which agrees with the tape-measured 20x40 canopy footprint to ~10%.
+
+The property line comes from the Travis CAD parcel map (see PARCEL below).
 
 Run: uv run tools/site_plan.py
 """
 
+import math
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
@@ -32,6 +35,29 @@ RED = (255, 70, 70)
 GREEN = (80, 220, 120)
 BLUE = (120, 190, 255)
 MAGENTA = (255, 110, 230)
+PURPLE = (200, 140, 255)
+
+# Parcel 315319 (Lot 176, Granada Hills Amended) from the Travis CAD GIS map.
+# Vertices were read by eye from a north-up screenshot (shared in chat, not in
+# the repo). Scale is set so the outline encloses the CAD land area
+# (34,035.73 sq ft). The shift lines up the house and the two since-removed
+# sheds, which appear on both maps (residuals <= 5 ft). Treat as +/-5 ft; only
+# a survey is exact.
+GIS_FT_PER_PX = 0.4376
+GIS_SHIFT = (-221.5, 246.3)
+GIS_PARCEL_PX = [(722, 35), (1175, 400), (1047, 632), (551, 352), (695, 93)]
+
+
+def gis_to_site(x: float, y: float) -> tuple[float, float]:
+    t = math.radians(ROTATE_DEG)
+    return (
+        GIS_FT_PER_PX * (x * math.cos(t) + y * math.sin(t)) + GIS_SHIFT[0],
+        GIS_FT_PER_PX * (-x * math.sin(t) + y * math.cos(t)) + GIS_SHIFT[1],
+    )
+
+
+# NE (US-290 side) -> SE (street) -> SW -> W jog -> back to NE.
+PARCEL = [gis_to_site(*v) for v in GIS_PARCEL_PX]
 
 
 class Plan:
@@ -108,7 +134,11 @@ def main() -> None:
     # Fence along the US-290 side: solid where visible, dashed where hidden by shadow.
     plan.line([(105, 116.8), (183, 128)], RED, width=5)
     plan.line([(183, 128), (215, 133)], RED, width=5, dash=True)
-    plan.label(118, 101, "Fence, US-290 side (approx.): angles ~9 deg toward the house going east", fill=(255, 150, 150))
+    plan.label(118, 101, "Fence, US-290 side: within ~3 ft of the CAD property line", fill=(255, 150, 150))
+
+    # Property line from the CAD map.
+    plan.poly(PARCEL, PURPLE, width=3, dash=True)
+    plan.label(66, 103, "property line\n(CAD map, +/-5 ft)", fill=PURPLE, size=16)
 
     # Open ground west of the old canopies: only usable once septic + oak are located.
     zone = [(85, 114), (161, 126.5), (161, 149), (85, 149)]
@@ -141,7 +171,7 @@ def main() -> None:
     plan.d.polygon([plan.p(256, 161), plan.p(261, 159.3), plan.p(260, 164.6)], fill=WHITE)
     plan.label(252, 172, "Drive from\nCandelaria Dr\n(route?)", size=18)
 
-    plan.label(229, 217, "Up = toward US-290 (NNW)\nRight = toward Candelaria (ENE)", size=16)
+    plan.label(229, 217, "Up = NNE (toward US-290)\nRight = ESE (toward Candelaria)", size=16)
     plan.scale_bar()
 
     OUT.parent.mkdir(parents=True, exist_ok=True)

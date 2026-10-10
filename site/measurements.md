@@ -11,7 +11,7 @@ use them to place everything on a to-scale plan.
 |---|---|
 | **A** | NW corner of the house: the west end of the north wall. Use the wall corner at the ground, not the roof eave. |
 | **B** | East end of the north wall on the brown-roofed section, where the wall steps back to the newer section. If it doesn't step, use the house's NE corner. |
-| **C** | South end of the house's west wall: the SW corner of the brown-roofed section, next to the metal-roofed room. |
+| **C** | South end of the house's west wall: the SW corner of the brown-roofed section, next to the light-colored metal roof. |
 | **F1, F2** | Tape marks you put on the fence during shots 3 and 4. |
 | **F3** | A tape mark on the fence at the far west end of the open strip, about where the small shed used to be (all the sheds are gone now). |
 
@@ -58,4 +58,5 @@ use them to place everything on a to-scale plan.
   A **survey** shows the property lines and easements. A **septic inspection report**
   or permit often has a sketch of where the tank and field are.
 - Septic type: a conventional drain field (buried lines) or aerobic with spray heads?
-- Is the fence on the property line, or does the lot extend past it?
+- The CAD parcel map already puts the property line within ~3 ft of the fence, so
+  shots 3–6 are now a cross-check and lower priority than the oak and septic shots.

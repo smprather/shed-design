@@ -70,7 +70,14 @@ How it lines up with what we've seen:
   back line went with it.
 - That parcel (~$1.31M on Zillow) is now **completely cleared of trees** (owner, Oct
   2026). The aerial still shows woods there, so the back yard is more exposed than it
-  looks: afternoon sun, wind, views and noise from the west.
+  looks: afternoon sun, wind, views and noise from the west. It runs behind the whole
+  row of Candelaria lots and also fronts US-290 further west. Past it, the big parcel
+  to the south-west (~$12.3M on Zillow) is already graded with streets.
+- **North of our US-290 line is the highway right-of-way.** The graded dirt is the US-290
+  construction, not the apartment site; concrete barriers and pipe are staged there. The
+  1991 plat's Lot 178 has become highway land. CAD's land area still matches the plat, so
+  there's no sign TxDOT took a strip from us (the title commitment would show a
+  right-of-way deed if it had).
 - The Travis CAD parcel map agreed with all of this to within ~5 ft.
 
 ## Goal
@@ -116,8 +123,6 @@ How it lines up with what we've seen:
 - What should "larger" hold: 2 cars plus a shed of what size, and anything else?
 - Is the plat's well still there, and is it used (irrigation?) or capped?
 - Where does the house's power come in now, after the back-line overhead was removed: from the street, or underground across the yard?
-- Is the graded dirt area north of the US-290 fence part of the same apartment/retail
-  development, or highway work? It decides who the neighbor on that side will be.
 - Is the garage still used for cars, and is the new covered parking in addition to it?
 - Does Travis County's septic (OSSF) office need to review a new structure on a lot
   with a septic system? Ask before designing the foundation.

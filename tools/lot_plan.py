@@ -55,7 +55,7 @@ def main() -> None:
 
     plan.label(80, 200, "back yard:\nseptic + big oak somewhere here\n(to be located)", fill=MAGENTA, size=22)
 
-    plan.label(150, 93, "N50°46'W 253.50' along US-290 (fence ~3-6 ft inside?)", fill=PURPLE, size=22)
+    plan.label(150, 93, "N50°46'W 253.50' along the US-290 right-of-way (fence ~3-6 ft inside?)", fill=PURPLE, size=22)
     plan.label(311, 196, "N30°05'E\n114.95'\nfrontage", fill=PURPLE, size=20)
     plan.label(150, 264, "N59°52'W 250.05'  (neighbor to the south)", fill=PURPLE, size=22)
     plan.label(47, 108, "N30°00'E\n155.05'\nback", fill=PURPLE, size=18)

@@ -41,7 +41,7 @@ use them to place everything on a to-scale plan.
 | 5 | A → F3 | aim the dot at the tape mark | ~107 ft | |
 | 6 | F1 → F3 | along the fence; bucket or helper at the far end | ~92 ft | |
 | 9 | A → big oak trunk | hit the trunk face | ? | |
-| 10 | B → big oak trunk | hit the trunk face. Use C instead if the trunk is west of the house where B can't see it; all three is a free check. | ? | |
+| 10 | B → big oak trunk | hit the trunk face (C has no line of sight). A third shot from F1 is a free check. | ? | |
 | 11 | Big oak girth | tape around the trunk at 4.5 ft off the ground | ? | |
 | 12 | Big oak drip line | trunk → outer edge of the branches, on the side facing the build site | ? | |
 | 13 | Septic tank lid(s) | bucket on each lid; shoot from two or three of A, B, F1 (C for anything west of the house) | ? | |

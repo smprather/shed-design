@@ -5,7 +5,7 @@
 4,B → fence (tape F2),Same at B. Surveyed line is 35.2 ft out,~34 ft,Distance,,,,,,
 5,A → F3,F3 = tape mark on the fence at the far west end of the open grass strip,~107 ft,Distance,,,,,,
 6,F1 → F3,Along the fence; bucket or helper at the far end,~92 ft,Distance,,,,,,
-9-10,Big oak trunk,"Hit the trunk face from two corners that can see it (A+B if north of the house, A+C if west)",,From A,,From B,,From C,
+9-10,Big oak trunk,"Hit the trunk face from A and B (C has no line of sight); F1 is an optional check",,From A,,From B,,From F1,
 11,Big oak girth,Tape around the trunk at 4.5 ft,,Girth,,,,,,
 12,Big oak drip line,"Trunk to branch tips, side facing the build site",,Distance,,,,,,
 13,Septic type,Conventional drain field / aerobic spray / not sure,,Type,,,,,,

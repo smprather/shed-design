@@ -80,6 +80,37 @@ How it lines up with what we've seen:
   right-of-way deed if it had).
 - The Travis CAD parcel map agreed with all of this to within ~5 ft.
 
+## From the owner's photo facing US-290 (Oct 2026)
+
+- **The septic system is in the open strip along the US-290 fence**, the same ground
+  west of the old carport that looked like the natural place to grow. A white pipe
+  near the fence is probably a cleanout or inspection port (worksheet shot 13p).
+- The fence there is a **new tall wood privacy fence**, roughly 8 ft.
+- A **utility pole stands just beyond the fence**, and a **low wire runs from it toward
+  the house**, about fence-top height. If that's the house's electric service, it crosses
+  the build strip and limits roof height and position under it (worksheet shot 20).
+
+## Front-yard idea: garage into kitchen + circle drive (see `front-yard.png`)
+
+- The owner is ~90% likely to convert the garage into a kitchen expansion. Parking would
+  move to a **circle drive in front**, with covered space for two cars by the front door.
+- **The plat's 45 ft front building line is the catch.** The sketched ~26 × 33 ft cover
+  reaches ~17 ft past it. Between the line and the house/porch front there's only
+  **~12 ft**.
+- Options that stay behind the line:
+  - **A:** a porte-cochère about 12 × 44 ft over the drive lane at the front door, two
+    cars parked nose-to-tail.
+  - **B:** a carport on the old garage apron (north side), about 23 × 24 ft. It's reached
+    from the existing driveway, and the existing covered porch gives a dry walk to the
+    front door. Live oaks stand there.
+- Going past the line would need relief from the plat or deed restrictions: check the
+  title commitment's restriction wording, then Travis County.
+- A circle drive itself (flatwork) can cross the line. It needs a county driveway permit
+  for the second curb cut, and maybe a culvert. The plat shows a 1991 electric line from
+  the front-south corner to the house, so call 811 before digging.
+- With cars out front, **the north strip no longer has to hold a carport**: it can be
+  all shed or workshop.
+
 ## Goal
 
 - Build a shed first, possibly combined with a 2-car covered parking structure.

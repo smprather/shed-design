@@ -1,0 +1,92 @@
+{
+  "s01": {
+    "fields": {
+      "d": "62"
+    },
+    "note": "",
+    "updatedAt": "2026-10-10T19:17:40.714Z"
+  },
+  "s02": {
+    "fields": {
+      "d": "21.5"
+    },
+    "note": "",
+    "updatedAt": "2026-10-10T19:18:47.781Z"
+  },
+  "s03": {
+    "fields": {
+      "d": "49.5"
+    },
+    "note": "",
+    "updatedAt": "2026-10-10T18:45:56.346Z"
+  },
+  "s04": {
+    "fields": {
+      "d": "42"
+    },
+    "note": "",
+    "updatedAt": "2026-10-10T19:23:41.424Z"
+  },
+  "s05": {
+    "fields": {
+      "d": "112"
+    },
+    "note": "",
+    "updatedAt": "2026-10-10T23:39:00.455Z"
+  },
+  "s06": {
+    "fields": {
+      "d": "91"
+    },
+    "note": "",
+    "updatedAt": "2026-10-10T23:40:20.374Z"
+  },
+  "s09": {
+    "fields": {
+      "a": "43.3",
+      "b": "35.1",
+      "f": "40.3"
+    },
+    "note": "Twin trunks ~8 ft apart; these shots are to the trunk nearer the house (owner, in chat)",
+    "updatedAt": "2026-10-10T23:33:43.399Z"
+  },
+  "s11": {
+    "fields": {
+      "g": "6.3"
+    },
+    "note": "",
+    "updatedAt": "2026-10-10T23:25:45.894Z"
+  },
+  "s12": {
+    "fields": {
+      "d": "24.1"
+    },
+    "note": "",
+    "updatedAt": "2026-10-10T23:34:25.503Z"
+  },
+  "s13p": {
+    "fields": {
+      "a": "59.5",
+      "b": "",
+      "f": "41.1"
+    },
+    "note": "Owner confirmed the location (taken as the west spot, in the open strip); septic access pipe",
+    "updatedAt": "2026-10-10T23:52:18.947Z"
+  },
+  "s13t": {
+    "fields": {
+      "type": "Conventional drain field"
+    },
+    "note": "Gravity system: 1,200-gal concrete tank + standard drainfield (owner, in chat)",
+    "updatedAt": "2026-10-11T00:00:00Z"
+  },
+  "s19": {
+    "fields": {
+      "found": "Yes",
+      "a": "",
+      "f": ""
+    },
+    "note": "Owner confirmed: the well is where the 1991 plat shows it",
+    "updatedAt": "2026-10-11T00:30:00Z"
+  }
+}

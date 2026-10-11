@@ -243,7 +243,16 @@ the house** (24 × 40 if the trees at its SW corner allow).
   windows will partly see over it.
 - **Mass and insulation.** Bare sheet metal is light and rings. Insulated wall panels, or
   insulation plus an interior liner, cut both sound through the wall and rain noise inside.
-- **CMU (cinder block) inner wall on the US-290 side (owner's idea, for low frequencies):**
+- **CMU inner wall: priced, then dropped (Oct 11 2026).**
+  - **Cost:** a 40 × 10 ft wall is ~16 tons. DIY materials run **~$3,500–6,000**: fully
+    grouted ~$4,000–5,900, rebar cells grouted with sand in the other cores ~$3,500–5,300.
+    That includes the extra footing; see `tools/cmu_cost.py`.
+  - **Why it was dropped:** the owner doesn't need quiet inside the shed, and the wall adds
+    little for the house. Noise reaching the house mostly bends over the roof and around
+    the ends. The path through the building (insulated north wall, the air inside, the
+    south wall or doors) is already much weaker than that. The money does more as extra
+    height and length, and as better north-facing windows on the house.
+- The original CMU notes, kept for reference:
   - **It works on the rumble.** A fully grouted 8 in block wall weighs ~80–90 lb/sq ft,
     against 1–2 for sheet metal. Mass is what stops truck rumble.
   - **It needs its own footing.** A wall ~40 ft long and 12–14 ft tall weighs roughly 20+

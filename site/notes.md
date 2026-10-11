@@ -653,21 +653,25 @@ checks.
       - From there Buildings 7/8 sit as a band on the horizon ~195 m away.
     - **Scale cues:** a 10 ft grid on the ground, and a readout of the eye's height above
       the ground.
-    - **Range poles:** three 6 ft poles, banded every foot, straight back from the eye at
-      28, 67 and 137 ft. The last one is just inside the back line.
+    - **Range poles:** four 6 ft poles, banded every foot. They stand in a line straight back
+      from the eye, square off the back wall, at 25, 50, 100 and 137 ft. The last is 2 ft
+      inside the back line.
+      - Turn 15° right from the starting view (→ five times) to sight down them.
+      - Placed by `plan3d.py`. The first three, hand-placed, were off the line by 2–6°.
   - **Rear fence:** modeled at 6 ft, the owner's estimate (not yet measured).
-  - **The yard falls ~8 ft from the house to the back line** (2017 lidar, ±2 ft).
+  - **The yard falls ~7 ft from the house to the back line** (2017 lidar, ±2 ft).
     - **Lidar ground along the line of poles:**
 
       | Point | Ground (ft) | Below the ground at the eye |
       |---|---|---|
       | The eye's spot, 10 ft out from the wall | 1,054.9 | — |
-      | Pole at 28 ft | 1,052.2 | 2.7 ft |
-      | Pole at 67 ft | 1,049.5 | 5.4 ft |
-      | Pole at 137 ft, by the back line | 1,046.8 | 8.1 ft |
+      | Pole at 25 ft | 1,052.5 | 2.4 ft |
+      | Pole at 50 ft | 1,050.1 | 4.8 ft |
+      | Pole at 100 ft | 1,048.7 | 6.2 ft |
+      | Pole at 137 ft, by the back line | 1,047.6 | 7.3 ft |
 
     - **So from a standing eye 10 ft out from the house, a 6 ft fence on the line tops
-      out ~8 ft below your eye.** That is ~2 ft below the ground you stand on. It hides
+      out ~7 ft below your eye.** That is ~1 ft below the ground you stand on. It hides
       little from there.
     - This corrects the earlier "about at eye level", which was wrong: a fence whose base
       is 6 ft down tops out at the house's ground, not at eye level.
@@ -675,7 +679,7 @@ checks.
     - Screening for the house needs height near the house or tall trees, not just a fence.
   - **Field check:** stand 10 ft out from the middle of the back wall and sight level from
     eye height toward the back fence, with a line level, a phone level or a laser. If the
-    lidar is right, the level line passes ~8 ft over the top of a 6 ft fence. If it lands
+    lidar is right, the level line passes ~7 ft over the top of a 6 ft fence. If it lands
     near the top, the yard has been filled since 2017, or the lidar is off there; then
     re-fetch, or take a few shots.
 

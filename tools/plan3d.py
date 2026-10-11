@@ -43,6 +43,8 @@ DRAPE_STEP = 2.0  # m between draped vertices
 BACK_WALL_ST = ((100.8, 22.9), (100.8, 68.8))  # the main block's back wall, facing the back lawn (survey s, t)
 BACKYARD_EYE = (10.0, 6.0)  # ft out from that wall's midpoint, and ft above the ground there
 BACKYARD_GAZE = (15.0, 4.0)  # degrees left of straight back (toward the apartments), and below level
+POLES = (25.0, 50.0, 100.0)  # ft straight back from the back-yard eye: 6 ft range poles for scale
+POLE_INSET = 2.0  # ft inside the back line for one more pole
 
 Pt = tuple[float, float]
 
@@ -210,8 +212,8 @@ def poly_dist(p: Pt, poly: list[Pt], closed: bool = True) -> float:
 
 
 def write_viewer(path: Path, obj_text: str, plan: dict, checks: list[dict], backyard: dict,
-                 z0_ft: float) -> None:
-    """Fill the viewer template with the model, the plan's entity notes, the checks and the back-yard view."""
+                 poles: list[dict], z0_ft: float) -> None:
+    """Fill the viewer template with the model, the plan's entity notes, the checks, the back-yard view and the poles."""
     spec = {"entities": [{k: e.get(k) for k in ("entity_id", "status", "source", "notes", "facade_toward_us")}
                          for e in plan["spatial_entities"]],
             "removed": plan.get("removed_claims", [])}
@@ -220,6 +222,7 @@ def write_viewer(path: Path, obj_text: str, plan: dict, checks: list[dict], back
             .replace("/*SPEC*/", json.dumps(spec).replace("</", "<\\/"))
             .replace("/*CHECKS*/", json.dumps(checks).replace("</", "<\\/"))
             .replace("/*BACKYARD*/", json.dumps(backyard)[1:-1])
+            .replace("/*POLES*/", json.dumps(poles))
             .replace("/*Z0_FT*/", json.dumps(z0_ft)))
     path.write_text('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
                     '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
@@ -335,11 +338,19 @@ def main(spec: Path, out: Path) -> None:
     (s0, t0), (s1, t1) = BACK_WALL_ST
     s_eye, t_eye = (s0 + s1) / 2 + BACKYARD_EYE[0], (t0 + t1) / 2
     eye_xy = to_m(site([st(s_eye, t_eye)])[0])
+
+    def back(d: float) -> Pt:  # d ft straight back from the eye (square off the back wall)
+        return to_m(site([st(s_eye + d, t_eye)])[0])
+
+    y0, y1 = back(0.0)[1], back(1.0)[1]  # the back line is plan y = 0
+    pole_ft = [*POLES, (-POLE_INSET * FT - y0) / (y1 - y0)]
+    poles = [{"xy": [round(c, 2) for c in back(d)], "ft": round(d),
+              "drop_ft": round((ground(*eye_xy) - ground(*back(d))) / FT, 1)} for d in pole_ft]
     eye = [round(eye_xy[0], 2), round(eye_xy[1], 2), round(ground(*eye_xy) + BACKYARD_EYE[1] * FT, 2)]
     left, down, reach = math.radians(BACKYARD_GAZE[0]), math.radians(BACKYARD_GAZE[1]), 200.0  # ft
     at_xy = to_m(site([st(s_eye + reach * math.cos(left), t_eye - reach * math.sin(left))])[0])
     at = [round(at_xy[0], 2), round(at_xy[1], 2), round(eye[2] - reach * FT * math.tan(down), 2)]
-    write_viewer(html, out.read_text(), plan, checks, {"eye": eye, "at": at}, ground.z0)
+    write_viewer(html, out.read_text(), plan, checks, {"eye": eye, "at": at}, poles, ground.z0)
     click.echo(f"wrote {out.relative_to(REPO)} ({obj.nv} vertices) and {html.relative_to(REPO)}; "
                f"building B slab at z = {slab:.2f} m")
     with pl.Config(tbl_rows=-1, tbl_hide_dataframe_shape=True, tbl_hide_column_data_types=True,

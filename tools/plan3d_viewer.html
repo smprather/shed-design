@@ -314,6 +314,7 @@ details li b { font-weight: 600; }
   const col = (token) => new THREE.Color(css().getPropertyValue("--" + token).trim() || "#888");
   const items = {};   // id -> { node, materials, meta }
   const Z0_FT = /*Z0_FT*/;
+  const POLES = /*POLES*/;   // range poles straight back from the back-yard eye (plan3d.py)
   const GRID_TILE = 50 * 0.3048;   // one texture tile is 50 ft; lines every 10 ft
   function gridTexture() {
     const c = document.createElement("canvas"); c.width = c.height = 512;
@@ -387,7 +388,7 @@ details li b { font-weight: 600; }
     const node = new THREE.Group(); node.userData.id = "range_poles"; root.add(node);
     const band = 0.3048, red = new THREE.MeshLambertMaterial({ color: 0xc8261e }), white = new THREE.MeshLambertMaterial({ color: 0xf2f2ee });
     const geo = new THREE.CylinderGeometry(0.05, 0.05, band, 10);
-    for (const [x, y] of [[-10, -34], [-11, -22], [-14, -1.0]]) {
+    for (const { xy: [x, y] } of POLES) {
       const z0 = groundAt(x, y);
       for (let k = 0; k < 6; k++) {
         const m = new THREE.Mesh(geo, k % 2 ? white : red);
@@ -396,7 +397,7 @@ details li b { font-weight: 600; }
     }
     items.range_poles = { node, mats: [], meta: { label: "Range poles (6 ft, 1 ft bands)", group: "Your lot", token: "accent",
       status: "scale reference", source: "Drawn by the viewer on the lidar ground.",
-      notes: "Three 6 ft poles, straight back from the back-yard eye at 28, 67 and 137 ft (the last just inside the back line). The ground under them is 2.7, 5.4 and 8.1 ft below the ground at the eye (2017 lidar), so from there all three tops sit below eye level." } };
+      notes: `6 ft poles in a line straight back from the back-yard eye, square off the house's back wall, at ${POLES.map(p => p.ft).join(", ")} ft (the last just inside the back line). Turn about 15° right from the starting view to sight down them. The ground under them is ${POLES.map(p => p.drop_ft).join(", ")} ft below the ground at the eye (2017 lidar), so every top sits below eye level, and the far tops peek over the near ones.` } };
   }
 
   // Terrain tint by height, recomputed with the theme.

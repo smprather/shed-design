@@ -178,8 +178,39 @@ How it lines up with what we've seen:
 
 ## Goal
 
-- Build a shed first, possibly combined with a 2-car covered parking structure.
-- Put it about where the old canopies stood (tape-measured at **20 × 40 ft**), but larger.
+- **A rather large metal building (steel shed) on a concrete slab.** Size, use and doors
+  are still to be decided.
+- Originally planned as shed + 2-car covered parking near the old canopy spot (20 × 40 ft
+  tape), but larger. With the garage-to-kitchen idea, parking may move out front instead.
+
+### What "large metal building on a slab" adds
+
+- **Slab outside the oak's drip line**, not just its 12 ft no-dig core. A slab and its
+  thickened-edge trench cut roots and seal the soil.
+- **Septic:**
+  - No slab over the tank or the drainfield.
+  - Keep a separation from both; plan on ~10 ft until Travis County gives the number.
+  - Pipe roof runoff (gutters and downspouts) away from the drainfield so it doesn't
+    flood it.
+- **Construction access:**
+  - A loaded concrete mixer (~30 tons) can't cross the drainfield and shouldn't drive under
+    the oak. Plan on a **concrete pump parked on the driveway**, with a line pump or boom
+    reaching the slab.
+  - The steel delivery and lift need overhead clearance (the low wire, shot 20, and the
+    branches).
+- **Property line:** metal walls within ~5 ft of a property line usually need fire rating
+  and no openings. Plan on **5–10 ft from the surveyed line**, not the fence.
+- **Paperwork:**
+  - The building supplier's stamped drawings for the local wind speed, and a slab
+    designed for the column and anchor-bolt loads.
+  - Check Travis County's development permit, and whether its septic (OSSF) office reviews
+    new structures on septic lots.
+- **Fit check:**
+  - West of the oak's drip line to the back-line easement is ~120 ft long. But only
+    ~25–30 ft is open between a 5–10 ft line setback and the tree line, before the
+    drainfield and the septic truck lane take their share.
+  - A wide building may not fit there. The open back lawn west/south-west of the house
+    is the other candidate: bigger, but harder to reach.
 
 ## Known constraints
 
@@ -216,7 +247,7 @@ How it lines up with what we've seen:
 ## Open questions
 
 - Where are the septic tank lids and the drainfield trenches? (It's a conventional gravity system with a 1,200-gal tank.)
-- What should "larger" hold: 2 cars plus a shed of what size, and anything else?
+- The building: target size (width × length × eave height), what goes in it (vehicles, trailer, RV/boat, shop), door sizes, and power/water?
 - Is the plat's well still there, and is it used (irrigation?) or capped?
 - Where does the house's power come in now, after the back-line overhead was removed: from the street, or underground across the yard?
 - Is the garage still used for cars, and is the new covered parking in addition to it?

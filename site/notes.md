@@ -168,13 +168,24 @@ How it lines up with what we've seen:
     digging at all within ~12 ft of the trunk.
   - **The shed belongs west of the drip line**, about 10 ft east of A at most.
 
-## White pipe (13p), half-located
+## Septic access pipe and well (owner confirmed, Oct 11 2026)
 
-- It's 59.5 ft from A and 41.1 ft from F1, which puts it 43.4 ft out from the house wall.
-  Because A and F1 sit on the same line, that fits two mirror spots: 40.7 ft **west** of
-  A, in the open strip, or 40.7 ft **east**, under the oak by the fence. One more shot
-  from B or C settles it. A gravity system's tank sits near the house, so a 4-in capped
-  pipe this far out is most likely a **drainfield inspection port**.
+- **The white pipe is the septic access pipe.** It sits at the plotted west spot, in the
+  open strip: **40.7 ft west of A along the wall line and 43.4 ft out from the house.**
+  (The owner confirmed the location. Of the two mirror solutions, it's taken as the west
+  one, on open grass.)
+- **The well is where the 1991 plat shows it**, near the NW corner (~28 ft in from the
+  back line, ~12 ft from the US-290 line).
+
+## Fence readings: to be redone with a tape
+
+- The laser shots to the fence (3–6) don't line up straight, so some are off. The owner
+  will re-tape them with a 100 ft tape and trace the fence on the overhead image.
+- Until then, "fence 4–8 ft beyond the surveyed line" is provisional. Either way, design
+  to the surveyed line.
+- **Squaring off the wall with a tape:** mark 6 ft along the wall from the corner and 8 ft
+  out, and adjust until the diagonal between those marks reads 10 ft (the 3-4-5 rule,
+  doubled). Sight the long tape along that 8 ft leg.
 
 ## Goal
 

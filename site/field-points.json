@@ -95,24 +95,10 @@
           "A": 0.0,
           "F1": 0.0
         }
-      },
-      {
-        "local": [
-          40.65,
-          43.45
-        ],
-        "site": [
-          223.0,
-          126.87
-        ],
-        "residuals": {
-          "A": 0.0,
-          "F1": 0.0
-        }
       }
     ],
     "trunk_radius": null,
-    "ambiguous": true
+    "ambiguous": false
   },
   "big_oak_2": {
     "solutions": [

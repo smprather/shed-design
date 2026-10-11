@@ -70,7 +70,7 @@
       "b": "",
       "f": "41.1"
     },
-    "note": "",
+    "note": "Owner confirmed the location (taken as the west spot, in the open strip); septic access pipe",
     "updatedAt": "2026-10-10T23:52:18.947Z"
   },
   "s13t": {
@@ -79,5 +79,14 @@
     },
     "note": "Gravity system: 1,200-gal concrete tank + standard drainfield (owner, in chat)",
     "updatedAt": "2026-10-11T00:00:00Z"
+  },
+  "s19": {
+    "fields": {
+      "found": "Yes",
+      "a": "",
+      "f": ""
+    },
+    "note": "Owner confirmed: the well is where the 1991 plat shows it",
+    "updatedAt": "2026-10-11T00:30:00Z"
   }
 }

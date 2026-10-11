@@ -278,10 +278,10 @@ def main() -> None:
 
     draw_survey(plan)
     fp = draw_field(plan)
-    plan.label(100, 96.5, "Purple = property line (1991 survey). Orange = fence (laser): 4-8 ft beyond the line.", fill=(255, 190, 110), size=18)
+    plan.label(100, 96.5, "Purple = property line (1991 survey). Orange = fence from laser shots (to be re-taped).", fill=(255, 190, 110), size=18)
 
     well = en_to_site(WELL)
-    plan.label(well[0] + 2.5, well[1] + 1.5, "well? (1991 plat)", fill=CYAN, size=16)
+    plan.label(well[0] + 2.5, well[1] + 1.5, "well (confirmed at\nthe 1991 plat spot)", fill=CYAN, size=16)
     plan.label(62, 186, "10' utility\neasement\n(back line)", fill=PURPLE, size=16)
 
     plan.poly([(161, 129), (205, 129), (205, 150), (161, 150)], ORANGE, width=2, dash=True)
@@ -294,7 +294,7 @@ def main() -> None:
     pipes = fp.get("white_pipe", {}).get("solutions", [])
     for i, sol in enumerate(pipes):
         x, y = sol["site"]
-        plan.label(x - 12, y + 2.5, "white pipe?" if len(pipes) > 1 else "white pipe", fill=WHITE, size=16)
+        plan.label(x - 12, y + 2.5, "white pipe?" if len(pipes) > 1 else "septic access pipe", fill=WHITE, size=16)
     if len(pipes) > 1:
         plan.label(97, 137, "the white pipe is one of these two\n(A and F1 can't tell east from west)", fill=WHITE, size=16)
 

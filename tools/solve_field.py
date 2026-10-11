@@ -29,7 +29,8 @@ FIELD_REF = {"a": "A", "b": "B", "c": "C", "f": "F1"}
 # side: "north" keeps v > 0, "west"/"east" pick the sign of u, None reports both mirror images.
 TARGETS = {
     "big_oak": {"shot": "s09", "girth": ("s11", "g"), "side": "north"},
-    "white_pipe": {"shot": "s13p", "side": None},
+    # Owner confirmed the septic access pipe is at the plotted spot: the west one, in the open strip.
+    "white_pipe": {"shot": "s13p", "side": "west"},
 }
 # The big oak has twin trunks ~8 ft apart (owner). Shots 9-10 went to the trunk nearer the
 # house; the second trunk's offset (u, v) is read off the owner's sketch, so treat it as +/-2 ft.

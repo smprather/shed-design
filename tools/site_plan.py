@@ -236,9 +236,12 @@ def north_line_y(x: float) -> float:
 
 
 FIELD_POINTS = REPO / "site" / "field-points.json"
-# The US-290 fence as the owner traced it on a newer north-up aerial (Oct 2026), mapped to
-# this grid with a similarity fit on the house roof and old canopy corners (residuals <= 2 ft).
-FENCE_TRACE = [(62.9, 102.7), (253.9, 141.0)]
+# The US-290 fence (owner, Oct 2026). West of the gap between the old canopies it follows
+# the owner's trace on a newer aerial (mapped with a similarity fit on the house roof and
+# canopy corners, residuals <= 2 ft). At that gap it bends and runs along the highway side
+# of the house-side canopy, roughly parallel to the house; laser shot 4 (B -> fence 42.0 ft)
+# fits that line. Shot 3 hit near the bend and read long. To be checked with a tape.
+FENCE_TRACE = [(62.9, 102.7), (183.0, 128.0), (205.0, 128.3), (243.5, 128.7)]
 
 
 def draw_field(plan: Plan) -> dict:
@@ -276,7 +279,7 @@ def main() -> None:
 
     draw_survey(plan)
     fp = draw_field(plan)
-    plan.label(100, 96.5, "Purple = property line (1991 survey). Orange = fence (owner's trace): on the line to ~4 ft inside.", fill=(255, 190, 110), size=18)
+    plan.label(100, 96.5, "Purple = property line (1991 survey). Orange = fence (owner): bends at the old canopy gap.", fill=(255, 190, 110), size=18)
 
     well = en_to_site(WELL)
     plan.label(well[0] + 2.5, well[1] + 1.5, "well (confirmed at\nthe 1991 plat spot)", fill=CYAN, size=16)

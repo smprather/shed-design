@@ -262,7 +262,7 @@ south.
 - **Measure to the eave, not just the slab.** A roof overhang or gutter on the north side
   would cross the 5 ft setback. Keep the north eave flush, or ask the county whether it
   measures to the wall or the eave.
-- **The ground falls ~3.8 ft across the slab**, high at the NE corner by the oak (2017
+- **The ground falls ~3.6 ft across the slab**, high at the NE corner by the oak (2017
   lidar). Level it with fill on the west side, not a cut toward the oak; see "3D plan".
 - **Septic truck:** it still parks in the lane between B and the house, now ~15 ft wide for a
   truck ~8 ft wide. The hose run around the west end to the pipe is ~70–75 ft.
@@ -624,10 +624,21 @@ checks.
   - **Unknown:** the tank and drainfield are still unlocated, so nothing can be checked
     against them yet.
   - None of the neighbor geometry touches our septic.
-- **Building B's site falls ~3.8 ft across the slab**, from ~1056.7 ft at the NE corner by
+- **Building B's site falls ~3.6 ft across the slab**, from ~1056.5 ft at the NE corner by
   the oak to ~1052.9 ft at the SW corner (2017 lidar, ±2 ft; the old carports may have
   blurred it). Level it with fill or a stem wall on the west side, not a cut toward the
   oak. Tell the slab engineer.
+- **The whole neighborhood, rendered (Oct 11 2026).** The model now covers ~660 × 480 m, from
+  across Candelaria to the far side of the apartment lot.
+  - **Ground:** a 5 m grid resampled from the USGS 1 m DEM (`tools/fetch_terrain.py`). It
+    matches the earlier point samples to within 0.4 ft.
+  - **Apartments:** all eight buildings, from the fitted site plan. Each is drawn as the
+    site's 65 ft maximum above the lowest 2017 ground under it, so the heights are a worst
+    case.
+  - **Retail:** all three buildings. Building 1's 2017 ground (1,071 ft) matches its floor
+    level on the flyer, which checks the overlay fit.
+  - **Viewer:** `site/plan3d.html`. Its back-yard view switches to true scale (1×), and from
+    there Buildings 7/8 sit as a band on the horizon ~195 m away.
 
 ## Plan: make the house feel less exposed (Oct 11 2026)
 

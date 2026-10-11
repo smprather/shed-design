@@ -27,6 +27,9 @@
   --retail-bldg: #b83a2e;
   --water: #2565b8;
   --apt: #3c7d3a;
+  --apt-bldg: #4b5e8c;
+  --apt-new: #d2601e;
+  --context: #9aa59e;
   --lot: #1c2420;
   --ok: #2b7a3f;
   --warn: #a86a00;
@@ -42,7 +45,7 @@
     --accent: #f0675b; --stage: #0d1310; --terrain-lo: #2f4655; --terrain-hi: #6b6450;
     --house: #8fb0ea; --shed: #f0a93a; --fence: #c09468; --easement: #b48ae0; --septic: #f05cbf;
     --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
-    --water: #6aa6f5; --apt: #79c174; --lot: #e2eae5; --ok: #5ccf7c; --warn: #f0b13a; --bad: #f0675b;
+    --water: #6aa6f5; --apt: #79c174; --apt-bldg: #8fa2d6; --apt-new: #f08a4a; --context: #56625b; --lot: #e2eae5; --ok: #5ccf7c; --warn: #f0b13a; --bad: #f0675b;
     --unknown: #95a59c; color-scheme: dark;
   }
 }
@@ -51,7 +54,7 @@
   --accent: #f0675b; --stage: #0d1310; --terrain-lo: #2f4655; --terrain-hi: #6b6450;
   --house: #8fb0ea; --shed: #f0a93a; --fence: #c09468; --easement: #b48ae0; --septic: #f05cbf;
   --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
-  --water: #6aa6f5; --apt: #79c174; --lot: #e2eae5; --ok: #5ccf7c; --warn: #f0b13a; --bad: #f0675b;
+  --water: #6aa6f5; --apt: #79c174; --apt-bldg: #8fa2d6; --apt-new: #f08a4a; --context: #56625b; --lot: #e2eae5; --ok: #5ccf7c; --warn: #f0b13a; --bad: #f0675b;
   --unknown: #95a59c; color-scheme: dark;
 }
 
@@ -144,7 +147,7 @@ details li b { font-weight: 600; }
   <aside class="sheet" aria-label="Plan sheet">
     <div class="title-block">
       <h1>Candelaria 3D Plan</h1>
-      <p class="sub">8400 Candelaria Dr: the back line, building B, and the retail lot behind it.</p>
+      <p class="sub">8400 Candelaria Dr, building B, and the retail and apartment lots behind it.</p>
       <dl>
         <dt>Units</dt><dd>meters; z × exaggeration</dd>
         <dt>Origin</dt><dd>back-line midpoint, 1048.7 ft</dd>
@@ -265,7 +268,11 @@ details li b { font-weight: 600; }
     retail_lot_1a: { label: "Retail lot (1A)", group: "Next door", token: "retail-lot" },
     retail_east_end_stormwater: { label: "Retail stormwater area", group: "Next door", token: "water" },
     scenic_brook_plaza_building_3: { label: "Retail Building 3", group: "Next door", token: "retail-bldg", solid: true },
-    apartment_lot_2a_nearest_corner: { label: "Apartment lot corner", group: "Next door", token: "apt" },
+    apartment_lot_2a: { label: "Apartment lot (2A)", group: "Apartments", token: "apt" },
+    granada_ridge_buildings_7_8: { label: "Apartments, Bldgs 7/8 (nearest)", group: "Apartments", token: "apt-new", solid: true },
+    granada_ridge_buildings_1_6: { label: "Apartments, Bldgs 1-6", group: "Apartments", token: "apt-bldg", solid: true },
+    scenic_brook_plaza_buildings_1_2: { label: "Retail Bldgs 1-2", group: "Next door", token: "retail-bldg", solid: true },
+    neighboring_parcels: { label: "Other lots", group: "Context", token: "context" },
   };
   for (const [id, e] of Object.entries(ent)) {
     const m = META[id] || (META[id] = { group: "Next door", token: "muted" });
@@ -281,7 +288,7 @@ details li b { font-weight: 600; }
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(42, 1, 0.5, 2000);
+  const camera = new THREE.PerspectiveCamera(42, 1, 0.5, 6000);
   const controls = new THREE.OrbitControls(camera, canvas);
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   controls.enableDamping = !reduceMotion; controls.dampingFactor = 0.12;
@@ -301,7 +308,13 @@ details li b { font-weight: 600; }
     const mats = [];
     if (o.faces.length) {
       const pos = [], colors = [];
-      for (const f of o.faces) for (let k = 1; k < f.length - 1; k++) for (const p of [f[0], f[k], f[k + 1]]) pos.push(...P(p).toArray());
+      for (const f of o.faces) {
+        const flat = f.length > 4 && f.every(p => Math.abs(p[2] - f[0][2]) < 1e-6);
+        // Flat roofs and floors can be concave: triangulate them properly; side walls and ground quads are convex.
+        const tris = flat ? THREE.ShapeUtils.triangulateShape(f.map(p => new THREE.Vector2(p[0], p[1])), [])
+                          : f.slice(1, -1).map((_, k) => [0, k + 1, k + 2]);
+        for (const t of tris) for (const i of t) pos.push(...P(f[i]).toArray());
+      }
       const g = new THREE.BufferGeometry();
       g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
       g.computeVertexNormals();
@@ -324,11 +337,6 @@ details li b { font-weight: 600; }
       const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
       const ls = new THREE.LineSegments(g, new THREE.LineBasicMaterial()); ls.userData.id = id; node.add(ls);
       mats.push({ mat: ls.material, kind: "line" });
-      if (id === "apartment_lot_2a_nearest_corner") {
-        const dot = new THREE.Mesh(new THREE.SphereGeometry(1.2, 16, 12), new THREE.MeshLambertMaterial());
-        dot.position.copy(P([o.lines[0][0][0], o.lines[0][0][1], o.lines[0][1][2]])); dot.userData.id = id; node.add(dot);
-        mats.push({ mat: dot.material, kind: "mesh" });
-      }
     }
     items[id] = { node, mats, meta: m };
   }
@@ -339,14 +347,16 @@ details li b { font-weight: 600; }
     const { geom } = t.mats.find(x => x.terrain);
     const lo = col("terrain-lo"), hi = col("terrain-hi"), c = new THREE.Color();
     const pos = geom.getAttribute("position"), cl = geom.getAttribute("color");
+    let zmin = Infinity, zmax = -Infinity;
+    for (let i = 0; i < pos.count; i++) { zmin = Math.min(zmin, pos.getY(i)); zmax = Math.max(zmax, pos.getY(i)); }
     for (let i = 0; i < pos.count; i++) {
-      const z = pos.getY(i); c.copy(lo).lerp(hi, THREE.MathUtils.clamp((z + 3.5) / 7, 0, 1));
+      const z = pos.getY(i); c.copy(lo).lerp(hi, Math.pow((z - zmin) / (zmax - zmin || 1), 0.8));
       cl.setXYZ(i, c.r, c.g, c.b);
     }
     cl.needsUpdate = true;
   }
 
-  let selected = "scenic_brook_plaza_building_3";
+  let selected = "granada_ridge_buildings_7_8";
   function applyColors() {
     scene.background = col("stage");
     const accent = col("accent");
@@ -366,7 +376,8 @@ details li b { font-weight: 600; }
   const LABELS = [
     ["house_footprint_survey", "Your house"], ["building_B_23x43_eave_14ft_assumed", "Building B"],
     ["scenic_brook_plaza_building_3", "Retail Bldg 3"], ["retail_east_end_stormwater", "Stormwater"],
-    ["platted_back_line", "Back line"], ["apartment_lot_2a_nearest_corner", "Apartment lot"],
+    ["platted_back_line", "Back line"], ["granada_ridge_buildings_7_8", "Apts 7/8 · 639 ft"],
+    ["granada_ridge_buildings_1_6", "Apts 1-6"], ["scenic_brook_plaza_buildings_1_2", "Retail 1-2"],
   ];
   const labelLayer = document.getElementById("labels");
   const tags = LABELS.filter(([id]) => items[id]).map(([id, text]) => {
@@ -384,7 +395,7 @@ details li b { font-weight: 600; }
   // ---- Layer list ----
   const groups = {};
   for (const [id, it] of Object.entries(items)) (groups[it.meta.group] ||= []).push(id);
-  const order = ["Your lot", "Keep-outs", "Lines", "Next door", "Ground"];
+  const order = ["Your lot", "Keep-outs", "Lines", "Next door", "Apartments", "Context", "Ground"];
   const layersEl = document.getElementById("layers");
   for (const g of order.filter(g => groups[g])) {
     const wrap = document.createElement("div"); wrap.className = "layer-group";
@@ -442,23 +453,25 @@ details li b { font-weight: 600; }
   // ---- Views and exaggeration ----
   let exag = 2;
   const VIEWS = {
-    oblique: { eye: [62, -118, 62], at: [-16, 18, 0] },
-    house:   { eye: [-6, -34, 2.2], at: [-42, 96, 4.5] },   // eye 1.7 m above the yard
-    top:     { eye: [-15, 18.5, 260], at: [-15, 20, 0] },
+    oblique: { eye: [230, -330, 250], at: [-160, 90, 0] },
+    house:   { eye: [-6, -34, 2.2], at: [-120, 115, 6], exag: 1 },   // eye 1.7 m above the yard
+    top:     { eye: [-250, 129, 760], at: [-250, 130, 0] },
   };
   const worldOf = (p) => { const v = P(p); v.y *= exag; return v; };
   function setView(name) {
     const v = VIEWS[name];
+    if (v.exag) setExag(v.exag);   // eye-level views read true to scale
     camera.position.copy(worldOf(v.eye)); controls.target.copy(worldOf(v.at));
     controls.update();
     document.querySelectorAll("button.view").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.view === name)));
   }
   document.querySelectorAll("button.view").forEach(b => b.addEventListener("click", () => setView(b.dataset.view)));
   const exagIn = document.getElementById("exag"), exagOut = document.getElementById("exag-out");
-  exagIn.addEventListener("input", () => {
-    const k = +exagIn.value / exag; exag = +exagIn.value; exagOut.textContent = exag + "×";
+  function setExag(value) {
+    const k = value / exag; exag = value; exagIn.value = String(value); exagOut.textContent = exag + "×";
     root.scale.y = exag; camera.position.y *= k; controls.target.y *= k; controls.update();
-  });
+  }
+  exagIn.addEventListener("input", () => setExag(+exagIn.value));
   root.scale.y = exag;
 
   // ---- Picking ----

@@ -41,6 +41,7 @@ Each script carries its dependencies inline (PEP 723). Run them from the repo ro
 | `import_field.py EXPORT_DIR` | merges exported worksheet shots into `site/field-data.json` |
 | `noise_model.py` | traffic-noise comparison of barrier options (printed table) |
 | `cmu_cost.py` | DIY block-wall material takeoff (printed table) |
+| `fetch_terrain.py` | `site/terrain-lidar.json` (USGS 3DEP 1 m lidar resampled onto the 3D plan's grid) |
 | `plan3d.py` | `site/plan3d.obj` and `site/plan3d.html` (a 3D viewer; template `tools/plan3d_viewer.html`) from `property_total_plan.jsonc` on the lidar terrain (`site/terrain-lidar.json`), plus septic conflict checks (printed table) |
 
 **After new field measurements:**

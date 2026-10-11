@@ -17,6 +17,7 @@ interactive viewer: open it in a browser), and prints the checks.
 Run: uv run tools/plan3d.py
 """
 
+import bisect
 import json
 import math
 from pathlib import Path
@@ -79,7 +80,7 @@ class Terrain:
     @staticmethod
     def _cell(axis: list[float], v: float) -> tuple[int, float]:
         v = min(max(v, axis[0]), axis[-1])
-        i = min(max(next((k for k in range(len(axis) - 1) if axis[k + 1] >= v), 0), 0), len(axis) - 2)
+        i = min(max(bisect.bisect_right(axis, v) - 1, 0), len(axis) - 2)
         return i, (v - axis[i]) / (axis[i + 1] - axis[i])
 
     def __call__(self, x: float, y: float) -> float:
@@ -219,12 +220,13 @@ def write_viewer(path: Path, obj_text: str, plan: dict, checks: list[dict]) -> N
                     f"{head}</head>\n<body>\n{body}</body>\n</html>\n")
 
 
-def footprint(geom: dict) -> tuple[list[Pt], bool]:
-    """2D shape of an entity (plan m) and whether it is closed."""
+def footprints(geom: dict) -> list[tuple[list[Pt], bool]]:
+    """2D shapes of an entity (plan m), each with whether it is closed."""
     if geom["kind"] == "point":
-        return [tuple(geom["point_m"])], False
-    pts = [tuple(p) for p in geom["points_m"]]
-    return pts, geom["kind"] in ("polygon", "prism")
+        return [([tuple(geom["point_m"])], False)]
+    if geom["kind"] in ("prisms", "polygons"):
+        return [([tuple(p) for p in it["points_m"]], True) for it in geom["items"]]
+    return [([tuple(p) for p in geom["points_m"]], geom["kind"] in ("polygon", "prism"))]
 
 
 @click.command()
@@ -275,17 +277,19 @@ def main(spec: Path, out: Path) -> None:
                 obj.wall(tuple(a), tuple(c), g["height_m"], g["thickness_m"])
         elif g["kind"] == "prism":
             obj.prism([tuple(p) for p in g["points_m"]], g["z_bottom_m"], g["z_top_m"])
+        elif g["kind"] == "prisms":
+            for it in g["items"]:
+                obj.prism([tuple(p) for p in it["points_m"]], it["z_bottom_m"], it["z_top_m"])
         elif g["kind"] == "point":
             x, y = g["point_m"]
             obj.polyline([(x, y, ground(x, y)), (x, y, ground(x, y) + 3.0)])
         else:
-            pts, closed = footprint(g)
-            obj.drape(pts, closed=closed)
+            for pts, closed in footprints(g):
+                obj.drape(pts, closed=closed)
 
-        pts, closed = footprint(g)
         for name, (c, r) in keep_outs.items():
-            gap = poly_dist(to_m(c), pts, closed) / FT - r
-            if gap < 0 and e["type"] not in ("property_line", "easement"):
+            gap = min(poly_dist(to_m(c), pts, closed) for pts, closed in footprints(g)) / FT - r
+            if gap < 0 and e["type"] not in ("property_line", "easement", "parcels"):
                 check(f"{e['entity_id']} vs {name}", f"{gap + r:.1f} ft", f"{r:g} ft", "CONFLICT")
 
     # --- Our planned additions vs the septic system (site frame, ft) ---

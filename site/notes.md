@@ -132,6 +132,50 @@ How it lines up with what we've seen:
   side, get a current boundary survey, or check TxDOT's right-of-way map. A surveyor can
   also set pins on the line.
 
+## Septic system (owner, Oct 11 2026)
+
+- **Conventional gravity system:** a 1,200-gallon concrete tank and a standard drainfield
+  (buried trenches). No pump, panel or spray heads.
+- **Tank:** typically ~5 × 10 ft with two concrete lids (inlet and outlet) ~6–8 ft apart,
+  often buried 6–24 in. It's usually 5–20 ft out from where the main drain leaves the
+  house, which is the sewer cleanout (worksheet 13c).
+- **Drainfield:** trenches leave the tank's outlet end and run downhill (gravity).
+  Inspection ports are white capped pipes at trench ends. Look for green stripes in dry
+  weather.
+- **Rules of thumb (confirm with the county):**
+  - Nothing built on the tank or the field.
+  - No driving or parking on the field.
+  - Keep ~5 ft between structures and the tank or field.
+  - Keep the lids reachable, and the pump truck within hose reach of them.
+
+## Big oak, located (laser, Oct 10 2026)
+
+- **Trunk center:** 35.5 ft along the north wall from A, 26.1 ft out from the house. All
+  three shots agree to ~1 ft. It's north of the house, between the old canopy spot and
+  the garage, ~13 ft inside the surveyed line.
+- **It has twin trunks ~8 ft apart** (owner). The shots went to the trunk nearer the
+  house. The second trunk sits ~4.5 ft further east and ~6.6 ft further out, per the
+  owner's sketch (±2 ft).
+- **Size:** the near trunk is 6.3 ft around, about **24 in across**. The drip line reaches
+  ~25 ft from the near trunk toward the build site. If the second trunk is similar, the
+  pair acts like a ~34 in tree for root-zone purposes, which is a larger zone. Girth of the
+  second trunk: worksheet 11.
+- **What it means:**
+  - The whole area north of the house, from ~10 ft east of A to past B, is under this
+    oak. That includes the east third of the old canopy spot, the garage apron and the
+    drive.
+  - Keep the existing drive as it is: no new paving or trenching under the canopy. No
+    digging at all within ~12 ft of the trunk.
+  - **The shed belongs west of the drip line**, about 10 ft east of A at most.
+
+## White pipe (13p), half-located
+
+- It's 59.5 ft from A and 41.1 ft from F1, which puts it 43.4 ft out from the house wall.
+  Because A and F1 sit on the same line, that fits two mirror spots: 40.7 ft **west** of
+  A, in the open strip, or 40.7 ft **east**, under the oak by the fence. One more shot
+  from B or C settles it. A gravity system's tank sits near the house, so a 4-in capped
+  pipe this far out is most likely a **drainfield inspection port**.
+
 ## Goal
 
 - Build a shed first, possibly combined with a 2-car covered parking structure.
@@ -171,8 +215,7 @@ How it lines up with what we've seen:
 
 ## Open questions
 
-- Where are the septic tank and field, and what type of system is it (conventional or aerobic)?
-- Which oak is "the large oak", and how big is it?
+- Where are the septic tank lids and the drainfield trenches? (It's a conventional gravity system with a 1,200-gal tank.)
 - What should "larger" hold: 2 cars plus a shed of what size, and anything else?
 - Is the plat's well still there, and is it used (irrigation?) or capped?
 - Where does the house's power come in now, after the back-line overhead was removed: from the street, or underground across the yard?

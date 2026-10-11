@@ -235,43 +235,79 @@ def north_line_y(x: float) -> float:
     return y0 + (x - x0) * (y1 - y0) / (x1 - x0)
 
 
+FIELD_POINTS = REPO / "site" / "field-points.json"
+
+
+def draw_field(plan: Plan) -> dict:
+    """Laser-measured fence, big oak (trunk, drip line, no-dig core) and septic pipe."""
+    import json
+
+    if not FIELD_POINTS.exists():
+        return {}
+    fp = json.loads(FIELD_POINTS.read_text())
+    fence = [tuple(fp[k]["site"]) for k in ("F3", "F1", "F2") if k in fp]
+    if len(fence) > 1:
+        plan.line(fence, ORANGE, width=5)
+        for q in fence:
+            cx, cy = plan.p(*q)
+            plan.d.ellipse([cx - 6, cy - 6, cx + 6, cy + 6], fill=ORANGE)
+    trunks = [(tuple(fp[k]["solutions"][0]["site"]), fp[k].get("trunk_radius") or 1.0)
+              for k in ("big_oak", "big_oak_2") if fp.get(k, {}).get("solutions")]
+
+    def circle(c, radius, **kw):
+        x0, y0 = plan.p(c[0] - radius, c[1] - radius)
+        x1, y1 = plan.p(c[0] + radius, c[1] + radius)
+        plan.d.ellipse([x0, y0, x1, y1], **kw)
+
+    # Twin-trunk oak: drip line ~25 ft (measured from the near trunk) and a 12 ft no-dig core around each trunk.
+    for c, _ in trunks:
+        circle(c, 25.1, outline=GREEN, width=3, fill=(80, 220, 120, 18))
+    for c, _ in trunks:
+        circle(c, 12.0, outline=(255, 200, 80), width=3)
+    for c, r in trunks:
+        circle(c, r, fill=(120, 80, 40), outline=WHITE, width=2)
+    for sol in fp.get("white_pipe", {}).get("solutions", []):
+        cx, cy = plan.p(*sol["site"])
+        plan.d.ellipse([cx - 9, cy - 9, cx + 9, cy + 9], fill=WHITE, outline=(0, 0, 0), width=2)
+    return fp
+
+
 def main() -> None:
     plan = Plan()
     plan.grid()
 
-    # Open strip west of the old canopies, from the back-line easement to the old canopy site.
-    zone = [(70, 111.8), (161, 126.5), (161, 149), (70, 149)]
-    plan.poly(zone, GREEN, fill=(80, 220, 120, 45), width=3, dash=True)
-    plan.label(97, 128.5, "Open strip: ~90 ft x 25-35 ft\nCHECK: septic, big oak, well", fill=(170, 255, 190))
-
     draw_survey(plan)
-    # Fence along the US-290 side (aerial): solid where visible, dashed where hidden by shadow.
-    plan.line([(105, 116.8), (183, 128)], RED, width=4)
-    plan.line([(183, 128), (215, 133)], RED, width=4, dash=True)
-    plan.label(108, 97, "Purple = property line (1991 survey). Red = fence, ~3-6 ft inside it?", fill=(255, 170, 170))
+    fp = draw_field(plan)
+    plan.label(100, 96.5, "Purple = property line (1991 survey). Orange = fence (laser): 4-8 ft beyond the line.", fill=(255, 190, 110), size=18)
 
     well = en_to_site(WELL)
-    plan.label(well[0] + 2.5, well[1] - 1, "well? (1991 plat)", fill=CYAN, size=16)
+    plan.label(well[0] + 2.5, well[1] + 1.5, "well? (1991 plat)", fill=CYAN, size=16)
     plan.label(62, 186, "10' utility\neasement\n(back line)", fill=PURPLE, size=16)
 
-    plan.label(123, 140, "light circle:\nfire pit? septic lid?", fill=MAGENTA, size=18)
-    plan.label(118, 170, "large tree canopy -\nthe oak? (trunk + drip\nline to be located)", fill=MAGENTA, size=18)
+    plan.poly([(161, 129), (205, 129), (205, 150), (161, 150)], ORANGE, width=2, dash=True)
+    plan.label(162.5, 151, "old canopies (gone)", fill=(255, 190, 110), size=16)
 
-    plan.poly([(161, 129), (205, 129), (205, 150), (161, 150)], ORANGE, width=5)
-    plan.label(162.5, 130.5, "Old canopies (gone)\ntape: 20 x 40", fill=(255, 190, 110))
+    if "big_oak" in fp:
+        c = fp["big_oak"]["solutions"][0]["site"]
+        plan.label(c[0] + 7, c[1] + 0.5, "BIG OAK (twin trunks)\nnear trunk 24 in", fill=WHITE, size=18)
+        plan.label(c[0] - 33, c[1] - 22, "drip line ~25 ft (green)\nno digging inside 12 ft (yellow)", fill=(170, 255, 190), size=16)
+    pipes = fp.get("white_pipe", {}).get("solutions", [])
+    for i, sol in enumerate(pipes):
+        x, y = sol["site"]
+        plan.label(x - 12, y + 2.5, "white pipe?" if len(pipes) > 1 else "white pipe", fill=WHITE, size=16)
+    if len(pipes) > 1:
+        plan.label(97, 137, "the white pipe is one of these two\n(A and F1 can't tell east from west)", fill=WHITE, size=16)
+
+    plan.label(97, 160, "west of the oak: the open strip -\nwhere the drainfield likely is", fill=MAGENTA, size=18)
 
     plan.label(186, 213, "HOUSE (surveyed walls)", fill=(160, 210, 255), size=22)
     plan.label(222, 177, "garage", fill=(160, 210, 255), size=18)
     plan.label(242, 188, "porch", fill=(160, 210, 255), size=14)
 
-    a, ne = HOUSE[4], HOUSE[5]
-    plan.dim(a, (a[0], north_line_y(a[0])), "44.6 ft\n(survey)", at=(183, 153))
-    plan.dim(ne, (ne[0], north_line_y(ne[0])), "35.2 ft\n(survey)", at=(242.5, 149))
-    plan.dim((200, 150), (200, 169.5), "~19 ft", at=(201.5, 158))
+    a = HOUSE[4]
+    plan.dim(a, (a[0], north_line_y(a[0])), "44.6 ft\n(survey)", at=(171, 158))
 
-    plan.label(222, 132, "Live oaks\n(avoid root zones)", fill=(200, 255, 170))
-    plan.label(62, 160, "sheds\n(removed)", fill=(230, 230, 230), size=16)
-    plan.label(62, 225, "Aerial predates the sale: all sheds and the\nteal carport canopies have been removed.", fill=ORANGE, size=20)
+    plan.label(62, 225, "Aerial predates the sale: only the house, fences\nand driveway remain.", fill=ORANGE, size=20)
 
     # Drive approach from Candelaria Dr toward the garage's north side.
     plan.line([(283, 170), (259, 162)], WHITE, width=5)

@@ -57,6 +57,7 @@ use them to place everything on a to-scale plan.
 - Check your closing papers first, since they may answer some of these outright.
   A **survey** shows the property lines and easements. A **septic inspection report**
   or permit often has a sketch of where the tank and field are.
-- Septic type: a conventional drain field (buried lines) or aerobic with spray heads?
+- Septic: conventional gravity system, 1,200-gal concrete tank, standard drainfield (owner). Find the
+  tank from the sewer cleanout where the main drain leaves the house; probe for the lids.
 - The 1991 survey puts the US-290 property line 44.6 ft from A and 35.2 ft from B.
   The aerial suggests the fence is ~3–6 ft inside that line, and shots 3–4 will settle it.

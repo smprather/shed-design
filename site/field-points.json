@@ -1,0 +1,135 @@
+{
+  "A": {
+    "local": [
+      0.0,
+      0.0
+    ],
+    "site": [
+      181.5,
+      169.5
+    ]
+  },
+  "B": {
+    "local": [
+      62.0,
+      0.0
+    ],
+    "site": [
+      243.49,
+      170.73
+    ]
+  },
+  "C": {
+    "local": [
+      0.0,
+      -21.5
+    ],
+    "site": [
+      181.07,
+      191.0
+    ]
+  },
+  "F1": {
+    "local": [
+      0.0,
+      49.5
+    ],
+    "site": [
+      182.48,
+      120.01
+    ]
+  },
+  "F2": {
+    "local": [
+      62.0,
+      42.0
+    ],
+    "site": [
+      244.32,
+      128.73
+    ]
+  },
+  "F3": {
+    "local": [
+      -89.14,
+      67.81
+    ],
+    "site": [
+      93.72,
+      99.94
+    ]
+  },
+  "big_oak": {
+    "solutions": [
+      {
+        "local": [
+          35.48,
+          26.13
+        ],
+        "site": [
+          217.49,
+          144.07
+        ],
+        "residuals": {
+          "A": -0.23,
+          "B": 1.13,
+          "F1": 1.19
+        }
+      }
+    ],
+    "trunk_radius": 1.0,
+    "ambiguous": false
+  },
+  "white_pipe": {
+    "solutions": [
+      {
+        "local": [
+          -40.65,
+          43.45
+        ],
+        "site": [
+          141.72,
+          125.26
+        ],
+        "residuals": {
+          "A": 0.0,
+          "F1": 0.0
+        }
+      },
+      {
+        "local": [
+          40.65,
+          43.45
+        ],
+        "site": [
+          223.0,
+          126.87
+        ],
+        "residuals": {
+          "A": 0.0,
+          "F1": 0.0
+        }
+      }
+    ],
+    "trunk_radius": null,
+    "ambiguous": true
+  },
+  "big_oak_2": {
+    "solutions": [
+      {
+        "local": [
+          39.98,
+          32.73
+        ],
+        "site": [
+          222.12,
+          137.56
+        ],
+        "residuals": {}
+      }
+    ],
+    "trunk_radius": null,
+    "ambiguous": false,
+    "note": "second trunk, offset from the owner's sketch (+/-2 ft)"
+  }
+}

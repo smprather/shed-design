@@ -243,6 +243,11 @@ FIELD_POINTS = REPO / "site" / "field-points.json"
 # fits that line. Shot 3 hit near the bend and read long. To be checked with a tape.
 FENCE_TRACE = [(62.9, 102.7), (183.0, 128.0), (205.0, 128.3), (243.5, 128.7)]
 
+# Building B (owner, Oct 11 2026): 23 x 43 ft, square to the house. The north wall stays
+# where the 20 x 40 had it (5 ft inside the surveyed line at the NE corner); the west end
+# sits 10 ft from the septic pipe and the east end at the oak's drip line. NW, NE, SE, SW.
+SITE_B = [(149.5, 131.5), (192.5, 131.5), (192.5, 154.5), (149.5, 154.5)]
+
 
 def draw_field(plan: Plan) -> dict:
     """Laser-measured fence, big oak (trunk, drip line, no-dig core) and septic pipe."""

@@ -213,7 +213,8 @@ These assume:
 | B | The old carport spot, shifted ~9 ft west and square to the house | **20 × 40 ft** (800 sq ft); **24 × 40** if the trees at its SW corner allow | Cars parked here for years, so probably no drainfield. Tight spots below. |
 | C | Open back lawn behind the house | ~30 × 60 ft (~1,800 sq ft), maybe ~35 × 75 | Largest; septic and tree edges there not yet checked; access by concrete pump hose |
 
-- **Site B, 20 × 40** (x 152–192, y 131.5–151.5):
+- **Site B, 20 × 40** (x 152–192, y 131.5–151.5). Now 23 × 43: see "Footprint: 23 × 43 ft"
+  under Decision: site B.
   - 5.3 ft from the surveyed line and ~3.5 ft from the fence at its bend.
   - 12 ft from the septic pipe and 18 ft from the house.
   - Its east end is only ~0.4 ft outside the oak's drip line. Shifting it ~2 ft west (still
@@ -231,8 +232,46 @@ These assume:
 ## Decision: site B (Oct 11 2026)
 
 The owner wants the building at **site B, the old carport spot**, so that it also **shields
-the house and yard from US-290 traffic noise**. Working footprint: **20 × 40 ft, square to
-the house** (24 × 40 if the trees at its SW corner allow).
+the house and yard from US-290 traffic noise**. Footprint: **23 × 43 ft, square to the
+house** (see "Footprint: 23 × 43 ft" below; it replaced the 20 × 40 working size).
+
+### Footprint: 23 × 43 ft (Oct 11 2026; see `site-b.png`)
+
+The owner set the building at **23 × 43 ft** (989 sq ft, up from 800). It sits at x 149.5–192.5,
+y 131.5–154.5 (`SITE_B` in `tools/site_plan.py`). Compared with the 20 × 40, the north wall
+stays put, the west end moves 2.5 ft west, the east end 0.5 ft east, and the south side 3 ft
+south.
+
+| Edge | Clearance | Limit |
+|---|---|---|
+| North wall (US-290) | 5.1 ft from the surveyed line at the NE corner, more to the west | 5 ft setback |
+| West end | 10.0 ft from the septic pipe | 10 ft keep-out |
+| East end | 25.0 ft from the near trunk (drip line 25.1) | the oak's drip line |
+| South side | ~15 ft to the house's north wall | ~12 ft truck lane |
+
+- **It fits exactly, with no slack** between the pipe's keep-out and the oak's drip line, and
+  the NE corner sits on the 5 ft setback. The pipe comes from long laser shots and the line
+  from the plat ties, each good to ~±2 ft here, so stake the line and pin down the pipe
+  before laying out the slab.
+- **Why not all 3 ft to the east:** keeping the 20 × 40's west end would put the east end 2.6
+  ft inside the drip line and the NE corner 0.3 ft inside the setback. The line closes in by
+  ~0.18 ft for every foot east.
+- **Root zone:** this cuts none of the near trunk's 24 ft zone or of the drip-line circle,
+  and ~6% of the twin-trunk 34 ft zone (it was ~5%). Hand-dig or air-spade the east edge as
+  before.
+- **Measure to the eave, not just the slab.** A roof overhang or gutter on the north side
+  would cross the 5 ft setback. Keep the north eave flush, or ask the county whether it
+  measures to the wall or the eave.
+- **Septic truck:** it still parks in the lane between B and the house, now ~15 ft wide for a
+  truck ~8 ft wide. The hose run around the west end to the pipe is ~70–75 ft.
+- **What could change it:**
+  - **The pipe:** if probing shows it's only an inspection port with nothing running toward
+    B, the 10 ft keep-out can shrink. The building can then slide west and pull its east end
+    off the oak.
+  - **The SW corner trees (T11):** if trees stand inside the corner, the depth drops back
+    toward 20 ft, or those trees come out.
+- **Noise:** ~3.5 dB at the house's west end (it was ~3), ~7 dB in the yard right behind it,
+  and still ~1 dB or less elsewhere (`noise_model.py`, rerun with this footprint).
 
 ### Making B a good sound barrier
 
@@ -270,14 +309,18 @@ the house** (24 × 40 if the trees at its SW corner allow).
     length count most there.
 - **No gaps.** Sound leaks around the ends and under the walls. Keep the slab edge tight to
   grade. The picket fence won't seal anything at the ends.
-- **Longer is better.** It's 40 ft now, limited by the oak (east) and the septic pipe's
-  10 ft keep-out (west). If probing shows the pipe is only an inspection port and nothing
-  runs toward B, the building may stretch a few feet west.
+- **Longer is better.** It's 43 ft now, filling the whole gap between the oak's drip line
+  (east) and the septic pipe's 10 ft keep-out (west). If probing shows the pipe is only an
+  inspection port and nothing runs toward B, the building may stretch a few feet west.
 - **Expectation (see Traffic noise below):** ~7 dB quieter in the yard right behind the
-  building, but only ~3 dB at the house's west end and ~1 dB or less elsewhere. A 40 ft
+  building, but only ~3.5 dB at the house's west end and ~1 dB or less elsewhere. A 43 ft
   building hides a short stretch of a highway that runs past both of its ends.
 
 ### Stretching B east toward the oak (Oct 11 2026)
+
+**Superseded by the 23 × 43 (above):** it moved west instead, so its east end is at the drip
+line (25.0 ft from the trunk). Stretching east from there also runs the NE corner inside the
+5 ft setback. The table and conditions below still apply if the east end ever moves.
 
 The owner asked about adding 3–5 ft to the east end (+60 or +100 sq ft). The table shows how
 much of the twin oak's root zone each length cuts off: roots heading under or past the slab,
@@ -318,7 +361,8 @@ pair acts like a ~34 in tree with a 34 ft zone.
   wilt). Plan on leaves in the gutters.
 - **More room without the oak:** deepening to 24 ft (if the trees at the SW corner allow,
   T11) adds 160 sq ft away from the oak. If probing shows the tank isn't at the septic pipe,
-  the west end can also move 1–2 ft.
+  the west end can also move 1–2 ft. (The 23 × 43 used both: 23 ft deep, and the west end
+  moved 2.5 ft to the pipe's 10 ft keep-out.)
 
 ### Checks that matter most for B
 
@@ -326,8 +370,10 @@ pair acts like a ~34 in tree with a 34 ft zone.
   it crosses B, the utility will need to raise, reroute or underground it before the steel
   goes up.
 - **Probe B for septic** (a trench from the pipe toward B?), and between the pipe and B.
+  The west end now sits right at the pipe's 10 ft keep-out.
 - **Branches over B's east end (17a)**, for erection clearance and eave height.
-- **Tree edge at B's SW corner (T11)**, which decides 20 × 40 vs 24 × 40.
+- **Tree edge at B's SW corner (T11)**, which decides whether the full 23 ft depth fits at
+  the west end.
 
 ## Traffic noise (Oct 11 2026)
 
@@ -358,12 +404,12 @@ The model treats the highway as lanes 60–100 ft beyond the line, 17.5 ft below
 running far past both ends of the lot. Values are dB quieter than today. They are
 comparisons, not predictions: ground effect, trees and wind are left out.
 
-| Receiver | B, 14 ft eave | 8 ft wall, lot length | 12 ft wall | 12 ft wall + 60 ft return along Candelaria |
+| Receiver | B (23 × 43), 14 ft eave | 8 ft wall, lot length | 12 ft wall | 12 ft wall + 60 ft return along Candelaria |
 |---|---|---|---|---|
-| House west end, ground / 2nd floor | 2.8 / 3.0 | 4.4 / 4.5 | 5.5 / 6.4 | 6.9 / 7.2 |
-| House middle, ground / 2nd | 1.2 / 1.0 | 4.7 / 4.5 | 5.8 / 6.4 | 7.7 / 7.5 |
+| House west end, ground / 2nd floor | 3.4 / 3.5 | 4.4 / 4.5 | 5.5 / 6.4 | 6.9 / 7.2 |
+| House middle, ground / 2nd | 1.3 / 1.0 | 4.7 / 4.5 | 5.8 / 6.4 | 7.7 / 7.5 |
 | House east end (kitchen), ground / 2nd | 0.6 / 0.4 | 4.7 / 4.1 | 5.8 / 5.8 | 8.5 / 7.5 |
-| Yard right behind B | 6.7 | 5.1 | 6.5 | 7.6 |
+| Yard right behind B (6.5 ft off its south wall) | 6.8 | 4.9 | 6.1 | 7.2 |
 
 For scale: ~3 dB is just noticeable, 5 dB is clearly noticeable, and 10 dB sounds half as loud.
 
@@ -371,7 +417,7 @@ For scale: ~3 dB is just noticeable, 5 dB is clearly noticeable, and 10 dB sound
   Endless walls would give ~5–6 dB (8 ft) and ~8–10 dB (12–14 ft). The lot-length walls give
   less because traffic past the ends still reaches the house, most of all through the
   Candelaria opening. A wall gap there is likely part of why TxDOT's wall failed at R238.
-- **Building B is a yard shield, not a house shield.** It gives ~7 dB right behind it, ~3 dB
+- **Building B is a yard shield, not a house shield.** It gives ~7 dB right behind it, ~3.5 dB
   at the house's west end, and ~1 dB or less elsewhere. A taller eave barely changes that.
 - **Height plus closing the east end matter most.** A 12 ft wall that returns along Candelaria
   is the strongest option here, at ~7–8 dB. It needs a solid gate where the drive crosses it.
@@ -395,7 +441,7 @@ one part.
 | Part | What it does | Limits |
 |---|---|---|
 | **Windows and doors** (north and west walls first) | The biggest noise cut indoors | One leaky window or door spoils a room |
-| **Building B** | Yard shield, ~7 dB right behind it; blocks the view from the old carport area | Only ~1–3 dB at the house |
+| **Building B** | Yard shield, ~7 dB right behind it; blocks the view from the old carport area | Only ~1–3.5 dB at the house |
 | **Wall along US-290** | Hides the road; ~4–6 dB, ~7–8 dB at 12 ft with a return along Candelaria | Ends leak; see the constraints below |
 | **Back-line screen** | Hides the apartments from the yard at ground level | Upper floors need tree height |
 | **Evergreens, water feature** | Visual screen, and sound masking near the patio | Little real dB |
@@ -500,8 +546,8 @@ line now takes full west sun. The area has heavy deer and oak wilt.
 
 ## Goal
 
-- **A rather large metal building (steel shed) on a concrete slab.** Size, use and doors
-  are still to be decided.
+- **A rather large metal building (steel shed) on a concrete slab**, 23 × 43 ft at site B.
+  Eave height, use and doors are still to be decided.
 - Originally planned as shed + 2-car covered parking near the old canopy spot (20 × 40 ft
   tape), but larger. With the garage-to-kitchen idea, parking may move out front instead.
 
@@ -569,7 +615,7 @@ line now takes full west sun. The area has heavy deer and oak wilt.
 ## Open questions
 
 - Where are the septic tank lids and the drainfield trenches? (It's a conventional gravity system with a 1,200-gal tank.)
-- The building: target size (width × length × eave height), what goes in it (vehicles, trailer, RV/boat, shop), door sizes, and power/water?
+- The building (footprint set at 23 × 43 ft): eave height, what goes in it (vehicles, trailer, RV/boat, shop), door sizes, and power/water?
 - Is the plat's well still there, and is it used (irrigation?) or capped?
 - Where does the house's power come in now, after the back-line overhead was removed: from the street, or underground across the yard?
 - Is the garage still used for cars, and is the new covered parking in addition to it?

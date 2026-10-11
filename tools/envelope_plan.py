@@ -16,7 +16,7 @@ import json
 import math
 
 from site_plan import (
-    CYAN, GREEN, MAGENTA, PARCEL, RED, REPO, WELL, WHITE, YELLOW,
+    CYAN, GREEN, MAGENTA, PARCEL, RED, REPO, SITE_B, WELL, WHITE, YELLOW,
     Plan, draw_field, draw_survey, en_to_site,
 )
 
@@ -29,11 +29,6 @@ RN, FN = PARCEL[2], PARCEL[1]
 THETA = math.atan2(FN[1] - RN[1], FN[0] - RN[0])
 ALONG = (math.cos(THETA), math.sin(THETA))
 INWARD = (-math.sin(THETA), math.cos(THETA))  # into the lot (site y grows southward)
-
-# Site B, square to the house, as far east as the oak's drip line allows. South of it is the
-# open lane to the house (cars used it), so it can deepen to 24 ft if the trees at its
-# south-west corner allow: 14 ft would remain to the house wall.
-B_24X40 = [(152, 131.5), (192, 131.5), (192, 155.5), (152, 155.5)]
 
 # Edges of the other trees, read off the aerial (not measured, +/-5 ft).
 STRIP_TREE_EDGE_Y = 148.0
@@ -74,12 +69,11 @@ def main() -> None:
     circle(plan, well, KEEP_OUT, outline=CYAN, width=3)
     circle(plan, pipe, KEEP_OUT, outline=MAGENTA, width=3)
     plan.line([(95, STRIP_TREE_EDGE_Y), (150, STRIP_TREE_EDGE_Y)], WHITE, width=2, dash=True)
-    plan.poly(B_24X40, YELLOW, width=2, dash=True)
     plan.poly(BACK_LAWN_OPEN, WHITE, width=2, dash=True)
 
     candidates = {
         "A  27 x 34": line_rect(98.6, 34, 27),
-        "B  20 x 40": [(152, 131.5), (192, 131.5), (192, 151.5), (152, 151.5)],
+        "B  23 x 43": SITE_B,
         "C  30 x 60": [(90, 197), (150, 197), (150, 227), (90, 227)],
     }
     for name, poly in candidates.items():
@@ -91,7 +85,7 @@ def main() -> None:
     plan.label(64, 97, "Red dashed = 5 ft inside the surveyed line.  Rings: well and septic pipe keep-outs (10 ft), "
                        "oak drip line (green).  White dashed = edges of other trees from the aerial, not measured.", size=16)
     plan.label(96, 150, "strip west of B: ~25-40 ft deep\nbetween the setback and the trees", fill=WHITE, size=16)
-    plan.label(153, 156.5, "dashed: 24 x 40 if the trees here allow", fill=(255, 235, 140), size=16)
+    plan.label(150, 156.5, "SW corner: needs the tree edge (T11)", fill=(255, 235, 140), size=16)
     plan.label(147, 113, "septic pipe: tank here? keep 10 ft", fill=MAGENTA, size=16)
     plan.label(84, 236, "back lawn: open ~85 x 37 ft on the aerial (septic and trees here still unknown)", fill=WHITE, size=16)
     plan.scale_bar()

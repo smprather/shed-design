@@ -12,7 +12,7 @@ Kurze-Anderson at 550 Hz, 20 dB cap). Ground effect, trees, wind and reflections
 so read the results as comparisons between options, not as predictions.
 
 What it shows is that a barrier only quiets the stretch of highway it hides. Sound from the
-traffic beyond its ends still arrives, which limits a 40 ft building and the east end of a
+traffic beyond its ends still arrives, which limits a 43 ft building and the east end of a
 wall that stops at Candelaria.
 
 Run: uv run tools/noise_model.py
@@ -23,7 +23,7 @@ import math
 import polars as pl
 import rich_click as click
 
-from site_plan import HOUSE, PARCEL
+from site_plan import HOUSE, PARCEL, SITE_B
 
 FS, FN, RN = PARCEL[0], PARCEL[1], PARCEL[2]
 THETA = math.atan2(FN[1] - RN[1], FN[0] - RN[0])
@@ -33,8 +33,8 @@ LAMBDA = 1125 / 550  # ft, the usual effective frequency for traffic noise
 SOURCES = ((2.0, 0.7), (12.0, 0.3))  # (height above the road ft, share of the energy)
 FAR = 1e5
 
-B_EAVE_WALLS = [((152, 131.5), (192, 131.5)), ((192, 131.5), (192, 151.5)),
-                ((192, 151.5), (152, 151.5)), ((152, 151.5), (152, 131.5))]
+B_EAVE_WALLS = list(zip(SITE_B, SITE_B[1:] + SITE_B[:1]))
+BEHIND_B = ((SITE_B[0][0] + SITE_B[1][0]) / 2, SITE_B[2][1] + 6.5)  # yard, 6.5 ft off the south wall
 
 
 def uv(p) -> tuple[float, float]:
@@ -127,7 +127,7 @@ def main(drop: float, lanes: str, step: float) -> None:
         u, v = uv(p)
         receivers[f"House {name}, ground floor"] = (u, v - 1, 5.0)
         receivers[f"House {name}, 2nd floor"] = (u, v - 1, 15.0)
-    for name, p in (("Yard right behind B", (172, 158)), ("Yard east of B", (215, 158))):
+    for name, p in (("Yard right behind B", BEHIND_B), ("Yard east of B", (215, 158))):
         u, v = uv(p)
         receivers[name] = (u, v, 5.0)
 

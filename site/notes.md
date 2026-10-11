@@ -440,6 +440,42 @@ from the apartments' windows 20–40 ft past the line:
   city limits, so Austin's compatibility screening probably doesn't protect us. Don't count
   on the developer's fence until the plan shows it.
 
+#### Back-line trees (Oct 11 2026)
+
+The site is thin, rocky, alkaline soil over limestone. With the land next door cleared, the
+line now takes full west sun. The area has heavy deer and oak wilt.
+
+| Layer | Plant | Mature size | Why | Watch |
+|---|---|---|---|---|
+| Tall, fast (back row) | **Arizona cypress** | 30–40 × 15–20 ft | Fastest tall evergreen for limestone; deer rarely eat it | Needs drainage; some canker; flammable |
+| Tall, fast (alternate) | **Eastern red cedar** | 25–40 × 8–15 ft | Native, tough, takes shearing | Winter pollen; flammable |
+| Middle (front row) | **Yaupon holly**, tree form | 15–25 ft | Native evergreen, sun or shade, alkaline OK | Deer browse young plants: cage them |
+| Middle, shade | **Texas mountain laurel** | 10–15 ft | Evergreen, takes the oaks' shade | Slow; poisonous seeds |
+| Bottom | **Evergreen sumac**, cenizo | 6–12 ft | Fills the gaps at eye level | Shrubs only |
+| Long term | **Escarpment live oak** | 30–40 ft+ | The permanent canopy | Slow; prune only July–January |
+
+- **Skip:**
+  - Leyland cypress (heat, drought, disease);
+  - Italian cypress (mites, too thin to screen);
+  - ligustrum and photinia (invasive or diseased);
+  - red oaks (they spread oak wilt);
+  - running bamboo;
+  - cherry laurel and magnolia (they yellow in alkaline soil).
+- **Layout:**
+  - Stay out of the back-line utility easement: plant 10–12 ft in from the line.
+  - Stagger two rows ~8–10 ft apart: cypress ~12–15 ft on center behind, yaupon and laurel
+    offset in front. The ~155 ft line takes ~10–12 big trees plus ~12–15 smaller ones.
+  - Fill gaps in the existing tree line rather than planting a uniform row.
+  - Put the biggest trees where the apartments' windows and balconies line up with the
+    patio and the back windows (the site plan shows which way they face).
+- **Planting:**
+  - Plant October to February.
+  - 30-gal Arizona cypress (6–8 ft) should reach ~20 ft in roughly 5–8 years with water.
+  - Run drip irrigation for the first 2–3 summers, and cage the broadleaf trees against deer.
+  - Under the existing oaks, hand-dig small holes with no trenching or fill, and use the
+    shade-tolerant picks.
+- **Keep junipers and cypress at the back line,** well away from the house (fire).
+
 ### Windows and doors
 
 - Traffic noise is heavy in low frequencies. Compare windows by **OITC** (made for traffic

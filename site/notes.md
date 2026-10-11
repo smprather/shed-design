@@ -527,6 +527,14 @@ Austin's public GIS layers (site-plan, subdivision and zoning cases) and TDLR:
   - the parking's east edge is ~355–395 ft (110–120 m) away;
   - the nearest residential buildings are ~700–800 ft (215–245 m) away.
   - The retail lot's south arm (its stormwater area) lies in between.
+- **The 2016 application's details** (SP-2016-0035D, "Additional Information" tab, from the
+  owner's screenshot):
+  - limits of construction 19.82 ac of the 40 ac lot, so about half the lot was to stay
+    undisturbed;
+  - Barton Springs Zone, Drinking Water Protection Zone;
+  - water and wastewater from Austin Water, electric from Pedernales Electric.
+
+  The approved 2018 plan's figures may differ; the same tab on SP-2018-0138D would show them.
 - **Still unknown:** building heights and stories, and whether ~550 means a later phase
   beyond the 372 units. These are on the approved site-plan sheets in the City's permit
   portal (folder 11917353), which needs a browser.

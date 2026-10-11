@@ -637,14 +637,47 @@ checks.
     case.
   - **Retail:** all three buildings. Building 1's 2017 ground (1,071 ft) matches its floor
     level on the flyer, which checks the overlay fit.
-  - **Viewer:** `site/plan3d.html`. Its back-yard view is an eye 6 ft above the ground,
-    10 ft out from the middle of the house's back wall, at true scale (1×). There you look
-    around in place (drag, arrow keys; scroll zooms the lens); the overview views orbit.
-    From there Buildings 7/8 sit as a band on the horizon ~195 m away.
+  - **Building 1 was drawn turned ~45° at first** (fixed the same day, after the owner
+    spotted it). Its color blob on the flyer's aerial is nearly square, so the fitted long
+    axis was arbitrary. It's now taken from the flyer's leasing plan: 69 × 68 ft, ~100 ft
+    west of Building 2, on the same front and back lines as Buildings 2 and 3. The plan
+    was fitted to those two buildings (RMS 1.2 m).
+    - The leasing plan shows Building 1 smaller than the aerial overlay did (~83 × 74 ft).
+    - The flyer gives the leased space as 1,765 + 2,075 sq ft.
+  - **Viewer:** `site/plan3d.html`.
+    - **Back-yard view:** an eye 6 ft above the ground, 10 ft out from the middle of the
+      house's back wall, at true scale (1×).
+      - It looks 15° left of straight back, toward the apartments, and 4° below level.
+      - There you look around in place (drag, arrow keys; scroll zooms the lens). The
+        overview views orbit.
+      - From there Buildings 7/8 sit as a band on the horizon ~195 m away.
+    - **Scale cues:** a 10 ft grid on the ground, and a readout of the eye's height above
+      the ground.
+    - **Range poles:** three 6 ft poles, banded every foot, straight back from the eye at
+      28, 67 and 137 ft. The last one is just inside the back line.
   - **Rear fence:** modeled at 6 ft, the owner's estimate (not yet measured).
-  - **The yard falls ~6 ft from the house to the back line,** so a 6–7 ft fence on the
-    line sits about at eye level from the back of the house and hides little from there.
-    Screening for the house needs height near the house or tall trees, not just a fence.
+  - **The yard falls ~8 ft from the house to the back line** (2017 lidar, ±2 ft).
+    - **Lidar ground along the line of poles:**
+
+      | Point | Ground (ft) | Below the ground at the eye |
+      |---|---|---|
+      | The eye's spot, 10 ft out from the wall | 1,054.9 | — |
+      | Pole at 28 ft | 1,052.2 | 2.7 ft |
+      | Pole at 67 ft | 1,049.5 | 5.4 ft |
+      | Pole at 137 ft, by the back line | 1,046.8 | 8.1 ft |
+
+    - **So from a standing eye 10 ft out from the house, a 6 ft fence on the line tops
+      out ~8 ft below your eye.** That is ~2 ft below the ground you stand on. It hides
+      little from there.
+    - This corrects the earlier "about at eye level", which was wrong: a fence whose base
+      is 6 ft down tops out at the house's ground, not at eye level.
+    - That drop is most of why the back-yard view feels high.
+    - Screening for the house needs height near the house or tall trees, not just a fence.
+  - **Field check:** stand 10 ft out from the middle of the back wall and sight level from
+    eye height toward the back fence, with a line level, a phone level or a laser. If the
+    lidar is right, the level line passes ~8 ft over the top of a 6 ft fence. If it lands
+    near the top, the yard has been filled since 2017, or the lidar is off there; then
+    re-fetch, or take a few shots.
 
 ## Plan: make the house feel less exposed (Oct 11 2026)
 

@@ -134,6 +134,10 @@ details li b { font-weight: 600; }
   padding: 1px 6px; border-left: 2px solid var(--tag, var(--ink));
 }
 .tag[hidden] { display: none; }
+.eye {
+  position: absolute; left: 12px; top: 12px; font: 500 12px var(--font-data); color: var(--ink);
+  background: color-mix(in srgb, var(--panel) 88%, transparent); padding: 4px 8px; border-radius: 3px;
+}
 .hint {
   position: absolute; left: 12px; bottom: 12px; font-size: 12px; color: var(--muted);
   background: color-mix(in srgb, var(--panel) 85%, transparent); padding: 4px 8px; border-radius: 3px;
@@ -207,6 +211,7 @@ details li b { font-weight: 600; }
   <main class="stage" id="stage">
     <canvas id="c" tabindex="0" aria-label="3D model of the back line, building B and the retail lot"></canvas>
     <div class="labels" id="labels"></div>
+    <div class="eye" id="eye" hidden></div>
     <div class="compass" aria-hidden="true">
       <svg viewBox="-30 -30 60 60">
         <circle r="27" fill="var(--panel)" fill-opacity="0.8" stroke="var(--rule)" stroke-width="1.5"></circle>
@@ -308,6 +313,19 @@ details li b { font-weight: 600; }
   const css = () => getComputedStyle(document.documentElement);
   const col = (token) => new THREE.Color(css().getPropertyValue("--" + token).trim() || "#888");
   const items = {};   // id -> { node, materials, meta }
+  const Z0_FT = /*Z0_FT*/;
+  const GRID_TILE = 50 * 0.3048;   // one texture tile is 50 ft; lines every 10 ft
+  function gridTexture() {
+    const c = document.createElement("canvas"); c.width = c.height = 512;
+    const x = c.getContext("2d");
+    x.fillStyle = "#fff"; x.fillRect(0, 0, 512, 512);
+    x.strokeStyle = "rgba(0,0,0,0.16)"; x.lineWidth = 2;
+    for (let i = 1; i < 5; i++) { const v = i * 512 / 5; x.beginPath(); x.moveTo(v, 0); x.lineTo(v, 512); x.moveTo(0, v); x.lineTo(512, v); x.stroke(); }
+    x.strokeStyle = "rgba(0,0,0,0.32)"; x.lineWidth = 4; x.strokeRect(0, 0, 512, 512);
+    const t = new THREE.CanvasTexture(c);
+    t.wrapS = t.wrapT = THREE.RepeatWrapping; t.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    return t;
+  }
 
   for (const [id, o] of Object.entries(objects)) {
     const m = META[id] || { label: id, group: "Other", token: "muted" };
@@ -328,7 +346,13 @@ details li b { font-weight: 600; }
       const isTerrain = id.startsWith("terrain");
       const mat = new THREE.MeshLambertMaterial({ side: THREE.DoubleSide, vertexColors: isTerrain, transparent: !isTerrain, opacity: isTerrain ? 1 : 0.92,
         polygonOffset: isTerrain, polygonOffsetFactor: 2, polygonOffsetUnits: 6 });
-      if (isTerrain) g.setAttribute("color", new THREE.Float32BufferAttribute(new Float32Array(pos.length), 3));
+      if (isTerrain) {
+        g.setAttribute("color", new THREE.Float32BufferAttribute(new Float32Array(pos.length), 3));
+        const uv = [];
+        for (let i = 0; i < pos.length; i += 3) uv.push(pos[i] / GRID_TILE, pos[i + 2] / GRID_TILE);
+        g.setAttribute("uv", new THREE.Float32BufferAttribute(uv, 2));
+        mat.map = gridTexture();
+      }
       const mesh = new THREE.Mesh(g, mat); mesh.userData.id = id; node.add(mesh); mats.push({ mat, kind: "mesh", terrain: isTerrain, geom: g });
       if (!isTerrain) {
         const edges = new THREE.LineSegments(new THREE.EdgesGeometry(g, 20), new THREE.LineBasicMaterial());
@@ -346,6 +370,33 @@ details li b { font-weight: 600; }
       mats.push({ mat: ls.material, kind: "line" });
     }
     items[id] = { node, mats, meta: m };
+  }
+
+  // Ground height (plan z, m) under a plan point, from the rendered terrain.
+  const downRay = new THREE.Raycaster();
+  function groundAt(x, y) {
+    const t = items.terrain_lidar_2017; if (!t) return 0;
+    root.updateMatrixWorld(true);
+    const from = P([x, y, 0]); from.y = 10000;
+    downRay.set(from, new THREE.Vector3(0, -1, 0));
+    const hit = downRay.intersectObject(t.node, true)[0];
+    return hit ? hit.point.y / root.scale.y : 0;
+  }
+  // Surveyor's range poles for scale: 6 ft, red and white bands every foot.
+  {
+    const node = new THREE.Group(); node.userData.id = "range_poles"; root.add(node);
+    const band = 0.3048, red = new THREE.MeshLambertMaterial({ color: 0xc8261e }), white = new THREE.MeshLambertMaterial({ color: 0xf2f2ee });
+    const geo = new THREE.CylinderGeometry(0.05, 0.05, band, 10);
+    for (const [x, y] of [[-10, -34], [-11, -22], [-14, -1.0]]) {
+      const z0 = groundAt(x, y);
+      for (let k = 0; k < 6; k++) {
+        const m = new THREE.Mesh(geo, k % 2 ? white : red);
+        m.position.copy(P([x, y, z0 + band * (k + 0.5)])); m.userData.id = "range_poles"; node.add(m);
+      }
+    }
+    items.range_poles = { node, mats: [], meta: { label: "Range poles (6 ft, 1 ft bands)", group: "Your lot", token: "accent",
+      status: "scale reference", source: "Drawn by the viewer on the lidar ground.",
+      notes: "Three 6 ft poles, straight back from the back-yard eye at 28, 67 and 137 ft (the last just inside the back line). The ground under them is 2.7, 5.4 and 8.1 ft below the ground at the eye (2017 lidar), so from there all three tops sit below eye level." } };
   }
 
   // Terrain tint by height, recomputed with the theme.
@@ -461,7 +512,7 @@ details li b { font-weight: 600; }
   let exag = 2;
   const VIEWS = {
     oblique: { eye: [230, -330, 250], at: [-160, 90, 0] },
-    house:   { eye: /*BACKYARD_EYE*/, at: [-120, 115, 6], exag: 1, mode: "look" },   // 6 ft up, 10 ft out from the back wall (plan3d.py)
+    house:   { /*BACKYARD*/, exag: 1, mode: "look" },   // 6 ft up, 10 ft out from the back wall (plan3d.py)
     top:     { eye: [-250, 129, 760], at: [-250, 130, 0] },
   };
   const worldOf = (p) => { const v = P(p); v.y *= exag; return v; };
@@ -471,7 +522,7 @@ details li b { font-weight: 600; }
     camera.fov = 42; camera.updateProjectionMatrix();
     camera.position.copy(worldOf(v.eye)); controls.target.copy(worldOf(v.at));
     camera.lookAt(controls.target);
-    setMode(v.mode || "orbit");
+    setMode(v.mode || "orbit"); updateEye();
     document.querySelectorAll("button.view").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.view === name)));
   }
 
@@ -534,7 +585,15 @@ details li b { font-weight: 600; }
   const exagIn = document.getElementById("exag"), exagOut = document.getElementById("exag-out");
   function setExag(value) {
     const k = value / exag; exag = value; exagIn.value = String(value); exagOut.textContent = exag + "×";
-    root.scale.y = exag; camera.position.y *= k; controls.target.y *= k; controls.update();
+    root.scale.y = exag; camera.position.y *= k; controls.target.y *= k; controls.update(); updateEye();
+  }
+  const eyeEl = document.getElementById("eye");
+  function updateEye() {
+    if (mode !== "look") { eyeEl.hidden = true; return; }
+    const x = camera.position.x, y = -camera.position.z, zEye = camera.position.y / exag;
+    const above = (zEye - groundAt(x, y)) / 0.3048, elev = zEye / 0.3048 + Z0_FT;
+    eyeEl.textContent = `Eye ${above.toFixed(1)} ft above the ground · elevation ${Math.round(elev).toLocaleString()} ft`;
+    eyeEl.hidden = false;
   }
   exagIn.addEventListener("input", () => setExag(+exagIn.value));
   root.scale.y = exag;

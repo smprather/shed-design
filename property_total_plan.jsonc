@@ -683,10 +683,10 @@
           {
             "name": "Building 1 (drive-thru)",
             "points_m": [
-              [-55.6, 194.1],
-              [-75.2, 210.2],
-              [-60.9, 227.6],
-              [-41.3, 211.6]
+              [-46.0, 200.3],
+              [-66.9, 197.7],
+              [-69.5, 218.1],
+              [-48.6, 220.7]
             ],
             "z_bottom_m": 6.8,
             "z_top_m": 13.2
@@ -704,9 +704,9 @@
           }
         ]
       },
-      "source": "flyer site-plan overlay fitted to the parcel map; Building 1's floor (1,071 ft) from the flyer elevations",
+      "source": "Building 2: flyer site-plan overlay fitted to the parcel map. Building 1: the flyer's leasing plan (69 x 68 ft, 100 ft west of Building 2, same front and back lines), fitted to Buildings 2 and 3 (RMS 1.2 m). Building 1's floor (1,071 ft) from the flyer elevations",
       "status": "position +/-8 m; Building 2's floor estimated from the ground (~1,064 ft); tops ~21 ft above the floor (estimated)",
-      "notes": "The two retail buildings west of Building 3. Building 1's 2017 ground averages 1,071 ft, matching its floor level, which checks the overlay fit."
+      "notes": "The two retail buildings west of Building 3. Building 1's 2017 ground averages 1,071 ft, matching its floor level, which checks the fit. Building 1 was first drawn turned ~45 degrees: its overlay blob is nearly square, so its long axis was arbitrary. Fixed Oct 11 2026."
     },
     {
       "entity_id": "neighboring_parcels",

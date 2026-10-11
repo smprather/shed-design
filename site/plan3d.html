@@ -139,6 +139,10 @@ details li b { font-weight: 600; }
   padding: 1px 6px; border-left: 2px solid var(--tag, var(--ink));
 }
 .tag[hidden] { display: none; }
+.eye {
+  position: absolute; left: 12px; top: 12px; font: 500 12px var(--font-data); color: var(--ink);
+  background: color-mix(in srgb, var(--panel) 88%, transparent); padding: 4px 8px; border-radius: 3px;
+}
 .hint {
   position: absolute; left: 12px; bottom: 12px; font-size: 12px; color: var(--muted);
   background: color-mix(in srgb, var(--panel) 85%, transparent); padding: 4px 8px; border-radius: 3px;
@@ -213,6 +217,7 @@ details li b { font-weight: 600; }
   <main class="stage" id="stage">
     <canvas id="c" tabindex="0" aria-label="3D model of the back line, building B and the retail lot"></canvas>
     <div class="labels" id="labels"></div>
+    <div class="eye" id="eye" hidden></div>
     <div class="compass" aria-hidden="true">
       <svg viewBox="-30 -30 60 60">
         <circle r="27" fill="var(--panel)" fill-opacity="0.8" stroke="var(--rule)" stroke-width="1.5"></circle>
@@ -69512,35 +69517,35 @@ v -397.900 100.000 14.500
 v -403.700 101.400 14.500
 f 55942 55943 55944 55945
 o scenic_brook_plaza_buildings_1_2
-v -55.600 194.100 6.800
-v -75.200 210.200 6.800
-v -60.900 227.600 6.800
-v -41.300 211.600 6.800
+v -46.000 200.300 6.800
+v -66.900 197.700 6.800
+v -69.500 218.100 6.800
+v -48.600 220.700 6.800
 f 55946 55947 55948 55949
-v -41.300 211.600 13.200
-v -60.900 227.600 13.200
-v -75.200 210.200 13.200
-v -55.600 194.100 13.200
+v -48.600 220.700 13.200
+v -69.500 218.100 13.200
+v -66.900 197.700 13.200
+v -46.000 200.300 13.200
 f 55950 55951 55952 55953
-v -41.300 211.600 6.800
-v -60.900 227.600 6.800
-v -60.900 227.600 13.200
-v -41.300 211.600 13.200
+v -48.600 220.700 6.800
+v -69.500 218.100 6.800
+v -69.500 218.100 13.200
+v -48.600 220.700 13.200
 f 55954 55955 55956 55957
-v -60.900 227.600 6.800
-v -75.200 210.200 6.800
-v -75.200 210.200 13.200
-v -60.900 227.600 13.200
+v -69.500 218.100 6.800
+v -66.900 197.700 6.800
+v -66.900 197.700 13.200
+v -69.500 218.100 13.200
 f 55958 55959 55960 55961
-v -75.200 210.200 6.800
-v -55.600 194.100 6.800
-v -55.600 194.100 13.200
-v -75.200 210.200 13.200
+v -66.900 197.700 6.800
+v -46.000 200.300 6.800
+v -46.000 200.300 13.200
+v -66.900 197.700 13.200
 f 55962 55963 55964 55965
-v -55.600 194.100 6.800
-v -41.300 211.600 6.800
-v -41.300 211.600 13.200
-v -55.600 194.100 13.200
+v -46.000 200.300 6.800
+v -48.600 220.700 6.800
+v -48.600 220.700 13.200
+v -46.000 200.300 13.200
 f 55966 55967 55968 55969
 v -58.400 130.100 4.700
 v -61.500 167.500 4.700
@@ -70164,7 +70169,7 @@ v -25.556 -73.206 1.195
 v -25.600 -75.200 1.210
 l 56461 56462 56463 56464 56465 56466 56467 56468 56469 56470 56471 56472 56473 56474 56475 56476 56477 56478 56479 56480 56481 56482 56483 56484 56485 56486 56487 56488 56489 56490 56491 56492 56493 56494 56495 56496 56497 56498 56499 56500 56501 56502 56503 56504 56505 56506 56507 56508 56509 56510 56511 56512 56513 56514 56515 56516 56517 56518 56519 56520 56521 56522 56523 56524 56525 56526 56527 56528 56529 56530 56531 56532 56533 56534 56535 56536 56537 56538 56539 56540 56541 56542 56543 56544 56545 56546 56547 56548 56549 56550 56551 56552 56553 56554 56555 56556 56557 56558 56559 56560 56561 56562 56563 56564 56565 56566 56567 56568 56569 56570 56571 56572 56573 56574 56575 56576 56577 56578
 </script>
-<script type="application/json" id="plan-spec">{"entities": [{"entity_id": "platted_back_line", "status": "surveyed", "source": "1991 plat: N30\u00b000'E 155.05 ft", "notes": "The retail lot (1A) adjoins it from x -23.6 to +15.3; the north ~8 m adjoins the US-290 right-of-way.", "facade_toward_us": null}, {"entity_id": "rear_fence", "status": "estimated", "source": "owner: likely 6 ft (not yet measured)", "notes": "Position, height and type not checked yet. Placed on the platted line. The US-290 fence wanders up to ~2 m off its line, so tape this one against pins too.", "facade_toward_us": null}, {"entity_id": "back_line_utility_easement", "status": "surveyed", "source": "1991 plat: 7.5 ft and 10 ft P.U.E. along the back line", "notes": "On our side. No structures. The overhead line on it is gone, but the easement is still on record.", "facade_toward_us": null}, {"entity_id": "retail_lot_1a", "status": "mapped, +/-2 m", "source": "parcel map", "notes": "Scenic Brook Plaza, 8313 W US 290, 6.33 ac. It touches our back line directly, with no platted right-of-way or buffer strip between. A ~60 m wide arm runs ~160 m south behind the Candelaria lots.", "facade_toward_us": null}, {"entity_id": "retail_east_end_stormwater", "status": "approximate, +/-10 m; shape and depth unknown", "source": "flyer site-plan overlay (pond contours, an outlet structure, filter or detention hatching), fitted to the parcel map", "notes": "Between the parking loop's east end and our line. The pond contours are near (-51, 33) and the outlet near (-35, 5), in a natural low that was 1037-1046 ft in 2017. The City plan sheets (SP-2019-0411D) give the real outline and depth.", "facade_toward_us": null}, {"entity_id": "scenic_brook_plaza_building_3", "status": "position +/-8 m; top +/-1 m", "source": "flyer: floor plan 125 x 62 ft; finished floors 1052, 1054 and 1056 ft; position from its site-plan overlay fitted to the parcel map, long side parallel to the US-290 frontage", "notes": "The nearest retail building. Its east end is ~75-80 m out from our line, opposite the next lot south. The floor is 1.0-2.2 m above z = 0 (about level with our yard by the house). The top, a ~21 ft parapet estimated from the 12 ft storefront, is ~8 m above z = 0.", "facade_toward_us": "East end: dark metal panel with storefront glass and a 'Dentist' tenant sign (flyer east elevation). The other faces mix stone veneer, metal panel and glass."}, {"entity_id": "apartment_lot_2a", "status": "mapped, +/-2 m", "source": "parcel map; site plan SP-2018-0138D (Correction #7, Feb 2026); TDLR TABS2025001890", "notes": "Granada Ridge apartments, 40 ac: 473 units in 8 buildings, up to 5 stories / 65 ft. The lot's nearest corner is ~77 m from our lot.", "facade_toward_us": null}, {"entity_id": "granada_ridge_buildings_7_8", "status": "footprint +/-2 ft; height is the site's maximum, not per building", "source": "footprints from the overall site plan sheet (Correction #7, Feb 2026), fitted to the parcel map (RMS 1.4 ft); height from the site data table", "notes": "Added by Correction #7 (Phase 9); Building 7 is 57,534 sq ft. The nearest apartments: 639 ft (195 m) from our lot. Drawn as the 65 ft maximum above the lowest 2017 ground under each part, so this is a worst case. The block steps from ~1,060 ft grade on its north drive to ~1,040-1,045 ft on its south side.", "facade_toward_us": null}, {"entity_id": "granada_ridge_buildings_1_6", "status": "footprint +/-2 ft; height is the site's maximum, not per building", "source": "footprints from the overall site plan sheet (Correction #7, Feb 2026), fitted to the parcel map (RMS 1.4 ft); height from the site data table", "notes": "Buildings 1-6 (phases 3-8), 895-1,403 ft from our lot. Each is drawn as the 65 ft maximum above the lowest 2017 ground under it, a worst case.", "facade_toward_us": null}, {"entity_id": "scenic_brook_plaza_buildings_1_2", "status": "position +/-8 m; Building 2's floor estimated from the ground (~1,064 ft); tops ~21 ft above the floor (estimated)", "source": "flyer site-plan overlay fitted to the parcel map; Building 1's floor (1,071 ft) from the flyer elevations", "notes": "The two retail buildings west of Building 3. Building 1's 2017 ground averages 1,071 ft, matching its floor level, which checks the overlay fit.", "facade_toward_us": null}, {"entity_id": "neighboring_parcels", "status": "mapped, +/-2 m", "source": "parcel map", "notes": "Other lots in the model area, for context: the Candelaria row and the lots across Candelaria.", "facade_toward_us": null}], "removed": [{"claim": "granada_hills_undeveloped_platted_buffer: a 15 m platted right-of-way, wooded, between our fence and the retail lot", "finding": "The parcel map shows the retail lot adjoining our back line, with no strip between. The trees on the flyer's base aerial stood on the retail lot, and the owner reports that ground cleared (Oct 2026)."}, {"claim": "commercial_retention_basin at y 15-28 m, 2.5 m deep, 3:1 slopes", "finding": "Replaced by retail_east_end_stormwater, which is larger and runs from our line out to ~65 m. Its depth is unknown. A 2.5 m depth with 3:1 slopes wouldn't fit in a 13 m width anyway."}, {"claim": "plaza_retaining_wall: a 3.0 m step down to the commercial pad at y 28 m", "finding": "No source. The 2017 ground dips into a drainage low just past our line, then rises to the retail pads."}, {"claim": "bldg_c pad 3.0 m below our yard, 3.5 m visible above it", "finding": "Building 3's floor is 1.0-2.2 m above our back-line ground; its top is ~8 m above it, ~75-80 m away."}, {"claim": "bldg_c at y 28-43 m, 30 x 15 m", "finding": "Building 3 is 125 x 62 ft (38 x 19 m) at y ~75-116 m."}, {"claim": "bldg_c rear facade: no windows, signage prohibited facing south, solid masonry", "finding": "The face toward us (east) has storefront glass and a tenant sign; walls are metal panel, stone veneer and glass."}, {"claim": "scenic_brook_pocket_park, a zero-impervious Barton Springs buffer (first version)", "finding": "No source found. The lots next door are in the Barton Springs Zone; that sets impervious-cover limits, not a park."}]}</script>
+<script type="application/json" id="plan-spec">{"entities": [{"entity_id": "platted_back_line", "status": "surveyed", "source": "1991 plat: N30\u00b000'E 155.05 ft", "notes": "The retail lot (1A) adjoins it from x -23.6 to +15.3; the north ~8 m adjoins the US-290 right-of-way.", "facade_toward_us": null}, {"entity_id": "rear_fence", "status": "estimated", "source": "owner: likely 6 ft (not yet measured)", "notes": "Position, height and type not checked yet. Placed on the platted line. The US-290 fence wanders up to ~2 m off its line, so tape this one against pins too.", "facade_toward_us": null}, {"entity_id": "back_line_utility_easement", "status": "surveyed", "source": "1991 plat: 7.5 ft and 10 ft P.U.E. along the back line", "notes": "On our side. No structures. The overhead line on it is gone, but the easement is still on record.", "facade_toward_us": null}, {"entity_id": "retail_lot_1a", "status": "mapped, +/-2 m", "source": "parcel map", "notes": "Scenic Brook Plaza, 8313 W US 290, 6.33 ac. It touches our back line directly, with no platted right-of-way or buffer strip between. A ~60 m wide arm runs ~160 m south behind the Candelaria lots.", "facade_toward_us": null}, {"entity_id": "retail_east_end_stormwater", "status": "approximate, +/-10 m; shape and depth unknown", "source": "flyer site-plan overlay (pond contours, an outlet structure, filter or detention hatching), fitted to the parcel map", "notes": "Between the parking loop's east end and our line. The pond contours are near (-51, 33) and the outlet near (-35, 5), in a natural low that was 1037-1046 ft in 2017. The City plan sheets (SP-2019-0411D) give the real outline and depth.", "facade_toward_us": null}, {"entity_id": "scenic_brook_plaza_building_3", "status": "position +/-8 m; top +/-1 m", "source": "flyer: floor plan 125 x 62 ft; finished floors 1052, 1054 and 1056 ft; position from its site-plan overlay fitted to the parcel map, long side parallel to the US-290 frontage", "notes": "The nearest retail building. Its east end is ~75-80 m out from our line, opposite the next lot south. The floor is 1.0-2.2 m above z = 0 (about level with our yard by the house). The top, a ~21 ft parapet estimated from the 12 ft storefront, is ~8 m above z = 0.", "facade_toward_us": "East end: dark metal panel with storefront glass and a 'Dentist' tenant sign (flyer east elevation). The other faces mix stone veneer, metal panel and glass."}, {"entity_id": "apartment_lot_2a", "status": "mapped, +/-2 m", "source": "parcel map; site plan SP-2018-0138D (Correction #7, Feb 2026); TDLR TABS2025001890", "notes": "Granada Ridge apartments, 40 ac: 473 units in 8 buildings, up to 5 stories / 65 ft. The lot's nearest corner is ~77 m from our lot.", "facade_toward_us": null}, {"entity_id": "granada_ridge_buildings_7_8", "status": "footprint +/-2 ft; height is the site's maximum, not per building", "source": "footprints from the overall site plan sheet (Correction #7, Feb 2026), fitted to the parcel map (RMS 1.4 ft); height from the site data table", "notes": "Added by Correction #7 (Phase 9); Building 7 is 57,534 sq ft. The nearest apartments: 639 ft (195 m) from our lot. Drawn as the 65 ft maximum above the lowest 2017 ground under each part, so this is a worst case. The block steps from ~1,060 ft grade on its north drive to ~1,040-1,045 ft on its south side.", "facade_toward_us": null}, {"entity_id": "granada_ridge_buildings_1_6", "status": "footprint +/-2 ft; height is the site's maximum, not per building", "source": "footprints from the overall site plan sheet (Correction #7, Feb 2026), fitted to the parcel map (RMS 1.4 ft); height from the site data table", "notes": "Buildings 1-6 (phases 3-8), 895-1,403 ft from our lot. Each is drawn as the 65 ft maximum above the lowest 2017 ground under it, a worst case.", "facade_toward_us": null}, {"entity_id": "scenic_brook_plaza_buildings_1_2", "status": "position +/-8 m; Building 2's floor estimated from the ground (~1,064 ft); tops ~21 ft above the floor (estimated)", "source": "Building 2: flyer site-plan overlay fitted to the parcel map. Building 1: the flyer's leasing plan (69 x 68 ft, 100 ft west of Building 2, same front and back lines), fitted to Buildings 2 and 3 (RMS 1.2 m). Building 1's floor (1,071 ft) from the flyer elevations", "notes": "The two retail buildings west of Building 3. Building 1's 2017 ground averages 1,071 ft, matching its floor level, which checks the fit. Building 1 was first drawn turned ~45 degrees: its overlay blob is nearly square, so its long axis was arbitrary. Fixed Oct 11 2026.", "facade_toward_us": null}, {"entity_id": "neighboring_parcels", "status": "mapped, +/-2 m", "source": "parcel map", "notes": "Other lots in the model area, for context: the Candelaria row and the lots across Candelaria.", "facade_toward_us": null}], "removed": [{"claim": "granada_hills_undeveloped_platted_buffer: a 15 m platted right-of-way, wooded, between our fence and the retail lot", "finding": "The parcel map shows the retail lot adjoining our back line, with no strip between. The trees on the flyer's base aerial stood on the retail lot, and the owner reports that ground cleared (Oct 2026)."}, {"claim": "commercial_retention_basin at y 15-28 m, 2.5 m deep, 3:1 slopes", "finding": "Replaced by retail_east_end_stormwater, which is larger and runs from our line out to ~65 m. Its depth is unknown. A 2.5 m depth with 3:1 slopes wouldn't fit in a 13 m width anyway."}, {"claim": "plaza_retaining_wall: a 3.0 m step down to the commercial pad at y 28 m", "finding": "No source. The 2017 ground dips into a drainage low just past our line, then rises to the retail pads."}, {"claim": "bldg_c pad 3.0 m below our yard, 3.5 m visible above it", "finding": "Building 3's floor is 1.0-2.2 m above our back-line ground; its top is ~8 m above it, ~75-80 m away."}, {"claim": "bldg_c at y 28-43 m, 30 x 15 m", "finding": "Building 3 is 125 x 62 ft (38 x 19 m) at y ~75-116 m."}, {"claim": "bldg_c rear facade: no windows, signage prohibited facing south, solid masonry", "finding": "The face toward us (east) has storefront glass and a tenant sign; walls are metal panel, stone veneer and glass."}, {"claim": "scenic_brook_pocket_park, a zero-impervious Barton Springs buffer (first version)", "finding": "No source found. The lots next door are in the Barton Springs Zone; that sets impervious-cover limits, not a park."}]}</script>
 <script type="application/json" id="plan-checks">[{"check": "building B ground fall across the slab", "value": "3.6 ft", "limit": "-", "status": "NOTE", "note": "2017 lidar; high at the NE corner by the oak, so level it with fill on the west side, not a cut toward the oak"}, {"check": "building B vs septic pipe", "value": "10.0 ft", "limit": "10 ft", "status": "AT LIMIT", "note": "no margin; the pipe is from long laser shots (+/-2 ft)"}, {"check": "building B vs well", "value": "64.4 ft", "limit": "10 ft", "status": "OK", "note": ""}, {"check": "truck lane, B to house", "value": "15.1 ft", "limit": "12 ft", "status": "OK", "note": ""}, {"check": "hose run to the pipe", "value": "72 ft", "limit": "100 ft", "status": "OK", "note": ""}, {"check": "US-290 wall footing vs septic pipe", "value": "6.0 ft", "limit": "10 ft", "status": "CONFLICT", "note": "septic pipe is 8.0 ft from the surveyed line; footing assumed 2 ft wide"}, {"check": "US-290 wall footing vs well", "value": "10.0 ft", "limit": "10 ft", "status": "AT LIMIT", "note": "well is 12.0 ft from the surveyed line; footing assumed 2 ft wide"}, {"check": "back-line tree rows vs well", "value": "6.0 ft", "limit": "10 ft", "status": "CONFLICT", "note": "well is 28 ft in; rows at 10 and 22 ft"}, {"check": "anything vs tank and drainfield", "value": "not located", "limit": "-", "status": "UNKNOWN", "note": "every check against them waits on finding the lids and trenches"}]</script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
@@ -70251,6 +70256,19 @@ l 56461 56462 56463 56464 56465 56466 56467 56468 56469 56470 56471 56472 56473 
   const css = () => getComputedStyle(document.documentElement);
   const col = (token) => new THREE.Color(css().getPropertyValue("--" + token).trim() || "#888");
   const items = {};   // id -> { node, materials, meta }
+  const Z0_FT = 1048.7;
+  const GRID_TILE = 50 * 0.3048;   // one texture tile is 50 ft; lines every 10 ft
+  function gridTexture() {
+    const c = document.createElement("canvas"); c.width = c.height = 512;
+    const x = c.getContext("2d");
+    x.fillStyle = "#fff"; x.fillRect(0, 0, 512, 512);
+    x.strokeStyle = "rgba(0,0,0,0.16)"; x.lineWidth = 2;
+    for (let i = 1; i < 5; i++) { const v = i * 512 / 5; x.beginPath(); x.moveTo(v, 0); x.lineTo(v, 512); x.moveTo(0, v); x.lineTo(512, v); x.stroke(); }
+    x.strokeStyle = "rgba(0,0,0,0.32)"; x.lineWidth = 4; x.strokeRect(0, 0, 512, 512);
+    const t = new THREE.CanvasTexture(c);
+    t.wrapS = t.wrapT = THREE.RepeatWrapping; t.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    return t;
+  }
 
   for (const [id, o] of Object.entries(objects)) {
     const m = META[id] || { label: id, group: "Other", token: "muted" };
@@ -70271,7 +70289,13 @@ l 56461 56462 56463 56464 56465 56466 56467 56468 56469 56470 56471 56472 56473 
       const isTerrain = id.startsWith("terrain");
       const mat = new THREE.MeshLambertMaterial({ side: THREE.DoubleSide, vertexColors: isTerrain, transparent: !isTerrain, opacity: isTerrain ? 1 : 0.92,
         polygonOffset: isTerrain, polygonOffsetFactor: 2, polygonOffsetUnits: 6 });
-      if (isTerrain) g.setAttribute("color", new THREE.Float32BufferAttribute(new Float32Array(pos.length), 3));
+      if (isTerrain) {
+        g.setAttribute("color", new THREE.Float32BufferAttribute(new Float32Array(pos.length), 3));
+        const uv = [];
+        for (let i = 0; i < pos.length; i += 3) uv.push(pos[i] / GRID_TILE, pos[i + 2] / GRID_TILE);
+        g.setAttribute("uv", new THREE.Float32BufferAttribute(uv, 2));
+        mat.map = gridTexture();
+      }
       const mesh = new THREE.Mesh(g, mat); mesh.userData.id = id; node.add(mesh); mats.push({ mat, kind: "mesh", terrain: isTerrain, geom: g });
       if (!isTerrain) {
         const edges = new THREE.LineSegments(new THREE.EdgesGeometry(g, 20), new THREE.LineBasicMaterial());
@@ -70289,6 +70313,33 @@ l 56461 56462 56463 56464 56465 56466 56467 56468 56469 56470 56471 56472 56473 
       mats.push({ mat: ls.material, kind: "line" });
     }
     items[id] = { node, mats, meta: m };
+  }
+
+  // Ground height (plan z, m) under a plan point, from the rendered terrain.
+  const downRay = new THREE.Raycaster();
+  function groundAt(x, y) {
+    const t = items.terrain_lidar_2017; if (!t) return 0;
+    root.updateMatrixWorld(true);
+    const from = P([x, y, 0]); from.y = 10000;
+    downRay.set(from, new THREE.Vector3(0, -1, 0));
+    const hit = downRay.intersectObject(t.node, true)[0];
+    return hit ? hit.point.y / root.scale.y : 0;
+  }
+  // Surveyor's range poles for scale: 6 ft, red and white bands every foot.
+  {
+    const node = new THREE.Group(); node.userData.id = "range_poles"; root.add(node);
+    const band = 0.3048, red = new THREE.MeshLambertMaterial({ color: 0xc8261e }), white = new THREE.MeshLambertMaterial({ color: 0xf2f2ee });
+    const geo = new THREE.CylinderGeometry(0.05, 0.05, band, 10);
+    for (const [x, y] of [[-10, -34], [-11, -22], [-14, -1.0]]) {
+      const z0 = groundAt(x, y);
+      for (let k = 0; k < 6; k++) {
+        const m = new THREE.Mesh(geo, k % 2 ? white : red);
+        m.position.copy(P([x, y, z0 + band * (k + 0.5)])); m.userData.id = "range_poles"; node.add(m);
+      }
+    }
+    items.range_poles = { node, mats: [], meta: { label: "Range poles (6 ft, 1 ft bands)", group: "Your lot", token: "accent",
+      status: "scale reference", source: "Drawn by the viewer on the lidar ground.",
+      notes: "Three 6 ft poles, straight back from the back-yard eye at 28, 67 and 137 ft (the last just inside the back line). The ground under them is 2.7, 5.4 and 8.1 ft below the ground at the eye (2017 lidar), so from there all three tops sit below eye level." } };
   }
 
   // Terrain tint by height, recomputed with the theme.
@@ -70404,7 +70455,7 @@ l 56461 56462 56463 56464 56465 56466 56467 56468 56469 56470 56471 56472 56473 
   let exag = 2;
   const VIEWS = {
     oblique: { eye: [230, -330, 250], at: [-160, 90, 0] },
-    house:   { eye: [-9.75, -42.48, 3.73], at: [-120, 115, 6], exag: 1, mode: "look" },   // 6 ft up, 10 ft out from the back wall (plan3d.py)
+    house:   { "eye": [-9.75, -42.48, 3.73], "at": [-25.39, 16.44, -0.53], exag: 1, mode: "look" },   // 6 ft up, 10 ft out from the back wall (plan3d.py)
     top:     { eye: [-250, 129, 760], at: [-250, 130, 0] },
   };
   const worldOf = (p) => { const v = P(p); v.y *= exag; return v; };
@@ -70414,7 +70465,7 @@ l 56461 56462 56463 56464 56465 56466 56467 56468 56469 56470 56471 56472 56473 
     camera.fov = 42; camera.updateProjectionMatrix();
     camera.position.copy(worldOf(v.eye)); controls.target.copy(worldOf(v.at));
     camera.lookAt(controls.target);
-    setMode(v.mode || "orbit");
+    setMode(v.mode || "orbit"); updateEye();
     document.querySelectorAll("button.view").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.view === name)));
   }
 
@@ -70477,7 +70528,15 @@ l 56461 56462 56463 56464 56465 56466 56467 56468 56469 56470 56471 56472 56473 
   const exagIn = document.getElementById("exag"), exagOut = document.getElementById("exag-out");
   function setExag(value) {
     const k = value / exag; exag = value; exagIn.value = String(value); exagOut.textContent = exag + "×";
-    root.scale.y = exag; camera.position.y *= k; controls.target.y *= k; controls.update();
+    root.scale.y = exag; camera.position.y *= k; controls.target.y *= k; controls.update(); updateEye();
+  }
+  const eyeEl = document.getElementById("eye");
+  function updateEye() {
+    if (mode !== "look") { eyeEl.hidden = true; return; }
+    const x = camera.position.x, y = -camera.position.z, zEye = camera.position.y / exag;
+    const above = (zEye - groundAt(x, y)) / 0.3048, elev = zEye / 0.3048 + Z0_FT;
+    eyeEl.textContent = `Eye ${above.toFixed(1)} ft above the ground · elevation ${Math.round(elev).toLocaleString()} ft`;
+    eyeEl.hidden = false;
   }
   exagIn.addEventListener("input", () => setExag(+exagIn.value));
   root.scale.y = exag;

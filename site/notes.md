@@ -73,7 +73,7 @@ How it lines up with what we've seen:
 - The parcel directly behind us is now **completely cleared of trees** (owner, Oct 2026). The
   aerial still shows woods there, so the back yard is more exposed than it looks: afternoon
   sun, wind, views and noise from the west. It runs behind the whole row of Candelaria lots
-  and also fronts US-290 further west; it looks like the retail lot. Past it, the big
+  and also fronts US-290 further west: it's the retail lot (parcel map). Past it, the big
   parcel to the south-west (the 40-acre apartment lot) is already graded with streets.
 - **North of our US-290 line is the highway right-of-way.** The graded dirt is the US-290
   construction, not the apartment site; concrete barriers and pipe are staged there. The
@@ -262,6 +262,8 @@ south.
 - **Measure to the eave, not just the slab.** A roof overhang or gutter on the north side
   would cross the 5 ft setback. Keep the north eave flush, or ask the county whether it
   measures to the wall or the eave.
+- **The ground falls ~3.8 ft across the slab**, high at the NE corner by the oak (2017
+  lidar). Level it with fill on the west side, not a cut toward the oak; see "3D plan".
 - **Septic truck:** it still parks in the lane between B and the house, now ~15 ft wide for a
   truck ~8 ft wide. The hose run around the west end to the pipe is ~70–75 ft.
 - **What could change it:**
@@ -448,10 +450,11 @@ site plans. The plat is Broadstone Scenic Brook Amended, Lots 1 & 2, Block A.
 | City site plan | SP-2019-0411D, approved Dec 21 2021; 32% impervious cover | SP-2018-0138D, approved May 6 2019; 24.1% impervious cover |
 | Opening | Delivery Q3 2026 (flyer); the state filing says complete Nov 1 2026 | Leasing office Jan 31 2027; amenity building listed through Jan 2028 |
 
-- **The neighbor right behind us is most likely the retail lot, not the apartments.** The
-  retail is one story, so a 6–8 ft solid fence plus the existing trees hides most of it from
-  the yard. The apartments are further south-west. Their distance and floor count still need
-  their site plan, so treat the screen heights under "Back line" as the worst case.
+- **The neighbor right behind us is the retail lot, not the apartments** (parcel map; see
+  below). The retail is one story and its nearest building is ~75–80 m off, so a 6–8 ft solid
+  fence plus trees hides most of it from the yard. The apartments are further south-west.
+  Their distance and floor count still need their site plan, so treat the screen heights
+  under "Back line" as the worst case.
 - **Commercial noise and light:** parking-lot lights, early-morning trash and delivery
   trucks, rooftop HVAC, and evening customers (liquor store, restaurants). The drive-thru
   speaker is at the far (west) end. The flyer's plan seems to show two dumpster enclosures on
@@ -469,35 +472,58 @@ site plans. The plat is Broadstone Scenic Brook Amended, Lots 1 & 2, Block A.
 - **Barton Springs Zone:** our lot is probably in it too. Ask Travis County whether that
   limits impervious cover (the slab and the circle drive).
 
-### Grades and the east end (flyer + USGS lidar, Oct 11 2026)
+### What's behind the line, mapped (parcel map + flyer + lidar, Oct 11 2026)
 
-- **Our yard near the back line is ~1057–1060 ft** above sea level (USGS 3DEP lidar, flown
-  Feb 2017, sampled along a line west from the geocoded address, ±2 ft). The ground keeps
-  falling west past our line, to ~1050 ft about 200 ft beyond it (pre-construction ground).
-- **The retail's floor levels:** Building 3 (the east one, nearest us) steps across 1052,
-  1054 and 1056 ft. Building 1 (west end) is at 1071 ft. So Building 3's pad sits ~1–2.5 m
-  below our yard. Its parapet looks roughly 20–25 ft above the floor, judging by the 12 ft
-  storefront in the flyer's elevations.
-- **Building 3's east face, toward us, has storefront glass and a "Dentist" sign** on the
-  flyer's east elevation.
-- **Between Building 3 and our line:** the east end of the parking loop, then what looks like
-  a drainage or water-quality pond at the retail lot's east end. The lot's east edge on the
-  flyer lines up with our back line. Read off the flyer's aerial (scaled by Building 3's
-  length), Building 3's east wall is roughly **230–280 ft (70–85 m) from our back line**.
-  The City plan sheets will give the real numbers.
+Corrected the same day. An earlier version of this section put our back-line ground at
+~1057–1060 ft and Building 3's pad below our yard. That profile started from the
+census-geocoded address, which turned out to sit ~150 ft east of our front line.
 
-## 3D plan spec check (Oct 11 2026; `property_total_plan.jsonc`, `tools/plan3d.py`)
+- **The retail lot (1A) touches our back line directly** (Texas StratMap / Travis CAD parcel
+  map, 2026). There's no platted right-of-way or buffer strip between. The lot also has an
+  arm ~60 m wide that runs ~160 m south behind the Candelaria lots. The north ~8 m of our
+  back line touches the US-290 right-of-way instead. The apartment lot (2A) is ~77 m from our
+  lot at its nearest corner.
+- **Ground (USGS 3DEP lidar, Feb 2017, ±2 ft; `site/terrain-lidar.json`):**
+  - Our back line is ~1050 ft at its north end and ~1047 ft at its south end. Our yard rises
+    to ~1053–1056 ft at the house.
+  - Just past the line is a natural low, 1037–1046 ft, draining south-west. Beyond it the
+    ground rises to the retail pads at 1050–1060 ft. That's pre-construction ground; the
+    retail side has since been graded.
+- **Building 3** (the east one, nearest us) is **125 × 62 ft** on its floor plan.
+  - Its floors step across 1052, 1054 and 1056 ft; Building 1 at the west end is at 1071 ft.
+    So Building 3's floor is **1–2 m above our back-line ground** and about level with our
+    yard by the house.
+  - Its parapet looks roughly 20–25 ft above the floor, judging by the 12 ft storefront.
+  - Its **east face, toward us, has storefront glass and a "Dentist" sign.**
+- **Where it sits:** the flyer's site-plan overlay fits the parcel map well. Its lot-line
+  frontage matches the parcel's bearing to 0.1°, at ~1 ft per pixel. On that fit, Building
+  3's east end is **~75–80 m (245–265 ft) out from our line**, opposite the next lot south
+  (±8 m).
+- **In between:** the east end of the parking loop (~52–56 m out), then the retail's
+  stormwater area. Its pond contours and outlet structure sit south-west of our back corner,
+  in the natural low. It reaches our line at the lot's east edge; the shape and depth need
+  the City plan sheets.
 
-The owner added `property_total_plan.jsonc`, a 3D spec of the back line and the retail next
-door. `uv run tools/plan3d.py` builds `site/plan3d.obj` from it and runs the checks below.
+## 3D plan (Oct 11 2026; `property_total_plan.jsonc`, `tools/plan3d.py`)
 
-- **Frame:** its origin is the center of the "rear fence". Here that's taken to be the back
-  (west) line, which the retail lot adjoins, at the platted line (the spec says the fence
-  follows it). +x runs toward US-290 and +y away from the lot.
-- **Its three source files aren't in the repo** (a CubiCasa room model, the plat PDF, a septic
-  DWG), so there's no room model. The plat lines come from the survey bearings already in
-  `site_plan.py`, and the septic features from the field shots. `data/` is git-ignored: the
-  plat PDF must never be committed, and an interior floor plan shouldn't be public either.
+The owner's 3D spec of the back line and the retail next door, rewritten against the sources
+above. Each entity carries its source and accuracy. The owner's claims that didn't hold up
+are kept under `removed_claims` with what was found. `uv run tools/plan3d.py` builds
+`site/plan3d.obj` on the lidar terrain, adds our side from the repo's data, and runs the
+checks.
+
+- **Frame:** meters from the midpoint of the platted back (west) line. +x runs along it
+  toward US-290, +y away from our lot, and z = 0 is the ground there (1048.7 ft).
+- **Removed from the owner's spec:**
+  - a 15 m platted "buffer" strip (the retail lot adjoins us);
+  - a 3 m retaining wall and a pad 3 m below our yard (the floor is above our back-line
+    ground);
+  - the building 13–43 m out at 30 × 15 m (it's ~75–116 m out and 38 × 19 m);
+  - the windowless, sign-free rear face (the east face has glass and a sign);
+  - the pocket park (no source).
+- **The source files it named don't exist.** There's no room model; the plat lines come from
+  `site_plan.py`. `data/` is git-ignored: the plat PDF must never be committed, and an
+  interior floor plan shouldn't be public either. The retail flyer is in `site/refs/`.
 - **Septic conflicts with our planned additions:**
   - **US-290 wall: conflict.** The septic pipe is 8.0 ft from the surveyed line, so a footing
     at the line comes within ~6 ft of it. The wall would need to jog in or stop short there,
@@ -508,22 +534,11 @@ door. `uv run tools/plan3d.py` builds `site/plan3d.obj` from it and runs the che
   - The truck lane (15.1 ft) and the hose run (72 ft) are fine.
   - **Unknown:** the tank and drainfield are still unlocated, so nothing can be checked
     against them yet.
-- **None of the spec's neighbor geometry touches our septic.** It all lies past the back line.
-- **Where the spec disagrees with the evidence:**
-  - **Distance:** it puts the retail building ("bldg C"; the flyer calls it Building 3)
-    13–28 m from the fence. The flyer suggests ~70–85 m, with the parking loop and a pond in
-    between.
-  - **Pad drop:** it uses 3.0 m; the floor levels and lidar suggest ~1–2.5 m. The building
-    then stands ~4–5.5 m above our yard, not 3.5 m, but much further away.
-  - **Size:** its footprint is 30 × 15 m (~4,800 sq ft). Building 3's tenant spaces add up to
-    ~7,900 sq ft.
-  - **East face:** it says no windows and no signage (facing "south"). The flyer shows glass and
-    a tenant sign on the face toward us.
-  - **Basin:** its 3:1 side slopes can't reach 3.0 m deep within a 13 m width (they meet at
-    ~2.7 m), so the model shows a trough. A pond at the retail's east end does look real; its
-    size and depth need the plan sheets.
-  - **Fence:** it's 40 m long; the platted back line is 47.3 m.
-  - **Pocket park and retaining wall:** no source found for either.
+  - None of the neighbor geometry touches our septic.
+- **Building B's site falls ~3.8 ft across the slab**, from ~1056.7 ft at the NE corner by
+  the oak to ~1052.9 ft at the SW corner (2017 lidar, ±2 ft; the old carports may have
+  blurred it). Level it with fill or a stem wall on the west side, not a cut toward the
+  oak. Tell the slab engineer.
 
 ## Plan: make the house feel less exposed (Oct 11 2026)
 
@@ -560,9 +575,10 @@ visible unless the wall returns along it.
 ### Back line (retail and apartments)
 
 Wall height at the back line needed to hide our yard and house (~60–130 ft inside the line)
-from apartment windows 20–40 ft past the line. The lot right behind us looks like the
-one-story retail (see "The development behind the back line"), so this is the worst case
-until the apartments' site plan shows how far off and how tall they are.
+from apartment windows 20–40 ft past the line. The lot right behind us is the one-story
+retail (see "The development behind the back line"), and the apartment lot starts ~77 m
+off. So this is the worst case until the apartments' site plan shows how far off and how
+tall their buildings are.
 
 | Apartment window | Screen height at the back line |
 |---|---|

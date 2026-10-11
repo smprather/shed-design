@@ -1,89 +1,129 @@
+// 3D plan of the back line at 8400 Candelaria Dr and the retail lot behind it.
+// Started from the owner's spec and checked against the sources in local_source_registry
+// (Oct 11 2026). Every entity names its source and accuracy. Claims that didn't hold up are
+// listed under "removed_claims" instead of being modeled. tools/plan3d.py builds
+// site/plan3d.obj from this file and adds our side (house, building B, septic, well, oak)
+// from the repo's measured data.
 {
-  "$schema": "https://githubusercontent.com",
   "project_meta": {
-    "repository_target": "Property Addition Planning & Total 3D Plan",
-    "local_coordinate_origin": "Relative Meters (0,0,0 at Northern Rear Fence Center Line)",
-    "local_elevation_baseline": "Your Property Ground Level = 0.0m"
+    "repository_target": "Granada Hills Property Addition Planning - 8400 Candelaria Dr",
+    "units": "meters",
+    "local_coordinate_origin": "Midpoint of the platted back (west) line of Lot 176, the line the retail lot adjoins",
+    "axes": {
+      "x": "along the back line, positive toward US-290 (NNE)",
+      "y": "square to the back line, positive away from our lot (WNW, into the retail lot); our yard is y < 0",
+      "z": "up"
+    },
+    "local_elevation_baseline": "z = 0 is the ground at the origin, 1048.7 ft NAVD88 (USGS lidar, +/-2 ft). Our yard is not level: it rises to ~1054-1056 ft by the house, and the back line falls from ~1050 ft at its north end to ~1047 ft at its south end.",
+    "frame_accuracy": "Neighbor positions: +/-2 m from the parcel map, +/-8 m from the flyer's site-plan overlay. The repo's site frame uses the 1991 plat bearings, which run ~2 deg off the parcel map's back line."
   },
 
-  // Local File System Anchors for Coding Agents to Ingest & Coregister
   "local_source_registry": {
-    "interior_mesh_source": "./data/floorplans/cubicasa_model.obj", // CubiCasa generation
-    "parcel_survey_source": "./data/surveys/1991_plat_map.pdf",      // Historical platted boundaries
-    "septic_field_exclusion_zone": "./data/environmental/septic_layout.dwg" // Septic clearance coordinates
+    "parcel_survey_source": "tools/site_plan.py (1991 plat bearings and ties; the plat PDF stays out of this public repo)",
+    "parcel_map": "Texas StratMap land parcels (Travis CAD, tax year 2026): Lot 176 Granada Hills Amended (ours); Lots 1A and 2A Blk A, Broadstone Scenic Brook Amd",
+    "retail_flyer": "site/refs/scenic-brook-plaza-flyer.pdf",
+    "terrain": "site/terrain-lidar.json",
+    "interior_mesh_source": null // a CubiCasa room model would go in data/floorplans/ (git-ignored); none yet
   },
 
-  // 3D Spatial Entities Layer for Programmatic Mesh Synthesis
   "spatial_entities": [
     {
-      "entity_id": "rear_fence_line",
-      "type": "boundary_wall",
-      "coordinates_relative_meters": {
-        "start": [-20.0, 0.0, 0.0],
-        "end": [20.0, 0.0, 0.0]
-      },
-      "geometry": { "height": 2.0, "thickness": 0.15 },
-      "constraints": "Strict physical anchor. Adheres to platted property lines."
+      "entity_id": "platted_back_line",
+      "type": "property_line",
+      "geometry": { "kind": "line", "points_m": [[-23.63, 0.0], [23.63, 0.0]], "z": "terrain" },
+      "source": "1991 plat: N30°00'E 155.05 ft",
+      "status": "surveyed",
+      "notes": "The retail lot (1A) adjoins it from x -23.6 to +15.3; the north ~8 m adjoins the US-290 right-of-way."
     },
     {
-      "entity_id": "scenic_brook_retention_basin",
-      "type": "sunken_buffer_zone",
-      "description": "Engineered water quality storm runoff depression",
-      "coordinates_relative_meters": {
-        "x_bounds": [-15.0, 15.0],
-        "y_bounds": [0.1, 13.1] // 13-meter width clearing
-      },
+      "entity_id": "rear_fence",
+      "type": "fence",
+      "geometry": { "kind": "wall", "points_m": [[-23.63, 0.0], [23.63, 0.0]], "height_m": 2.0, "thickness_m": 0.15, "z": "terrain" },
+      "source": "owner's spec",
+      "status": "assumed",
+      "notes": "Position, height and type not checked yet. Placed on the platted line. The US-290 fence wanders up to ~2 m off its line, so tape this one against pins too."
+    },
+    {
+      "entity_id": "back_line_utility_easement",
+      "type": "easement",
+      "geometry": { "kind": "polygon", "points_m": [[-23.63, -3.05], [23.63, -3.05], [23.63, 0.0], [-23.63, 0.0]], "z": "terrain" },
+      "source": "1991 plat: 7.5 ft and 10 ft P.U.E. along the back line",
+      "status": "surveyed",
+      "notes": "On our side. No structures. The overhead line on it is gone, but the easement is still on record."
+    },
+    {
+      "entity_id": "retail_lot_1a",
+      "type": "parcel",
       "geometry": {
-        "type": "excavated_prism",
-        "surface_z": -0.5,
-        "floor_z": -3.0, // Drop depth
-        "slope_ratio": "3:1"
+        "kind": "polygon",
+        "points_m": [[15.3, -0.7], [-23.9, 0.0], [-63.1, 0.7], [-102.9, 1.4], [-142.7, 2.1], [-158.7, 2.4],
+                     [-157.4, 62.0], [-71.2, 60.4], [-99.5, 245.5], [-26.9, 275.3]],
+        "z": "terrain"
       },
-      "agent_instruction": "Keep this volume clear of elevated structural meshes. Simulates open horizontal sightlines over the fence."
+      "source": "parcel map",
+      "status": "mapped, +/-2 m",
+      "notes": "Scenic Brook Plaza, 8313 W US 290, 6.33 ac. It touches our back line directly, with no platted right-of-way or buffer strip between. A ~60 m wide arm runs ~160 m south behind the Candelaria lots."
     },
     {
-      "entity_id": "plaza_retaining_wall",
-      "type": "topographical_grade_transition",
-      "coordinates_relative_meters": {
-        "x_bounds": [-25.0, 25.0],
-        "y_fixed": 13.1
-      },
-      "geometry": { "vertical_drop_delta_z": -3.0 },
-      "agent_instruction": "Drop the terrain surface mesh step-down here by 3.0 meters to account for commercial pad grading."
+      "entity_id": "retail_east_end_stormwater",
+      "type": "stormwater_area",
+      "geometry": { "kind": "polygon", "points_m": [[15.0, 0.0], [-44.5, 0.0], [-63.1, 32.8], [-4.5, 64.6]], "z": "terrain" },
+      "source": "flyer site-plan overlay (pond contours, an outlet structure, filter or detention hatching), fitted to the parcel map",
+      "status": "approximate, +/-10 m; shape and depth unknown",
+      "notes": "Between the parking loop's east end and our line. The pond contours are near (-51, 33) and the outlet near (-35, 5), in a natural low that was 1037-1046 ft in 2017. The City plan sheets (SP-2019-0411D) give the real outline and depth."
     },
     {
-      "entity_id": "scenic_brook_plaza_bldg_c",
+      "entity_id": "scenic_brook_plaza_building_3",
       "type": "commercial_structure",
-      "description": "Rear facade of single-story retail building closest to property",
-      "coordinates_relative_meters": {
-        "x_bounds": [-10.0, 20.0],
-        "y_bounds": [13.1, 28.1] // 15-meter depth footprint
-      },
       "geometry": {
-        "foundation_z": -3.0, // Sits on lower graded pad
-        "roof_height_from_pad": 6.5, // High commercial ceiling shell
-        "effective_visual_z_above_yard": 3.5 // 6.5m height - 3.0m drop
+        "kind": "prism",
+        "points_m": [[-30.6, 78.3], [-49.3, 75.4], [-55.0, 113.1], [-36.3, 116.0]],
+        "z_bottom_m": 1.0,
+        "z_top_m": 8.1
       },
-      "facade_attributes": {
-        "fenestration": "none", // Solid rear structural backing wall
-        "signage_illumination": "prohibited_facing_south",
-        "acoustic_properties": "solid_masonry_noise_deflector"
-      }
+      "source": "flyer: floor plan 125 x 62 ft; finished floors 1052, 1054 and 1056 ft; position from its site-plan overlay fitted to the parcel map, long side parallel to the US-290 frontage",
+      "status": "position +/-8 m; top +/-1 m",
+      "facade_toward_us": "East end: dark metal panel with storefront glass and a 'Dentist' tenant sign (flyer east elevation). The other faces mix stone veneer, metal panel and glass.",
+      "notes": "The nearest retail building. Its east end is ~75-80 m out from our line, opposite the next lot south. The floor is 1.0-2.2 m above z = 0 (about level with our yard by the house). The top, a ~21 ft parapet estimated from the 12 ft storefront, is ~8 m above z = 0."
     },
     {
-      "entity_id": "scenic_brook_pocket_park",
-      "type": "protected_greenbelt_buffer",
-      "description": "Deeded municipal conservation area / paper street reclamation",
-      "coordinates_relative_meters": {
-        "x_bounds": [-50.0, -20.0],
-        "y_bounds": [0.0, 40.0]
-      },
-      "environmental_constraints": {
-        "watershed_zone": "Barton Springs Critical Water Quality Buffer",
-        "impervious_cover_allowance": 0.00, // Permanent zero-build zone
-        "foliage_density_3d": "high_canopy_wooded"
-      },
-      "agent_instruction": "Populate with randomized native tree assets (Live Oak / Juniper) to simulate visual masking."
+      "entity_id": "apartment_lot_2a_nearest_corner",
+      "type": "parcel_corner",
+      "geometry": { "kind": "point", "point_m": [-71.2, 60.4], "z": "terrain" },
+      "source": "parcel map; state accessibility filing TABS2025001890",
+      "status": "mapped, +/-2 m",
+      "notes": "Granada Ridge apartments, 40 ac; 372 units in the state filing (the flyer says ~550). This corner is ~77 m from our lot. Building positions and heights need its site plan (SP-2018-0138D)."
+    }
+  ],
+
+  "removed_claims": [
+    {
+      "claim": "granada_hills_undeveloped_platted_buffer: a 15 m platted right-of-way, wooded, between our fence and the retail lot",
+      "finding": "The parcel map shows the retail lot adjoining our back line, with no strip between. The trees on the flyer's base aerial stood on the retail lot, and the owner reports that ground cleared (Oct 2026)."
+    },
+    {
+      "claim": "commercial_retention_basin at y 15-28 m, 2.5 m deep, 3:1 slopes",
+      "finding": "Replaced by retail_east_end_stormwater, which is larger and runs from our line out to ~65 m. Its depth is unknown. A 2.5 m depth with 3:1 slopes wouldn't fit in a 13 m width anyway."
+    },
+    {
+      "claim": "plaza_retaining_wall: a 3.0 m step down to the commercial pad at y 28 m",
+      "finding": "No source. The 2017 ground dips into a drainage low just past our line, then rises to the retail pads."
+    },
+    {
+      "claim": "bldg_c pad 3.0 m below our yard, 3.5 m visible above it",
+      "finding": "Building 3's floor is 1.0-2.2 m above our back-line ground; its top is ~8 m above it, ~75-80 m away."
+    },
+    {
+      "claim": "bldg_c at y 28-43 m, 30 x 15 m",
+      "finding": "Building 3 is 125 x 62 ft (38 x 19 m) at y ~75-116 m."
+    },
+    {
+      "claim": "bldg_c rear facade: no windows, signage prohibited facing south, solid masonry",
+      "finding": "The face toward us (east) has storefront glass and a tenant sign; walls are metal panel, stone veneer and glass."
+    },
+    {
+      "claim": "scenic_brook_pocket_park, a zero-impervious Barton Springs buffer (first version)",
+      "finding": "No source found. The lots next door are in the Barton Springs Zone; that sets impervious-cover limits, not a park."
     }
   ]
 }

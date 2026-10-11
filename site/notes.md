@@ -527,6 +527,9 @@ Austin's public GIS layers (site-plan, subdivision and zoning cases) and TDLR:
   - the parking's east edge is ~355–395 ft (110–120 m) away;
   - the nearest residential buildings are ~700–800 ft (215–245 m) away.
   - The retail lot's south arm (its stormwater area) lies in between.
+
+  The building distances are superseded by the site-plan figures below; the parking figure
+  still comes from the flyer.
 - **The 2016 application's details** (SP-2016-0035D, "Additional Information" tab, from the
   owner's screenshot):
   - limits of construction 19.82 ac of the 40 ac lot, so about half the lot was to stay
@@ -535,14 +538,60 @@ Austin's public GIS layers (site-plan, subdivision and zoning cases) and TDLR:
   - water and wastewater from Austin Water, electric from Pedernales Electric.
 
   The approved 2018 plan's figures may differ; the same tab on SP-2018-0138D would show them.
-- **Still unknown:** building heights and stories, and whether ~550 means a later phase
-  beyond the 372 units. These are on the approved site-plan sheets. The portal record
-  (folder 11917353) has no attachments (owner, Oct 11 2026). To get them:
-  - file a public information request with the City for the approved SP-2018-0138D set;
-  - or count floors on the buildings as they go up.
+- **Heights and unit count:** answered from the site-plan file; see the next section. The
+  portal record (folder 11917353) has no attachments, but the owner got the plan set another
+  way.
 - The City's issued-building-permit layer has nothing here: in the ETJ the City reviews
   site plans but doesn't issue building permits.
 - A 2008 zoning case listed as related (C14-2008-0125) isn't in the City's zoning GIS.
+
+### The apartment site plan, from the City file (Oct 11 2026)
+
+The owner pulled the SP-2018-0138D file: the approved sheets (scanned), Correction #7 with
+its February 2026 update, the City's comment reports, and a cut/fill exhibit. They live in the
+private repo `shed-design-private`, next to this one, because the sheets carry names.
+
+**Site data** (overall site plan, Correction #7 update, Feb 2026):
+
+| Item | Value |
+|---|---|
+| Units | **473** |
+| Buildings | **8** residential, plus a clubhouse/leasing building and a maintenance building |
+| Building height | **5 stories / 65 ft** (one figure for the site; per-building stories aren't given) |
+| Gross floor area | 523,486 sq ft (FAR 0.30); building footprints 125,993 sq ft |
+| Parking | 590 spaces (568 wanted at 1.2 per unit) |
+| Impervious cover | 23.49%; limits of construction 22.69 ac of 40 |
+
+- **Correction #7** (filed Nov 19 2025, updated Feb 5 2026) **adds Buildings 7 and 8** (Phase 9)
+  in the south-east corner. The original plan held that area as a building footprint.
+  Building 7 is 57,534 sq ft.
+  - The 372 units in the state filing are probably Buildings 1–6, which would make 7 and 8
+    worth ~100 units. The flyer's ~550 looks like a rounded or older figure.
+  - The engineer's letter says site work was ~80% done in February 2026. The lot is in the
+    Barton Springs **Contributing** Zone (not the Recharge Zone), with no cut or fill over
+    4 ft.
+- **Where the buildings are.** The overall site plan sheet (1"=60') was fitted to the county
+  parcel map using three of its property lines: rotation 60.9°, RMS 1.4 ft, worst 2.4 ft. Its
+  eight footprints add to 126,010 sq ft against the table's 125,993. Nearest edge of each
+  building to our lot, ±5 ft:
+
+  | Building (phase) | Footprint | To our lot |
+  |---|---|---|
+  | 7/8, east part (9) | 13,012 sq ft | **639 ft (195 m)** |
+  | 7/8, west part (9) | 13,024 sq ft | 771 ft (235 m) |
+  | 1 (3), the east side by the retail lot | 14,622 sq ft | 895 ft (273 m) |
+  | 6 (8) | 20,478 sq ft | 1,009 ft |
+  | 2 (4) | 14,800 sq ft | 1,060 ft |
+  | 5, 3, 4 (7, 5, 6) | 14,795–20,482 sq ft | 1,320–1,403 ft |
+
+- **How tall Buildings 7/8 look from here.** Their block steps down the slope: the drive on its
+  north side is at ~1,059–1,063 ft and the south side, toward the retail lot's arm, at
+  ~1,040–1,045 ft (spot grades on Grading Plan 04; stem walls and stair risers along it).
+  At the site's 65 ft maximum, the roof would be around 1,105–1,110 ft. That's ~50–60 ft
+  above our yard, ~640 ft away. Exact floor levels and per-building heights are in the
+  architectural plans, which aren't in this file.
+- **Toward us,** the plan has the retail lot's south arm (its stormwater area), then the
+  apartments' east parking and drives, then Buildings 7/8 and 1.
 
 ## 3D plan (Oct 11 2026; `property_total_plan.jsonc`, `tools/plan3d.py`)
 

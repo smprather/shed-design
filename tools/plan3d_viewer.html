@@ -454,7 +454,7 @@ details li b { font-weight: 600; }
   let exag = 2;
   const VIEWS = {
     oblique: { eye: [230, -330, 250], at: [-160, 90, 0] },
-    house:   { eye: [-6, -34, 2.2], at: [-120, 115, 6], exag: 1 },   // eye 1.7 m above the yard
+    house:   { eye: /*BACKYARD_EYE*/, at: [-120, 115, 6], exag: 1 },   // 6 ft up, 10 ft out from the back wall (plan3d.py)
     top:     { eye: [-250, 129, 760], at: [-250, 130, 0] },
   };
   const worldOf = (p) => { const v = P(p); v.y *= exag; return v; };

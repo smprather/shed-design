@@ -25,7 +25,7 @@ from pathlib import Path
 import polars as pl
 import rich_click as click
 
-from site_plan import HOUSE, PARCEL, REPO, SITE_B, WELL, en_to_site, north_line_y
+from site_plan import HOUSE, PARCEL, REPO, SITE_B, WELL, en_to_site, north_line_y, site, st
 from site_b_plan import HOSE, house_north_y
 
 SPEC = REPO / "property_total_plan.jsonc"
@@ -40,6 +40,8 @@ B_EAVE = 14.0  # ft; undecided, the noise model's case
 WALL_FOOTING = 2.0  # ft inside the line for a US-290 wall footing
 TREE_ROWS = (10.0, 22.0)  # ft in from the back line: two staggered rows (notes, back-line trees)
 DRAPE_STEP = 2.0  # m between draped vertices
+BACK_WALL_ST = ((100.8, 22.9), (100.8, 68.8))  # the main block's back wall, facing the back lawn (survey s, t)
+BACKYARD_EYE = (10.0, 6.0)  # ft out from that wall's midpoint, and ft above the ground there
 
 Pt = tuple[float, float]
 
@@ -206,15 +208,16 @@ def poly_dist(p: Pt, poly: list[Pt], closed: bool = True) -> float:
     return min(seg_dist(p, a, b) for a, b in segs) if len(poly) > 1 else math.dist(p, poly[0])
 
 
-def write_viewer(path: Path, obj_text: str, plan: dict, checks: list[dict]) -> None:
-    """Fill the viewer template with the model, the plan's entity notes and the checks."""
+def write_viewer(path: Path, obj_text: str, plan: dict, checks: list[dict], backyard_eye: list[float]) -> None:
+    """Fill the viewer template with the model, the plan's entity notes, the checks and the back-yard eye."""
     spec = {"entities": [{k: e.get(k) for k in ("entity_id", "status", "source", "notes", "facade_toward_us")}
                          for e in plan["spatial_entities"]],
             "removed": plan.get("removed_claims", [])}
     head, body = VIEWER.read_text().split("<!--BODY-->\n")
     body = (body.replace("/*OBJ*/", obj_text)
             .replace("/*SPEC*/", json.dumps(spec).replace("</", "<\\/"))
-            .replace("/*CHECKS*/", json.dumps(checks).replace("</", "<\\/")))
+            .replace("/*CHECKS*/", json.dumps(checks).replace("</", "<\\/"))
+            .replace("/*BACKYARD_EYE*/", json.dumps(backyard_eye)))
     path.write_text('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
                     '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
                     f"{head}</head>\n<body>\n{body}</body>\n</html>\n")
@@ -326,7 +329,10 @@ def main(spec: Path, out: Path) -> None:
                   f"# Origin: midpoint of the platted back line, z = 0 at {ground.z0} ft NAVD88; "
                   "+x toward US-290 along the line, +y away from the lot.\n")
     html = out.with_suffix(".html")
-    write_viewer(html, out.read_text(), plan, checks)
+    (s0, t0), (s1, t1) = BACK_WALL_ST
+    eye_xy = to_m(site([st((s0 + s1) / 2 + BACKYARD_EYE[0], (t0 + t1) / 2)])[0])
+    eye = [round(eye_xy[0], 2), round(eye_xy[1], 2), round(ground(*eye_xy) + BACKYARD_EYE[1] * FT, 2)]
+    write_viewer(html, out.read_text(), plan, checks, eye)
     click.echo(f"wrote {out.relative_to(REPO)} ({obj.nv} vertices) and {html.relative_to(REPO)}; "
                f"building B slab at z = {slab:.2f} m")
     with pl.Config(tbl_rows=-1, tbl_hide_dataframe_shape=True, tbl_hide_column_data_types=True,

@@ -637,8 +637,12 @@ checks.
     case.
   - **Retail:** all three buildings. Building 1's 2017 ground (1,071 ft) matches its floor
     level on the flyer, which checks the overlay fit.
-  - **Viewer:** `site/plan3d.html`. Its back-yard view switches to true scale (1×), and from
-    there Buildings 7/8 sit as a band on the horizon ~195 m away.
+  - **Viewer:** `site/plan3d.html`. Its back-yard view is an eye 6 ft above the ground,
+    10 ft out from the middle of the house's back wall, at true scale (1×). From there
+    Buildings 7/8 sit as a band on the horizon ~195 m away.
+  - **The yard falls ~6 ft from the house to the back line,** so a 6–7 ft fence on the
+    line sits about at eye level from the back of the house and hides little from there.
+    Screening for the house needs height near the house or tall trees, not just a fence.
 
 ## Plan: make the house feel less exposed (Oct 11 2026)
 

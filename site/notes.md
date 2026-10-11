@@ -515,7 +515,7 @@ Austin's public GIS layers (site-plan, subdivision and zoning cases) and TDLR:
 | Plat C8J-2014-0087.0A, recorded Jun 2015 | Broadstone Scenic Brook, 46.3 ac, first platted |
 | Amended plat C8J-2017-0250.0A, recorded Oct 2018 | Split into Lot 1A (retail) and Lot 2A (apartments) |
 | Site plan SP-2018-0138D, approved May 6 2019 | "Granada Ridge": multifamily buildings on 40 ac, 24.1% impervious cover, Barton Springs Zone |
-| SP-2016-0035D (expired), SP-2016-0586D (withdrawn 2018), SP-2020-1472D (expired 2022) | Earlier versions and a later revision, all named Granada Ridge. 0035D is the one the 2015 plat cites (owner found it in the City portal; it isn't in the City's GIS layer). Building appears to go ahead under the 2019 plan. |
+| SP-2016-0035D (expired), SP-2016-0586D (withdrawn 2018), SP-2020-1472D (expired 2022) | Earlier versions and a later revision, all named Granada Ridge. 0035D, applied for Jan 25 2016 and expired Apr 12 2016 (folder 11475514), is the one the 2015 plat cites; the owner found it in the City portal, and it isn't in the City's GIS layer. Travis CAD lists the lot as multifamily, built 2024, so construction was underway by then. Building appears to go ahead under the 2019 plan. |
 | SP-2018-0341D, SP-2018-0423D (2018) | Commercial plans filed on this lot before the retail moved to Lot 1A; expired and withdrawn |
 | TDLR TABS2025001890 | Leasing office for a **372-unit** complex, built Jan 2025 to Jan 2027 |
 | TDLR TABS2021011745 | Amenity/leasing building, 5,625 sq ft, listed through Jan 2028 |

@@ -72,12 +72,12 @@ def main() -> None:
     plan.dim((172, 151.5), (172, 169.5), "18 ft", at=(166, 159))
 
     plan.label(160, 139, "B  20 x 40 ft\nmetal building, slab", fill=(255, 235, 140), size=26)
-    plan.label(153, 125.4, "solid wall to US-290: insulated, + CMU inside", fill=(255, 150, 140), size=18)
+    plan.label(153, 125.4, "solid wall to US-290: insulated, no openings", fill=(255, 150, 140), size=18)
     plan.label(156, 148.2, "roll-up doors on this side", fill=WHITE, size=16)
     plan.label(152.5, 156.7, "dashed: 24 x 40 if the trees allow", fill=(255, 235, 140), size=15)
     plan.label(186.5, 165.5, "septic truck parks here", fill=(230, 230, 230), size=15)
     plan.label(121, 146, "hose ~65-70 ft\naround the west end", fill=CYAN, size=15)
-    plan.label(146, 171, "quietest: the sound shadow\nbehind the building", fill=BLUE, size=16)
+    plan.label(146, 171, "quietest: the yard right behind\nthe building (~7 dB)", fill=BLUE, size=16)
     plan.label(120, 100, "Site B, decided Oct 11 2026. Grid = 10 ft. Up = NNE (toward US-290).", size=16)
     plan.scale_bar()
 

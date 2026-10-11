@@ -87,7 +87,7 @@ How it lines up with what we've seen:
 - **The septic system is in the open strip along the US-290 fence**, the same ground
   west of the old carport that looked like the natural place to grow. A white pipe
   near the fence is probably a cleanout or inspection port (worksheet shot 13p).
-- The fence there is a **new tall wood privacy fence**, roughly 8 ft.
+- The fence there is **plain wood pickets with gaps** (owner): no help against noise.
 - A **utility pole stands just beyond the fence**, and a **low wire runs from it toward
   the house**, about fence-top height. If that's the house's electric service, it crosses
   the build strip and limits roof height and position under it (worksheet shot 20).
@@ -125,7 +125,7 @@ How it lines up with what we've seen:
 | 3: A → fence, square off the wall | 49.5 ft | 45.2 ft to the surveyed line (44.6 ft tie ÷ cos 9.1°) | **Fence ~4.3 ft beyond the line** |
 | 4: B → fence, square off the wall | 42.0 ft | ~35 ft to the surveyed line | **Fence ~6–7 ft beyond the line** |
 
-- The **new tall fence on the US-290 side stands outside the 1991 property line**, by
+- The **new fence on the US-290 side stands outside the 1991 property line**, by
   more toward the east. It's also ~8 ft farther out than the older fence in the aerial.
   The strip between the line and the fence is probably highway right-of-way, not ours.
 - **Design to the surveyed line, not the fence.** Before building anything near that
@@ -269,13 +269,13 @@ the house** (24 × 40 if the trees at its SW corner allow).
     and the house, sound mostly bends over the roof and around the ends, so height and
     length count most there.
 - **No gaps.** Sound leaks around the ends and under the walls. Keep the slab edge tight to
-  grade, and tie the building's ends visually and physically into the existing tall fence.
+  grade. The picket fence won't seal anything at the ends.
 - **Longer is better.** It's 40 ft now, limited by the oak (east) and the septic pipe's
   10 ft keep-out (west). If probing shows the pipe is only an inspection port and nothing
   runs toward B, the building may stretch a few feet west.
-- **Expectation:** behind a solid building that blocks the line of sight, traffic noise
-  typically drops ~5–10 dB, noticeably quieter. The effect is strongest in its "shadow"
-  close behind it.
+- **Expectation (see Traffic noise below):** ~7 dB quieter in the yard right behind the
+  building, but only ~3 dB at the house's west end and ~1 dB or less elsewhere. A 40 ft
+  building hides a short stretch of a highway that runs past both of its ends.
 
 ### Checks that matter most for B
 
@@ -286,31 +286,62 @@ the house** (24 × 40 if the trees at its SW corner allow).
 - **Branches over B's east end (17a)**, for erection clearance and eave height.
 - **Tree edge at B's SW corner (T11)**, which decides 20 × 40 vs 24 × 40.
 
-## Traffic noise: wall height estimates (Oct 11 2026)
+## Traffic noise (Oct 11 2026)
 
-The owner reports the house sits ~15–20 ft above US-290. Idealized barrier estimates
-(Maekawa, 550 Hz, lanes 60–100 ft from the line, receivers 40 ft behind it) give the
-following. Real barriers deliver less, and >15 dB is rare, so read these as comparisons.
+The house sits ~15–20 ft above US-290 (owner). The US-290 fence is **plain wood pickets with
+gaps**, which does essentially nothing for noise. So today the slope is the only barrier:
+it gives the ground floor ~5 dB and the 2nd floor ~1 dB.
 
-| Receiver | Hill alone | 8 ft wall at the line | 12 ft | 14 ft |
+### What TxDOT found (Oak Hill Parkway noise study)
+
+- TxDOT's traffic-noise reports for the Oak Hill Parkway (draft Oct 2017, final July 2018)
+  model this block. Receiver **R234**, the first lot west of Candelaria on US-290, appears to
+  be this house (receiver map 3–4 of 16).
+- **R234: 59 dB(A) in 2013, 64 dB(A) predicted for 2040** (peak-hour Leq). A home counts as
+  impacted at 66 dB(A) or a 10 dB increase. This house wasn't impacted, so no wall was studied
+  for it.
+- **R238, the house across Candelaria by the frontage road, was impacted** (59 → 66).
+  TxDOT found that a wall along the right-of-way line **up to 20 ft tall could not reach the
+  minimum 5 dB reduction** (plus the 7 dB design goal) there. That is probably the
+  "turned down" barrier. The other test that sinks walls is cost: no more than $25,000 for
+  each home that gains 5 dB.
+- The walls TxDOT did build are elsewhere: Ridgeview (south side of US-290, South View Rd to
+  Scenic Brook Dr), Bell Quarry Hill Apartments, and a mobile home park at the east end. The
+  2019 policy update and the 2021 validation study kept the same conclusions.
+
+### Estimates for this lot (`uv run tools/noise_model.py`)
+
+The model treats the highway as lanes 60–100 ft beyond the line, 17.5 ft below the lot, and
+running far past both ends of the lot. Values are dB quieter than today. They are
+comparisons, not predictions: ground effect, trees and wind are left out.
+
+| Receiver | B, 14 ft eave | 8 ft wall, lot length | 12 ft wall | 12 ft wall + 60 ft return along Candelaria |
 |---|---|---|---|---|
-| Ground floor / yard | ~5–10 dB | ~14–18 (realistic ~10–15) | ~17–20 | ~18–20 |
-| 2nd-floor window | ~0–3 dB | ~5–12 (realistic ~5–8) | ~10–16 | ~13–17 |
+| House west end, ground / 2nd floor | 2.8 / 3.0 | 4.4 / 4.5 | 5.5 / 6.4 | 6.9 / 7.2 |
+| House middle, ground / 2nd | 1.2 / 1.0 | 4.7 / 4.5 | 5.8 / 6.4 | 7.7 / 7.5 |
+| House east end (kitchen), ground / 2nd | 0.6 / 0.4 | 4.7 / 4.1 | 5.8 / 5.8 | 8.5 / 7.5 |
+| Yard right behind B | 6.7 | 5.1 | 6.5 | 7.6 |
 
-- **Height is what counts, not material.** Any solid, gap-free wall heavier than ~4 lb/sq
-  ft (tight board-on-board, concrete, brick) performs the same at the same height.
-- **An 8 ft brick wall where the 8 ft fence already stands adds ~0–3 dB**, and only by
-  closing leaks in the fence.
-- **The 2nd floor is the weak spot.** Its line of sight to the traffic passes just over
-  an 8 ft wall. A 12–14 ft barrier near the line roughly doubles its benefit there. The
-  tall building at B does that for the west part of the house.
-- **Curved or angled tops** (like airport deflectors, which are mostly for jet blast) gain
-  ~1–3 dB over a plain wall of the same height. A vertical face reflects sound back across
-  the highway, not upward.
-- **Possible TxDOT wall:** the Oak Hill Parkway project built a sound wall along the
-  **south side of US-290 from South View Rd to Scenic Brook Dr**. Check whether the tall
-  "fence" is that wall, i.e. concrete panels with a wood texture. That would also explain
-  it sitting a few feet off the 1991 line, on TxDOT's side by the garage.
+For scale: ~3 dB is just noticeable, 5 dB is clearly noticeable, and 10 dB sounds half as loud.
+
+- **The ends limit everything.** A barrier only quiets the stretch of highway it hides.
+  Endless walls would give ~5–6 dB (8 ft) and ~8–10 dB (12–14 ft). The lot-length walls give
+  less because traffic past the ends still reaches the house, most of all through the
+  Candelaria opening. A wall gap there is likely part of why TxDOT's wall failed at R238.
+- **Building B is a yard shield, not a house shield.** It gives ~7 dB right behind it, ~3 dB
+  at the house's west end, and ~1 dB or less elsewhere. A taller eave barely changes that.
+- **Height plus closing the east end matter most.** A 12 ft wall that returns along Candelaria
+  is the strongest option here, at ~7–8 dB. It needs a solid gate where the drive crosses it.
+  A 12 ft wall is a structure: it needs an engineered footing and likely a permit or variance.
+- **Material only needs to be solid and gap-free** (~4 lb/sq ft: tight board-on-board,
+  concrete, brick). Brick is no better than any other solid wall of the same height.
+- **These replace the earlier 10–15 dB figures**, which were for the straight-out path only,
+  as if the wall were endless.
+- **Curved or angled tops** gain ~1–3 dB over a plain wall of the same height. A vertical face
+  reflects sound back across the highway, not upward. Leaning the face back sends the
+  reflection up, which mostly helps the neighbors across US-290.
+- **At the house**, the north-facing windows and doors are often the cheapest big gain:
+  laminated or dual-pane glass with different pane thicknesses, and sealed frames.
 
 ## Goal
 

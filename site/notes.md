@@ -536,8 +536,10 @@ Austin's public GIS layers (site-plan, subdivision and zoning cases) and TDLR:
 
   The approved 2018 plan's figures may differ; the same tab on SP-2018-0138D would show them.
 - **Still unknown:** building heights and stories, and whether ~550 means a later phase
-  beyond the 372 units. These are on the approved site-plan sheets in the City's permit
-  portal (folder 11917353), which needs a browser.
+  beyond the 372 units. These are on the approved site-plan sheets. The portal record
+  (folder 11917353) has no attachments (owner, Oct 11 2026). To get them:
+  - file a public information request with the City for the approved SP-2018-0138D set;
+  - or count floors on the buildings as they go up.
 - The City's issued-building-permit layer has nothing here: in the ETJ the City reviews
   site plans but doesn't issue building permits.
 - A 2008 zoning case listed as related (C14-2008-0125) isn't in the City's zoning GIS.

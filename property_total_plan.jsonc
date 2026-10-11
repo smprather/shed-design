@@ -38,9 +38,9 @@
     {
       "entity_id": "rear_fence",
       "type": "fence",
-      "geometry": { "kind": "wall", "points_m": [[-23.63, 0.0], [23.63, 0.0]], "height_m": 2.0, "thickness_m": 0.15, "z": "terrain" },
-      "source": "owner's spec",
-      "status": "assumed",
+      "geometry": { "kind": "wall", "points_m": [[-23.63, 0.0], [23.63, 0.0]], "height_m": 1.83, "thickness_m": 0.15, "z": "terrain" },
+      "source": "owner: likely 6 ft (not yet measured)",
+      "status": "estimated",
       "notes": "Position, height and type not checked yet. Placed on the platted line. The US-290 fence wanders up to ~2 m off its line, so tape this one against pins too."
     },
     {

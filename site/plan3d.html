@@ -90,12 +90,14 @@ body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f
 
 h2 { margin: 0 0 8px; font-family: var(--font-display); font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
 .row { display: flex; flex-wrap: wrap; gap: 6px; }
-button.view {
+button.view, button.mode {
   font: 500 13px var(--font-body); color: var(--ink); background: transparent; border: 1px solid var(--rule);
   padding: 6px 10px; border-radius: 3px; cursor: pointer;
 }
-button.view:hover { border-color: var(--ink); }
-button.view[aria-pressed="true"] { background: var(--ink); color: var(--panel); border-color: var(--ink); }
+button.view:hover, button.mode:hover { border-color: var(--ink); }
+button.view[aria-pressed="true"], button.mode[aria-pressed="true"] { background: var(--ink); color: var(--panel); border-color: var(--ink); }
+.drag-mode { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 10px; font-size: 13px; }
+.stage canvas:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 button:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .exag { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 4px 10px; }
 .exag label { font-size: 13px; }
@@ -169,6 +171,11 @@ details li b { font-weight: 600; }
         <button class="view" id="v-house" data-view="house" aria-pressed="false">From the back yard</button>
         <button class="view" id="v-top" data-view="top" aria-pressed="false">Overhead</button>
       </div>
+      <div class="drag-mode" role="group" aria-label="What dragging does">
+        <span>Drag to</span>
+        <button class="mode" id="m-orbit" data-mode="orbit" aria-pressed="true">Orbit</button>
+        <button class="mode" id="m-look" data-mode="look" aria-pressed="false">Look around</button>
+      </div>
     </section>
 
     <section class="exag" aria-labelledby="h-exag">
@@ -204,7 +211,7 @@ details li b { font-weight: 600; }
   </aside>
 
   <main class="stage" id="stage">
-    <canvas id="c" aria-label="3D model of the back line, building B and the retail lot"></canvas>
+    <canvas id="c" tabindex="0" aria-label="3D model of the back line, building B and the retail lot"></canvas>
     <div class="labels" id="labels"></div>
     <div class="compass" aria-hidden="true">
       <svg viewBox="-30 -30 60 60">
@@ -215,7 +222,7 @@ details li b { font-weight: 600; }
         </g>
       </svg>
     </div>
-    <div class="hint">Drag to orbit · scroll or pinch to zoom · right-drag to pan · click to inspect</div>
+    <div class="hint" id="hint">Drag to orbit · scroll or pinch to zoom · right-drag to pan · click to inspect</div>
   </main>
 </div>
 
@@ -63975,720 +63982,720 @@ v -21.661 0.075 -0.981
 v -21.661 -0.075 -0.981
 v -23.630 -0.075 -0.981
 f 51055 51056 51057 51058
-v -23.630 -0.075 1.019
-v -21.661 -0.075 1.019
-v -21.661 0.075 1.019
-v -23.630 0.075 1.019
+v -23.630 -0.075 0.849
+v -21.661 -0.075 0.849
+v -21.661 0.075 0.849
+v -23.630 0.075 0.849
 f 51059 51060 51061 51062
 v -23.630 -0.075 -0.981
 v -21.661 -0.075 -0.981
-v -21.661 -0.075 1.019
-v -23.630 -0.075 1.019
+v -21.661 -0.075 0.849
+v -23.630 -0.075 0.849
 f 51063 51064 51065 51066
 v -21.661 -0.075 -0.981
 v -21.661 0.075 -0.981
-v -21.661 0.075 1.019
-v -21.661 -0.075 1.019
+v -21.661 0.075 0.849
+v -21.661 -0.075 0.849
 f 51067 51068 51069 51070
 v -21.661 0.075 -0.981
 v -23.630 0.075 -0.981
-v -23.630 0.075 1.019
-v -21.661 0.075 1.019
+v -23.630 0.075 0.849
+v -21.661 0.075 0.849
 f 51071 51072 51073 51074
 v -23.630 0.075 -0.981
 v -23.630 -0.075 -0.981
-v -23.630 -0.075 1.019
-v -23.630 0.075 1.019
+v -23.630 -0.075 0.849
+v -23.630 0.075 0.849
 f 51075 51076 51077 51078
 v -21.661 0.075 -0.727
 v -19.692 0.075 -0.727
 v -19.692 -0.075 -0.727
 v -21.661 -0.075 -0.727
 f 51079 51080 51081 51082
-v -21.661 -0.075 1.273
-v -19.692 -0.075 1.273
-v -19.692 0.075 1.273
-v -21.661 0.075 1.273
+v -21.661 -0.075 1.103
+v -19.692 -0.075 1.103
+v -19.692 0.075 1.103
+v -21.661 0.075 1.103
 f 51083 51084 51085 51086
 v -21.661 -0.075 -0.727
 v -19.692 -0.075 -0.727
-v -19.692 -0.075 1.273
-v -21.661 -0.075 1.273
+v -19.692 -0.075 1.103
+v -21.661 -0.075 1.103
 f 51087 51088 51089 51090
 v -19.692 -0.075 -0.727
 v -19.692 0.075 -0.727
-v -19.692 0.075 1.273
-v -19.692 -0.075 1.273
+v -19.692 0.075 1.103
+v -19.692 -0.075 1.103
 f 51091 51092 51093 51094
 v -19.692 0.075 -0.727
 v -21.661 0.075 -0.727
-v -21.661 0.075 1.273
-v -19.692 0.075 1.273
+v -21.661 0.075 1.103
+v -19.692 0.075 1.103
 f 51095 51096 51097 51098
 v -21.661 0.075 -0.727
 v -21.661 -0.075 -0.727
-v -21.661 -0.075 1.273
-v -21.661 0.075 1.273
+v -21.661 -0.075 1.103
+v -21.661 0.075 1.103
 f 51099 51100 51101 51102
 v -19.692 0.075 -0.617
 v -17.723 0.075 -0.617
 v -17.723 -0.075 -0.617
 v -19.692 -0.075 -0.617
 f 51103 51104 51105 51106
-v -19.692 -0.075 1.383
-v -17.723 -0.075 1.383
-v -17.723 0.075 1.383
-v -19.692 0.075 1.383
+v -19.692 -0.075 1.213
+v -17.723 -0.075 1.213
+v -17.723 0.075 1.213
+v -19.692 0.075 1.213
 f 51107 51108 51109 51110
 v -19.692 -0.075 -0.617
 v -17.723 -0.075 -0.617
-v -17.723 -0.075 1.383
-v -19.692 -0.075 1.383
+v -17.723 -0.075 1.213
+v -19.692 -0.075 1.213
 f 51111 51112 51113 51114
 v -17.723 -0.075 -0.617
 v -17.723 0.075 -0.617
-v -17.723 0.075 1.383
-v -17.723 -0.075 1.383
+v -17.723 0.075 1.213
+v -17.723 -0.075 1.213
 f 51115 51116 51117 51118
 v -17.723 0.075 -0.617
 v -19.692 0.075 -0.617
-v -19.692 0.075 1.383
-v -17.723 0.075 1.383
+v -19.692 0.075 1.213
+v -17.723 0.075 1.213
 f 51119 51120 51121 51122
 v -19.692 0.075 -0.617
 v -19.692 -0.075 -0.617
-v -19.692 -0.075 1.383
-v -19.692 0.075 1.383
+v -19.692 -0.075 1.213
+v -19.692 0.075 1.213
 f 51123 51124 51125 51126
 v -17.723 0.075 -0.629
 v -15.753 0.075 -0.629
 v -15.753 -0.075 -0.629
 v -17.723 -0.075 -0.629
 f 51127 51128 51129 51130
-v -17.723 -0.075 1.371
-v -15.753 -0.075 1.371
-v -15.753 0.075 1.371
-v -17.723 0.075 1.371
+v -17.723 -0.075 1.201
+v -15.753 -0.075 1.201
+v -15.753 0.075 1.201
+v -17.723 0.075 1.201
 f 51131 51132 51133 51134
 v -17.723 -0.075 -0.629
 v -15.753 -0.075 -0.629
-v -15.753 -0.075 1.371
-v -17.723 -0.075 1.371
+v -15.753 -0.075 1.201
+v -17.723 -0.075 1.201
 f 51135 51136 51137 51138
 v -15.753 -0.075 -0.629
 v -15.753 0.075 -0.629
-v -15.753 0.075 1.371
-v -15.753 -0.075 1.371
+v -15.753 0.075 1.201
+v -15.753 -0.075 1.201
 f 51139 51140 51141 51142
 v -15.753 0.075 -0.629
 v -17.723 0.075 -0.629
-v -17.723 0.075 1.371
-v -15.753 0.075 1.371
+v -17.723 0.075 1.201
+v -15.753 0.075 1.201
 f 51143 51144 51145 51146
 v -17.723 0.075 -0.629
 v -17.723 -0.075 -0.629
-v -17.723 -0.075 1.371
-v -17.723 0.075 1.371
+v -17.723 -0.075 1.201
+v -17.723 0.075 1.201
 f 51147 51148 51149 51150
 v -15.753 0.075 -0.604
 v -13.784 0.075 -0.604
 v -13.784 -0.075 -0.604
 v -15.753 -0.075 -0.604
 f 51151 51152 51153 51154
-v -15.753 -0.075 1.396
-v -13.784 -0.075 1.396
-v -13.784 0.075 1.396
-v -15.753 0.075 1.396
+v -15.753 -0.075 1.226
+v -13.784 -0.075 1.226
+v -13.784 0.075 1.226
+v -15.753 0.075 1.226
 f 51155 51156 51157 51158
 v -15.753 -0.075 -0.604
 v -13.784 -0.075 -0.604
-v -13.784 -0.075 1.396
-v -15.753 -0.075 1.396
+v -13.784 -0.075 1.226
+v -15.753 -0.075 1.226
 f 51159 51160 51161 51162
 v -13.784 -0.075 -0.604
 v -13.784 0.075 -0.604
-v -13.784 0.075 1.396
-v -13.784 -0.075 1.396
+v -13.784 0.075 1.226
+v -13.784 -0.075 1.226
 f 51163 51164 51165 51166
 v -13.784 0.075 -0.604
 v -15.753 0.075 -0.604
-v -15.753 0.075 1.396
-v -13.784 0.075 1.396
+v -15.753 0.075 1.226
+v -13.784 0.075 1.226
 f 51167 51168 51169 51170
 v -15.753 0.075 -0.604
 v -15.753 -0.075 -0.604
-v -15.753 -0.075 1.396
-v -15.753 0.075 1.396
+v -15.753 -0.075 1.226
+v -15.753 0.075 1.226
 f 51171 51172 51173 51174
 v -13.784 0.075 -0.519
 v -11.815 0.075 -0.519
 v -11.815 -0.075 -0.519
 v -13.784 -0.075 -0.519
 f 51175 51176 51177 51178
-v -13.784 -0.075 1.481
-v -11.815 -0.075 1.481
-v -11.815 0.075 1.481
-v -13.784 0.075 1.481
+v -13.784 -0.075 1.311
+v -11.815 -0.075 1.311
+v -11.815 0.075 1.311
+v -13.784 0.075 1.311
 f 51179 51180 51181 51182
 v -13.784 -0.075 -0.519
 v -11.815 -0.075 -0.519
-v -11.815 -0.075 1.481
-v -13.784 -0.075 1.481
+v -11.815 -0.075 1.311
+v -13.784 -0.075 1.311
 f 51183 51184 51185 51186
 v -11.815 -0.075 -0.519
 v -11.815 0.075 -0.519
-v -11.815 0.075 1.481
-v -11.815 -0.075 1.481
+v -11.815 0.075 1.311
+v -11.815 -0.075 1.311
 f 51187 51188 51189 51190
 v -11.815 0.075 -0.519
 v -13.784 0.075 -0.519
-v -13.784 0.075 1.481
-v -11.815 0.075 1.481
+v -13.784 0.075 1.311
+v -11.815 0.075 1.311
 f 51191 51192 51193 51194
 v -13.784 0.075 -0.519
 v -13.784 -0.075 -0.519
-v -13.784 -0.075 1.481
-v -13.784 0.075 1.481
+v -13.784 -0.075 1.311
+v -13.784 0.075 1.311
 f 51195 51196 51197 51198
 v -11.815 0.075 -0.413
 v -9.846 0.075 -0.413
 v -9.846 -0.075 -0.413
 v -11.815 -0.075 -0.413
 f 51199 51200 51201 51202
-v -11.815 -0.075 1.587
-v -9.846 -0.075 1.587
-v -9.846 0.075 1.587
-v -11.815 0.075 1.587
+v -11.815 -0.075 1.417
+v -9.846 -0.075 1.417
+v -9.846 0.075 1.417
+v -11.815 0.075 1.417
 f 51203 51204 51205 51206
 v -11.815 -0.075 -0.413
 v -9.846 -0.075 -0.413
-v -9.846 -0.075 1.587
-v -11.815 -0.075 1.587
+v -9.846 -0.075 1.417
+v -11.815 -0.075 1.417
 f 51207 51208 51209 51210
 v -9.846 -0.075 -0.413
 v -9.846 0.075 -0.413
-v -9.846 0.075 1.587
-v -9.846 -0.075 1.587
+v -9.846 0.075 1.417
+v -9.846 -0.075 1.417
 f 51211 51212 51213 51214
 v -9.846 0.075 -0.413
 v -11.815 0.075 -0.413
-v -11.815 0.075 1.587
-v -9.846 0.075 1.587
+v -11.815 0.075 1.417
+v -9.846 0.075 1.417
 f 51215 51216 51217 51218
 v -11.815 0.075 -0.413
 v -11.815 -0.075 -0.413
-v -11.815 -0.075 1.587
-v -11.815 0.075 1.587
+v -11.815 -0.075 1.417
+v -11.815 0.075 1.417
 f 51219 51220 51221 51222
 v -9.846 0.075 -0.331
 v -7.877 0.075 -0.331
 v -7.877 -0.075 -0.331
 v -9.846 -0.075 -0.331
 f 51223 51224 51225 51226
-v -9.846 -0.075 1.669
-v -7.877 -0.075 1.669
-v -7.877 0.075 1.669
-v -9.846 0.075 1.669
+v -9.846 -0.075 1.499
+v -7.877 -0.075 1.499
+v -7.877 0.075 1.499
+v -9.846 0.075 1.499
 f 51227 51228 51229 51230
 v -9.846 -0.075 -0.331
 v -7.877 -0.075 -0.331
-v -7.877 -0.075 1.669
-v -9.846 -0.075 1.669
+v -7.877 -0.075 1.499
+v -9.846 -0.075 1.499
 f 51231 51232 51233 51234
 v -7.877 -0.075 -0.331
 v -7.877 0.075 -0.331
-v -7.877 0.075 1.669
-v -7.877 -0.075 1.669
+v -7.877 0.075 1.499
+v -7.877 -0.075 1.499
 f 51235 51236 51237 51238
 v -7.877 0.075 -0.331
 v -9.846 0.075 -0.331
-v -9.846 0.075 1.669
-v -7.877 0.075 1.669
+v -9.846 0.075 1.499
+v -7.877 0.075 1.499
 f 51239 51240 51241 51242
 v -9.846 0.075 -0.331
 v -9.846 -0.075 -0.331
-v -9.846 -0.075 1.669
-v -9.846 0.075 1.669
+v -9.846 -0.075 1.499
+v -9.846 0.075 1.499
 f 51243 51244 51245 51246
 v -7.877 0.075 -0.271
 v -5.907 0.075 -0.271
 v -5.907 -0.075 -0.271
 v -7.877 -0.075 -0.271
 f 51247 51248 51249 51250
-v -7.877 -0.075 1.729
-v -5.907 -0.075 1.729
-v -5.907 0.075 1.729
-v -7.877 0.075 1.729
+v -7.877 -0.075 1.559
+v -5.907 -0.075 1.559
+v -5.907 0.075 1.559
+v -7.877 0.075 1.559
 f 51251 51252 51253 51254
 v -7.877 -0.075 -0.271
 v -5.907 -0.075 -0.271
-v -5.907 -0.075 1.729
-v -7.877 -0.075 1.729
+v -5.907 -0.075 1.559
+v -7.877 -0.075 1.559
 f 51255 51256 51257 51258
 v -5.907 -0.075 -0.271
 v -5.907 0.075 -0.271
-v -5.907 0.075 1.729
-v -5.907 -0.075 1.729
+v -5.907 0.075 1.559
+v -5.907 -0.075 1.559
 f 51259 51260 51261 51262
 v -5.907 0.075 -0.271
 v -7.877 0.075 -0.271
-v -7.877 0.075 1.729
-v -5.907 0.075 1.729
+v -7.877 0.075 1.559
+v -5.907 0.075 1.559
 f 51263 51264 51265 51266
 v -7.877 0.075 -0.271
 v -7.877 -0.075 -0.271
-v -7.877 -0.075 1.729
-v -7.877 0.075 1.729
+v -7.877 -0.075 1.559
+v -7.877 0.075 1.559
 f 51267 51268 51269 51270
 v -5.907 0.075 -0.205
 v -3.938 0.075 -0.205
 v -3.938 -0.075 -0.205
 v -5.907 -0.075 -0.205
 f 51271 51272 51273 51274
-v -5.907 -0.075 1.795
-v -3.938 -0.075 1.795
-v -3.938 0.075 1.795
-v -5.907 0.075 1.795
+v -5.907 -0.075 1.625
+v -3.938 -0.075 1.625
+v -3.938 0.075 1.625
+v -5.907 0.075 1.625
 f 51275 51276 51277 51278
 v -5.907 -0.075 -0.205
 v -3.938 -0.075 -0.205
-v -3.938 -0.075 1.795
-v -5.907 -0.075 1.795
+v -3.938 -0.075 1.625
+v -5.907 -0.075 1.625
 f 51279 51280 51281 51282
 v -3.938 -0.075 -0.205
 v -3.938 0.075 -0.205
-v -3.938 0.075 1.795
-v -3.938 -0.075 1.795
+v -3.938 0.075 1.625
+v -3.938 -0.075 1.625
 f 51283 51284 51285 51286
 v -3.938 0.075 -0.205
 v -5.907 0.075 -0.205
-v -5.907 0.075 1.795
-v -3.938 0.075 1.795
+v -5.907 0.075 1.625
+v -3.938 0.075 1.625
 f 51287 51288 51289 51290
 v -5.907 0.075 -0.205
 v -5.907 -0.075 -0.205
-v -5.907 -0.075 1.795
-v -5.907 0.075 1.795
+v -5.907 -0.075 1.625
+v -5.907 0.075 1.625
 f 51291 51292 51293 51294
 v -3.938 0.075 -0.126
 v -1.969 0.075 -0.126
 v -1.969 -0.075 -0.126
 v -3.938 -0.075 -0.126
 f 51295 51296 51297 51298
-v -3.938 -0.075 1.874
-v -1.969 -0.075 1.874
-v -1.969 0.075 1.874
-v -3.938 0.075 1.874
+v -3.938 -0.075 1.704
+v -1.969 -0.075 1.704
+v -1.969 0.075 1.704
+v -3.938 0.075 1.704
 f 51299 51300 51301 51302
 v -3.938 -0.075 -0.126
 v -1.969 -0.075 -0.126
-v -1.969 -0.075 1.874
-v -3.938 -0.075 1.874
+v -1.969 -0.075 1.704
+v -3.938 -0.075 1.704
 f 51303 51304 51305 51306
 v -1.969 -0.075 -0.126
 v -1.969 0.075 -0.126
-v -1.969 0.075 1.874
-v -1.969 -0.075 1.874
+v -1.969 0.075 1.704
+v -1.969 -0.075 1.704
 f 51307 51308 51309 51310
 v -1.969 0.075 -0.126
 v -3.938 0.075 -0.126
-v -3.938 0.075 1.874
-v -1.969 0.075 1.874
+v -3.938 0.075 1.704
+v -1.969 0.075 1.704
 f 51311 51312 51313 51314
 v -3.938 0.075 -0.126
 v -3.938 -0.075 -0.126
-v -3.938 -0.075 1.874
-v -3.938 0.075 1.874
+v -3.938 -0.075 1.704
+v -3.938 0.075 1.704
 f 51315 51316 51317 51318
 v -1.969 0.075 -0.042
 v 0.000 0.075 -0.042
 v 0.000 -0.075 -0.042
 v -1.969 -0.075 -0.042
 f 51319 51320 51321 51322
-v -1.969 -0.075 1.958
-v 0.000 -0.075 1.958
-v 0.000 0.075 1.958
-v -1.969 0.075 1.958
+v -1.969 -0.075 1.788
+v 0.000 -0.075 1.788
+v 0.000 0.075 1.788
+v -1.969 0.075 1.788
 f 51323 51324 51325 51326
 v -1.969 -0.075 -0.042
 v 0.000 -0.075 -0.042
-v 0.000 -0.075 1.958
-v -1.969 -0.075 1.958
+v 0.000 -0.075 1.788
+v -1.969 -0.075 1.788
 f 51327 51328 51329 51330
 v 0.000 -0.075 -0.042
 v 0.000 0.075 -0.042
-v 0.000 0.075 1.958
-v 0.000 -0.075 1.958
+v 0.000 0.075 1.788
+v 0.000 -0.075 1.788
 f 51331 51332 51333 51334
 v 0.000 0.075 -0.042
 v -1.969 0.075 -0.042
-v -1.969 0.075 1.958
-v 0.000 0.075 1.958
+v -1.969 0.075 1.788
+v 0.000 0.075 1.788
 f 51335 51336 51337 51338
 v -1.969 0.075 -0.042
 v -1.969 -0.075 -0.042
-v -1.969 -0.075 1.958
-v -1.969 0.075 1.958
+v -1.969 -0.075 1.788
+v -1.969 0.075 1.788
 f 51339 51340 51341 51342
 v 0.000 0.075 0.048
 v 1.969 0.075 0.048
 v 1.969 -0.075 0.048
 v 0.000 -0.075 0.048
 f 51343 51344 51345 51346
-v 0.000 -0.075 2.048
-v 1.969 -0.075 2.048
-v 1.969 0.075 2.048
-v 0.000 0.075 2.048
+v 0.000 -0.075 1.878
+v 1.969 -0.075 1.878
+v 1.969 0.075 1.878
+v 0.000 0.075 1.878
 f 51347 51348 51349 51350
 v 0.000 -0.075 0.048
 v 1.969 -0.075 0.048
-v 1.969 -0.075 2.048
-v 0.000 -0.075 2.048
+v 1.969 -0.075 1.878
+v 0.000 -0.075 1.878
 f 51351 51352 51353 51354
 v 1.969 -0.075 0.048
 v 1.969 0.075 0.048
-v 1.969 0.075 2.048
-v 1.969 -0.075 2.048
+v 1.969 0.075 1.878
+v 1.969 -0.075 1.878
 f 51355 51356 51357 51358
 v 1.969 0.075 0.048
 v 0.000 0.075 0.048
-v 0.000 0.075 2.048
-v 1.969 0.075 2.048
+v 0.000 0.075 1.878
+v 1.969 0.075 1.878
 f 51359 51360 51361 51362
 v 0.000 0.075 0.048
 v 0.000 -0.075 0.048
-v 0.000 -0.075 2.048
-v 0.000 0.075 2.048
+v 0.000 -0.075 1.878
+v 0.000 0.075 1.878
 f 51363 51364 51365 51366
 v 1.969 0.075 0.144
 v 3.938 0.075 0.144
 v 3.938 -0.075 0.144
 v 1.969 -0.075 0.144
 f 51367 51368 51369 51370
-v 1.969 -0.075 2.144
-v 3.938 -0.075 2.144
-v 3.938 0.075 2.144
-v 1.969 0.075 2.144
+v 1.969 -0.075 1.974
+v 3.938 -0.075 1.974
+v 3.938 0.075 1.974
+v 1.969 0.075 1.974
 f 51371 51372 51373 51374
 v 1.969 -0.075 0.144
 v 3.938 -0.075 0.144
-v 3.938 -0.075 2.144
-v 1.969 -0.075 2.144
+v 3.938 -0.075 1.974
+v 1.969 -0.075 1.974
 f 51375 51376 51377 51378
 v 3.938 -0.075 0.144
 v 3.938 0.075 0.144
-v 3.938 0.075 2.144
-v 3.938 -0.075 2.144
+v 3.938 0.075 1.974
+v 3.938 -0.075 1.974
 f 51379 51380 51381 51382
 v 3.938 0.075 0.144
 v 1.969 0.075 0.144
-v 1.969 0.075 2.144
-v 3.938 0.075 2.144
+v 1.969 0.075 1.974
+v 3.938 0.075 1.974
 f 51383 51384 51385 51386
 v 1.969 0.075 0.144
 v 1.969 -0.075 0.144
-v 1.969 -0.075 2.144
-v 1.969 0.075 2.144
+v 1.969 -0.075 1.974
+v 1.969 0.075 1.974
 f 51387 51388 51389 51390
 v 3.938 0.075 0.232
 v 5.907 0.075 0.232
 v 5.907 -0.075 0.232
 v 3.938 -0.075 0.232
 f 51391 51392 51393 51394
-v 3.938 -0.075 2.232
-v 5.907 -0.075 2.232
-v 5.907 0.075 2.232
-v 3.938 0.075 2.232
+v 3.938 -0.075 2.062
+v 5.907 -0.075 2.062
+v 5.907 0.075 2.062
+v 3.938 0.075 2.062
 f 51395 51396 51397 51398
 v 3.938 -0.075 0.232
 v 5.907 -0.075 0.232
-v 5.907 -0.075 2.232
-v 3.938 -0.075 2.232
+v 5.907 -0.075 2.062
+v 3.938 -0.075 2.062
 f 51399 51400 51401 51402
 v 5.907 -0.075 0.232
 v 5.907 0.075 0.232
-v 5.907 0.075 2.232
-v 5.907 -0.075 2.232
+v 5.907 0.075 2.062
+v 5.907 -0.075 2.062
 f 51403 51404 51405 51406
 v 5.907 0.075 0.232
 v 3.938 0.075 0.232
-v 3.938 0.075 2.232
-v 5.907 0.075 2.232
+v 3.938 0.075 2.062
+v 5.907 0.075 2.062
 f 51407 51408 51409 51410
 v 3.938 0.075 0.232
 v 3.938 -0.075 0.232
-v 3.938 -0.075 2.232
-v 3.938 0.075 2.232
+v 3.938 -0.075 2.062
+v 3.938 0.075 2.062
 f 51411 51412 51413 51414
 v 5.907 0.075 0.302
 v 7.877 0.075 0.302
 v 7.877 -0.075 0.302
 v 5.907 -0.075 0.302
 f 51415 51416 51417 51418
-v 5.907 -0.075 2.302
-v 7.877 -0.075 2.302
-v 7.877 0.075 2.302
-v 5.907 0.075 2.302
+v 5.907 -0.075 2.132
+v 7.877 -0.075 2.132
+v 7.877 0.075 2.132
+v 5.907 0.075 2.132
 f 51419 51420 51421 51422
 v 5.907 -0.075 0.302
 v 7.877 -0.075 0.302
-v 7.877 -0.075 2.302
-v 5.907 -0.075 2.302
+v 7.877 -0.075 2.132
+v 5.907 -0.075 2.132
 f 51423 51424 51425 51426
 v 7.877 -0.075 0.302
 v 7.877 0.075 0.302
-v 7.877 0.075 2.302
-v 7.877 -0.075 2.302
+v 7.877 0.075 2.132
+v 7.877 -0.075 2.132
 f 51427 51428 51429 51430
 v 7.877 0.075 0.302
 v 5.907 0.075 0.302
-v 5.907 0.075 2.302
-v 7.877 0.075 2.302
+v 5.907 0.075 2.132
+v 7.877 0.075 2.132
 f 51431 51432 51433 51434
 v 5.907 0.075 0.302
 v 5.907 -0.075 0.302
-v 5.907 -0.075 2.302
-v 5.907 0.075 2.302
+v 5.907 -0.075 2.132
+v 5.907 0.075 2.132
 f 51435 51436 51437 51438
 v 7.877 0.075 0.362
 v 9.846 0.075 0.362
 v 9.846 -0.075 0.362
 v 7.877 -0.075 0.362
 f 51439 51440 51441 51442
-v 7.877 -0.075 2.362
-v 9.846 -0.075 2.362
-v 9.846 0.075 2.362
-v 7.877 0.075 2.362
+v 7.877 -0.075 2.192
+v 9.846 -0.075 2.192
+v 9.846 0.075 2.192
+v 7.877 0.075 2.192
 f 51443 51444 51445 51446
 v 7.877 -0.075 0.362
 v 9.846 -0.075 0.362
-v 9.846 -0.075 2.362
-v 7.877 -0.075 2.362
+v 9.846 -0.075 2.192
+v 7.877 -0.075 2.192
 f 51447 51448 51449 51450
 v 9.846 -0.075 0.362
 v 9.846 0.075 0.362
-v 9.846 0.075 2.362
-v 9.846 -0.075 2.362
+v 9.846 0.075 2.192
+v 9.846 -0.075 2.192
 f 51451 51452 51453 51454
 v 9.846 0.075 0.362
 v 7.877 0.075 0.362
-v 7.877 0.075 2.362
-v 9.846 0.075 2.362
+v 7.877 0.075 2.192
+v 9.846 0.075 2.192
 f 51455 51456 51457 51458
 v 7.877 0.075 0.362
 v 7.877 -0.075 0.362
-v 7.877 -0.075 2.362
-v 7.877 0.075 2.362
+v 7.877 -0.075 2.192
+v 7.877 0.075 2.192
 f 51459 51460 51461 51462
 v 9.846 0.075 0.422
 v 11.815 0.075 0.422
 v 11.815 -0.075 0.422
 v 9.846 -0.075 0.422
 f 51463 51464 51465 51466
-v 9.846 -0.075 2.422
-v 11.815 -0.075 2.422
-v 11.815 0.075 2.422
-v 9.846 0.075 2.422
+v 9.846 -0.075 2.252
+v 11.815 -0.075 2.252
+v 11.815 0.075 2.252
+v 9.846 0.075 2.252
 f 51467 51468 51469 51470
 v 9.846 -0.075 0.422
 v 11.815 -0.075 0.422
-v 11.815 -0.075 2.422
-v 9.846 -0.075 2.422
+v 11.815 -0.075 2.252
+v 9.846 -0.075 2.252
 f 51471 51472 51473 51474
 v 11.815 -0.075 0.422
 v 11.815 0.075 0.422
-v 11.815 0.075 2.422
-v 11.815 -0.075 2.422
+v 11.815 0.075 2.252
+v 11.815 -0.075 2.252
 f 51475 51476 51477 51478
 v 11.815 0.075 0.422
 v 9.846 0.075 0.422
-v 9.846 0.075 2.422
-v 11.815 0.075 2.422
+v 9.846 0.075 2.252
+v 11.815 0.075 2.252
 f 51479 51480 51481 51482
 v 9.846 0.075 0.422
 v 9.846 -0.075 0.422
-v 9.846 -0.075 2.422
-v 9.846 0.075 2.422
+v 9.846 -0.075 2.252
+v 9.846 0.075 2.252
 f 51483 51484 51485 51486
 v 11.815 0.075 0.482
 v 13.784 0.075 0.482
 v 13.784 -0.075 0.482
 v 11.815 -0.075 0.482
 f 51487 51488 51489 51490
-v 11.815 -0.075 2.482
-v 13.784 -0.075 2.482
-v 13.784 0.075 2.482
-v 11.815 0.075 2.482
+v 11.815 -0.075 2.312
+v 13.784 -0.075 2.312
+v 13.784 0.075 2.312
+v 11.815 0.075 2.312
 f 51491 51492 51493 51494
 v 11.815 -0.075 0.482
 v 13.784 -0.075 0.482
-v 13.784 -0.075 2.482
-v 11.815 -0.075 2.482
+v 13.784 -0.075 2.312
+v 11.815 -0.075 2.312
 f 51495 51496 51497 51498
 v 13.784 -0.075 0.482
 v 13.784 0.075 0.482
-v 13.784 0.075 2.482
-v 13.784 -0.075 2.482
+v 13.784 0.075 2.312
+v 13.784 -0.075 2.312
 f 51499 51500 51501 51502
 v 13.784 0.075 0.482
 v 11.815 0.075 0.482
-v 11.815 0.075 2.482
-v 13.784 0.075 2.482
+v 11.815 0.075 2.312
+v 13.784 0.075 2.312
 f 51503 51504 51505 51506
 v 11.815 0.075 0.482
 v 11.815 -0.075 0.482
-v 11.815 -0.075 2.482
-v 11.815 0.075 2.482
+v 11.815 -0.075 2.312
+v 11.815 0.075 2.312
 f 51507 51508 51509 51510
 v 13.784 0.075 0.535
 v 15.753 0.075 0.535
 v 15.753 -0.075 0.535
 v 13.784 -0.075 0.535
 f 51511 51512 51513 51514
-v 13.784 -0.075 2.535
-v 15.753 -0.075 2.535
-v 15.753 0.075 2.535
-v 13.784 0.075 2.535
+v 13.784 -0.075 2.365
+v 15.753 -0.075 2.365
+v 15.753 0.075 2.365
+v 13.784 0.075 2.365
 f 51515 51516 51517 51518
 v 13.784 -0.075 0.535
 v 15.753 -0.075 0.535
-v 15.753 -0.075 2.535
-v 13.784 -0.075 2.535
+v 15.753 -0.075 2.365
+v 13.784 -0.075 2.365
 f 51519 51520 51521 51522
 v 15.753 -0.075 0.535
 v 15.753 0.075 0.535
-v 15.753 0.075 2.535
-v 15.753 -0.075 2.535
+v 15.753 0.075 2.365
+v 15.753 -0.075 2.365
 f 51523 51524 51525 51526
 v 15.753 0.075 0.535
 v 13.784 0.075 0.535
-v 13.784 0.075 2.535
-v 15.753 0.075 2.535
+v 13.784 0.075 2.365
+v 15.753 0.075 2.365
 f 51527 51528 51529 51530
 v 13.784 0.075 0.535
 v 13.784 -0.075 0.535
-v 13.784 -0.075 2.535
-v 13.784 0.075 2.535
+v 13.784 -0.075 2.365
+v 13.784 0.075 2.365
 f 51531 51532 51533 51534
 v 15.753 0.075 0.570
 v 17.723 0.075 0.570
 v 17.723 -0.075 0.570
 v 15.753 -0.075 0.570
 f 51535 51536 51537 51538
-v 15.753 -0.075 2.570
-v 17.723 -0.075 2.570
-v 17.723 0.075 2.570
-v 15.753 0.075 2.570
+v 15.753 -0.075 2.400
+v 17.723 -0.075 2.400
+v 17.723 0.075 2.400
+v 15.753 0.075 2.400
 f 51539 51540 51541 51542
 v 15.753 -0.075 0.570
 v 17.723 -0.075 0.570
-v 17.723 -0.075 2.570
-v 15.753 -0.075 2.570
+v 17.723 -0.075 2.400
+v 15.753 -0.075 2.400
 f 51543 51544 51545 51546
 v 17.723 -0.075 0.570
 v 17.723 0.075 0.570
-v 17.723 0.075 2.570
-v 17.723 -0.075 2.570
+v 17.723 0.075 2.400
+v 17.723 -0.075 2.400
 f 51547 51548 51549 51550
 v 17.723 0.075 0.570
 v 15.753 0.075 0.570
-v 15.753 0.075 2.570
-v 17.723 0.075 2.570
+v 15.753 0.075 2.400
+v 17.723 0.075 2.400
 f 51551 51552 51553 51554
 v 15.753 0.075 0.570
 v 15.753 -0.075 0.570
-v 15.753 -0.075 2.570
-v 15.753 0.075 2.570
+v 15.753 -0.075 2.400
+v 15.753 0.075 2.400
 f 51555 51556 51557 51558
 v 17.723 0.075 0.594
 v 19.692 0.075 0.594
 v 19.692 -0.075 0.594
 v 17.723 -0.075 0.594
 f 51559 51560 51561 51562
-v 17.723 -0.075 2.594
-v 19.692 -0.075 2.594
-v 19.692 0.075 2.594
-v 17.723 0.075 2.594
+v 17.723 -0.075 2.424
+v 19.692 -0.075 2.424
+v 19.692 0.075 2.424
+v 17.723 0.075 2.424
 f 51563 51564 51565 51566
 v 17.723 -0.075 0.594
 v 19.692 -0.075 0.594
-v 19.692 -0.075 2.594
-v 17.723 -0.075 2.594
+v 19.692 -0.075 2.424
+v 17.723 -0.075 2.424
 f 51567 51568 51569 51570
 v 19.692 -0.075 0.594
 v 19.692 0.075 0.594
-v 19.692 0.075 2.594
-v 19.692 -0.075 2.594
+v 19.692 0.075 2.424
+v 19.692 -0.075 2.424
 f 51571 51572 51573 51574
 v 19.692 0.075 0.594
 v 17.723 0.075 0.594
-v 17.723 0.075 2.594
-v 19.692 0.075 2.594
+v 17.723 0.075 2.424
+v 19.692 0.075 2.424
 f 51575 51576 51577 51578
 v 17.723 0.075 0.594
 v 17.723 -0.075 0.594
-v 17.723 -0.075 2.594
-v 17.723 0.075 2.594
+v 17.723 -0.075 2.424
+v 17.723 0.075 2.424
 f 51579 51580 51581 51582
 v 19.692 0.075 0.633
 v 21.661 0.075 0.633
 v 21.661 -0.075 0.633
 v 19.692 -0.075 0.633
 f 51583 51584 51585 51586
-v 19.692 -0.075 2.633
-v 21.661 -0.075 2.633
-v 21.661 0.075 2.633
-v 19.692 0.075 2.633
+v 19.692 -0.075 2.463
+v 21.661 -0.075 2.463
+v 21.661 0.075 2.463
+v 19.692 0.075 2.463
 f 51587 51588 51589 51590
 v 19.692 -0.075 0.633
 v 21.661 -0.075 0.633
-v 21.661 -0.075 2.633
-v 19.692 -0.075 2.633
+v 21.661 -0.075 2.463
+v 19.692 -0.075 2.463
 f 51591 51592 51593 51594
 v 21.661 -0.075 0.633
 v 21.661 0.075 0.633
-v 21.661 0.075 2.633
-v 21.661 -0.075 2.633
+v 21.661 0.075 2.463
+v 21.661 -0.075 2.463
 f 51595 51596 51597 51598
 v 21.661 0.075 0.633
 v 19.692 0.075 0.633
-v 19.692 0.075 2.633
-v 21.661 0.075 2.633
+v 19.692 0.075 2.463
+v 21.661 0.075 2.463
 f 51599 51600 51601 51602
 v 19.692 0.075 0.633
 v 19.692 -0.075 0.633
-v 19.692 -0.075 2.633
-v 19.692 0.075 2.633
+v 19.692 -0.075 2.463
+v 19.692 0.075 2.463
 f 51603 51604 51605 51606
 v 21.661 0.075 0.690
 v 23.630 0.075 0.690
 v 23.630 -0.075 0.690
 v 21.661 -0.075 0.690
 f 51607 51608 51609 51610
-v 21.661 -0.075 2.690
-v 23.630 -0.075 2.690
-v 23.630 0.075 2.690
-v 21.661 0.075 2.690
+v 21.661 -0.075 2.520
+v 23.630 -0.075 2.520
+v 23.630 0.075 2.520
+v 21.661 0.075 2.520
 f 51611 51612 51613 51614
 v 21.661 -0.075 0.690
 v 23.630 -0.075 0.690
-v 23.630 -0.075 2.690
-v 21.661 -0.075 2.690
+v 23.630 -0.075 2.520
+v 21.661 -0.075 2.520
 f 51615 51616 51617 51618
 v 23.630 -0.075 0.690
 v 23.630 0.075 0.690
-v 23.630 0.075 2.690
-v 23.630 -0.075 2.690
+v 23.630 0.075 2.520
+v 23.630 -0.075 2.520
 f 51619 51620 51621 51622
 v 23.630 0.075 0.690
 v 21.661 0.075 0.690
-v 21.661 0.075 2.690
-v 23.630 0.075 2.690
+v 21.661 0.075 2.520
+v 23.630 0.075 2.520
 f 51623 51624 51625 51626
 v 21.661 0.075 0.690
 v 21.661 -0.075 0.690
-v 21.661 -0.075 2.690
-v 21.661 0.075 2.690
+v 21.661 -0.075 2.520
+v 21.661 0.075 2.520
 f 51627 51628 51629 51630
 o back_line_utility_easement
 v -23.630 -3.050 -0.901
@@ -70157,7 +70164,7 @@ v -25.556 -73.206 1.195
 v -25.600 -75.200 1.210
 l 56461 56462 56463 56464 56465 56466 56467 56468 56469 56470 56471 56472 56473 56474 56475 56476 56477 56478 56479 56480 56481 56482 56483 56484 56485 56486 56487 56488 56489 56490 56491 56492 56493 56494 56495 56496 56497 56498 56499 56500 56501 56502 56503 56504 56505 56506 56507 56508 56509 56510 56511 56512 56513 56514 56515 56516 56517 56518 56519 56520 56521 56522 56523 56524 56525 56526 56527 56528 56529 56530 56531 56532 56533 56534 56535 56536 56537 56538 56539 56540 56541 56542 56543 56544 56545 56546 56547 56548 56549 56550 56551 56552 56553 56554 56555 56556 56557 56558 56559 56560 56561 56562 56563 56564 56565 56566 56567 56568 56569 56570 56571 56572 56573 56574 56575 56576 56577 56578
 </script>
-<script type="application/json" id="plan-spec">{"entities": [{"entity_id": "platted_back_line", "status": "surveyed", "source": "1991 plat: N30\u00b000'E 155.05 ft", "notes": "The retail lot (1A) adjoins it from x -23.6 to +15.3; the north ~8 m adjoins the US-290 right-of-way.", "facade_toward_us": null}, {"entity_id": "rear_fence", "status": "assumed", "source": "owner's spec", "notes": "Position, height and type not checked yet. Placed on the platted line. The US-290 fence wanders up to ~2 m off its line, so tape this one against pins too.", "facade_toward_us": null}, {"entity_id": "back_line_utility_easement", "status": "surveyed", "source": "1991 plat: 7.5 ft and 10 ft P.U.E. along the back line", "notes": "On our side. No structures. The overhead line on it is gone, but the easement is still on record.", "facade_toward_us": null}, {"entity_id": "retail_lot_1a", "status": "mapped, +/-2 m", "source": "parcel map", "notes": "Scenic Brook Plaza, 8313 W US 290, 6.33 ac. It touches our back line directly, with no platted right-of-way or buffer strip between. A ~60 m wide arm runs ~160 m south behind the Candelaria lots.", "facade_toward_us": null}, {"entity_id": "retail_east_end_stormwater", "status": "approximate, +/-10 m; shape and depth unknown", "source": "flyer site-plan overlay (pond contours, an outlet structure, filter or detention hatching), fitted to the parcel map", "notes": "Between the parking loop's east end and our line. The pond contours are near (-51, 33) and the outlet near (-35, 5), in a natural low that was 1037-1046 ft in 2017. The City plan sheets (SP-2019-0411D) give the real outline and depth.", "facade_toward_us": null}, {"entity_id": "scenic_brook_plaza_building_3", "status": "position +/-8 m; top +/-1 m", "source": "flyer: floor plan 125 x 62 ft; finished floors 1052, 1054 and 1056 ft; position from its site-plan overlay fitted to the parcel map, long side parallel to the US-290 frontage", "notes": "The nearest retail building. Its east end is ~75-80 m out from our line, opposite the next lot south. The floor is 1.0-2.2 m above z = 0 (about level with our yard by the house). The top, a ~21 ft parapet estimated from the 12 ft storefront, is ~8 m above z = 0.", "facade_toward_us": "East end: dark metal panel with storefront glass and a 'Dentist' tenant sign (flyer east elevation). The other faces mix stone veneer, metal panel and glass."}, {"entity_id": "apartment_lot_2a", "status": "mapped, +/-2 m", "source": "parcel map; site plan SP-2018-0138D (Correction #7, Feb 2026); TDLR TABS2025001890", "notes": "Granada Ridge apartments, 40 ac: 473 units in 8 buildings, up to 5 stories / 65 ft. The lot's nearest corner is ~77 m from our lot.", "facade_toward_us": null}, {"entity_id": "granada_ridge_buildings_7_8", "status": "footprint +/-2 ft; height is the site's maximum, not per building", "source": "footprints from the overall site plan sheet (Correction #7, Feb 2026), fitted to the parcel map (RMS 1.4 ft); height from the site data table", "notes": "Added by Correction #7 (Phase 9); Building 7 is 57,534 sq ft. The nearest apartments: 639 ft (195 m) from our lot. Drawn as the 65 ft maximum above the lowest 2017 ground under each part, so this is a worst case. The block steps from ~1,060 ft grade on its north drive to ~1,040-1,045 ft on its south side.", "facade_toward_us": null}, {"entity_id": "granada_ridge_buildings_1_6", "status": "footprint +/-2 ft; height is the site's maximum, not per building", "source": "footprints from the overall site plan sheet (Correction #7, Feb 2026), fitted to the parcel map (RMS 1.4 ft); height from the site data table", "notes": "Buildings 1-6 (phases 3-8), 895-1,403 ft from our lot. Each is drawn as the 65 ft maximum above the lowest 2017 ground under it, a worst case.", "facade_toward_us": null}, {"entity_id": "scenic_brook_plaza_buildings_1_2", "status": "position +/-8 m; Building 2's floor estimated from the ground (~1,064 ft); tops ~21 ft above the floor (estimated)", "source": "flyer site-plan overlay fitted to the parcel map; Building 1's floor (1,071 ft) from the flyer elevations", "notes": "The two retail buildings west of Building 3. Building 1's 2017 ground averages 1,071 ft, matching its floor level, which checks the overlay fit.", "facade_toward_us": null}, {"entity_id": "neighboring_parcels", "status": "mapped, +/-2 m", "source": "parcel map", "notes": "Other lots in the model area, for context: the Candelaria row and the lots across Candelaria.", "facade_toward_us": null}], "removed": [{"claim": "granada_hills_undeveloped_platted_buffer: a 15 m platted right-of-way, wooded, between our fence and the retail lot", "finding": "The parcel map shows the retail lot adjoining our back line, with no strip between. The trees on the flyer's base aerial stood on the retail lot, and the owner reports that ground cleared (Oct 2026)."}, {"claim": "commercial_retention_basin at y 15-28 m, 2.5 m deep, 3:1 slopes", "finding": "Replaced by retail_east_end_stormwater, which is larger and runs from our line out to ~65 m. Its depth is unknown. A 2.5 m depth with 3:1 slopes wouldn't fit in a 13 m width anyway."}, {"claim": "plaza_retaining_wall: a 3.0 m step down to the commercial pad at y 28 m", "finding": "No source. The 2017 ground dips into a drainage low just past our line, then rises to the retail pads."}, {"claim": "bldg_c pad 3.0 m below our yard, 3.5 m visible above it", "finding": "Building 3's floor is 1.0-2.2 m above our back-line ground; its top is ~8 m above it, ~75-80 m away."}, {"claim": "bldg_c at y 28-43 m, 30 x 15 m", "finding": "Building 3 is 125 x 62 ft (38 x 19 m) at y ~75-116 m."}, {"claim": "bldg_c rear facade: no windows, signage prohibited facing south, solid masonry", "finding": "The face toward us (east) has storefront glass and a tenant sign; walls are metal panel, stone veneer and glass."}, {"claim": "scenic_brook_pocket_park, a zero-impervious Barton Springs buffer (first version)", "finding": "No source found. The lots next door are in the Barton Springs Zone; that sets impervious-cover limits, not a park."}]}</script>
+<script type="application/json" id="plan-spec">{"entities": [{"entity_id": "platted_back_line", "status": "surveyed", "source": "1991 plat: N30\u00b000'E 155.05 ft", "notes": "The retail lot (1A) adjoins it from x -23.6 to +15.3; the north ~8 m adjoins the US-290 right-of-way.", "facade_toward_us": null}, {"entity_id": "rear_fence", "status": "estimated", "source": "owner: likely 6 ft (not yet measured)", "notes": "Position, height and type not checked yet. Placed on the platted line. The US-290 fence wanders up to ~2 m off its line, so tape this one against pins too.", "facade_toward_us": null}, {"entity_id": "back_line_utility_easement", "status": "surveyed", "source": "1991 plat: 7.5 ft and 10 ft P.U.E. along the back line", "notes": "On our side. No structures. The overhead line on it is gone, but the easement is still on record.", "facade_toward_us": null}, {"entity_id": "retail_lot_1a", "status": "mapped, +/-2 m", "source": "parcel map", "notes": "Scenic Brook Plaza, 8313 W US 290, 6.33 ac. It touches our back line directly, with no platted right-of-way or buffer strip between. A ~60 m wide arm runs ~160 m south behind the Candelaria lots.", "facade_toward_us": null}, {"entity_id": "retail_east_end_stormwater", "status": "approximate, +/-10 m; shape and depth unknown", "source": "flyer site-plan overlay (pond contours, an outlet structure, filter or detention hatching), fitted to the parcel map", "notes": "Between the parking loop's east end and our line. The pond contours are near (-51, 33) and the outlet near (-35, 5), in a natural low that was 1037-1046 ft in 2017. The City plan sheets (SP-2019-0411D) give the real outline and depth.", "facade_toward_us": null}, {"entity_id": "scenic_brook_plaza_building_3", "status": "position +/-8 m; top +/-1 m", "source": "flyer: floor plan 125 x 62 ft; finished floors 1052, 1054 and 1056 ft; position from its site-plan overlay fitted to the parcel map, long side parallel to the US-290 frontage", "notes": "The nearest retail building. Its east end is ~75-80 m out from our line, opposite the next lot south. The floor is 1.0-2.2 m above z = 0 (about level with our yard by the house). The top, a ~21 ft parapet estimated from the 12 ft storefront, is ~8 m above z = 0.", "facade_toward_us": "East end: dark metal panel with storefront glass and a 'Dentist' tenant sign (flyer east elevation). The other faces mix stone veneer, metal panel and glass."}, {"entity_id": "apartment_lot_2a", "status": "mapped, +/-2 m", "source": "parcel map; site plan SP-2018-0138D (Correction #7, Feb 2026); TDLR TABS2025001890", "notes": "Granada Ridge apartments, 40 ac: 473 units in 8 buildings, up to 5 stories / 65 ft. The lot's nearest corner is ~77 m from our lot.", "facade_toward_us": null}, {"entity_id": "granada_ridge_buildings_7_8", "status": "footprint +/-2 ft; height is the site's maximum, not per building", "source": "footprints from the overall site plan sheet (Correction #7, Feb 2026), fitted to the parcel map (RMS 1.4 ft); height from the site data table", "notes": "Added by Correction #7 (Phase 9); Building 7 is 57,534 sq ft. The nearest apartments: 639 ft (195 m) from our lot. Drawn as the 65 ft maximum above the lowest 2017 ground under each part, so this is a worst case. The block steps from ~1,060 ft grade on its north drive to ~1,040-1,045 ft on its south side.", "facade_toward_us": null}, {"entity_id": "granada_ridge_buildings_1_6", "status": "footprint +/-2 ft; height is the site's maximum, not per building", "source": "footprints from the overall site plan sheet (Correction #7, Feb 2026), fitted to the parcel map (RMS 1.4 ft); height from the site data table", "notes": "Buildings 1-6 (phases 3-8), 895-1,403 ft from our lot. Each is drawn as the 65 ft maximum above the lowest 2017 ground under it, a worst case.", "facade_toward_us": null}, {"entity_id": "scenic_brook_plaza_buildings_1_2", "status": "position +/-8 m; Building 2's floor estimated from the ground (~1,064 ft); tops ~21 ft above the floor (estimated)", "source": "flyer site-plan overlay fitted to the parcel map; Building 1's floor (1,071 ft) from the flyer elevations", "notes": "The two retail buildings west of Building 3. Building 1's 2017 ground averages 1,071 ft, matching its floor level, which checks the overlay fit.", "facade_toward_us": null}, {"entity_id": "neighboring_parcels", "status": "mapped, +/-2 m", "source": "parcel map", "notes": "Other lots in the model area, for context: the Candelaria row and the lots across Candelaria.", "facade_toward_us": null}], "removed": [{"claim": "granada_hills_undeveloped_platted_buffer: a 15 m platted right-of-way, wooded, between our fence and the retail lot", "finding": "The parcel map shows the retail lot adjoining our back line, with no strip between. The trees on the flyer's base aerial stood on the retail lot, and the owner reports that ground cleared (Oct 2026)."}, {"claim": "commercial_retention_basin at y 15-28 m, 2.5 m deep, 3:1 slopes", "finding": "Replaced by retail_east_end_stormwater, which is larger and runs from our line out to ~65 m. Its depth is unknown. A 2.5 m depth with 3:1 slopes wouldn't fit in a 13 m width anyway."}, {"claim": "plaza_retaining_wall: a 3.0 m step down to the commercial pad at y 28 m", "finding": "No source. The 2017 ground dips into a drainage low just past our line, then rises to the retail pads."}, {"claim": "bldg_c pad 3.0 m below our yard, 3.5 m visible above it", "finding": "Building 3's floor is 1.0-2.2 m above our back-line ground; its top is ~8 m above it, ~75-80 m away."}, {"claim": "bldg_c at y 28-43 m, 30 x 15 m", "finding": "Building 3 is 125 x 62 ft (38 x 19 m) at y ~75-116 m."}, {"claim": "bldg_c rear facade: no windows, signage prohibited facing south, solid masonry", "finding": "The face toward us (east) has storefront glass and a tenant sign; walls are metal panel, stone veneer and glass."}, {"claim": "scenic_brook_pocket_park, a zero-impervious Barton Springs buffer (first version)", "finding": "No source found. The lots next door are in the Barton Springs Zone; that sets impervious-cover limits, not a park."}]}</script>
 <script type="application/json" id="plan-checks">[{"check": "building B ground fall across the slab", "value": "3.6 ft", "limit": "-", "status": "NOTE", "note": "2017 lidar; high at the NE corner by the oak, so level it with fill on the west side, not a cut toward the oak"}, {"check": "building B vs septic pipe", "value": "10.0 ft", "limit": "10 ft", "status": "AT LIMIT", "note": "no margin; the pipe is from long laser shots (+/-2 ft)"}, {"check": "building B vs well", "value": "64.4 ft", "limit": "10 ft", "status": "OK", "note": ""}, {"check": "truck lane, B to house", "value": "15.1 ft", "limit": "12 ft", "status": "OK", "note": ""}, {"check": "hose run to the pipe", "value": "72 ft", "limit": "100 ft", "status": "OK", "note": ""}, {"check": "US-290 wall footing vs septic pipe", "value": "6.0 ft", "limit": "10 ft", "status": "CONFLICT", "note": "septic pipe is 8.0 ft from the surveyed line; footing assumed 2 ft wide"}, {"check": "US-290 wall footing vs well", "value": "10.0 ft", "limit": "10 ft", "status": "AT LIMIT", "note": "well is 12.0 ft from the surveyed line; footing assumed 2 ft wide"}, {"check": "back-line tree rows vs well", "value": "6.0 ft", "limit": "10 ft", "status": "CONFLICT", "note": "well is 28 ft in; rows at 10 and 22 ft"}, {"check": "anything vs tank and drainfield", "value": "not located", "limit": "-", "status": "UNKNOWN", "note": "every check against them waits on finding the lids and trenches"}]</script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
@@ -70224,7 +70231,7 @@ l 56461 56462 56463 56464 56465 56466 56467 56468 56469 56470 56471 56472 56473 
     if (e.facade_toward_us) m.notes += " " + e.facade_toward_us;
   }
   META.platted_back_line.label = "Platted back line";
-  META.rear_fence.label = "Rear fence (assumed)";
+  META.rear_fence.label = "Rear fence (~6 ft, est.)";
 
   // ---- Scene ----
   const canvas = document.getElementById("c");
@@ -70397,17 +70404,75 @@ l 56461 56462 56463 56464 56465 56466 56467 56468 56469 56470 56471 56472 56473 
   let exag = 2;
   const VIEWS = {
     oblique: { eye: [230, -330, 250], at: [-160, 90, 0] },
-    house:   { eye: [-9.75, -42.48, 3.73], at: [-120, 115, 6], exag: 1 },   // 6 ft up, 10 ft out from the back wall (plan3d.py)
+    house:   { eye: [-9.75, -42.48, 3.73], at: [-120, 115, 6], exag: 1, mode: "look" },   // 6 ft up, 10 ft out from the back wall (plan3d.py)
     top:     { eye: [-250, 129, 760], at: [-250, 130, 0] },
   };
   const worldOf = (p) => { const v = P(p); v.y *= exag; return v; };
   function setView(name) {
     const v = VIEWS[name];
     if (v.exag) setExag(v.exag);   // eye-level views read true to scale
+    camera.fov = 42; camera.updateProjectionMatrix();
     camera.position.copy(worldOf(v.eye)); controls.target.copy(worldOf(v.at));
-    controls.update();
+    camera.lookAt(controls.target);
+    setMode(v.mode || "orbit");
     document.querySelectorAll("button.view").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.view === name)));
   }
+
+  // ---- Drag modes: orbit around a point, or look around from where you stand ----
+  let mode = "orbit";
+  const look = { yaw: 0, pitch: 0 };
+  const hint = document.getElementById("hint");
+  const HINTS = {
+    orbit: "Drag to orbit · scroll or pinch to zoom · right-drag to pan · click to inspect",
+    look: "Drag to look around · arrow keys to turn · scroll to zoom the lens · click to inspect",
+  };
+  function setMode(m) {
+    const dir = new THREE.Vector3(); camera.getWorldDirection(dir);
+    if (m === "look") {
+      look.yaw = Math.atan2(dir.x, dir.z); look.pitch = Math.asin(THREE.MathUtils.clamp(dir.y, -1, 1));
+      controls.enabled = false;
+    } else {
+      if (mode === "look") controls.target.copy(camera.position).addScaledVector(dir, 60);  // orbit what you were facing
+      camera.fov = 42; camera.updateProjectionMatrix();
+      controls.enabled = true; controls.update();
+    }
+    mode = m; hint.textContent = HINTS[m];
+    document.querySelectorAll("button.mode").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.mode === m)));
+  }
+  function applyLook() {
+    look.pitch = THREE.MathUtils.clamp(look.pitch, -1.48, 1.48);
+    const cp = Math.cos(look.pitch);
+    const dir = new THREE.Vector3(Math.sin(look.yaw) * cp, Math.sin(look.pitch), Math.cos(look.yaw) * cp);
+    camera.lookAt(camera.position.clone().add(dir));
+  }
+  document.querySelectorAll("button.mode").forEach(b => b.addEventListener("click", () => setMode(b.dataset.mode)));
+  let lookDrag = null;
+  canvas.addEventListener("pointerdown", (e) => {
+    if (mode !== "look") return;
+    lookDrag = [e.clientX, e.clientY]; canvas.setPointerCapture(e.pointerId);
+  });
+  canvas.addEventListener("pointermove", (e) => {
+    if (mode !== "look" || !lookDrag) return;
+    const k = THREE.MathUtils.degToRad(camera.fov) / canvas.clientHeight;   // the scene follows the pointer
+    look.yaw += (e.clientX - lookDrag[0]) * k; look.pitch += (e.clientY - lookDrag[1]) * k;
+    lookDrag = [e.clientX, e.clientY]; applyLook();
+  });
+  const endLookDrag = () => { lookDrag = null; };
+  canvas.addEventListener("pointerup", endLookDrag);
+  canvas.addEventListener("pointercancel", endLookDrag);
+  canvas.addEventListener("wheel", (e) => {
+    if (mode !== "look") return;
+    e.preventDefault();
+    camera.fov = THREE.MathUtils.clamp(camera.fov * Math.exp(e.deltaY * 0.001), 12, 75);
+    camera.updateProjectionMatrix();
+  }, { passive: false });
+  canvas.addEventListener("keydown", (e) => {
+    if (mode !== "look") return;
+    const step = THREE.MathUtils.degToRad(3);
+    const turn = { ArrowLeft: [step, 0], ArrowRight: [-step, 0], ArrowUp: [0, step], ArrowDown: [0, -step] }[e.key];
+    if (!turn) return;
+    e.preventDefault(); look.yaw += turn[0]; look.pitch += turn[1]; applyLook();
+  });
   document.querySelectorAll("button.view").forEach(b => b.addEventListener("click", () => setView(b.dataset.view)));
   const exagIn = document.getElementById("exag"), exagOut = document.getElementById("exag-out");
   function setExag(value) {
@@ -70439,7 +70504,7 @@ l 56461 56462 56463 56464 56465 56466 56467 56468 56469 56470 56471 56472 56473 
   const compass = document.getElementById("compass-rot");
   // Plan +x runs N30°E along the back line and +y N60°W, so true north is 0.866 x + 0.5 y.
   const north = P([0.866, 0.5, 0]);
-  const na = new THREE.Vector3(), nb = new THREE.Vector3();
+  const fwd = new THREE.Vector3(), ahead = new THREE.Vector3(), UP = new THREE.Vector3(0, 1, 0);
   function resize() {
     const w = stage.clientWidth, h = stage.clientHeight; if (!w || !h) return;
     renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
@@ -70447,7 +70512,7 @@ l 56461 56462 56463 56464 56465 56466 56467 56468 56469 56470 56471 56472 56473 
   new ResizeObserver(resize).observe(stage);
   const tmp = new THREE.Vector3();
   function frame() {
-    controls.update();
+    if (mode === "orbit") controls.update();
     renderer.render(scene, camera);
     const w = stage.clientWidth, h = stage.clientHeight;
     for (const t of [...tags, ...extraTags]) {
@@ -70457,9 +70522,11 @@ l 56461 56462 56463 56464 56465 56466 56467 56468 56469 56470 56471 56472 56473 
       t.el.hidden = off;
       if (!off) { t.el.style.left = ((tmp.x + 1) / 2 * w) + "px"; t.el.style.top = ((1 - tmp.y) / 2 * h) + "px"; }
     }
-    // Compass: where true north points on screen.
-    na.copy(controls.target).project(camera); nb.copy(controls.target).addScaledVector(north, 10).project(camera);
-    const ang = Math.atan2((nb.x - na.x) * w, (nb.y - na.y) * h) * 180 / Math.PI;
+    // Compass, map style: up on the dial is the way you're facing, the arrow is true north.
+    camera.getWorldDirection(fwd); fwd.y = 0;
+    if (fwd.lengthSq() < 1e-6) { fwd.set(0, 1, 0).applyQuaternion(camera.quaternion); fwd.y = 0; }  // looking straight down
+    fwd.normalize(); ahead.crossVectors(fwd, UP);   // camera's right, level
+    const ang = Math.atan2(north.dot(ahead), north.dot(fwd)) * 180 / Math.PI;
     compass.setAttribute("transform", `rotate(${ang.toFixed(1)})`);
     requestAnimationFrame(frame);
   }

@@ -236,6 +236,9 @@ def north_line_y(x: float) -> float:
 
 
 FIELD_POINTS = REPO / "site" / "field-points.json"
+# The US-290 fence as the owner traced it on a newer north-up aerial (Oct 2026), mapped to
+# this grid with a similarity fit on the house roof and old canopy corners (residuals <= 2 ft).
+FENCE_TRACE = [(62.9, 102.7), (253.9, 141.0)]
 
 
 def draw_field(plan: Plan) -> dict:
@@ -245,12 +248,7 @@ def draw_field(plan: Plan) -> dict:
     if not FIELD_POINTS.exists():
         return {}
     fp = json.loads(FIELD_POINTS.read_text())
-    fence = [tuple(fp[k]["site"]) for k in ("F3", "F1", "F2") if k in fp]
-    if len(fence) > 1:
-        plan.line(fence, ORANGE, width=5)
-        for q in fence:
-            cx, cy = plan.p(*q)
-            plan.d.ellipse([cx - 6, cy - 6, cx + 6, cy + 6], fill=ORANGE)
+    plan.line(FENCE_TRACE, ORANGE, width=5)
     trunks = [(tuple(fp[k]["solutions"][0]["site"]), fp[k].get("trunk_radius") or 1.0)
               for k in ("big_oak", "big_oak_2") if fp.get(k, {}).get("solutions")]
 
@@ -278,7 +276,7 @@ def main() -> None:
 
     draw_survey(plan)
     fp = draw_field(plan)
-    plan.label(100, 96.5, "Purple = property line (1991 survey). Orange = fence from laser shots (to be re-taped).", fill=(255, 190, 110), size=18)
+    plan.label(100, 96.5, "Purple = property line (1991 survey). Orange = fence (owner's trace): on the line to ~4 ft inside.", fill=(255, 190, 110), size=18)
 
     well = en_to_site(WELL)
     plan.label(well[0] + 2.5, well[1] + 1.5, "well (confirmed at\nthe 1991 plat spot)", fill=CYAN, size=16)

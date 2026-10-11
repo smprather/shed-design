@@ -53,6 +53,8 @@ def main() -> None:
 
     plan.poly(B_DEEP, YELLOW, width=2, dash=True)
     plan.poly(B, YELLOW, fill=(255, 220, 60, 95), width=4)
+    for x_end in (195, 197):  # east end stretched 3 or 5 ft toward the oak
+        plan.line([(192, 131.5), (x_end, 131.5), (x_end, 151.5), (192, 151.5)], YELLOW, width=2, dash=True)
     plan.line([B[0], B[1]], WALL_RED, width=12)  # solid highway-side wall
     for x0 in (158, 174):  # suggested roll-up doors on the south side
         plan.line([(x0, 151.5), (x0 + 12, 151.5)], WHITE, width=10)
@@ -75,6 +77,7 @@ def main() -> None:
     plan.label(153, 125.4, "solid wall to US-290: insulated, no openings", fill=(255, 150, 140), size=18)
     plan.label(156, 148.2, "roll-up doors on this side", fill=WHITE, size=16)
     plan.label(152.5, 156.7, "dashed: 24 x 40 if the trees allow", fill=(255, 235, 140), size=15)
+    plan.label(193.5, 152.3, "+3 / +5 ft", fill=(255, 235, 140), size=15)
     plan.label(186.5, 165.5, "septic truck parks here", fill=(230, 230, 230), size=15)
     plan.label(121, 146, "hose ~65-70 ft\naround the west end", fill=CYAN, size=15)
     plan.label(146, 171, "quietest: the yard right behind\nthe building (~7 dB)", fill=BLUE, size=16)

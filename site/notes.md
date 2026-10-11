@@ -277,6 +277,49 @@ the house** (24 × 40 if the trees at its SW corner allow).
   building, but only ~3 dB at the house's west end and ~1 dB or less elsewhere. A 40 ft
   building hides a short stretch of a highway that runs past both of its ends.
 
+### Stretching B east toward the oak (Oct 11 2026)
+
+The owner asked about adding 3–5 ft to the east end (+60 or +100 sq ft). The table shows how
+much of the twin oak's root zone each length cuts off: roots heading under or past the slab,
+whose edge trench severs them. The root zone used is the arborist standard of 1 ft radius
+per inch of trunk diameter, so 24 ft for the near trunk. If the second trunk is similar, the
+pair acts like a ~34 in tree with a 34 ft zone.
+
+| East end | Slab edge to near trunk | Near trunk's 24 ft zone | Drip-line circle | Twin-trunk 34 ft zone |
+|---|---|---|---|---|
+| 40 ft (now) | 25.5 ft | 0% | 0% | ~5% |
+| **43 ft (+3)** | 22.5 ft | ~1% | ~2% | ~7% |
+| 45 ft (+5) | 20.5 ft | ~3% | ~4% | ~9% |
+
+- **Either is small for a healthy oak.** Common benchmarks are to keep at least half the
+  root zone untouched (Austin's rule; we're outside the city, so it's only a guide), to
+  dig nothing inside half the zone's radius (12–17 ft here), and to keep root cuts beyond
+  3–5× the trunk diameter (6–10 ft) for stability. Both options clear all three easily.
+  The second trunk is 25 ft or more from the slab either way.
+- **The real risk is how it's built, not the extra 3–5 ft.** Oaks on building sites usually
+  decline from:
+  - compaction from trucks and stored material under the canopy;
+  - fill or a raised grade over the roots;
+  - an electric trench to the building cut through the root zone;
+  - concrete washout;
+  - torn roots from an excavator.
+- **Conditions if we go east:**
+  - an arborist cleanly cuts the roots along the east edge before any excavation (air-spade
+    or a sharp trench cut);
+  - fence the root zone during construction;
+  - no grade change under the canopy;
+  - bring power in from the west or the house side;
+  - put the east end on piers with a grade beam instead of a deep trenched edge if the
+    engineer agrees;
+  - mulch and water the tree through the next summer.
+- **Canopy:** the drip line sits at today's east wall, so the extra length is under the
+  canopy edge. Expect to raise or shorten a few low limbs for the roof and erection
+  (shot 17a still unmeasured). Cut only July–January and paint the wounds right away (oak
+  wilt). Plan on leaves in the gutters.
+- **More room without the oak:** deepening to 24 ft (if the trees at the SW corner allow,
+  T11) adds 160 sq ft away from the oak. If probing shows the tank isn't at the septic pipe,
+  the west end can also move 1–2 ft.
+
 ### Checks that matter most for B
 
 - **The low wire (shot 20):** where it runs from the pole beyond the fence to the house. If
@@ -342,6 +385,82 @@ For scale: ~3 dB is just noticeable, 5 dB is clearly noticeable, and 10 dB sound
   reflection up, which mostly helps the neighbors across US-290.
 - **At the house**, the north-facing windows and doors are often the cheapest big gain:
   laminated or dual-pane glass with different pane thicknesses, and sealed frames.
+
+## Plan: make the house feel less exposed (Oct 11 2026)
+
+The house feels exposed to US-290 and to the apartments going up behind it. The goal is to
+cut noise, block views and protect the house's value. No single part solves it; the shed is
+one part.
+
+| Part | What it does | Limits |
+|---|---|---|
+| **Windows and doors** (north and west walls first) | The biggest noise cut indoors | One leaky window or door spoils a room |
+| **Building B** | Yard shield, ~7 dB right behind it; blocks the view from the old carport area | Only ~1–3 dB at the house |
+| **Wall along US-290** | Hides the road; ~4–6 dB, ~7–8 dB at 12 ft with a return along Candelaria | Ends leak; see the constraints below |
+| **Back-line screen** | Hides the apartments from the yard at ground level | Upper floors need tree height |
+| **Evergreens, water feature** | Visual screen, and sound masking near the patio | Little real dB |
+
+A rough rule from appraisal studies is that highway noise costs ~0.5% of home value per dB.
+People also tend to find traffic they can't see less annoying.
+
+### Hiding the road (sight lines, solid wall at the line)
+
+The road is 15–20 ft below the lot, so hiding it takes less wall than quieting it. This
+assumes the ground is about level from the house to the line and the lanes are 60–100 ft
+out. If the yard falls toward the highway, add the drop.
+
+| Viewer | Wall that hides cars, all lanes | Wall that hides trucks, all lanes |
+|---|---|---|
+| Ground floor, or standing in the yard | ~2–3 ft | ~4–5 ft |
+| 2nd floor | up to ~8 ft | up to ~11 ft |
+
+An 8 ft solid wall makes the road disappear from the ground floor and yard and hides most
+cars from the 2nd floor. 10–12 ft hides nearly everything. The open end at Candelaria stays
+visible unless the wall returns along it.
+
+### Back line (apartments)
+
+Wall height at the back line needed to hide our yard and house (~60–130 ft inside the line)
+from the apartments' windows 20–40 ft past the line:
+
+| Apartment window | Screen height at the back line |
+|---|---|
+| 2nd floor (eye ~15 ft) | ~11–14 ft |
+| 3rd floor (eye ~25 ft) | ~17–22 ft |
+| 4th floor (eye ~35 ft) | ~23–31 ft |
+
+- **A fence only screens ground-level views.** The trees between the back line and the house
+  are the real screen for the upper floors. Protect them: the clearing next door may have
+  cut their roots, so water in droughts and have an arborist look at them.
+- **Screens near where you sit work best.** A tree, pergola or tall evergreens by the patio
+  block more of the view per foot of height than a wall 130 ft away.
+- **Get the apartments' site plan** from whoever reviewed it (Travis County, or the City if
+  that lot is in city limits). It shows any required fence, buffer or landscaping, building
+  heights and setbacks, parking-lot lighting, and dumpster and HVAC locations. We're outside
+  city limits, so Austin's compatibility screening probably doesn't protect us. Don't count
+  on the developer's fence until the plan shows it.
+
+### Windows and doors
+
+- Traffic noise is heavy in low frequencies. Compare windows by **OITC** (made for traffic
+  noise), not just STC.
+- Rough ranges: a standard builder dual-pane is ~OITC 20–24 (STC 26–28). Laminated glass with
+  unequal panes and a wider gap is ~OITC 28–31 (STC 32–36). An interior acoustic insert a few
+  inches inside the existing window can reach ~STC 40+, often for less than a replacement.
+- Seal the frames, use solid-core exterior doors with full seals, and check north-side attic
+  and wall vents.
+
+### Wall constraints (both lines)
+
+- **Stake the surveyed line first.** The US-290 fence wanders up to ~7 ft onto TxDOT's side.
+  A wall and its footing must be fully on our side.
+- **Septic:** the system lies in the strip along US-290. Keep wall footings out of it, at
+  the county's setback. A return along Candelaria needs a gate wide enough for the pump
+  truck (~12 ft+).
+- **Oaks:** inside a drip line, use piers that span between roots with a grade beam, not a
+  continuous trench. No root or branch cuts Feb–June (oak wilt).
+- **Rules:** check the Granada Hills deed restrictions for wall height and material. A
+  masonry wall over ~8 ft needs an engineered footing, and possibly a Travis County permit.
 
 ## Goal
 

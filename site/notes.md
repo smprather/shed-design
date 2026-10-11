@@ -210,11 +210,20 @@ These assume:
 | Option | Where | Size | Notes |
 |---|---|---|---|
 | A | Strip, west of the septic pipe | ~27 × 34 ft (~900 sq ft) | Between the well and the pipe; the drainfield could be here |
-| B | Strip, east of the pipe (the old carport spot) | ~18 × 35 ft (~630 sq ft) | Cars parked here for years, so probably no drainfield |
+| B | The old carport spot, shifted ~9 ft west and square to the house | **20 × 40 ft** (800 sq ft); **24 × 40** if the trees at its SW corner allow | Cars parked here for years, so probably no drainfield. Tight spots below. |
 | C | Open back lawn behind the house | ~30 × 60 ft (~1,800 sq ft), maybe ~35 × 75 | Largest; septic and tree edges there not yet checked; access by concrete pump hose |
 
-- **The strip can't take one large building:** the septic pipe's keep-out splits it, and
-  the strip narrows to ~18–25 ft toward the oak.
+- **Site B, 20 × 40** (x 152–192, y 131.5–151.5):
+  - 5.3 ft from the surveyed line and ~3.5 ft from the fence at its bend.
+  - 12 ft from the septic pipe and 18 ft from the house.
+  - Its east end is only ~0.4 ft outside the oak's drip line. Shifting it ~2 ft west (still
+    10 ft from the pipe) gives the roots room for the slab edge and forms; hand-dig or
+    air-spade that edge.
+  - The old canopies' east end sat ~12.5 ft from the near trunk, right at the no-dig core.
+  - The septic truck can park in the lane between B and the house, ~40 ft of hose from
+    the pipe.
+- **The strip can't take one large building:** the septic pipe's keep-out splits it. West of
+  the pipe (A) is ~27 × 34; east of it (B) is ~20 × 40, possibly 24 × 40.
 - **A "rather large" building most likely means the back lawn (C).** To confirm it:
   - find out whether the drainfield runs that way;
   - tape the lawn's tree edges (worksheet T11–T15).

@@ -71,6 +71,8 @@ baseline and offsets:
 | T5–T8 | Drainfield points (trench ends, ports, green stripes) | | | |
 | T9 | Well | | | ~95 / +50 |
 | T10 | Anything else (oak branch edge, wire crossing, roots…) | | | |
+| T11 | North edge of the tree belt (strip side), offset at 25 / 50 / 75 / 100 | — | | ~+21 at 25 |
+| T12–T15 | Back lawn open area corners (NE, NW, SW, SE) at the branch edges | | | ~17 & ~100 / −25 & −62 |
 
 ## Also note
 

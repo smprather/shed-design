@@ -270,6 +270,9 @@ def draw_field(plan: Plan) -> dict:
     tape_fence = [tuple(p["site"]) for p in fp.get("tape_fence", [])]
     if len(tape_fence) > 1:
         plan.line(tape_fence, YELLOW, width=4)
+    tree_edge = [tuple(p["site"]) for p in fp.get("tape_tree_edge", [])]
+    if len(tree_edge) > 1:
+        plan.line(tree_edge, GREEN, width=4)
     for d in fp.get("tape_points", {}).values():
         cx, cy = plan.p(*d["site"])
         plan.d.rectangle([cx - 8, cy - 8, cx + 8, cy + 8], fill=YELLOW, outline=(0, 0, 0), width=2)

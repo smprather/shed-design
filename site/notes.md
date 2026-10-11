@@ -199,6 +199,26 @@ How it lines up with what we've seen:
   out, and adjust until the diagonal between those marks reads 10 ft (the 3-4-5 rule,
   doubled). Sight the long tape along that 8 ft leg.
 
+## Building envelope as of Oct 11 2026 (see `envelope.png`)
+
+These assume:
+- the slab stays outside the oak's drip line;
+- 5 ft from the surveyed line;
+- 10 ft from the well and from the septic access pipe (in case it marks the tank);
+- tree edges as read off the aerial (±5 ft).
+
+| Option | Where | Size | Notes |
+|---|---|---|---|
+| A | Strip, west of the septic pipe | ~27 × 34 ft (~900 sq ft) | Between the well and the pipe; the drainfield could be here |
+| B | Strip, east of the pipe (the old carport spot) | ~18 × 35 ft (~630 sq ft) | Cars parked here for years, so probably no drainfield |
+| C | Open back lawn behind the house | ~30 × 60 ft (~1,800 sq ft), maybe ~35 × 75 | Largest; septic and tree edges there not yet checked; access by concrete pump hose |
+
+- **The strip can't take one large building:** the septic pipe's keep-out splits it, and
+  the strip narrows to ~18–25 ft toward the oak.
+- **A "rather large" building most likely means the back lawn (C).** To confirm it:
+  - find out whether the drainfield runs that way;
+  - tape the lawn's tree edges (worksheet T11–T15).
+
 ## Goal
 
 - **A rather large metal building (steel shed) on a concrete slab.** Size, use and doors

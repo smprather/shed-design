@@ -38,6 +38,7 @@ BASELINE_POINTS = {
     "blp": "septic access pipe", "bl1": "tank lid 1", "bl2": "tank lid 2",
     "bld1": "drainfield 1", "bld2": "drainfield 2", "bld3": "drainfield 3", "bld4": "drainfield 4",
     "blw": "well", "blx": "other",
+    "blb1": "lawn NE", "blb2": "lawn NW", "blb3": "lawn SW", "blb4": "lawn SE",
 }
 FENCE_STATIONS = (0, 25, 50, 75, 100)
 
@@ -170,6 +171,14 @@ def main() -> None:
             tape_fence.append({"local": p, "site": to_site(p)})
     if tape_fence:
         out["tape_fence"] = tape_fence
+    tree_edge = []
+    for st_ft in FENCE_STATIONS[1:]:
+        o = reading(data, "blt", f"o{st_ft}")
+        if o is not None:
+            p = (-float(st_ft), o)
+            tree_edge.append({"local": p, "site": to_site(p)})
+    if tree_edge:
+        out["tape_tree_edge"] = tree_edge
     tape_points = {}
     for doc_id, label in BASELINE_POINTS.items():
         s_ft, o = reading(data, doc_id, "s"), reading(data, doc_id, "o")

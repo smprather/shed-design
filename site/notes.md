@@ -504,6 +504,36 @@ census-geocoded address, which turned out to sit ~150 ft east of our front line.
   in the natural low. It reaches our line at the lot's east edge; the shape and depth need
   the City plan sheets.
 
+### The apartment lot (Lot 2A), from City records (Oct 11 2026)
+
+The owner circled the street pattern south-west of us on Google Maps. It falls on Lot 2A, and
+its V of drives matches the apartment layout on the retail flyer's overlay. From the City of
+Austin's public GIS layers (site-plan, subdivision and zoning cases) and TDLR:
+
+| Record | What it says |
+|---|---|
+| Plat C8J-2014-0087.0A, recorded Jun 2015 | Broadstone Scenic Brook, 46.3 ac, first platted |
+| Amended plat C8J-2017-0250.0A, recorded Oct 2018 | Split into Lot 1A (retail) and Lot 2A (apartments) |
+| Site plan SP-2018-0138D, approved May 6 2019 | "Granada Ridge": multifamily buildings on 40 ac, 24.1% impervious cover, Barton Springs Zone |
+| SP-2016-0586D (withdrawn 2018), SP-2020-1472D (expired 2022) | The earlier version and a later revision; building appears to go ahead under the 2019 plan |
+| SP-2018-0341D, SP-2018-0423D (2018) | Commercial plans filed on this lot before the retail moved to Lot 1A; expired and withdrawn |
+| TDLR TABS2025001890 | Leasing office for a **372-unit** complex, built Jan 2025 to Jan 2027 |
+| TDLR TABS2021011745 | Amenity/leasing building, 5,625 sq ft, listed through Jan 2028 |
+| Retail flyer (June 2026) | "~550 multifamily units (under construction)" |
+
+- **Layout on the flyer overlay:** residential buildings in a V around a central clubhouse.
+  The east side, toward the Candelaria lots, is parking and drives.
+- **Distances from our back line** (flyer overlay fitted to the parcel map, ±10%):
+  - the parking's east edge is ~355–395 ft (110–120 m) away;
+  - the nearest residential buildings are ~700–800 ft (215–245 m) away.
+  - The retail lot's south arm (its stormwater area) lies in between.
+- **Still unknown:** building heights and stories, and whether ~550 means a later phase
+  beyond the 372 units. These are on the approved site-plan sheets in the City's permit
+  portal (folder 11917353), which needs a browser.
+- The City's issued-building-permit layer has nothing here: in the ETJ the City reviews
+  site plans but doesn't issue building permits.
+- A 2008 zoning case listed as related (C14-2008-0125) isn't in the City's zoning GIS.
+
 ## 3D plan (Oct 11 2026; `property_total_plan.jsonc`, `tools/plan3d.py`)
 
 The owner's 3D spec of the back line and the retail next door, rewritten against the sources

@@ -11,7 +11,8 @@ Our side comes from the repo: the parcel and house walls from the 1991 survey be
 site_plan.py, building B, and the septic pipe, well and oak from the field data. There is no
 room model yet, so the house is a footprint only.
 
-Writes site/plan3d.obj (meters, z up; one object per entity) and prints the checks.
+Writes site/plan3d.obj (meters, z up; one object per entity) and site/plan3d.html (an
+interactive viewer: open it in a browser), and prints the checks.
 
 Run: uv run tools/plan3d.py
 """
@@ -29,6 +30,7 @@ from site_b_plan import HOSE, house_north_y
 SPEC = REPO / "property_total_plan.jsonc"
 TERRAIN = REPO / "site" / "terrain-lidar.json"
 OUT = REPO / "site" / "plan3d.obj"
+VIEWER = REPO / "tools" / "plan3d_viewer.html"  # template; site/plan3d.html is built from it
 FT = 0.3048
 KEEP_OUT = 10.0  # ft around the septic pipe and the well, until Travis County gives a number
 LANE_MIN = 12.0  # ft, septic truck lane
@@ -203,6 +205,20 @@ def poly_dist(p: Pt, poly: list[Pt], closed: bool = True) -> float:
     return min(seg_dist(p, a, b) for a, b in segs) if len(poly) > 1 else math.dist(p, poly[0])
 
 
+def write_viewer(path: Path, obj_text: str, plan: dict, checks: list[dict]) -> None:
+    """Fill the viewer template with the model, the plan's entity notes and the checks."""
+    spec = {"entities": [{k: e.get(k) for k in ("entity_id", "status", "source", "notes", "facade_toward_us")}
+                         for e in plan["spatial_entities"]],
+            "removed": plan.get("removed_claims", [])}
+    head, body = VIEWER.read_text().split("<!--BODY-->\n")
+    body = (body.replace("/*OBJ*/", obj_text)
+            .replace("/*SPEC*/", json.dumps(spec).replace("</", "<\\/"))
+            .replace("/*CHECKS*/", json.dumps(checks).replace("</", "<\\/")))
+    path.write_text('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
+                    '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
+                    f"{head}</head>\n<body>\n{body}</body>\n</html>\n")
+
+
 def footprint(geom: dict) -> tuple[list[Pt], bool]:
     """2D shape of an entity (plan m) and whether it is closed."""
     if geom["kind"] == "point":
@@ -305,7 +321,10 @@ def main(spec: Path, out: Path) -> None:
     obj.save(out, f"# {out.name}: written by tools/plan3d.py from {spec.name} and {TERRAIN.name}. Meters, z up.\n"
                   f"# Origin: midpoint of the platted back line, z = 0 at {ground.z0} ft NAVD88; "
                   "+x toward US-290 along the line, +y away from the lot.\n")
-    click.echo(f"wrote {out.relative_to(REPO)} ({obj.nv} vertices); building B slab at z = {slab:.2f} m")
+    html = out.with_suffix(".html")
+    write_viewer(html, out.read_text(), plan, checks)
+    click.echo(f"wrote {out.relative_to(REPO)} ({obj.nv} vertices) and {html.relative_to(REPO)}; "
+               f"building B slab at z = {slab:.2f} m")
     with pl.Config(tbl_rows=-1, tbl_hide_dataframe_shape=True, tbl_hide_column_data_types=True,
                    tbl_width_chars=220, fmt_str_lengths=90):
         click.echo(pl.DataFrame([{"entity": e["entity_id"], "status": e.get("status", "")}

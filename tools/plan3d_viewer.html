@@ -1,0 +1,512 @@
+<title>Candelaria 3D Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: a drafting-table split. Plan sheet on the left (title block, layers, notes),
+   the model fills the rest. On a phone the model sits on top and the sheet scrolls below. */
+:root {
+  --bg: #e9ede8;          /* sage-grey drafting paper */
+  --panel: #f6f8f4;
+  --ink: #1c2420;
+  --muted: #5a6a62;
+  --rule: #cdd5ce;
+  --accent: #b3261e;      /* survey red: property lines */
+  --stage: #dfe5df;
+  --terrain-lo: #8fa6b4;  /* the low ground reads blue-grey */
+  --terrain-hi: #c9c0a4;  /* caliche on the rise */
+  --house: #2f4a7a;
+  --shed: #d28a1e;
+  --fence: #7a5a3a;
+  --easement: #7b4fa6;
+  --septic: #c2268f;
+  --well: #138a9e;
+  --oak: #2f8a4a;
+  --oak-core: #b59a12;
+  --retail-lot: #c4482b;
+  --retail-bldg: #b83a2e;
+  --water: #2565b8;
+  --apt: #3c7d3a;
+  --lot: #1c2420;
+  --ok: #2b7a3f;
+  --warn: #a86a00;
+  --bad: #b3261e;
+  --unknown: #5a6a62;
+  --font-display: "Archivo Narrow", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111714; --panel: #171f1b; --ink: #e2eae5; --muted: #95a59c; --rule: #2a3530;
+    --accent: #f0675b; --stage: #0d1310; --terrain-lo: #2f4655; --terrain-hi: #6b6450;
+    --house: #8fb0ea; --shed: #f0a93a; --fence: #c09468; --easement: #b48ae0; --septic: #f05cbf;
+    --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
+    --water: #6aa6f5; --apt: #79c174; --lot: #e2eae5; --ok: #5ccf7c; --warn: #f0b13a; --bad: #f0675b;
+    --unknown: #95a59c; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111714; --panel: #171f1b; --ink: #e2eae5; --muted: #95a59c; --rule: #2a3530;
+  --accent: #f0675b; --stage: #0d1310; --terrain-lo: #2f4655; --terrain-hi: #6b6450;
+  --house: #8fb0ea; --shed: #f0a93a; --fence: #c09468; --easement: #b48ae0; --septic: #f05cbf;
+  --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
+  --water: #6aa6f5; --apt: #79c174; --lot: #e2eae5; --ok: #5ccf7c; --warn: #f0b13a; --bad: #f0675b;
+  --unknown: #95a59c; color-scheme: dark;
+}
+
+html, body { height: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 14px; line-height: 1.5; }
+.app { display: grid; grid-template-columns: minmax(300px, 360px) 1fr; height: 100%; }
+.sheet {
+  background: var(--panel); border-right: 1px solid var(--rule); overflow-y: auto;
+  padding-block: 20px 28px; padding-inline: 20px; display: flex; flex-direction: column; gap: 22px; min-width: 0;
+}
+.stage { position: relative; background: var(--stage); min-width: 0; min-height: 0; overflow: hidden; }
+.stage canvas { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; }
+.stage canvas:active { cursor: grabbing; }
+@media (max-width: 860px) {
+  html, body { height: auto; }
+  .app { grid-template-columns: 1fr; height: auto; }
+  .stage { height: 62svh; min-height: 340px; order: -1; }
+  .sheet { border-right: 0; border-top: 1px solid var(--rule); overflow: visible; }
+}
+
+/* Title block, like the corner of a plan sheet */
+.title-block { display: grid; gap: 6px; border: 1.5px solid var(--ink); padding: 12px 14px; }
+.title-block h1 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 26px; line-height: 1.05; letter-spacing: 0.01em; text-wrap: balance; }
+.title-block .sub { margin: 0; color: var(--muted); font-size: 13px; }
+.title-block dl { margin: 6px 0 0; display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; font-size: 12px; }
+.title-block dt { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-size: 11px; padding-top: 1px; }
+.title-block dd { margin: 0; font-family: var(--font-data); font-size: 12px; }
+
+h2 { margin: 0 0 8px; font-family: var(--font-display); font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+.row { display: flex; flex-wrap: wrap; gap: 6px; }
+button.view {
+  font: 500 13px var(--font-body); color: var(--ink); background: transparent; border: 1px solid var(--rule);
+  padding: 6px 10px; border-radius: 3px; cursor: pointer;
+}
+button.view:hover { border-color: var(--ink); }
+button.view[aria-pressed="true"] { background: var(--ink); color: var(--panel); border-color: var(--ink); }
+button:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.exag { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 4px 10px; }
+.exag label { font-size: 13px; }
+.exag output { font-family: var(--font-data); font-size: 13px; }
+.exag input { grid-column: 1 / -1; width: 100%; accent-color: var(--accent); }
+
+.layers { display: grid; gap: 12px; }
+.layer-group h3 { margin: 0 0 4px; font: 600 12px var(--font-body); color: var(--ink); }
+.layer { display: flex; align-items: center; gap: 8px; padding: 2px 0; font-size: 13px; cursor: pointer; }
+.layer input { margin: 0; accent-color: var(--ink); }
+.swatch { width: 18px; height: 0; border-top: 3px solid; flex: none; }
+.swatch.solid { height: 10px; border: 0; border-radius: 1px; }
+.layer.selected span.name { font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+.card { border-left: 3px solid var(--accent); padding: 2px 0 2px 12px; display: grid; gap: 6px; }
+.card h3 { margin: 0; font-family: var(--font-display); font-size: 20px; font-weight: 600; line-height: 1.15; }
+.card p { margin: 0; }
+.card .src { color: var(--muted); font-size: 12.5px; }
+.pill { justify-self: start; font: 500 11.5px var(--font-data); padding: 1px 7px; border-radius: 999px; border: 1px solid currentColor; }
+
+table.checks { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+table.checks td { padding: 5px 0; border-top: 1px solid var(--rule); vertical-align: top; }
+table.checks td.v { font-family: var(--font-data); font-variant-numeric: tabular-nums; white-space: nowrap; padding-left: 8px; text-align: right; }
+table.checks td.s { padding-left: 8px; text-align: right; }
+.st { font: 500 10.5px var(--font-data); padding: 0 6px; border-radius: 999px; white-space: nowrap; border: 1px solid currentColor; }
+.st.CONFLICT { color: var(--bad); } .st.AT-LIMIT { color: var(--warn); } .st.OK { color: var(--ok); }
+.st.UNKNOWN, .st.NOTE { color: var(--unknown); }
+details summary { cursor: pointer; font-family: var(--font-display); font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+details ul { margin: 8px 0 0; padding-left: 18px; display: grid; gap: 8px; font-size: 12.5px; }
+details li b { font-weight: 600; }
+.foot { color: var(--muted); font-size: 12px; border-top: 1px solid var(--rule); padding-top: 10px; }
+
+/* Labels pinned to the model */
+.labels { position: absolute; inset: 0; pointer-events: none; }
+.tag {
+  position: absolute; transform: translate(-50%, -100%); white-space: nowrap;
+  font: 600 12px var(--font-display); letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--ink); background: color-mix(in srgb, var(--panel) 82%, transparent);
+  padding: 1px 6px; border-left: 2px solid var(--tag, var(--ink));
+}
+.tag[hidden] { display: none; }
+.hint {
+  position: absolute; left: 12px; bottom: 12px; font-size: 12px; color: var(--muted);
+  background: color-mix(in srgb, var(--panel) 85%, transparent); padding: 4px 8px; border-radius: 3px;
+}
+.compass { position: absolute; right: 12px; top: 12px; width: 56px; height: 56px; }
+.compass svg { width: 100%; height: 100%; }
+.load-error { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; text-align: center; color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+<!--BODY-->
+
+<div class="app">
+  <aside class="sheet" aria-label="Plan sheet">
+    <div class="title-block">
+      <h1>Candelaria 3D Plan</h1>
+      <p class="sub">8400 Candelaria Dr: the back line, building B, and the retail lot behind it.</p>
+      <dl>
+        <dt>Units</dt><dd>meters; z × exaggeration</dd>
+        <dt>Origin</dt><dd>back-line midpoint, 1048.7 ft</dd>
+        <dt>Ground</dt><dd>USGS lidar, Feb 2017</dd>
+        <dt>Rev</dt><dd>Oct 11 2026</dd>
+      </dl>
+    </div>
+
+    <section aria-labelledby="h-views">
+      <h2 id="h-views">Views</h2>
+      <div class="row" role="group" aria-label="Camera views">
+        <button class="view" id="v-oblique" data-view="oblique" aria-pressed="true">Oblique</button>
+        <button class="view" id="v-house" data-view="house" aria-pressed="false">From the back yard</button>
+        <button class="view" id="v-top" data-view="top" aria-pressed="false">Overhead</button>
+      </div>
+    </section>
+
+    <section class="exag" aria-labelledby="h-exag">
+      <h2 id="h-exag" style="grid-column: 1 / -1; margin: 0">Height</h2>
+      <label for="exag">Vertical exaggeration</label>
+      <output id="exag-out" for="exag">2×</output>
+      <input type="range" id="exag" min="1" max="4" step="0.5" value="2">
+    </section>
+
+    <section aria-labelledby="h-sel">
+      <h2 id="h-sel">Selected</h2>
+      <div class="card" id="card" aria-live="polite"></div>
+    </section>
+
+    <section aria-labelledby="h-layers">
+      <h2 id="h-layers">Layers</h2>
+      <div class="layers" id="layers"></div>
+    </section>
+
+    <section aria-labelledby="h-checks">
+      <h2 id="h-checks">Septic and site checks</h2>
+      <table class="checks"><tbody id="checks"></tbody></table>
+    </section>
+
+    <details>
+      <summary>Not modeled</summary>
+      <ul id="removed"></ul>
+    </details>
+
+    <p class="foot">Built from <span style="font-family: var(--font-data)">property_total_plan.jsonc</span> and
+      <span style="font-family: var(--font-data)">site/plan3d.obj</span> in the shed-design repo. Neighbor positions are
+      ±2 m (parcel map) to ±10 m (flyer overlay). Beyond the back line the ground is pre-construction.</p>
+  </aside>
+
+  <main class="stage" id="stage">
+    <canvas id="c" aria-label="3D model of the back line, building B and the retail lot"></canvas>
+    <div class="labels" id="labels"></div>
+    <div class="compass" aria-hidden="true">
+      <svg viewBox="-30 -30 60 60">
+        <circle r="27" fill="var(--panel)" fill-opacity="0.8" stroke="var(--rule)" stroke-width="1.5"></circle>
+        <g id="compass-rot">
+          <path d="M0,-23 L5,-4 L0,-7 L-5,-4 Z" fill="var(--accent)"></path>
+          <text x="0" y="9" text-anchor="middle" dominant-baseline="middle" font-family="Archivo Narrow, Arial Narrow, sans-serif" font-weight="700" font-size="13" fill="var(--ink)">N</text>
+        </g>
+      </svg>
+    </div>
+    <div class="hint">Drag to orbit · scroll or pinch to zoom · right-drag to pan · click to inspect</div>
+  </main>
+</div>
+
+<script type="text/plain" id="plan-obj">/*OBJ*/</script>
+<script type="application/json" id="plan-spec">/*SPEC*/</script>
+<script type="application/json" id="plan-checks">/*CHECKS*/</script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+(function () {
+  const stage = document.getElementById("stage");
+  if (!window.THREE || !THREE.OrbitControls) {
+    stage.insertAdjacentHTML("beforeend", '<div class="load-error">The 3D library didn\'t load. Reload the page to try again.</div>');
+    return;
+  }
+  const spec = JSON.parse(document.getElementById("plan-spec").textContent);
+  const checks = JSON.parse(document.getElementById("plan-checks").textContent);
+
+  // ---- Parse the OBJ (meters, z up) ----
+  const objects = {};
+  {
+    const v = []; let cur = null;
+    for (const raw of document.getElementById("plan-obj").textContent.split("\n")) {
+      const t = raw.trim().split(/\s+/);
+      if (t[0] === "o") cur = objects[t[1]] || (objects[t[1]] = { faces: [], lines: [] });
+      else if (t[0] === "v") v.push([+t[1], +t[2], +t[3]]);
+      else if (t[0] === "f" && cur) cur.faces.push(t.slice(1).map(i => v[+i - 1]));
+      else if (t[0] === "l" && cur) cur.lines.push(t.slice(1).map(i => v[+i - 1]));
+    }
+  }
+
+  // ---- What each object is ----
+  const ent = Object.fromEntries(spec.entities.map(e => [e.entity_id, e]));
+  const META = {
+    terrain_lidar_2017: { label: "Ground (lidar)", group: "Ground", token: "terrain", solid: true,
+      status: "2017 lidar, ±2 ft", source: "USGS 3DEP 1 m lidar (Feb 2017), sampled on a 10 m grid.",
+      notes: "Your yard falls toward the back line; just past it is a natural low (the blue-grey dip) where the retail's stormwater area sits. Beyond the back line this is pre-construction ground." },
+    our_parcel_1991_survey: { label: "Your lot (Lot 176)", group: "Your lot", token: "lot",
+      status: "surveyed", source: "1991 survey bearings and distances.", notes: "0.78 ac. The front is on Candelaria Dr; the north side runs along US-290." },
+    house_footprint_survey: { label: "House footprint", group: "Your lot", token: "house",
+      status: "surveyed", source: "Walls rebuilt from the 1991 plat; north wall laser-checked at 62.0 ft.", notes: "Footprint only. There's no room model yet." },
+    building_B_23x43_eave_14ft_assumed: { label: "Building B, 23 × 43 ft", group: "Your lot", token: "shed", solid: true,
+      status: "planned", source: "Site B footprint (SITE_B in tools/site_plan.py).",
+      notes: "Shown with a 14 ft eave (not decided yet) and the slab level with its high NE corner by the oak. The ground falls ~3.8 ft across it, so the west side needs fill or a stem wall rather than a cut toward the oak." },
+    rear_fence: { group: "Your lot", token: "fence", solid: true },
+    septic_pipe_keepout_10ft: { label: "Septic pipe, 10 ft keep-out", group: "Keep-outs", token: "septic",
+      status: "laser, ±2 ft", source: "Field shots from A and F1.", notes: "Kept 10 ft clear in case the pipe marks the tank. The tank lids and drainfield trenches haven't been found yet." },
+    well_keepout_10ft: { label: "Well, 10 ft keep-out", group: "Keep-outs", token: "well",
+      status: "plat, ±3 ft", source: "1991 plat; the owner confirmed the well is there.", notes: "Keep pump-service access." },
+    oak_drip_line: { label: "Twin oak drip line", group: "Keep-outs", token: "oak",
+      status: "laser", source: "Near trunk located by laser; drip line ~25 ft.", notes: "Stay outside it where possible. Prune only July–January (oak wilt)." },
+    oak_no_dig_12ft: { label: "Oak no-dig core, 12 ft", group: "Keep-outs", token: "oak-core",
+      status: "rule", source: "Project rule.", notes: "No digging within 12 ft of either trunk." },
+    platted_back_line: { group: "Lines", token: "accent" },
+    back_line_utility_easement: { label: "Back-line utility easement", group: "Lines", token: "easement" },
+    retail_lot_1a: { label: "Retail lot (1A)", group: "Next door", token: "retail-lot" },
+    retail_east_end_stormwater: { label: "Retail stormwater area", group: "Next door", token: "water" },
+    scenic_brook_plaza_building_3: { label: "Retail Building 3", group: "Next door", token: "retail-bldg", solid: true },
+    apartment_lot_2a_nearest_corner: { label: "Apartment lot corner", group: "Next door", token: "apt" },
+  };
+  for (const [id, e] of Object.entries(ent)) {
+    const m = META[id] || (META[id] = { group: "Next door", token: "muted" });
+    m.label = m.label || id.replace(/_/g, " ");
+    m.status = m.status || e.status; m.source = m.source || e.source; m.notes = m.notes || e.notes;
+    if (e.facade_toward_us) m.notes += " " + e.facade_toward_us;
+  }
+  META.platted_back_line.label = "Platted back line";
+  META.rear_fence.label = "Rear fence (assumed)";
+
+  // ---- Scene ----
+  const canvas = document.getElementById("c");
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(42, 1, 0.5, 2000);
+  const controls = new THREE.OrbitControls(camera, canvas);
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  controls.enableDamping = !reduceMotion; controls.dampingFactor = 0.12;
+  controls.maxPolarAngle = Math.PI * 0.499;
+  const hemi = new THREE.HemisphereLight(0xffffff, 0x445544, 0.75); scene.add(hemi);
+  const sun = new THREE.DirectionalLight(0xffffff, 0.65); sun.position.set(60, 120, 40); scene.add(sun);
+  const root = new THREE.Group(); scene.add(root);
+  const P = (p) => new THREE.Vector3(p[0], p[2], -p[1]);   // plan (x, y, z up) -> three (x, y up, z)
+
+  const css = () => getComputedStyle(document.documentElement);
+  const col = (token) => new THREE.Color(css().getPropertyValue("--" + token).trim() || "#888");
+  const items = {};   // id -> { node, materials, meta }
+
+  for (const [id, o] of Object.entries(objects)) {
+    const m = META[id] || { label: id, group: "Other", token: "muted" };
+    const node = new THREE.Group(); node.userData.id = id; root.add(node);
+    const mats = [];
+    if (o.faces.length) {
+      const pos = [], colors = [];
+      for (const f of o.faces) for (let k = 1; k < f.length - 1; k++) for (const p of [f[0], f[k], f[k + 1]]) pos.push(...P(p).toArray());
+      const g = new THREE.BufferGeometry();
+      g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+      g.computeVertexNormals();
+      const isTerrain = id.startsWith("terrain");
+      const mat = new THREE.MeshLambertMaterial({ side: THREE.DoubleSide, vertexColors: isTerrain, transparent: !isTerrain, opacity: isTerrain ? 1 : 0.92,
+        polygonOffset: isTerrain, polygonOffsetFactor: 2, polygonOffsetUnits: 6 });
+      if (isTerrain) g.setAttribute("color", new THREE.Float32BufferAttribute(new Float32Array(pos.length), 3));
+      const mesh = new THREE.Mesh(g, mat); mesh.userData.id = id; node.add(mesh); mats.push({ mat, kind: "mesh", terrain: isTerrain, geom: g });
+      if (!isTerrain) {
+        const edges = new THREE.LineSegments(new THREE.EdgesGeometry(g, 20), new THREE.LineBasicMaterial());
+        edges.userData.id = id; node.add(edges); mats.push({ mat: edges.material, kind: "edge" });
+      }
+    }
+    if (o.lines.length) {
+      const pos = [];
+      for (const l of o.lines) for (let k = 0; k < l.length - 1; k++) {
+        const a = l[k].slice(), b = l[k + 1].slice(); a[2] += 0.25; b[2] += 0.25;
+        pos.push(...P(a).toArray(), ...P(b).toArray());
+      }
+      const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+      const ls = new THREE.LineSegments(g, new THREE.LineBasicMaterial()); ls.userData.id = id; node.add(ls);
+      mats.push({ mat: ls.material, kind: "line" });
+      if (id === "apartment_lot_2a_nearest_corner") {
+        const dot = new THREE.Mesh(new THREE.SphereGeometry(1.2, 16, 12), new THREE.MeshLambertMaterial());
+        dot.position.copy(P([o.lines[0][0][0], o.lines[0][0][1], o.lines[0][1][2]])); dot.userData.id = id; node.add(dot);
+        mats.push({ mat: dot.material, kind: "mesh" });
+      }
+    }
+    items[id] = { node, mats, meta: m };
+  }
+
+  // Terrain tint by height, recomputed with the theme.
+  function tintTerrain() {
+    const t = items.terrain_lidar_2017; if (!t) return;
+    const { geom } = t.mats.find(x => x.terrain);
+    const lo = col("terrain-lo"), hi = col("terrain-hi"), c = new THREE.Color();
+    const pos = geom.getAttribute("position"), cl = geom.getAttribute("color");
+    for (let i = 0; i < pos.count; i++) {
+      const z = pos.getY(i); c.copy(lo).lerp(hi, THREE.MathUtils.clamp((z + 3.5) / 7, 0, 1));
+      cl.setXYZ(i, c.r, c.g, c.b);
+    }
+    cl.needsUpdate = true;
+  }
+
+  let selected = "scenic_brook_plaza_building_3";
+  function applyColors() {
+    scene.background = col("stage");
+    const accent = col("accent");
+    for (const [id, it] of Object.entries(items)) {
+      const base = col(it.meta.token);
+      for (const m of it.mats) {
+        if (m.terrain) continue;
+        if (m.kind === "mesh") { m.mat.color.copy(base); m.mat.emissive && m.mat.emissive.setRGB(0, 0, 0); if (id === selected) m.mat.emissive.copy(base).multiplyScalar(0.35); }
+        else if (m.kind === "edge") m.mat.color.copy(base).multiplyScalar(0.55);
+        else m.mat.color.copy(id === selected ? accent : base);
+      }
+    }
+    tintTerrain();
+  }
+
+  // ---- Labels ----
+  const LABELS = [
+    ["house_footprint_survey", "Your house"], ["building_B_23x43_eave_14ft_assumed", "Building B"],
+    ["scenic_brook_plaza_building_3", "Retail Bldg 3"], ["retail_east_end_stormwater", "Stormwater"],
+    ["platted_back_line", "Back line"], ["apartment_lot_2a_nearest_corner", "Apartment lot"],
+  ];
+  const labelLayer = document.getElementById("labels");
+  const tags = LABELS.filter(([id]) => items[id]).map(([id, text]) => {
+    const el = document.createElement("div"); el.className = "tag"; el.textContent = text;
+    el.style.setProperty("--tag", "var(--" + items[id].meta.token + ")"); labelLayer.appendChild(el);
+    const box = new THREE.Box3().setFromObject(items[id].node);
+    const c = box.getCenter(new THREE.Vector3());
+    return { id, el, local: new THREE.Vector3(c.x, box.max.y + 0.6, c.z) };
+  });
+  const extraTags = [["toward US-290 →", [36, -8, 6]], ["Candelaria Dr", [-6, -84, 6]]].map(([text, p]) => {
+    const el = document.createElement("div"); el.className = "tag"; el.textContent = text; el.style.setProperty("--tag", "var(--muted)");
+    labelLayer.appendChild(el); return { id: null, el, local: P(p) };
+  });
+
+  // ---- Layer list ----
+  const groups = {};
+  for (const [id, it] of Object.entries(items)) (groups[it.meta.group] ||= []).push(id);
+  const order = ["Your lot", "Keep-outs", "Lines", "Next door", "Ground"];
+  const layersEl = document.getElementById("layers");
+  for (const g of order.filter(g => groups[g])) {
+    const wrap = document.createElement("div"); wrap.className = "layer-group";
+    wrap.innerHTML = `<h3>${g}</h3>`;
+    for (const id of groups[g]) {
+      const it = items[id];
+      const lab = document.createElement("label"); lab.className = "layer"; lab.dataset.id = id;
+      const solid = it.meta.solid ? " solid" : "";
+      lab.innerHTML = `<input type="checkbox" id="layer-${id}" checked><span class="swatch${solid}" style="${solid ? "background" : "border-top-color"}: var(--${it.meta.token})"></span><span class="name">${it.meta.label}</span>`;
+      lab.querySelector("input").addEventListener("change", (ev) => {
+        it.node.visible = ev.target.checked;
+        tags.filter(t => t.id === id).forEach(t => t.el.hidden = !ev.target.checked);
+      });
+      lab.addEventListener("dblclick", (ev) => { ev.preventDefault(); select(id); });
+      wrap.appendChild(lab);
+    }
+    layersEl.appendChild(wrap);
+  }
+
+  // ---- Selection card ----
+  const card = document.getElementById("card");
+  function select(id) {
+    if (!items[id]) return;
+    selected = id; const m = items[id].meta;
+    card.style.borderLeftColor = `var(--${m.token})`;
+    card.innerHTML = "";
+    const h = document.createElement("h3"); h.textContent = m.label;
+    const pill = document.createElement("span"); pill.className = "pill"; pill.textContent = m.status || "";
+    pill.style.color = `var(--${m.token})`;
+    const notes = document.createElement("p"); notes.textContent = m.notes || "";
+    const src = document.createElement("p"); src.className = "src"; src.textContent = m.source ? "Source: " + m.source : "";
+    card.append(h, pill, notes, src);
+    document.querySelectorAll(".layer").forEach(el => el.classList.toggle("selected", el.dataset.id === id));
+    applyColors();
+  }
+
+  // ---- Checks and removed claims ----
+  const tb = document.getElementById("checks");
+  for (const c of checks) {
+    const tr = document.createElement("tr");
+    const cls = c.status.replace(/\s+/g, "-");
+    tr.innerHTML = `<td></td><td class="v"></td><td class="s"><span class="st ${cls}"></span></td>`;
+    tr.children[0].textContent = c.check; tr.children[1].textContent = c.value;
+    tr.querySelector(".st").textContent = c.status.toLowerCase();
+    if (c.note) tr.children[0].title = c.note;
+    tb.appendChild(tr);
+  }
+  const rm = document.getElementById("removed");
+  for (const r of spec.removed) {
+    const li = document.createElement("li");
+    const b = document.createElement("b"); b.textContent = r.claim.split(":")[0] + ". ";
+    li.append(b, document.createTextNode(r.finding)); rm.appendChild(li);
+  }
+
+  // ---- Views and exaggeration ----
+  let exag = 2;
+  const VIEWS = {
+    oblique: { eye: [62, -118, 62], at: [-16, 18, 0] },
+    house:   { eye: [-6, -34, 2.2], at: [-42, 96, 4.5] },   // eye 1.7 m above the yard
+    top:     { eye: [-15, 18.5, 260], at: [-15, 20, 0] },
+  };
+  const worldOf = (p) => { const v = P(p); v.y *= exag; return v; };
+  function setView(name) {
+    const v = VIEWS[name];
+    camera.position.copy(worldOf(v.eye)); controls.target.copy(worldOf(v.at));
+    controls.update();
+    document.querySelectorAll("button.view").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.view === name)));
+  }
+  document.querySelectorAll("button.view").forEach(b => b.addEventListener("click", () => setView(b.dataset.view)));
+  const exagIn = document.getElementById("exag"), exagOut = document.getElementById("exag-out");
+  exagIn.addEventListener("input", () => {
+    const k = +exagIn.value / exag; exag = +exagIn.value; exagOut.textContent = exag + "×";
+    root.scale.y = exag; camera.position.y *= k; controls.target.y *= k; controls.update();
+  });
+  root.scale.y = exag;
+
+  // ---- Picking ----
+  const ray = new THREE.Raycaster(); ray.params.Line.threshold = 1.2;
+  let down = null;
+  canvas.addEventListener("pointerdown", (e) => { down = [e.clientX, e.clientY]; });
+  canvas.addEventListener("pointerup", (e) => {
+    if (!down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 5) return;
+    const r = canvas.getBoundingClientRect();
+    ray.setFromCamera({ x: ((e.clientX - r.left) / r.width) * 2 - 1, y: -((e.clientY - r.top) / r.height) * 2 + 1 }, camera);
+    const hits = ray.intersectObjects(root.children, true).filter(h => h.object.visible && h.object.parent.visible);
+    const pick = hits.find(h => !String(h.object.userData.id).startsWith("terrain")) || hits[0];
+    if (pick) select(pick.object.userData.id);
+  });
+
+  // ---- Theme changes ----
+  const refresh = () => applyColors();
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", refresh);
+  new MutationObserver(refresh).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+  // ---- Render loop ----
+  const compass = document.getElementById("compass-rot");
+  // Plan +x runs N30°E along the back line and +y N60°W, so true north is 0.866 x + 0.5 y.
+  const north = P([0.866, 0.5, 0]);
+  const na = new THREE.Vector3(), nb = new THREE.Vector3();
+  function resize() {
+    const w = stage.clientWidth, h = stage.clientHeight; if (!w || !h) return;
+    renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
+  }
+  new ResizeObserver(resize).observe(stage);
+  const tmp = new THREE.Vector3();
+  function frame() {
+    controls.update();
+    renderer.render(scene, camera);
+    const w = stage.clientWidth, h = stage.clientHeight;
+    for (const t of [...tags, ...extraTags]) {
+      if (t.id && !items[t.id].node.visible) continue;
+      tmp.copy(t.local); tmp.y *= exag; tmp.project(camera);
+      const off = tmp.z > 1 || tmp.x < -1.1 || tmp.x > 1.1 || tmp.y < -1.1 || tmp.y > 1.1;
+      t.el.hidden = off;
+      if (!off) { t.el.style.left = ((tmp.x + 1) / 2 * w) + "px"; t.el.style.top = ((1 - tmp.y) / 2 * h) + "px"; }
+    }
+    // Compass: where true north points on screen.
+    na.copy(controls.target).project(camera); nb.copy(controls.target).addScaledVector(north, 10).project(camera);
+    const ang = Math.atan2((nb.x - na.x) * w, (nb.y - na.y) * h) * 180 / Math.PI;
+    compass.setAttribute("transform", `rotate(${ang.toFixed(1)})`);
+    requestAnimationFrame(frame);
+  }
+  resize(); applyColors(); select(selected); setView("oblique"); frame();
+})();
+</script>

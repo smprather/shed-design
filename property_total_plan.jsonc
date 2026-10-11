@@ -1,0 +1,89 @@
+{
+  "$schema": "https://githubusercontent.com",
+  "project_meta": {
+    "repository_target": "Property Addition Planning & Total 3D Plan",
+    "local_coordinate_origin": "Relative Meters (0,0,0 at Northern Rear Fence Center Line)",
+    "local_elevation_baseline": "Your Property Ground Level = 0.0m"
+  },
+
+  // Local File System Anchors for Coding Agents to Ingest & Coregister
+  "local_source_registry": {
+    "interior_mesh_source": "./data/floorplans/cubicasa_model.obj", // CubiCasa generation
+    "parcel_survey_source": "./data/surveys/1991_plat_map.pdf",      // Historical platted boundaries
+    "septic_field_exclusion_zone": "./data/environmental/septic_layout.dwg" // Septic clearance coordinates
+  },
+
+  // 3D Spatial Entities Layer for Programmatic Mesh Synthesis
+  "spatial_entities": [
+    {
+      "entity_id": "rear_fence_line",
+      "type": "boundary_wall",
+      "coordinates_relative_meters": {
+        "start": [-20.0, 0.0, 0.0],
+        "end": [20.0, 0.0, 0.0]
+      },
+      "geometry": { "height": 2.0, "thickness": 0.15 },
+      "constraints": "Strict physical anchor. Adheres to platted property lines."
+    },
+    {
+      "entity_id": "scenic_brook_retention_basin",
+      "type": "sunken_buffer_zone",
+      "description": "Engineered water quality storm runoff depression",
+      "coordinates_relative_meters": {
+        "x_bounds": [-15.0, 15.0],
+        "y_bounds": [0.1, 13.1] // 13-meter width clearing
+      },
+      "geometry": {
+        "type": "excavated_prism",
+        "surface_z": -0.5,
+        "floor_z": -3.0, // Drop depth
+        "slope_ratio": "3:1"
+      },
+      "agent_instruction": "Keep this volume clear of elevated structural meshes. Simulates open horizontal sightlines over the fence."
+    },
+    {
+      "entity_id": "plaza_retaining_wall",
+      "type": "topographical_grade_transition",
+      "coordinates_relative_meters": {
+        "x_bounds": [-25.0, 25.0],
+        "y_fixed": 13.1
+      },
+      "geometry": { "vertical_drop_delta_z": -3.0 },
+      "agent_instruction": "Drop the terrain surface mesh step-down here by 3.0 meters to account for commercial pad grading."
+    },
+    {
+      "entity_id": "scenic_brook_plaza_bldg_c",
+      "type": "commercial_structure",
+      "description": "Rear facade of single-story retail building closest to property",
+      "coordinates_relative_meters": {
+        "x_bounds": [-10.0, 20.0],
+        "y_bounds": [13.1, 28.1] // 15-meter depth footprint
+      },
+      "geometry": {
+        "foundation_z": -3.0, // Sits on lower graded pad
+        "roof_height_from_pad": 6.5, // High commercial ceiling shell
+        "effective_visual_z_above_yard": 3.5 // 6.5m height - 3.0m drop
+      },
+      "facade_attributes": {
+        "fenestration": "none", // Solid rear structural backing wall
+        "signage_illumination": "prohibited_facing_south",
+        "acoustic_properties": "solid_masonry_noise_deflector"
+      }
+    },
+    {
+      "entity_id": "scenic_brook_pocket_park",
+      "type": "protected_greenbelt_buffer",
+      "description": "Deeded municipal conservation area / paper street reclamation",
+      "coordinates_relative_meters": {
+        "x_bounds": [-50.0, -20.0],
+        "y_bounds": [0.0, 40.0]
+      },
+      "environmental_constraints": {
+        "watershed_zone": "Barton Springs Critical Water Quality Buffer",
+        "impervious_cover_allowance": 0.00, // Permanent zero-build zone
+        "foliage_density_3d": "high_canopy_wooded"
+      },
+      "agent_instruction": "Populate with randomized native tree assets (Live Oak / Juniper) to simulate visual masking."
+    }
+  ]
+}

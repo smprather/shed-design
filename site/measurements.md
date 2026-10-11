@@ -52,6 +52,26 @@ use them to place everything on a to-scale plan.
 | 18 | Slope (optional) | which way the build strip drops, and roughly how much | ? | |
 | 19 | Well | the 1991 plat shows a well near the NW corner, ~28 ft in from the back line and ~12 ft from the US-290 line. Is it still there (casing, cap or pump)? If so: from A and from F1. | ~108 ft from A | |
 
+## Tape baseline west of A (100 ft tape)
+
+The laser gets unreliable past ~50 ft in daylight and through brush, so for the strip use a
+baseline and offsets:
+
+1. Stretch the tape from **A** straight west along the line of the north wall (sight down
+   the wall). Stake it at 25, 50, 75 and 100 ft.
+2. For each item, write its **station** (the tape reading where the item is square off the
+   tape) and its **offset** (distance from the tape: + toward the fence, − toward the back
+   yard). Short offsets can be eyeballed square.
+
+| # | Item | Station | Offset | Estimate |
+|---|---|---|---|---|
+| T1 | Fence offset at 0 / 25 / 50 / 75 / 100 | — | | ~42 ft at 0 |
+| T2 | Septic access pipe | | | ~41 / +43 |
+| T3–T4 | Tank lids 1–2 | | | |
+| T5–T8 | Drainfield points (trench ends, ports, green stripes) | | | |
+| T9 | Well | | | ~95 / +50 |
+| T10 | Anything else (oak branch edge, wire crossing, roots…) | | | |
+
 ## Also note
 
 - Check your closing papers first, since they may answer some of these outright.

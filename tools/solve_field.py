@@ -32,16 +32,28 @@ TARGETS = {
     # Owner confirmed the septic access pipe is at the plotted spot: the west one, in the open strip.
     "white_pipe": {"shot": "s13p", "side": "west"},
 }
+# Tape baseline: from A west along the north wall's line. Station s (ft west of A) and
+# offset o (ft toward the fence) map straight to the local frame as (-s, o).
+BASELINE_POINTS = {
+    "blp": "septic access pipe", "bl1": "tank lid 1", "bl2": "tank lid 2",
+    "bld1": "drainfield 1", "bld2": "drainfield 2", "bld3": "drainfield 3", "bld4": "drainfield 4",
+    "blw": "well", "blx": "other",
+}
+FENCE_STATIONS = (0, 25, 50, 75, 100)
+
 # The big oak has twin trunks ~8 ft apart (owner). Shots 9-10 went to the trunk nearer the
 # house; the second trunk's offset (u, v) is read off the owner's sketch, so treat it as +/-2 ft.
 OAK_SECOND_TRUNK = (4.5, 6.6)
 
 
 def parse_ft(text: str) -> float | None:
-    """'44.6', '44', "44' 7\"", '44 ft 7 in', '44-7' -> feet."""
-    s = (text or "").strip().lower().replace("’", "'").replace("”", '"')
+    """'44.6', '44', "44' 7\"", '44 ft 7 in', '-3.5', '+12' -> feet."""
+    s = (text or "").strip().lower().replace("’", "'").replace("”", '"').replace("−", "-")
     if not s:
         return None
+    if s[0] in "+-":
+        v = parse_ft(s[1:])
+        return None if v is None else (-v if s[0] == "-" else v)
     m = re.fullmatch(r"(\d+(?:\.\d+)?)\s*(?:'|ft|feet|-|\s)\s*(\d+(?:\.\d+)?)\s*(?:\"|in|inches)?", s)
     if m:
         return float(m[1]) + float(m[2]) / 12
@@ -150,6 +162,24 @@ def main() -> None:
                             "trunk_radius": g2 / (2 * math.pi) if g2 else None, "ambiguous": False,
                             "note": "second trunk, offset from the owner's sketch (+/-2 ft)"}
 
+    tape_fence = []
+    for st_ft in FENCE_STATIONS:
+        o = reading(data, "blf", f"o{st_ft}")
+        if o is not None:
+            p = (-float(st_ft), o)
+            tape_fence.append({"local": p, "site": to_site(p)})
+    if tape_fence:
+        out["tape_fence"] = tape_fence
+    tape_points = {}
+    for doc_id, label in BASELINE_POINTS.items():
+        s_ft, o = reading(data, doc_id, "s"), reading(data, doc_id, "o")
+        if s_ft is not None and o is not None:
+            p = (-s_ft, o)
+            tape_points[doc_id] = {"label": label, "local": p, "site": to_site(p),
+                                   "note": data.get(doc_id, {}).get("note", "")}
+    if tape_points:
+        out["tape_points"] = tape_points
+
     def rnd(o):
         if isinstance(o, float):
             return round(o, 2)
@@ -162,6 +192,13 @@ def main() -> None:
     OUT.write_text(json.dumps(rnd(out), indent=2) + "\n")
     print(f"wrote {OUT.relative_to(REPO)}")
     for k, v in out.items():
+        if k == "tape_fence":
+            print("  tape fence:", ", ".join(f"({p['local'][0]:.0f}, {p['local'][1]:.1f})" for p in v))
+            continue
+        if k == "tape_points":
+            for d in v.values():
+                print(f"  tape {d['label']}: {-d['local'][0]:.1f} ft west of A, {d['local'][1]:.1f} ft out")
+            continue
         if "solutions" in v:
             for s in v["solutions"]:
                 u, w = s["local"]

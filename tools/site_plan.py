@@ -267,6 +267,13 @@ def draw_field(plan: Plan) -> dict:
         circle(c, 12.0, outline=(255, 200, 80), width=3)
     for c, r in trunks:
         circle(c, r, fill=(120, 80, 40), outline=WHITE, width=2)
+    tape_fence = [tuple(p["site"]) for p in fp.get("tape_fence", [])]
+    if len(tape_fence) > 1:
+        plan.line(tape_fence, YELLOW, width=4)
+    for d in fp.get("tape_points", {}).values():
+        cx, cy = plan.p(*d["site"])
+        plan.d.rectangle([cx - 8, cy - 8, cx + 8, cy + 8], fill=YELLOW, outline=(0, 0, 0), width=2)
+        plan.label(d["site"][0] + 1.5, d["site"][1] + 1, d["label"], fill=YELLOW, size=15)
     for sol in fp.get("white_pipe", {}).get("solutions", []):
         cx, cy = plan.p(*sol["site"])
         plan.d.ellipse([cx - 9, cy - 9, cx + 9, cy + 9], fill=WHITE, outline=(0, 0, 0), width=2)

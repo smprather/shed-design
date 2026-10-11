@@ -188,6 +188,9 @@ How it lines up with what we've seen:
   - Past the canopy, that line **crosses the surveyed line** and sits up to **~7 ft beyond
     it** (on the highway side) by the garage. The fence encloses a sliver of what the
     1991 survey says isn't ours. That area is under the oak anyway.
+- **Laser limits:** past ~50 ft in daylight and through brush, the laser readings are only
+  approximate. Shots 3, 5–6 and the long oak and pipe shots fall in that range. Tomorrow's
+  plan is a **tape baseline from A westward with short offsets** (worksheet T1–T10).
 - **Tape checks:**
   - A → fence square off the wall (expect ~42 ft).
   - A → the bend post.

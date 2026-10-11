@@ -4,8 +4,8 @@
 # ///
 """Site B close-up: the chosen 23 x 43 metal building and its clearances.
 
-Shows the footprint (the earlier 20 x 40 dashed), the solid highway-side wall, where doors
-go, the sound shadow toward the house, the septic truck's parking spot and hose run, and the
+Shows the footprint (the earlier 20 x 40 dashed), the north wall that stays free of openings,
+where doors go, the sound shadow toward the house, the septic truck's parking spot and hose run, and the
 distances that set the footprint. Same lot-aligned foot grid as site_plan.py.
 
 Run: uv run tools/site_b_plan.py
@@ -68,7 +68,7 @@ def main() -> None:
 
     plan.poly(B_OLD, YELLOW, width=2, dash=True)
     plan.poly(B, YELLOW, fill=(255, 220, 60, 95), width=4)
-    plan.line([B[0], B[1]], WALL_RED, width=12)  # solid highway-side wall
+    plan.line([B[0], B[1]], WALL_RED, width=8)  # north wall of the building itself: no openings (noise)
     for x0 in (156, 174):  # suggested roll-up doors on the south side
         plan.line([(x0, BY1), (x0 + 12, BY1)], WHITE, width=10)
 
@@ -88,7 +88,7 @@ def main() -> None:
     plan.dim((185, BY1), (185, house_north_y(185)), f"{to_house:.0f} ft", at=(179, 160))
 
     plan.label(158, 139.5, "B  23 x 43 ft\nmetal building, slab", fill=(255, 235, 140), size=26)
-    plan.label(152, 125.4, "solid wall to US-290: insulated, no openings", fill=(255, 150, 140), size=18)
+    plan.label(152, 125.4, "north wall: no doors, windows or vents", fill=(255, 150, 140), size=18)
     plan.label(156, 151.2, "roll-up doors on this side", fill=WHITE, size=16)
     plan.label(193.5, 152.3, "dashed: earlier 20 x 40", fill=(255, 235, 140), size=15)
     plan.label(186.5, 167, "septic truck parks here", fill=(230, 230, 230), size=15)

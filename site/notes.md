@@ -67,14 +67,14 @@ How it lines up with what we've seen:
   house, and the plat's well is near its west end.
 - The big open lawn in the zoomed-out aerial, south-west of the house, is mostly the
   **neighbor's** lot. Our back yard is the smaller lawn west of the house.
-- The land **behind the back (west) line is being developed into apartments and retail**
-  (Broadstone Scenic Brook on the CAD map). The overhead electric line that ran along our
-  back line went with it.
-- That parcel (~$1.31M on Zillow) is now **completely cleared of trees** (owner, Oct
-  2026). The aerial still shows woods there, so the back yard is more exposed than it
-  looks: afternoon sun, wind, views and noise from the west. It runs behind the whole
-  row of Candelaria lots and also fronts US-290 further west. Past it, the big parcel
-  to the south-west (~$12.3M on Zillow) is already graded with streets.
+- The land **behind the back (west) line is being developed into retail and apartments**
+  (the Broadstone Scenic Brook subdivision on the CAD map). The overhead electric line that
+  ran along our back line went with it. See "The development behind the back line" below.
+- The parcel directly behind us is now **completely cleared of trees** (owner, Oct 2026). The
+  aerial still shows woods there, so the back yard is more exposed than it looks: afternoon
+  sun, wind, views and noise from the west. It runs behind the whole row of Candelaria lots
+  and also fronts US-290 further west; it looks like the retail lot. Past it, the big
+  parcel to the south-west (the 40-acre apartment lot) is already graded with streets.
 - **North of our US-290 line is the highway right-of-way.** The graded dirt is the US-290
   construction, not the apartment site; concrete barriers and pipe are staged there. The
   1991 plat's Lot 178 has become highway land. CAD's land area still matches the plat, so
@@ -432,18 +432,55 @@ For scale: ~3 dB is just noticeable, 5 dB is clearly noticeable, and 10 dB sound
 - **At the house**, the north-facing windows and doors are often the cheapest big gain:
   laminated or dual-pane glass with different pane thicknesses, and sealed frames.
 
+## The development behind the back line (Oct 11 2026)
+
+From the retail's leasing flyer (https://www.cldrealty.com/properties/scenic-brook-plaza,
+from the owner) and the City of Austin site-plan and TDLR (state accessibility) records. Both
+lots are in Austin's **2-mile ETJ and the Barton Springs Zone**, so the City reviewed their
+site plans. The plat is Broadstone Scenic Brook Amended, Lots 1 & 2, Block A.
+
+| | Retail: Scenic Brook Plaza | Apartments: Granada Ridge |
+|---|---|---|
+| Lot | Lot 1A, 8313 W US 290 | Lot 2A, 8327 W US 290, 40 ac |
+| Where | Along the US-290 frontage road, from Scenic Brook Dr east toward us | South-west of the retail |
+| What | Three one-story retail buildings, 19,735 sq ft in all, in a row with parking on both sides and a loop drive; pylon sign on US-290 | 372 units in the state filing for the leasing office; the flyer says ~550 |
+| Tenants so far | A drive-thru at the west end (by Scenic Brook Dr); restaurants with patios, a nail spa, a liquor store, and a dentist at the east end | |
+| City site plan | SP-2019-0411D, approved Dec 21 2021; 32% impervious cover | SP-2018-0138D, approved May 6 2019; 24.1% impervious cover |
+| Opening | Delivery Q3 2026 (flyer); the state filing says complete Nov 1 2026 | Leasing office Jan 31 2027; amenity building listed through Jan 2028 |
+
+- **The neighbor right behind us is most likely the retail lot, not the apartments.** The
+  retail is one story, so a 6–8 ft solid fence plus the existing trees hides most of it from
+  the yard. The apartments are further south-west. Their distance and floor count still need
+  their site plan, so treat the screen heights under "Back line" as the worst case.
+- **Commercial noise and light:** parking-lot lights, early-morning trash and delivery
+  trucks, rooftop HVAC, and evening customers (liquor store, restaurants). The drive-thru
+  speaker is at the far (west) end. The flyer's plan seems to show two dumpster enclosures on
+  the south drive, one near the east end. Find out where they sit relative to our line.
+- **Traffic:** the flyer puts US-290 here at **54,068 vehicles/day**, and says the Oak Hill
+  Parkway work finishes in late 2026. The new Scenic Brook Dr interchange has ramps in both
+  directions. On the flyer's map, the eastbound on-ramp and the frontage road toward FM 1826
+  run east from the retail past our US-290 side, so traffic speeding up to merge passes the
+  lot.
+- **Get the plan sheets from the City** (Austin Development Services, the two SP numbers).
+  Look for the east boundary: any fence or wall, landscape buffer, the lighting
+  (photometric) plan, dumpster and loading spots, and drainage ponds. For the apartments,
+  look for building heights and setbacks. We're outside the city limits, so the City's
+  compatibility buffer probably wasn't required along our line.
+- **Barton Springs Zone:** our lot is probably in it too. Ask Travis County whether that
+  limits impervious cover (the slab and the circle drive).
+
 ## Plan: make the house feel less exposed (Oct 11 2026)
 
-The house feels exposed to US-290 and to the apartments going up behind it. The goal is to
-cut noise, block views and protect the house's value. No single part solves it; the shed is
-one part.
+The house feels exposed to US-290 and to the retail and apartments going up behind it. The
+goal is to cut noise, block views and protect the house's value. No single part solves it;
+the shed is one part.
 
 | Part | What it does | Limits |
 |---|---|---|
 | **Windows and doors** (north and west walls first) | The biggest noise cut indoors | One leaky window or door spoils a room |
 | **Building B** | Yard shield, ~7 dB right behind it; blocks the view from the old carport area | Only ~1–3.5 dB at the house |
 | **Wall along US-290** | Hides the road; ~4–6 dB, ~7–8 dB at 12 ft with a return along Candelaria | Ends leak; see the constraints below |
-| **Back-line screen** | Hides the apartments from the yard at ground level | Upper floors need tree height |
+| **Back-line screen** | Hides the retail and apartments from the yard at ground level | Upper floors need tree height |
 | **Evergreens, water feature** | Visual screen, and sound masking near the patio | Little real dB |
 
 A rough rule from appraisal studies is that highway noise costs ~0.5% of home value per dB.
@@ -464,10 +501,12 @@ An 8 ft solid wall makes the road disappear from the ground floor and yard and h
 cars from the 2nd floor. 10–12 ft hides nearly everything. The open end at Candelaria stays
 visible unless the wall returns along it.
 
-### Back line (apartments)
+### Back line (retail and apartments)
 
 Wall height at the back line needed to hide our yard and house (~60–130 ft inside the line)
-from the apartments' windows 20–40 ft past the line:
+from apartment windows 20–40 ft past the line. The lot right behind us looks like the
+one-story retail (see "The development behind the back line"), so this is the worst case
+until the apartments' site plan shows how far off and how tall they are.
 
 | Apartment window | Screen height at the back line |
 |---|---|
@@ -480,11 +519,11 @@ from the apartments' windows 20–40 ft past the line:
   cut their roots, so water in droughts and have an arborist look at them.
 - **Screens near where you sit work best.** A tree, pergola or tall evergreens by the patio
   block more of the view per foot of height than a wall 130 ft away.
-- **Get the apartments' site plan** from whoever reviewed it (Travis County, or the City if
-  that lot is in city limits). It shows any required fence, buffer or landscaping, building
-  heights and setbacks, parking-lot lighting, and dumpster and HVAC locations. We're outside
-  city limits, so Austin's compatibility screening probably doesn't protect us. Don't count
-  on the developer's fence until the plan shows it.
+- **Get both site plans from the City of Austin**, which reviewed them as ETJ cases:
+  SP-2019-0411D (retail) and SP-2018-0138D (apartments). They show any required fence,
+  buffer or landscaping, building heights and setbacks, parking-lot lighting, and dumpster
+  and HVAC locations. We're outside city limits, so Austin's compatibility screening probably
+  doesn't protect us. Don't count on the developer's fence until the plan shows it.
 
 #### Back-line trees (Oct 11 2026)
 
@@ -593,11 +632,11 @@ line now takes full west sun. The area has heavy deer and oak wilt.
 | **House** north wall | ~19 ft south of the old canopy footprint |
 | **Well** (1991 plat) | Near the NW corner; if it's still there, don't build over it and keep access for pump service |
 | **Back-line easement** | 7.5' / 10' utility easement, still on record even though the overhead line is gone: no structures in it |
-| **Neighbor behind (west)** | Cleared; apartments + retail under construction. Think about screening, noise, drainage changes along the back line, and who owns the new fence. Our trees near the back line may have lost roots to the clearing, so watch for stress or dieback. |
+| **Neighbor behind (west)** | Cleared; retail (Scenic Brook Plaza) right behind, apartments (Granada Ridge) beyond, both under construction. Think about screening, noise, drainage changes along the back line, and who owns the new fence. Our trees near the back line may have lost roots to the clearing, so watch for stress or dieback. |
 | **Buried utilities** | The house's electric feed may have been rerouted underground when the back-line overhead came down. **Call 811 (Texas811) before digging** footings. |
 | **Front building line** | 45 ft from Candelaria Dr: no structures in front of it, so no carport in front of the garage |
 | **Drive** from Candelaria Dr | Route and clearance into the site to be confirmed (shots 16–17) |
-| **Jurisdiction** | Outside Austin city limits (probably the ETJ): permits go through Travis County, not the City. City tree rules shouldn't apply, but the oaks' roots still need protecting. |
+| **Jurisdiction** | Outside Austin city limits, probably in the ETJ (the lots next door are in Austin's 2-mile ETJ and the Barton Springs Zone): permits go through Travis County, not the City. City tree rules shouldn't apply, but the oaks' roots still need protecting. |
 
 ## Map frame
 
@@ -626,3 +665,5 @@ line now takes full west sun. The area has heavy deer and oak wilt.
   - the **Granada Hills Amended plat** (building lines and utility easements), from the Travis County Clerk
   - the **septic inspection report or permit**
   - the **title commitment** (deed restrictions)
+  - the **site plans next door**, SP-2019-0411D (retail) and SP-2018-0138D (apartments), from
+    City of Austin Development Services

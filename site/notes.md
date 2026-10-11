@@ -469,6 +469,62 @@ site plans. The plat is Broadstone Scenic Brook Amended, Lots 1 & 2, Block A.
 - **Barton Springs Zone:** our lot is probably in it too. Ask Travis County whether that
   limits impervious cover (the slab and the circle drive).
 
+### Grades and the east end (flyer + USGS lidar, Oct 11 2026)
+
+- **Our yard near the back line is ~1057–1060 ft** above sea level (USGS 3DEP lidar, flown
+  Feb 2017, sampled along a line west from the geocoded address, ±2 ft). The ground keeps
+  falling west past our line, to ~1050 ft about 200 ft beyond it (pre-construction ground).
+- **The retail's floor levels:** Building 3 (the east one, nearest us) steps across 1052,
+  1054 and 1056 ft. Building 1 (west end) is at 1071 ft. So Building 3's pad sits ~1–2.5 m
+  below our yard. Its parapet looks roughly 20–25 ft above the floor, judging by the 12 ft
+  storefront in the flyer's elevations.
+- **Building 3's east face, toward us, has storefront glass and a "Dentist" sign** on the
+  flyer's east elevation.
+- **Between Building 3 and our line:** the east end of the parking loop, then what looks like
+  a drainage or water-quality pond at the retail lot's east end. The lot's east edge on the
+  flyer lines up with our back line. Read off the flyer's aerial (scaled by Building 3's
+  length), Building 3's east wall is roughly **230–280 ft (70–85 m) from our back line**.
+  The City plan sheets will give the real numbers.
+
+## 3D plan spec check (Oct 11 2026; `property_total_plan.jsonc`, `tools/plan3d.py`)
+
+The owner added `property_total_plan.jsonc`, a 3D spec of the back line and the retail next
+door. `uv run tools/plan3d.py` builds `site/plan3d.obj` from it and runs the checks below.
+
+- **Frame:** its origin is the center of the "rear fence". Here that's taken to be the back
+  (west) line, which the retail lot adjoins, at the platted line (the spec says the fence
+  follows it). +x runs toward US-290 and +y away from the lot.
+- **Its three source files aren't in the repo** (a CubiCasa room model, the plat PDF, a septic
+  DWG), so there's no room model. The plat lines come from the survey bearings already in
+  `site_plan.py`, and the septic features from the field shots. `data/` is git-ignored: the
+  plat PDF must never be committed, and an interior floor plan shouldn't be public either.
+- **Septic conflicts with our planned additions:**
+  - **US-290 wall: conflict.** The septic pipe is 8.0 ft from the surveyed line, so a footing
+    at the line comes within ~6 ft of it. The wall would need to jog in or stop short there,
+    or wait until the tank's location is known.
+  - **Back-line trees: conflict at the north end.** The well is 28 ft in from the back line,
+    so the inner row (22 ft in) passes within ~6 ft of it. Stop that row short of the well.
+  - **Building B: at the limit,** exactly 10.0 ft from the pipe.
+  - The truck lane (15.1 ft) and the hose run (72 ft) are fine.
+  - **Unknown:** the tank and drainfield are still unlocated, so nothing can be checked
+    against them yet.
+- **None of the spec's neighbor geometry touches our septic.** It all lies past the back line.
+- **Where the spec disagrees with the evidence:**
+  - **Distance:** it puts the retail building ("bldg C"; the flyer calls it Building 3)
+    13–28 m from the fence. The flyer suggests ~70–85 m, with the parking loop and a pond in
+    between.
+  - **Pad drop:** it uses 3.0 m; the floor levels and lidar suggest ~1–2.5 m. The building
+    then stands ~4–5.5 m above our yard, not 3.5 m, but much further away.
+  - **Size:** its footprint is 30 × 15 m (~4,800 sq ft). Building 3's tenant spaces add up to
+    ~7,900 sq ft.
+  - **East face:** it says no windows and no signage (facing "south"). The flyer shows glass and
+    a tenant sign on the face toward us.
+  - **Basin:** its 3:1 side slopes can't reach 3.0 m deep within a 13 m width (they meet at
+    ~2.7 m), so the model shows a trough. A pond at the retail's east end does look real; its
+    size and depth need the plan sheets.
+  - **Fence:** it's 40 m long; the platted back line is 47.3 m.
+  - **Pocket park and retaining wall:** no source found for either.
+
 ## Plan: make the house feel less exposed (Oct 11 2026)
 
 The house feels exposed to US-290 and to the retail and apartments going up behind it. The

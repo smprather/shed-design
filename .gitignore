@@ -1,2 +1,5 @@
 __pycache__/
 .venv/
+# Local sources named in property_total_plan.jsonc: the plat PDF and the
+# interior floor plan must stay out of this public repo.
+data/

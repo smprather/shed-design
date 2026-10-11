@@ -286,6 +286,32 @@ the house** (24 × 40 if the trees at its SW corner allow).
 - **Branches over B's east end (17a)**, for erection clearance and eave height.
 - **Tree edge at B's SW corner (T11)**, which decides 20 × 40 vs 24 × 40.
 
+## Traffic noise: wall height estimates (Oct 11 2026)
+
+The owner reports the house sits ~15–20 ft above US-290. Idealized barrier estimates
+(Maekawa, 550 Hz, lanes 60–100 ft from the line, receivers 40 ft behind it) give the
+following. Real barriers deliver less, and >15 dB is rare, so read these as comparisons.
+
+| Receiver | Hill alone | 8 ft wall at the line | 12 ft | 14 ft |
+|---|---|---|---|---|
+| Ground floor / yard | ~5–10 dB | ~14–18 (realistic ~10–15) | ~17–20 | ~18–20 |
+| 2nd-floor window | ~0–3 dB | ~5–12 (realistic ~5–8) | ~10–16 | ~13–17 |
+
+- **Height is what counts, not material.** Any solid, gap-free wall heavier than ~4 lb/sq
+  ft (tight board-on-board, concrete, brick) performs the same at the same height.
+- **An 8 ft brick wall where the 8 ft fence already stands adds ~0–3 dB**, and only by
+  closing leaks in the fence.
+- **The 2nd floor is the weak spot.** Its line of sight to the traffic passes just over
+  an 8 ft wall. A 12–14 ft barrier near the line roughly doubles its benefit there. The
+  tall building at B does that for the west part of the house.
+- **Curved or angled tops** (like airport deflectors, which are mostly for jet blast) gain
+  ~1–3 dB over a plain wall of the same height. A vertical face reflects sound back across
+  the highway, not upward.
+- **Possible TxDOT wall:** the Oak Hill Parkway project built a sound wall along the
+  **south side of US-290 from South View Rd to Scenic Brook Dr**. Check whether the tall
+  "fence" is that wall, i.e. concrete panels with a wood texture. That would also explain
+  it sitting a few feet off the 1991 line, on TxDOT's side by the garage.
+
 ## Goal
 
 - **A rather large metal building (steel shed) on a concrete slab.** Size, use and doors

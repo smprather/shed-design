@@ -228,6 +228,39 @@ These assume:
   - find out whether the drainfield runs that way;
   - tape the lawn's tree edges (worksheet T11–T15).
 
+## Decision: site B (Oct 11 2026)
+
+The owner wants the building at **site B, the old carport spot**, so that it also **shields
+the house and yard from US-290 traffic noise**. Working footprint: **20 × 40 ft, square to
+the house** (24 × 40 if the trees at its SW corner allow).
+
+### Making B a good sound barrier
+
+- **Solid highway side.** No doors, windows or vents on the north (US-290) wall. Put the
+  roll-up doors on the south or east side, away from the highway.
+- **Height helps.** The building only shields what it hides from the traffic. A taller
+  eave (~12–14 ft) covers more of the yard and the house's lower floor; second-story
+  windows will partly see over it.
+- **Mass and insulation.** Bare sheet metal is light and rings. Insulated wall panels, or
+  insulation plus an interior liner, cut both sound through the wall and rain noise inside.
+- **No gaps.** Sound leaks around the ends and under the walls. Keep the slab edge tight to
+  grade, and tie the building's ends visually and physically into the existing tall fence.
+- **Longer is better.** It's 40 ft now, limited by the oak (east) and the septic pipe's
+  10 ft keep-out (west). If probing shows the pipe is only an inspection port and nothing
+  runs toward B, the building may stretch a few feet west.
+- **Expectation:** behind a solid building that blocks the line of sight, traffic noise
+  typically drops ~5–10 dB, noticeably quieter. The effect is strongest in its "shadow"
+  close behind it.
+
+### Checks that matter most for B
+
+- **The low wire (shot 20):** where it runs from the pole beyond the fence to the house. If
+  it crosses B, the utility will need to raise, reroute or underground it before the steel
+  goes up.
+- **Probe B for septic** (a trench from the pipe toward B?), and between the pipe and B.
+- **Branches over B's east end (17a)**, for erection clearance and eave height.
+- **Tree edge at B's SW corner (T11)**, which decides 20 × 40 vs 24 × 40.
+
 ## Goal
 
 - **A rather large metal building (steel shed) on a concrete slab.** Size, use and doors

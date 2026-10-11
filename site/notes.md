@@ -220,8 +220,8 @@ These assume:
     10 ft from the pipe) gives the roots room for the slab edge and forms; hand-dig or
     air-spade that edge.
   - The old canopies' east end sat ~12.5 ft from the near trunk, right at the no-dig core.
-  - The septic truck can park in the lane between B and the house, ~40 ft of hose from
-    the pipe.
+  - The septic truck can park in the lane between B and the house (under the oak, on the
+    existing route), with ~65–70 ft of hose around B's west end to the pipe.
 - **The strip can't take one large building:** the septic pipe's keep-out splits it. West of
   the pipe (A) is ~27 × 34; east of it (B) is ~20 × 40, possibly 24 × 40.
 - **A "rather large" building most likely means the back lawn (C).** To confirm it:
@@ -243,6 +243,22 @@ the house** (24 × 40 if the trees at its SW corner allow).
   windows will partly see over it.
 - **Mass and insulation.** Bare sheet metal is light and rings. Insulated wall panels, or
   insulation plus an interior liner, cut both sound through the wall and rain noise inside.
+- **CMU (cinder block) inner wall on the US-290 side (owner's idea, for low frequencies):**
+  - **It works on the rumble.** A fully grouted 8 in block wall weighs ~80–90 lb/sq ft,
+    against 1–2 for sheet metal. Mass is what stops truck rumble.
+  - **It needs its own footing.** A wall ~40 ft long and 12–14 ft tall weighs roughly 20+
+    tons. Tell the building supplier and the slab engineer early, so the north edge gets a
+    real footing or grade beam.
+  - **Keep it separate from the metal skin.** Leave an air gap with insulation in it: two
+    heavy layers separated by air beat either one alone. Let the engineer decide how it's
+    braced (its own pilasters, or flexible ties to the frame).
+  - **Seal everything.** Base, top and every joint; small gaps leak a lot. Carrying the
+    block a few feet around the east and west corners cuts sound sneaking around the ends.
+  - **Watch for condensation.** Block inside a metal building can sweat, so plan the vapor
+    control.
+  - **Where it helps most.** The CMU mostly quiets the inside of the building. For the yard
+    and the house, sound mostly bends over the roof and around the ends, so height and
+    length count most there.
 - **No gaps.** Sound leaks around the ends and under the walls. Keep the slab edge tight to
   grade, and tie the building's ends visually and physically into the existing tall fence.
 - **Longer is better.** It's 40 ft now, limited by the oak (east) and the septic pipe's

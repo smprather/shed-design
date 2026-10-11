@@ -617,8 +617,11 @@ checks.
   - **US-290 wall: conflict.** The septic pipe is 8.0 ft from the surveyed line, so a footing
     at the line comes within ~6 ft of it. The wall would need to jog in or stop short there,
     or wait until the tank's location is known.
-  - **Back-line trees: conflict at the north end.** The well is 28 ft in from the back line,
-    so the inner row (22 ft in) passes within ~6 ft of it. Stop that row short of the well.
+  - **Back-line trees: conflict at the north end, now resolved.** The well is 28 ft in from
+    the back line, so the inner row (22 ft in) passes within ~6 ft of it.
+    - The layout in `plan3d.py` (Oct 11 2026) stops that row short of the well by leaving
+      out one tree.
+    - The nearest tree is now 12.1 ft from the well.
   - **Building B: at the limit,** exactly 10.0 ft from the pipe.
   - The truck lane (15.1 ft) and the hose run (72 ft) are fine.
   - **Unknown:** the tank and drainfield are still unlocated, so nothing can be checked
@@ -775,6 +778,27 @@ line now takes full west sun. The area has heavy deer and oak wilt.
   - Under the existing oaks, hand-dig small holes with no trenching or fill, and use the
     shade-tolerant picks.
 - **Keep junipers and cypress at the back line,** well away from the house (fire).
+- **In the 3D viewer (Oct 11 2026).** `plan3d.py` lays out the planting, and the viewer draws
+  it as cones (cypress) and trunk-and-drum shapes (broadleaf).
+  - **Back row:** 12 Arizona cypress, 10 ft in from the line (just outside the 10 ft
+    easement), ~12.8 ft on center.
+  - **Front row:** 10 trees, alternating yaupon and mountain laurel, 22 ft in, offset
+    between the cypress.
+  - **Left out:** one front-row tree inside the well's 10 ft keep-out.
+  - **Ends:** both rows stop 6 ft from the side lines.
+  - **Viewer controls:** a slider sets the trees' opacity, and buttons switch their size.
+
+    | Plant | Planted | ~8 years, with drip | Mature |
+    |---|---|---|---|
+    | Arizona cypress (30 gal) | 7 × 3 ft | 20 × 9 ft | 35 × 16 ft |
+    | Yaupon (15 gal) | 6 × 3 ft | 14 × 8 ft | 20 × 14 ft |
+    | Mountain laurel | 4 × 3 ft | 8 × 6 ft | 12 × 10 ft |
+
+    Sizes are height × width. They're estimates from the ranges above.
+  - **What it isn't:** the rows are drawn evenly, but the plan is to fill gaps in the
+    existing tree line, and that line isn't modeled.
+  - **Unchecked:** the tank and drainfield are still unlocated, so the north end of both
+    rows can't be checked against them yet.
 
 ### Windows and doors
 

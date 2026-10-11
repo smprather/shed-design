@@ -39,6 +39,16 @@ HOSE_MAX = 100.0  # ft of pump-truck hose
 B_EAVE = 14.0  # ft; undecided, the noise model's case
 WALL_FOOTING = 2.0  # ft inside the line for a US-290 wall footing
 TREE_ROWS = (10.0, 22.0)  # ft in from the back line: two staggered rows (notes, back-line trees)
+TREE_SPACING = 13.0  # ft on center along each row (cypress 12-15 ft)
+TREE_SIDE_INSET = 6.0  # ft in from the side lines
+OAK_NO_DIG = 12.0  # ft around the twin oak
+# Back row cypress; front row alternates yaupon and mountain laurel, offset half a space. Sizes are
+# (height, crown width) in ft when planted (30 gal / 15 gal), at ~8 years with drip, and mature.
+PLANTS = {
+    "cypress": {"name": "Arizona cypress", "shape": "cone", "sizes": [[7, 3], [20, 9], [35, 16]]},
+    "yaupon": {"name": "Yaupon holly, tree form", "shape": "crown", "sizes": [[6, 3], [14, 8], [20, 14]]},
+    "laurel": {"name": "Texas mountain laurel", "shape": "crown", "sizes": [[4, 3], [8, 6], [12, 10]]},
+}
 DRAPE_STEP = 2.0  # m between draped vertices
 BACK_WALL_ST = ((100.8, 22.9), (100.8, 68.8))  # the main block's back wall, facing the back lawn (survey s, t)
 BACKYARD_EYE = (10.0, 6.0)  # ft out from that wall's midpoint, and ft above the ground there
@@ -211,9 +221,36 @@ def poly_dist(p: Pt, poly: list[Pt], closed: bool = True) -> float:
     return min(seg_dist(p, a, b) for a, b in segs) if len(poly) > 1 else math.dist(p, poly[0])
 
 
+def back_line_trees(keep_outs: list[tuple[Pt, float]]) -> tuple[list[dict], int]:
+    """The proposed back-line planting (site ft), less any tree inside a keep-out. Returns the trees and how many were dropped."""
+    rs, rn = PARCEL[3], PARCEL[2]
+    length = math.dist(rs, rn)
+    u = ((rn[0] - rs[0]) / length, (rn[1] - rs[1]) / length)
+    cx, cy = sum(p[0] for p in PARCEL) / 4, sum(p[1] for p in PARCEL) / 4
+    n = (-u[1], u[0])
+    if (cx - rs[0]) * n[0] + (cy - rs[1]) * n[1] < 0:
+        n = (-n[0], -n[1])
+
+    def at(a: float, d: float) -> Pt:  # a ft along the back line from its south end, d ft in from it
+        return rs[0] + u[0] * a + n[0] * d, rs[1] + u[1] * a + n[1] * d
+
+    def inside(p: Pt) -> bool:
+        return min(seg_dist(p, PARCEL[1], PARCEL[2]), seg_dist(p, PARCEL[0], PARCEL[3])) >= TREE_SIDE_INSET
+
+    back, front = TREE_ROWS
+    span = [a / 2 for a in range(int(2 * length) + 1) if inside(at(a / 2, back))]
+    k = round((span[-1] - span[0]) / TREE_SPACING)
+    step = (span[-1] - span[0]) / k
+    rows = [(at(span[0] + i * step, back), "cypress") for i in range(k + 1)]
+    rows += [(at(span[0] + (i + 0.5) * step, front), ("yaupon", "laurel")[i % 2]) for i in range(k)]
+    rows = [(p, kind) for p, kind in rows if inside(p)]
+    kept = [(p, kind) for p, kind in rows if all(math.dist(p, c) >= r for c, r in keep_outs)]
+    return [{"site": p, "plant": kind} for p, kind in kept], len(rows) - len(kept)
+
+
 def write_viewer(path: Path, obj_text: str, plan: dict, checks: list[dict], backyard: dict,
-                 poles: list[dict], z0_ft: float) -> None:
-    """Fill the viewer template with the model, the plan's entity notes, the checks, the back-yard view and the poles."""
+                 poles: list[dict], trees: dict, z0_ft: float) -> None:
+    """Fill the viewer template with the model, the plan's entity notes, the checks, the back-yard view, the poles and the trees."""
     spec = {"entities": [{k: e.get(k) for k in ("entity_id", "status", "source", "notes", "facade_toward_us")}
                          for e in plan["spatial_entities"]],
             "removed": plan.get("removed_claims", [])}
@@ -223,6 +260,7 @@ def write_viewer(path: Path, obj_text: str, plan: dict, checks: list[dict], back
             .replace("/*CHECKS*/", json.dumps(checks).replace("</", "<\\/"))
             .replace("/*BACKYARD*/", json.dumps(backyard)[1:-1])
             .replace("/*POLES*/", json.dumps(poles))
+            .replace("/*TREES*/", json.dumps(trees))
             .replace("/*Z0_FT*/", json.dumps(z0_ft)))
     path.write_text('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
                     '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
@@ -323,10 +361,12 @@ def main(spec: Path, out: Path) -> None:
               "CONFLICT" if gap < KEEP_OUT - 0.05 else "AT LIMIT" if gap < KEEP_OUT + 1 else "OK",
               f"{name} is {to_line:.1f} ft from the surveyed line; footing assumed {WALL_FOOTING:g} ft wide")
 
+    trees, dropped = back_line_trees([(well, KEEP_OUT), (pipe, KEEP_OUT), (oak, OAK_NO_DIG)])
     well_in = seg_dist(well, PARCEL[2], PARCEL[3])
-    gap = min(abs(well_in - r) for r in TREE_ROWS)
-    check("back-line tree rows vs well", f"{gap:.1f} ft", f"{KEEP_OUT:g} ft",
-          "CONFLICT" if gap < KEEP_OUT else "OK", f"well is {well_in:.0f} ft in; rows at {TREE_ROWS[0]:g} and {TREE_ROWS[1]:g} ft")
+    gap = min(math.dist(tr["site"], well) for tr in trees)
+    check("back-line trees vs well", f"{gap:.1f} ft", f"{KEEP_OUT:g} ft", "CONFLICT" if gap < KEEP_OUT else "OK",
+          f"well is {well_in:.0f} ft in; rows at {TREE_ROWS[0]:g} and {TREE_ROWS[1]:g} ft; "
+          f"{dropped} front-row tree(s) left out by the well")
     check("anything vs tank and drainfield", "not located", "-", "UNKNOWN",
           "every check against them waits on finding the lids and trenches")
 
@@ -350,7 +390,10 @@ def main(spec: Path, out: Path) -> None:
     left, down, reach = math.radians(BACKYARD_GAZE[0]), math.radians(BACKYARD_GAZE[1]), 200.0  # ft
     at_xy = to_m(site([st(s_eye + reach * math.cos(left), t_eye - reach * math.sin(left))])[0])
     at = [round(at_xy[0], 2), round(at_xy[1], 2), round(eye[2] - reach * FT * math.tan(down), 2)]
-    write_viewer(html, out.read_text(), plan, checks, {"eye": eye, "at": at}, poles, ground.z0)
+    tree_view = {"plants": PLANTS, "stages": ["Planted", "~8 years", "Mature"], "dropped": dropped,
+                 "rows_ft": TREE_ROWS, "spacing_ft": TREE_SPACING,
+                 "trees": [{"xy": [round(c, 2) for c in to_m(tr["site"])], "plant": tr["plant"]} for tr in trees]}
+    write_viewer(html, out.read_text(), plan, checks, {"eye": eye, "at": at}, poles, tree_view, ground.z0)
     click.echo(f"wrote {out.relative_to(REPO)} ({obj.nv} vertices) and {html.relative_to(REPO)}; "
                f"building B slab at z = {slab:.2f} m")
     with pl.Config(tbl_rows=-1, tbl_hide_dataframe_shape=True, tbl_hide_column_data_types=True,

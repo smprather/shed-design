@@ -620,8 +620,9 @@ checks.
   - **Back-line trees: conflict at the north end, now resolved.** The well is 28 ft in from
     the back line, so the inner row (22 ft in) passes within ~6 ft of it.
     - The layout in `plan3d.py` (Oct 11 2026) stops that row short of the well by leaving
-      out one tree.
-    - The nearest tree is now 12.1 ft from the well.
+      out the trees inside its keep-out.
+    - The nearest tree is now 17.6 ft from the well (with the hollies at ~10 ft on center,
+      Oct 12).
   - **Building B: at the limit,** exactly 10.0 ft from the pipe.
   - The truck lane (15.1 ft) and the hose run (72 ft) are fine.
   - **Unknown:** the tank and drainfield are still unlocated, so nothing can be checked
@@ -743,55 +744,77 @@ tall their buildings are.
   and HVAC locations. We're outside city limits, so Austin's compatibility screening probably
   doesn't protect us. Don't count on the developer's fence until the plan shows it.
 
-#### Back-line trees (Oct 11 2026)
+#### Back-line trees (Oct 11 2026; low-allergy revision Oct 12 2026)
 
 The site is thin, rocky, alkaline soil over limestone. With the land next door cleared, the
 line now takes full west sun. The area has heavy deer and oak wilt.
 
+**No cypress or juniper (Oct 12 2026).** Allergies in the household rule out the whole cypress
+family:
+- Arizona cypress, the original back row;
+- eastern red cedar, the original alternate (a juniper);
+- Ashe juniper, the local "cedar" behind cedar fever;
+- arborvitae and Leyland cypress.
+
+Their pollens cross-react. From here on:
+- prefer insect-pollinated plants;
+- for plants with separate male and female plants, buy the females, which shed no pollen.
+
 | Layer | Plant | Mature size | Why | Watch |
 |---|---|---|---|---|
-| Tall, fast (back row) | **Arizona cypress** | 30–40 × 15–20 ft | Fastest tall evergreen for limestone; deer rarely eat it | Needs drainage; some canker; flammable |
-| Tall, fast (alternate) | **Eastern red cedar** | 25–40 × 8–15 ft | Native, tough, takes shearing | Winter pollen; flammable |
-| Middle (front row) | **Yaupon holly**, tree form | 15–25 ft | Native evergreen, sun or shade, alkaline OK | Deer browse young plants: cage them |
-| Middle, shade | **Texas mountain laurel** | 10–15 ft | Evergreen, takes the oaks' shade | Slow; poisonous seeds |
-| Bottom | **Evergreen sumac**, cenizo | 6–12 ft | Fills the gaps at eye level | Shrubs only |
-| Long term | **Escarpment live oak** | 30–40 ft+ | The permanent canopy | Slow; prune only July–January |
+| Tall (back row) | **Nellie R. Stevens holly** | 15–25 × 8–12 ft | Evergreen and dense to the ground; spiny, so deer leave it. A female clone: no pollen. | Can yellow in very alkaline soil: dig a wide hole with compost, and add iron if it yellows. Needs drip to establish. |
+| Tall (alternate) | **Eldarica (Afghan) pine** | 30–40 × 15–20 ft | Fast and drought-hardy on limestone. Pine pollen rarely causes allergies. | Pine wilt and tip blight have killed many in Central Texas. Lower limbs thin with age. Yellow pollen dust in spring. |
+| Fast (alternate) | **Clumping bamboo** (Bambusa, e.g. 'Alphonse Karr') | 15–25 ft | Fastest screen. It almost never flowers, so no pollen. | Thirsty. Hard freezes (Feb 2021) knock it back. Deer eat the shoots. Clumping kinds only. |
+| Middle (front row) | **Yaupon holly**, tree form | 15–25 ft | Native evergreen, sun or shade, alkaline OK | Buy berried (female) plants: the males shed some pollen. Deer browse young plants: cage them. |
+| Middle, shade | **Texas mountain laurel** | 10–15 ft | Evergreen, takes the oaks' shade, insect-pollinated | Slow; poisonous seeds; strongly scented flowers in March |
+| Bottom | **Evergreen sumac**, cenizo | 6–12 ft | Fills the gaps at eye level; insect-pollinated | Shrubs only |
+| Long term | **Escarpment live oak** | 30–40 ft+ | The permanent canopy | Oak pollen is a major spring allergen in Austin (March–April): check before planting one. Slow; prune only July–January. |
 
 - **Skip:**
-  - Leyland cypress (heat, drought, disease);
-  - Italian cypress (mites, too thin to screen);
-  - ligustrum and photinia (invasive or diseased);
+  - the cypress family, as above (allergies; also flammable);
+  - Leyland cypress (heat, drought, disease) and Italian cypress (mites, too thin to screen);
+  - ligustrum and photinia (invasive or diseased; ligustrum pollen is allergenic too);
   - red oaks (they spread oak wilt);
   - running bamboo;
   - cherry laurel and magnolia (they yellow in alkaline soil).
+- **Existing junipers:** if any trees already along the back line are Ashe juniper, the male
+  ones shed the December–February cedar pollen. Taking out the males on our lot is an option,
+  but it opens gaps in the screen.
 - **Layout:**
   - Stay out of the back-line utility easement: plant 10–12 ft in from the line.
-  - Stagger two rows ~8–10 ft apart: cypress ~12–15 ft on center behind, yaupon and laurel
-    offset in front. The ~155 ft line takes ~10–12 big trees plus ~12–15 smaller ones.
+  - Stagger two rows ~8–12 ft apart: hollies ~10 ft on center behind (8 ft for a faster
+    hedge), yaupon and laurel offset in front. The ~155 ft line takes ~15 hollies plus
+    ~12–14 smaller trees.
   - Fill gaps in the existing tree line rather than planting a uniform row.
   - Put the biggest trees where the apartments' windows and balconies line up with the
     patio and the back windows (the site plan shows which way they face).
 - **Planting:**
   - Plant October to February.
-  - 30-gal Arizona cypress (6–8 ft) should reach ~20 ft in roughly 5–8 years with water.
-  - Run drip irrigation for the first 2–3 summers, and cage the broadleaf trees against deer.
+  - **Growth:** 15-gal Nellie Stevens hollies (5–6 ft) grow ~1–2 ft a year with water. Expect
+    ~15 ft in about 8 years and 20–25 ft at maturity.
+  - **Height lost:** that's 10–15 ft shorter than the cypress would have grown.
+    - Mature hollies cover up to about the apartments' 3rd floor (17–22 ft needed at the
+      line).
+    - The 4th floor and up need the long-term canopy, a pine, or screens near the patio.
+  - Run drip irrigation for the first 2–3 summers, and cage the yaupon and laurel against
+    deer.
   - Under the existing oaks, hand-dig small holes with no trenching or fill, and use the
     shade-tolerant picks.
-- **Keep junipers and cypress at the back line,** well away from the house (fire).
-- **In the 3D viewer (Oct 11 2026).** `plan3d.py` lays out the planting, and the viewer draws
-  it as cones (cypress) and trunk-and-drum shapes (broadleaf).
-  - **Back row:** 12 Arizona cypress, 10 ft in from the line (just outside the 10 ft
-    easement), ~12.8 ft on center.
-  - **Front row:** 10 trees, alternating yaupon and mountain laurel, 22 ft in, offset
-    between the cypress.
-  - **Left out:** one front-row tree inside the well's 10 ft keep-out.
+- **In the 3D viewer (Oct 11 2026; hollies Oct 12).** `plan3d.py` lays out the planting. The
+  viewer draws hollies as cones and the broadleaf trees as trunk-and-drum shapes.
+  - **Back row:** 15 Nellie R. Stevens hollies, 10 ft in from the line (just outside the
+    10 ft easement), ~10 ft on center.
+  - **Front row:** 12 trees, alternating yaupon and mountain laurel, 22 ft in, offset
+    between the hollies.
+  - **Left out:** two front-row trees inside the well's 10 ft keep-out. The nearest tree is
+    17.6 ft from the well.
   - **Ends:** both rows stop 6 ft from the side lines.
   - **Viewer controls:** a slider sets the trees' opacity, and buttons switch their size.
 
-    | Plant | Planted | ~8 years, with drip | Mature |
+    | Plant | Planted (15 gal) | ~8 years, with drip | Mature |
     |---|---|---|---|
-    | Arizona cypress (30 gal) | 7 × 3 ft | 20 × 9 ft | 35 × 16 ft |
-    | Yaupon (15 gal) | 6 × 3 ft | 14 × 8 ft | 20 × 14 ft |
+    | Nellie R. Stevens holly | 6 × 3 ft | 15 × 8 ft | 22 × 12 ft |
+    | Yaupon | 6 × 3 ft | 14 × 8 ft | 20 × 14 ft |
     | Mountain laurel | 4 × 3 ft | 8 × 6 ft | 12 × 10 ft |
 
     Sizes are height × width. They're estimates from the ranges above.

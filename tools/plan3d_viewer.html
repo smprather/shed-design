@@ -23,7 +23,7 @@
   --well: #138a9e;
   --oak: #2f8a4a;
   --oak-core: #b59a12;
-  --tree: #3f7a6e;        /* proposed cypress, blue-green */
+  --tree: #2c5a3c;        /* proposed holly, dark glossy green */
   --tree-2: #4f7f2a;      /* proposed yaupon and laurel */
   --retail-lot: #c4482b;
   --retail-bldg: #b83a2e;
@@ -46,7 +46,7 @@
     --bg: #111714; --panel: #171f1b; --ink: #e2eae5; --muted: #95a59c; --rule: #2a3530;
     --accent: #f0675b; --stage: #0d1310; --terrain-lo: #2f4655; --terrain-hi: #6b6450;
     --house: #8fb0ea; --shed: #f0a93a; --fence: #c09468; --easement: #b48ae0; --septic: #f05cbf;
-    --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #6cc3b0; --tree-2: #9bcb5a; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
+    --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
     --water: #6aa6f5; --apt: #79c174; --apt-bldg: #8fa2d6; --apt-new: #f08a4a; --context: #56625b; --lot: #e2eae5; --ok: #5ccf7c; --warn: #f0b13a; --bad: #f0675b;
     --unknown: #95a59c; color-scheme: dark;
   }
@@ -55,7 +55,7 @@
   --bg: #111714; --panel: #171f1b; --ink: #e2eae5; --muted: #95a59c; --rule: #2a3530;
   --accent: #f0675b; --stage: #0d1310; --terrain-lo: #2f4655; --terrain-hi: #6b6450;
   --house: #8fb0ea; --shed: #f0a93a; --fence: #c09468; --easement: #b48ae0; --septic: #f05cbf;
-  --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #6cc3b0; --tree-2: #9bcb5a; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
+  --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
   --water: #6aa6f5; --apt: #79c174; --apt-bldg: #8fa2d6; --apt-new: #f08a4a; --context: #56625b; --lot: #e2eae5; --ok: #5ccf7c; --warn: #f0b13a; --bad: #f0675b;
   --unknown: #95a59c; color-scheme: dark;
 }
@@ -411,7 +411,7 @@ details li b { font-weight: 600; }
       notes: `6 ft poles in a line straight back from the back-yard eye, square off the house's back wall, at ${POLES.map(p => p.ft).join(", ")} ft (the last just inside the back line). Turn about 15° right from the starting view to sight down them. The ground under them is ${POLES.map(p => p.drop_ft).join(", ")} ft below the ground at the eye (2017 lidar), so every top sits below eye level, and the far tops peek over the near ones.` } };
   }
 
-  // Proposed back-line planting (plan3d.py): cones for the cypress; a trunk and a drum crown for the
+  // Proposed back-line planting (plan3d.py): cones for the hollies; a trunk and a drum crown for the
   // broadleaf trees. Sizes per growth stage come from the planting plan; heights scale with the exaggeration.
   const TREES = /*TREES*/;
   const treeMats = [], treeParts = [];   // treeParts: { mesh, plant, part: "cone" | "trunk" | "crown" }
@@ -424,10 +424,10 @@ details li b { font-weight: 600; }
     const size = (k) => TREES.plants[k].sizes.map(([h, w]) => `${h} × ${w}`).join(" → ");
     const n = (k) => TREES.trees.filter(t => t.plant === k).length;
     const ITEMS = {
-      trees_back_row: { kinds: ["cypress"], label: "Arizona cypress (back row)", token: "tree",
-        notes: `${n("cypress")} cypress, ${TREES.rows_ft[0]} ft in from the back line (just outside the utility easement), ~${TREES.spacing_ft} ft on center. Drawn as cones, height × width in ft: ${size("cypress")} (planted in 30 gal → ~8 years with drip → mature).` },
+      trees_back_row: { kinds: ["holly"], label: "Nellie R. Stevens holly (back row)", token: "tree",
+        notes: `${n("holly")} hollies, ${TREES.rows_ft[0]} ft in from the back line (just outside the utility easement), ~${TREES.spacing_ft} ft on center. A female clone, so no pollen; spiny, so deer leave it. Drawn as cones, height × width in ft: ${size("holly")} (planted in 15 gal → ~8 years with drip → mature).` },
       trees_front_row: { kinds: ["yaupon", "laurel"], label: "Yaupon, mountain laurel (front row)", token: "tree-2",
-        notes: `${n("yaupon")} yaupon and ${n("laurel")} mountain laurel, alternating, ${TREES.rows_ft[1]} ft in and offset between the cypress. Height × width in ft, planted → ~8 years → mature: yaupon ${size("yaupon")}; laurel ${size("laurel")}. ${TREES.dropped} left out by the well's 10 ft keep-out.` },
+        notes: `${n("yaupon")} yaupon and ${n("laurel")} mountain laurel, alternating, ${TREES.rows_ft[1]} ft in and offset between the hollies. Buy berried (female) yaupons: the males shed some pollen. Height × width in ft, planted → ~8 years → mature: yaupon ${size("yaupon")}; laurel ${size("laurel")}. ${TREES.dropped} left out by the well's 10 ft keep-out.` },
     };
     for (const [id, spec_] of Object.entries(ITEMS)) {
       const node = new THREE.Group(); node.userData.id = id; root.add(node);

@@ -39,13 +39,14 @@ HOSE_MAX = 100.0  # ft of pump-truck hose
 B_EAVE = 14.0  # ft; undecided, the noise model's case
 WALL_FOOTING = 2.0  # ft inside the line for a US-290 wall footing
 TREE_ROWS = (10.0, 22.0)  # ft in from the back line: two staggered rows (notes, back-line trees)
-TREE_SPACING = 13.0  # ft on center along each row (cypress 12-15 ft)
+TREE_SPACING = 10.0  # ft on center along each row (holly screen 8-10 ft)
 TREE_SIDE_INSET = 6.0  # ft in from the side lines
 OAK_NO_DIG = 12.0  # ft around the twin oak
-# Back row cypress; front row alternates yaupon and mountain laurel, offset half a space. Sizes are
-# (height, crown width) in ft when planted (30 gal / 15 gal), at ~8 years with drip, and mature.
+# Back row holly; front row alternates yaupon and mountain laurel, offset half a space. No cypress or
+# juniper (allergies). Sizes are (height, crown width) in ft when planted (15 gal), at ~8 years with
+# drip, and mature.
 PLANTS = {
-    "cypress": {"name": "Arizona cypress", "shape": "cone", "sizes": [[7, 3], [20, 9], [35, 16]]},
+    "holly": {"name": "Nellie R. Stevens holly", "shape": "cone", "sizes": [[6, 3], [15, 8], [22, 12]]},
     "yaupon": {"name": "Yaupon holly, tree form", "shape": "crown", "sizes": [[6, 3], [14, 8], [20, 14]]},
     "laurel": {"name": "Texas mountain laurel", "shape": "crown", "sizes": [[4, 3], [8, 6], [12, 10]]},
 }
@@ -241,7 +242,7 @@ def back_line_trees(keep_outs: list[tuple[Pt, float]]) -> tuple[list[dict], int]
     span = [a / 2 for a in range(int(2 * length) + 1) if inside(at(a / 2, back))]
     k = round((span[-1] - span[0]) / TREE_SPACING)
     step = (span[-1] - span[0]) / k
-    rows = [(at(span[0] + i * step, back), "cypress") for i in range(k + 1)]
+    rows = [(at(span[0] + i * step, back), "holly") for i in range(k + 1)]
     rows += [(at(span[0] + (i + 0.5) * step, front), ("yaupon", "laurel")[i % 2]) for i in range(k)]
     rows = [(p, kind) for p, kind in rows if inside(p)]
     kept = [(p, kind) for p, kind in rows if all(math.dist(p, c) >= r for c, r in keep_outs)]

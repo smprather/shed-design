@@ -88,6 +88,9 @@ How it lines up with what we've seen:
   west of the old carport that looked like the natural place to grow. A white pipe
   near the fence is probably a cleanout or inspection port (worksheet shot 13p).
 - The fence there is **plain wood pickets with gaps** (owner): no help against noise.
+  **Superseded Oct 13 2026:** the owner's photos show the US-290 side is now an 8 ft
+  horizontal-board fence, like the back fence. Light shows between some boards. See "Traffic
+  noise".
 - A **utility pole stands just beyond the fence**, and a **low wire runs from it toward
   the house**, about fence-top height. If that's the house's electric service, it crosses
   the build strip and limits roof height and position under it (worksheet shot 20).
@@ -379,9 +382,24 @@ pair acts like a ~34 in tree with a 34 ft zone.
 
 ## Traffic noise (Oct 11 2026)
 
-The house sits ~15–20 ft above US-290 (owner). The US-290 fence is **plain wood pickets with
-gaps**, which does essentially nothing for noise. So today the slope is the only barrier:
-it gives the ground floor ~5 dB and the 2nd floor ~1 dB.
+The house sits ~15–20 ft above US-290 (owner). The US-290 fence was described as **plain wood
+pickets with gaps**, which does essentially nothing for noise. On that basis the slope is the
+only barrier: it gives the ground floor ~5 dB and the 2nd floor ~1 dB.
+
+**Correction (Oct 13 2026):** the owner's photos show an **8 ft horizontal-board fence** along
+US-290. It's the "new fence" that shots 3–4 put up to ~7 ft beyond the surveyed line.
+- **Gains already in place:** the estimates below are gains over no fence. If the boards
+  were tight, the fence would already give roughly the "8 ft wall, lot length" column
+  (~4–5 dB at the ground floor). So part of what the table credits to new walls is already
+  there.
+- **Gaps:** light shows between some boards, and gaps leak sound. Closing them is the cheap
+  next step, and gets most of the 8 ft wall's benefit. Options are battens over the joints,
+  a second layer of boards on our side, or mass-loaded vinyl.
+- **Remaining gains:** a taller wall, the Candelaria return and building B add less on top
+  of a sealed 8 ft fence than the table shows. Re-run `noise_model.py` with the fence as the
+  baseline before spending on a wall.
+- **Ownership:** the fence sits partly beyond the surveyed line. Find out who owns it (us,
+  the previous owner's work on TxDOT land, or TxDOT) before modifying it.
 
 ### What TxDOT found (Oak Hill Parkway noise study)
 
@@ -1133,9 +1151,10 @@ and the photos show the neighbors' yards.
     - Have the utility confirm B's north eave clears the conductors.
 - **The cross fence at site B's east end (photo from the middle of site B, and one from the
   lawn):**
-  - **Layout:** a lower (~6 ft) board fence on galvanized posts runs from the US-290 fence
-    to the house's north wall, just east of the NW corner. The garage apron is on the far
-    side.
+  - **Layout:** a low board fence on galvanized posts runs from the US-290 fence to the
+    house's north wall, just east of the NW corner. The garage apron is on the far side.
+  - **Height:** ~4.5 ft (owner's recollection, not yet measured). It's in line with the
+    chain-link gate.
   - **Gates:** a chain-link double gate (two leaves, roughly 10 ft clear) sits near the
     house end, beside a wood walk gate. The twin oak and the parked cars are on the far
     side.
@@ -1222,6 +1241,40 @@ and the photos show the neighbors' yards.
   - A twin-trunk live oak stands out in the back lawn.
   - Both are low, wide, sprawling crowns, as the render draws them.
   - Have the arborist look at the leaning one. Prune only July–January (oak wilt).
+
+### Front yard: the lidar trees and a revised loop (Oct 13 2026; see `front-yard.png`)
+
+`front_plan.py` now draws the lidar canopy (standing trees) on the front-yard map. It also
+adds a revised loop "C" next to the owner's sketch. The shapes live in `tools/front_layout.py`,
+which the 3D plan also uses ("Front yard" view).
+
+- **The lone lawn oak:**
+  - Its crown is ~26 ft tall with a ~18 ft radius.
+  - The trunk is estimated from the crown's center at s ≈ 11 ft, t ≈ 68 ft (±6 ft). It's
+    in front of the porch's south end, close to the street.
+  - Its root zone is drawn at 20 ft, assuming a 20 in trunk. **Tape the trunk's position
+    and girth** before laying out the drive.
+- **The owner's sketch:**
+  - Its inner edge passes ~15 ft from that trunk, through the root zone.
+  - Its north leg runs under the solid canopy along the existing drive.
+  - It's ~2,200 sq ft of new paving.
+- **Loop C (proposal):**
+  - **Route:** a 12 ft lane from a new curb cut in the open south lawn (t ≈ 33 ft), sweeping
+    to the house and along the porch front, then joining the existing drive at the porch's
+    north end. Drop-off is at the porch.
+  - **The oak:** it stays in the island, ~27 ft from the paving.
+  - **Paving:** ~1,065 sq ft, about half the sketch.
+  - **Curb cuts:** ~53 ft apart.
+  - **1991 electric line:** C stays ~19 ft from the plat's line (the front-south corner to
+    the house).
+  - **Trees:** the porch-front leg runs under the oaks by the porch. Build that stretch
+    no-dig: permeable pavers or gravel over geogrid on the existing grade, no excavation.
+  - **Lawn:** it crosses the open south lawn where the hedge ends. The hedge's street end
+    and the crape myrtle may need to move.
+- **Covered parking** is unchanged:
+  - A: the porte-cochère over the porch-front lane, which suits loop C.
+  - B: a carport on the garage apron.
+  - The sketch's larger cover crosses the 45 ft building line.
 
 ### Apartments drawn as 3 stories (Oct 13 2026)
 
@@ -1356,6 +1409,12 @@ still allows 5 stories / 65 ft.
     from the house's NW corner (A).
   - What is the vehicle gate's clear opening?
 - Is the garage still used for cars, and is the new covered parking in addition to it?
+- **The lone front-lawn oak:** its trunk position (tape from the front line and the south
+  line) and its girth. These set loop C's clearance.
+- **The garage, inside:** length, width and ceiling height, and the step down from the
+  house floor.
+- **Who owns the 8 ft US-290 fence?** It stands partly beyond the surveyed line. It
+  matters before sealing its gaps or building onto it.
 - Does Travis County's septic (OSSF) office need to review a new structure on a lot
   with a septic system? Ask before designing the foundation.
 - Paperwork to dig out:

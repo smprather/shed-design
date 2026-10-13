@@ -29,6 +29,7 @@ import rich_click as click
 
 from site_plan import HOUSE, PARCEL, REPO, SITE_B, WELL, en_to_site, north_line_y, site, st
 from site_b_plan import HOSE, house_north_y
+from front_layout import LANE, LOOP_C, PORTE_COCHERE, catmull_rom, offset
 
 SPEC = REPO / "property_total_plan.jsonc"
 TERRAIN = REPO / "site" / "terrain-lidar.json"
@@ -40,6 +41,7 @@ KEEP_OUT = 10.0  # ft around the septic pipe and the well, until Travis County g
 LANE_MIN = 12.0  # ft, septic truck lane
 HOSE_MAX = 100.0  # ft of pump-truck hose
 B_EAVE = 14.0  # ft; undecided, the noise model's case
+PORTE_COCHERE_CLEAR = 10.0  # ft to the underside of option A's roof (cars and a pickup need ~8)
 WALL_FOOTING = 2.0  # ft inside the line for a US-290 wall footing
 TREE_ROWS = (10.0, 22.0)  # ft in from the back line: two staggered rows (notes, back-line trees)
 TREE_SPACING = 10.0  # ft on center along each row (holly screen 8-10 ft)
@@ -129,6 +131,12 @@ class Frame:
         dx, dy = p[0] - self.o[0], -(p[1] - self.o[1])
         return ((dx * self.ex[0] + dy * self.ex[1]) * FT, (dx * self.ey[0] + dy * self.ey[1]) * FT)
 
+    def to_site(self, q: Pt) -> Pt:
+        """Plan frame (m) -> site frame (ft): the inverse of calling the frame."""
+        a, b = q[0] / FT, q[1] / FT
+        dx, dy = a * self.ex[0] + b * self.ey[0], a * self.ex[1] + b * self.ey[1]
+        return self.o[0] + dx, self.o[1] - dy
+
 
 class Obj:
     def __init__(self, ground: Terrain) -> None:
@@ -161,6 +169,11 @@ class Obj:
             out += [(a[0] + (b[0] - a[0]) * k / n, a[1] + (b[1] - a[1]) * k / n) for k in range(n)]
         out.append(ring[-1])
         self.polyline([(x, y, self.ground(x, y) + lift) for x, y in out])
+
+    def ribbon(self, left: list[Pt], right: list[Pt], lift: float = 0.08) -> None:
+        """A paved strip on the ground between two matching edge lines, one quad per station."""
+        for (a, b), (c, d) in zip(zip(left, left[1:]), zip(right, right[1:])):
+            self.face([(x, y, self.ground(x, y) + lift) for x, y in (a, c, d, b)])
 
     def prism(self, poly: list[Pt], z0: float, z1: float) -> None:
         """Closed prism over a footprint, flat bottom and top."""
@@ -392,6 +405,14 @@ def main(spec: Path, out: Path) -> None:
     slab = max(ground(*p) for p in b)  # slab at the high corner; the low side gets fill or a stem wall
     obj.obj(f"building_B_23x43_eave_{B_EAVE:g}ft_assumed")
     obj.prism(b, slab, slab + B_EAVE * FT)
+    # Proposed front yard (front_layout.py): loop C, and option A's roof at ~10 ft over the porch-front lane.
+    obj.obj("proposed_circle_drive_loop_c")
+    center = catmull_rom(LOOP_C)
+    obj.ribbon(*([to_m(p) for p in site(st(*q) for q in offset(center, side * LANE / 2))] for side in (1, -1)))
+    obj.obj("proposed_porte_cochere_option_a")
+    pc = [to_m(p) for p in site(st(*q) for q in PORTE_COCHERE)]
+    roof = max(ground(*p) for p in pc) + PORTE_COCHERE_CLEAR * FT
+    obj.prism(pc, roof, roof + 1.0 * FT)
     keep_outs = {"septic_pipe_keepout_10ft": (pipe, KEEP_OUT), "well_keepout_10ft": (well, KEEP_OUT)}
     for name, (c, r) in {**keep_outs, "oak_drip_line": (oak, 25.1), "oak_no_dig_12ft": (oak, 12.0)}.items():
         obj.obj(name)
@@ -462,6 +483,11 @@ def main(spec: Path, out: Path) -> None:
                   "+x toward US-290 along the line, +y away from the lot.\n")
     html = out.with_suffix(".html")
     view, poles = backyard(ground, to_m)
+    # Front-yard view: from above the street, looking back at the house over loop C.
+    fx, fy = to_m(site([st(25, 57)])[0])   # middle of the front lawn
+    sx, sy = to_m(site([st(-75, 57)])[0])  # 75 ft out past the front line
+    view["front"] = {"eye": [round(sx, 1), round(sy, 1), round(ground(fx, fy) + 28.0, 1)],
+                     "at": [round(fx, 1), round(fy, 1), round(ground(fx, fy), 1)]}
     tree_view = {"plants": PLANTS, "stages": ["Planted", "~8 years", "Mature"], "dropped": dropped,
                  "rows_ft": TREE_ROWS, "spacing_ft": TREE_SPACING,
                  "trees": [{"xy": [round(c, 2) for c in to_m(tr["site"])], "plant": tr["plant"]} for tr in trees]}

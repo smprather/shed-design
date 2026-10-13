@@ -9,9 +9,12 @@ limits:
 
 ## Start here
 
-- **Read `site/notes.md` first.** It's the running record: measured facts, dated decisions,
-  constraints and open questions. Add new facts and decisions there as dated sections, and
-  correct earlier text when it's superseded.
+- **Read `site/plan.md` first.** It's the whole plan in one place: the four projects, the
+  order of work, open decisions and measurements still needed. Update it when a decision
+  changes.
+- **`site/notes.md` is the running record** behind the plan: measured facts, dated
+  decisions, constraints and open questions. Add new facts and decisions there as dated
+  sections, and correct earlier text when it's superseded.
 - `site/measurements.md` and `site/measurements.csv` hold the field shot list and the tape
   baseline.
 - The maps in `site/*.png` are rendered by the scripts in `tools/`. Don't edit the maps by
@@ -34,7 +37,7 @@ Each script carries its dependencies inline (PEP 723). Run them from the repo ro
 | `site_plan.py` | `site/north-yard.png`; also the shared module (frames, survey, field features) |
 | `measure_plan.py` | `site/measure-plan.png` (shot key for the worksheet) |
 | `lot_plan.py` | `site/lot.png` (whole-lot overview) |
-| `front_plan.py` | `site/front-yard.png` (circle drive) |
+| `front_plan.py` | `site/front-yard.png` (circle drive vs. the building line and the lidar trees, prints clearances); shapes in `front_layout.py`, shared with `plan3d.py` |
 | `envelope_plan.py` | `site/envelope.png` (where a building fits) |
 | `site_b_plan.py` | `site/site-b.png` (the chosen site) |
 | `solve_field.py` | `site/field-data.json` → `site/field-points.json` (trilateration, baselines) |

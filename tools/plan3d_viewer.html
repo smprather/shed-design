@@ -26,6 +26,7 @@
   --tree: #2c5a3c;        /* proposed holly, dark glossy green */
   --tree-2: #4f7f2a;      /* proposed yaupon and laurel */
   --canopy: #5b7a44;      /* existing trees (lidar) */
+  --paving: #7d6f5f;      /* proposed drive */
   --retail-lot: #c4482b;
   --retail-bldg: #b83a2e;
   --water: #2565b8;
@@ -47,7 +48,7 @@
     --bg: #111714; --panel: #171f1b; --ink: #e2eae5; --muted: #95a59c; --rule: #2a3530;
     --accent: #f0675b; --stage: #0d1310; --terrain-lo: #2f4655; --terrain-hi: #6b6450;
     --house: #8fb0ea; --shed: #f0a93a; --fence: #c09468; --easement: #b48ae0; --septic: #f05cbf;
-    --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
+    --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --paving: #b9ab98; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
     --water: #6aa6f5; --apt: #79c174; --apt-bldg: #8fa2d6; --apt-new: #f08a4a; --context: #56625b; --lot: #e2eae5; --ok: #5ccf7c; --warn: #f0b13a; --bad: #f0675b;
     --unknown: #95a59c; color-scheme: dark;
   }
@@ -56,7 +57,7 @@
   --bg: #111714; --panel: #171f1b; --ink: #e2eae5; --muted: #95a59c; --rule: #2a3530;
   --accent: #f0675b; --stage: #0d1310; --terrain-lo: #2f4655; --terrain-hi: #6b6450;
   --house: #8fb0ea; --shed: #f0a93a; --fence: #c09468; --easement: #b48ae0; --septic: #f05cbf;
-  --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
+  --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --paving: #b9ab98; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
   --water: #6aa6f5; --apt: #79c174; --apt-bldg: #8fa2d6; --apt-new: #f08a4a; --context: #56625b; --lot: #e2eae5; --ok: #5ccf7c; --warn: #f0b13a; --bad: #f0675b;
   --unknown: #95a59c; color-scheme: dark;
 }
@@ -173,6 +174,7 @@ details li b { font-weight: 600; }
       <div class="row" role="group" aria-label="Camera views">
         <button class="view" id="v-oblique" data-view="oblique" aria-pressed="true">Oblique</button>
         <button class="view" id="v-house" data-view="house" aria-pressed="false">From the back yard</button>
+        <button class="view" id="v-front" data-view="front" aria-pressed="false">Front yard</button>
         <button class="view" id="v-top" data-view="top" aria-pressed="false">Overhead</button>
       </div>
       <div class="drag-mode" role="group" aria-label="What dragging does">
@@ -296,6 +298,12 @@ details li b { font-weight: 600; }
     platted_back_line: { group: "Lines", token: "accent" },
     back_line_utility_easement: { label: "Back-line utility easement", group: "Lines", token: "easement" },
     electric_meter_pole: { label: "Meter pole (service runs underground)", group: "Keep-outs", token: "warn" },
+    proposed_circle_drive_loop_c: { label: "Circle drive, loop C", group: "Proposed", token: "paving",
+      status: "proposed; lone oak's trunk estimated", source: "tools/front_layout.py (see site/front-yard.png and site/plan.md)",
+      notes: "A 12 ft lane from a new curb cut in the open south lawn, along the porch front (drop-off at the porch), joining the existing drive at the porch's north end. ~1,065 sq ft of new paving. It keeps ~27 ft from the lone lawn oak's estimated trunk; the owner's sketch came within ~15 ft. The north leg runs under the porch-front oaks: build it as no-dig, permeable paving there." },
+    proposed_porte_cochere_option_a: { label: "Porte-cochère, option A", group: "Proposed", token: "shed", solid: true,
+      status: "option; not decided", source: "tools/front_layout.py",
+      notes: "~12 x 44 ft roof over the porch-front lane, behind the 45 ft building line, ~10 ft clear. Two cars nose to tail. Option B is a carport on the old garage apron; the owner's larger sketch would need relief from the building line." },
     retail_lot_1a: { label: "Retail lot (1A)", group: "Next door", token: "retail-lot" },
     retail_east_end_stormwater: { label: "Retail ponds (detention, filtration)", group: "Next door", token: "water" },
     retail_south_arm_woods: { label: "Retail south arm: woods to remain", group: "Next door", token: "oak" },
@@ -672,6 +680,7 @@ details li b { font-weight: 600; }
     oblique: { eye: [230, -330, 250], at: [-160, 90, 0] },
     house:   { ...BACKYARD, exag: 1, mode: "look" },   // the photo spot (plan3d.py)
     top:     { eye: [-250, 129, 760], at: [-250, 130, 0] },
+    front:   { ...BACKYARD.front },   // from above the street, over the front lawn (plan3d.py)
   };
   const worldOf = (p) => { const v = P(p); v.y *= exag; return v; };
   function setView(name) {

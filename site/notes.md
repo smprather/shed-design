@@ -1190,7 +1190,15 @@ and the photos show the neighbors' yards.
   - **The house front:** one story, stone, with a front gable and the covered porch with
     stone columns. The two-story section sits behind, to the north.
   - **A clipped ~4–5 ft hedge** runs from the walk by the mailbox to the porch's south end.
-    It closes off the south part of the front lawn.
+    It splits the front lawn in two: the drive side to the north, and a south lawn in front
+    of the house's south rooms.
+  - **The south lawn** (third photo):
+    - It's open grass with a young multi-trunk crape myrtle in the middle. The lidar's
+      open band misses the myrtle: it's small, or was in 2017.
+    - Live oaks line the south side line toward the neighbor, with the picket fence under
+      them.
+    - Down the south side yard, between the trunks, the graded retail ground behind our
+      back line shows in the distance.
   - **One big live oak stands alone in the front lawn,** leaning, in front of the porch's
     south end.
     - The lidar puts its crown ~20–25 ft tall over ~15–25 ft back from the front line and

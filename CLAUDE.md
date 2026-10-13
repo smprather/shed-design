@@ -43,6 +43,7 @@ Each script carries its dependencies inline (PEP 723). Run them from the repo ro
 | `cmu_cost.py` | DIY block-wall material takeoff (printed table) |
 | `fetch_terrain.py` | `site/terrain-lidar.json` (USGS 3DEP 1 m lidar resampled onto the 3D plan's grid) |
 | `plan3d.py` | `site/plan3d.obj` and `site/plan3d.html` (a 3D viewer; template `tools/plan3d_viewer.html`) from `property_total_plan.jsonc` on the lidar terrain (`site/terrain-lidar.json`), plus septic conflict checks (printed table) |
+| `render_view.py` | `site/backyard-bare.jpg` and `site/backyard-8yr.jpg` (static render of the back-yard view, with and without the planned trees; template `tools/render_view.html`; needs a Playwright Chromium: `uv run --with playwright playwright install chromium`, or `--chromium PATH`) |
 
 **After new field measurements:**
 1. Export the worksheet.

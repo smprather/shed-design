@@ -249,6 +249,39 @@ def back_line_trees(keep_outs: list[tuple[Pt, float]]) -> tuple[list[dict], int]
     return [{"site": p, "plant": kind} for p, kind in kept], len(rows) - len(kept)
 
 
+def field_features() -> tuple[Pt, Pt, Pt]:
+    """The septic pipe and the oak's main trunk (field data), and the well (survey); site ft."""
+    fp = json.loads((REPO / "site" / "field-points.json").read_text())
+    return (tuple(fp["white_pipe"]["solutions"][0]["site"]), tuple(fp["big_oak"]["solutions"][0]["site"]),
+            en_to_site(WELL))
+
+
+def planting() -> tuple[list[dict], int]:
+    """The back-line trees, clear of the well, the septic pipe and the oak (see back_line_trees)."""
+    pipe, oak, well = field_features()
+    return back_line_trees([(well, KEEP_OUT), (pipe, KEEP_OUT), (oak, OAK_NO_DIG)])
+
+
+def backyard(ground: Terrain, to_m: Frame) -> tuple[dict, list[dict]]:
+    """The back-yard view (eye and gaze target, plan m) and the range poles straight back from the eye."""
+    (s0, t0), (s1, t1) = BACK_WALL_ST
+    s_eye, t_eye = (s0 + s1) / 2 + BACKYARD_EYE[0], (t0 + t1) / 2
+    eye_xy = to_m(site([st(s_eye, t_eye)])[0])
+
+    def back(d: float) -> Pt:  # d ft straight back from the eye (square off the back wall)
+        return to_m(site([st(s_eye + d, t_eye)])[0])
+
+    y0, y1 = back(0.0)[1], back(1.0)[1]  # the back line is plan y = 0
+    pole_ft = [*POLES, (-POLE_INSET * FT - y0) / (y1 - y0)]
+    poles = [{"xy": [round(c, 2) for c in back(d)], "ft": round(d),
+              "drop_ft": round((ground(*eye_xy) - ground(*back(d))) / FT, 1)} for d in pole_ft]
+    eye = [round(eye_xy[0], 2), round(eye_xy[1], 2), round(ground(*eye_xy) + BACKYARD_EYE[1] * FT, 2)]
+    left, down, reach = math.radians(BACKYARD_GAZE[0]), math.radians(BACKYARD_GAZE[1]), 200.0  # ft
+    at_xy = to_m(site([st(s_eye + reach * math.cos(left), t_eye - reach * math.sin(left))])[0])
+    at = [round(at_xy[0], 2), round(at_xy[1], 2), round(eye[2] - reach * FT * math.tan(down), 2)]
+    return {"eye": eye, "at": at}, poles
+
+
 def write_viewer(path: Path, obj_text: str, plan: dict, checks: list[dict], backyard: dict,
                  poles: list[dict], trees: dict, z0_ft: float) -> None:
     """Fill the viewer template with the model, the plan's entity notes, the checks, the back-yard view, the poles and the trees."""
@@ -284,10 +317,7 @@ def main(spec: Path, out: Path) -> None:
     """Build the 3D plan on the lidar terrain and run the septic checks."""
     plan = read_jsonc(spec)
     ground = Terrain(TERRAIN)
-    fp = json.loads((REPO / "site" / "field-points.json").read_text())
-    pipe = tuple(fp["white_pipe"]["solutions"][0]["site"])
-    oak = tuple(fp["big_oak"]["solutions"][0]["site"])
-    well = en_to_site(WELL)
+    pipe, oak, well = field_features()
     to_m = Frame()
     obj = Obj(ground)
     checks: list[dict] = []
@@ -362,7 +392,7 @@ def main(spec: Path, out: Path) -> None:
               "CONFLICT" if gap < KEEP_OUT - 0.05 else "AT LIMIT" if gap < KEEP_OUT + 1 else "OK",
               f"{name} is {to_line:.1f} ft from the surveyed line; footing assumed {WALL_FOOTING:g} ft wide")
 
-    trees, dropped = back_line_trees([(well, KEEP_OUT), (pipe, KEEP_OUT), (oak, OAK_NO_DIG)])
+    trees, dropped = planting()
     well_in = seg_dist(well, PARCEL[2], PARCEL[3])
     gap = min(math.dist(tr["site"], well) for tr in trees)
     check("back-line trees vs well", f"{gap:.1f} ft", f"{KEEP_OUT:g} ft", "CONFLICT" if gap < KEEP_OUT else "OK",
@@ -376,25 +406,11 @@ def main(spec: Path, out: Path) -> None:
                   f"# Origin: midpoint of the platted back line, z = 0 at {ground.z0} ft NAVD88; "
                   "+x toward US-290 along the line, +y away from the lot.\n")
     html = out.with_suffix(".html")
-    (s0, t0), (s1, t1) = BACK_WALL_ST
-    s_eye, t_eye = (s0 + s1) / 2 + BACKYARD_EYE[0], (t0 + t1) / 2
-    eye_xy = to_m(site([st(s_eye, t_eye)])[0])
-
-    def back(d: float) -> Pt:  # d ft straight back from the eye (square off the back wall)
-        return to_m(site([st(s_eye + d, t_eye)])[0])
-
-    y0, y1 = back(0.0)[1], back(1.0)[1]  # the back line is plan y = 0
-    pole_ft = [*POLES, (-POLE_INSET * FT - y0) / (y1 - y0)]
-    poles = [{"xy": [round(c, 2) for c in back(d)], "ft": round(d),
-              "drop_ft": round((ground(*eye_xy) - ground(*back(d))) / FT, 1)} for d in pole_ft]
-    eye = [round(eye_xy[0], 2), round(eye_xy[1], 2), round(ground(*eye_xy) + BACKYARD_EYE[1] * FT, 2)]
-    left, down, reach = math.radians(BACKYARD_GAZE[0]), math.radians(BACKYARD_GAZE[1]), 200.0  # ft
-    at_xy = to_m(site([st(s_eye + reach * math.cos(left), t_eye - reach * math.sin(left))])[0])
-    at = [round(at_xy[0], 2), round(at_xy[1], 2), round(eye[2] - reach * FT * math.tan(down), 2)]
+    view, poles = backyard(ground, to_m)
     tree_view = {"plants": PLANTS, "stages": ["Planted", "~8 years", "Mature"], "dropped": dropped,
                  "rows_ft": TREE_ROWS, "spacing_ft": TREE_SPACING,
                  "trees": [{"xy": [round(c, 2) for c in to_m(tr["site"])], "plant": tr["plant"]} for tr in trees]}
-    write_viewer(html, out.read_text(), plan, checks, {"eye": eye, "at": at}, poles, tree_view, ground.z0)
+    write_viewer(html, out.read_text(), plan, checks, view, poles, tree_view, ground.z0)
     click.echo(f"wrote {out.relative_to(REPO)} ({obj.nv} vertices) and {html.relative_to(REPO)}; "
                f"building B slab at z = {slab:.2f} m")
     with pl.Config(tbl_rows=-1, tbl_hide_dataframe_shape=True, tbl_hide_column_data_types=True,

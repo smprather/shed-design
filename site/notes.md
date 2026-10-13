@@ -822,6 +822,29 @@ Their pollens cross-react. From here on:
     existing tree line, and that line isn't modeled.
   - **Unchecked:** the tank and drainfield are still unlocated, so the north end of both
     rows can't be checked against them yet.
+- **Static render (Oct 13 2026).** `tools/render_view.py` draws the back-yard view with grass,
+  sky, sun and shadows.
+  - **Outputs:** `site/backyard-bare.jpg` has no new trees; `site/backyard-8yr.jpg` has the
+    planting at ~8 years. `--stage planted|8yr|mature` picks the size.
+  - **At ~8 years** the hollies and yaupon hide the retail storefronts. Retail Building 3's
+    upper wall and parapet still show above them.
+  - **The back line can't screen the apartments from the back yard.** Angles are from the
+    back-yard eye, measured from straight back:
+
+    | What | Where |
+    |---|---|
+    | Our back line | 38° right to 18° left |
+    | Retail Buildings 1–3 | 9–19° left: inside that span |
+    | Apartments 7/8 | 45–63° left: outside it |
+    | Apartments 1–6 | 32–70° left: outside it |
+
+    - The sight lines to the apartments cross the south neighbor's yard.
+    - Hiding them from the yard takes trees along our south side line toward the back, or
+      a screen near the patio.
+  - **Not drawn:** existing trees (except the twin oak, which is out of frame), the
+    neighbors' fences, and the house.
+  - **Ground beyond the line:** the 2017 lidar from before grading, drawn as native grass.
+    The retail pads are drawn down to it.
 
 ### Windows and doors
 

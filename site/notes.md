@@ -44,7 +44,7 @@ names and signatures. These are its facts:
 | Utility easements | **7.5' and 10' P.U.E.** (plat) along the back line. The plat's overhead electric line on it is **gone** (owner, Oct 2026), but the easements are still on record. |
 | Blanket easements | Cable TV (Vol. 9167 Pg. 659) and electric (Vol. 4094 Pg. 1490); a CATV grant, Vol. 9505 Pg. 970 |
 | Well | A **"Well"** marked near the NW corner, ~28 ft in from the back line and ~12 ft from the US-290 line (read off the sketch, ±3 ft) |
-| Electric service (1991) | A line from the back line to the house's back wall, ~30 ft north of the south line, plus one from the street's south corner to the house. With the back-line overhead gone, the current route is unknown. |
+| Electric service (1991) | A line from the back line to the house's back wall, ~30 ft north of the south line, plus one from the street's south corner to the house. **Now (owner's photo, Oct 13 2026):** the meter and disconnect are on a wood pole at the yard's NW fence corner. Conduit runs up to the overhead drop and down into the ground, so the service runs underground to the house. Route not located. |
 | House ties | NW corner 44.6 ft and NE corner 35.2 ft from the US-290 line; 22.9 ft and 22.7 ft from the south line |
 | House | "2 story rock/frame". Main block ~41.5 ft (E-W) × 67.2 ft (N-S), with a 21.3 × 25.4 ft wing at the NW corner reaching toward the back. Covered porch across the front of the north half. Concrete driveway on the north side, flaring to the house's NE corner. |
 | Flood | Zone C (minimal flooding), FIRM 481026-0300-D, 1987 |
@@ -679,7 +679,8 @@ checks.
       inside the back line.
       - Turn 15° right from the starting view (→ five times) to sight down them.
       - Placed by `plan3d.py`. The first three, hand-placed, were off the line by 2–6°.
-  - **Rear fence:** modeled at 6 ft, the owner's estimate (not yet measured).
+  - **Rear fence:** 8 ft, horizontal boards (owner, Oct 13 2026; first modeled at 6 ft, an
+    estimate).
   - **The yard falls ~7 ft from the house to the back line** (2017 lidar, ±2 ft).
     - **Lidar ground along the line of poles:**
 
@@ -693,16 +694,16 @@ checks.
 
       These values are from after the Oct 13 alignment fix.
 
-    - **So from a standing eye 10 ft out from the house, a 6 ft fence on the line tops
-      out ~7 ft below your eye.** That is ~1 ft below the ground you stand on. It hides
-      little from there.
-    - This corrects the earlier "about at eye level", which was wrong: a fence whose base
-      is 6 ft down tops out at the house's ground, not at eye level.
+    - **The fence is 8 ft (owner, Oct 13).** From a 5 ft camera 10 ft out from the house, its
+      top is ~4 ft below the lens; from a 6 ft eye, ~5 ft below. It hides the ground
+      beyond, but not much above it.
+    - An earlier version assumed a 6 ft fence, ~7 ft below the eye. Before that, a version
+      said "about at eye level", which was wrong for a 6 ft fence.
     - That drop is most of why the back-yard view feels high.
     - Screening for the house needs height near the house or tall trees, not just a fence.
   - **Field check:** stand 10 ft out from the middle of the back wall and sight level from
     eye height toward the back fence, with a line level, a phone level or a laser. If the
-    lidar is right, the level line passes ~7 ft over the top of a 6 ft fence. If it lands
+    lidar is right, a level line from 5 ft up passes ~4 ft over the top of the 8 ft fence. If it lands
     near the top, the yard has been filled since 2017, or the lidar is off there; then
     re-fetch, or take a few shots.
 
@@ -798,9 +799,13 @@ Their pollens cross-react. From here on:
   - red oaks (they spread oak wilt);
   - running bamboo;
   - cherry laurel and magnolia (they yellow in alkaline soil).
-- **Existing junipers:** if any trees already along the back line are Ashe juniper, the male
-  ones shed the December–February cedar pollen. Taking out the males on our lot is an option,
-  but it opens gaps in the screen.
+- **Existing junipers:** the north end of the back yard has several large Ashe junipers (owner's
+  photos, Oct 13 2026), around the NW corner and overhanging the north strip.
+  - The male ones shed the December–February cedar pollen, right in our yard.
+  - **Check them in December–January:** males carry small tan pollen cones at the twig tips;
+    females carry blue berries.
+  - Taking out the males is an option, but it opens gaps in the screen at the north end.
+    That's where the yard looks out toward US-290.
 - **Layout:**
   - Stay out of the back-line utility easement: plant 10–12 ft in from the line.
   - Stagger two rows ~8–12 ft apart: hollies ~10 ft on center behind (8 ft for a faster
@@ -947,7 +952,7 @@ Commercial (Granada Hills Non-Consolidated Site Plans)", 8313 W US 290 Hwy.
   - **Levels:** top of berm 1,047.0 ft; 100-year water level 1,045.7 ft; basin floors
     ~1,041–1,043 ft.
   - So it's a 4–6 ft deep grass basin, mowed to 18 in or less, about level with the ground
-    on our side of the line. Behind a 6 ft fence it mostly won't show from the yard.
+    on our side of the line. Behind our 8 ft fence it won't show from the yard.
   - **Trees:** the live oaks inside it (8–18 in trunks) are marked for removal.
   - **Lift station:** the new pump is a wet well by the ponds; it pumps the detention basin
     out after storms. Expect a pump to run occasionally behind the line.
@@ -1072,6 +1077,104 @@ back yard is open lawn.
     and the fence and the new trees sit in the open stretch. The apartments stay behind
     trees to the left.
 
+### First photos from the yard (Oct 13 2026)
+
+The owner took photos with the camera ~5 ft up. They aren't in the repo: the repo is public,
+and the photos show the neighbors' yards.
+
+- **From the photo spot** (23 ft along the back wall, 10 ft out, 15° left of straight back):
+  - **Matches the corrected model:**
+    - the big live oak on the left and a second oak's crown spreading across the middle;
+    - trees at the right edge;
+    - open lawn between, with the back fence across the gap.
+  - **The back fence is 8 ft,** horizontal boards (owner). A picket fence runs along our
+    south line.
+  - **Through the gap, past the fence:** the retail construction (dirt, equipment), power
+    poles, and the US-290 corridor on the horizon.
+    - That gap, toward the north half of the back line, is where screening matters most
+      from the house. It's where the new hollies and yaupon go.
+    - US-290 itself isn't in the 3D model yet.
+  - **Fence top position:** in the photo it sits at about the centerline. The model puts it
+    1–1.5° below level, so the phone was likely tipped up 1–2°. That's typical handheld, and
+    consistent.
+- **From the SW corner of the back yard, looking back at the house:**
+  - **The lawn rises toward the house** to a raised strip in front of the deck. This matches
+    the lidar ground along the photo line:
+
+    | Distance out from the back wall | Ground (ft) |
+    |---|---|
+    | 0–20 ft | ~1,053 (flat; the deck and terrace) |
+    | 20–40 ft | ~3 ft lower |
+    | Back line | ~1,046–1,047 (a gentle fall) |
+
+  - **Visible:**
+    - the deck off the back;
+    - the two-story section and the stone wing with the chimney;
+    - a tall upright tree by the deck (not a live oak);
+    - the big oaks on the left;
+    - the 8 ft board fence behind them.
+- **The north end and the north strip** (several photos):
+  - **Fences:** the US-290 fence is the same 8 ft horizontal-board fence as the back fence.
+  - **Meter pole:** the electric meter and disconnect are on a wood pole right at the NW
+    fence corner.
+    - Conduit runs up to the overhead drop and down into the ground, so the house's service
+      runs underground from that corner.
+    - Its route isn't known. It's private past the meter (811 won't mark it), so have it
+      traced before digging.
+    - It's in the 3D plan as `electric_meter_pole`, with an UNKNOWN check row.
+  - **Trees:** large Ashe junipers stand at the NW corner (see "Existing junipers" above).
+    Young sumac-like saplings grow along the fences.
+  - **Ground features at the west end of the north strip:** a burn barrel, a rusty round
+    casing with an expanded-metal lid (possibly the old well), and white PVC stubs.
+  - **Overhead lines:** the US-290 distribution lines run just outside the fence along the
+    north strip, next to site B.
+    - Keep cranes, lifts and the building's steel at least 10 ft from them while it goes
+      up (OSHA's minimum for lines up to 50 kV).
+    - Have the utility confirm B's north eave clears the conductors.
+- **The cross fence at site B's east end (photo from the middle of site B, and one from the
+  lawn):**
+  - **Layout:** a lower (~6 ft) board fence on galvanized posts runs from the US-290 fence
+    to the house's north wall, just east of the NW corner. The garage apron is on the far
+    side.
+  - **Gates:** a chain-link double gate (two leaves, roughly 10 ft clear) sits near the
+    house end, beside a wood walk gate. The twin oak and the parked cars are on the far
+    side.
+  - **Position:** the photo's scale puts the fence ~20 ft east of the middle of site B,
+    taking its panels as 8 ft wide (±5 ft). That's about where B's east wall goes (21.5 ft
+    from the center), at the oak's drip line.
+  - **So building B butts against the cross fence, or crosses it.** Either the fence and
+    gate move east a few feet, or B's east end stops short of it.
+  - **The gate is the way in** for the septic truck lane between B and the house, and for
+    building B's construction.
+    - Pump and concrete trucks are ~8.5 ft wide, more at the mirrors. A ~10 ft opening is
+      tight; 12 ft is better.
+    - Measure it, and the fence's two ends (see Open questions).
+- **The twin oak and the garage apron** (photo from the apron):
+  - The twin oak stands at the end of the driveway, just past the cross fence. Its two
+    trunks lean apart, and its crown spreads over the apron. The US-290 lines run past its
+    north side.
+  - **Cars park on the apron and right up against its trunks, over the root zone.**
+    - Daily parking compacts the soil that the roots need.
+    - If the garage-to-kitchen plan moves parking out front, give that ground back: no
+      parking within ~12 ft of the trunks, and 3–4 in of mulch.
+  - **Building B's trucks:** this apron is also the only way to site B's gate. Loaded
+    concrete trucks must not drive under this oak.
+    - "Construction access" (below) already plans a concrete pump parked on the driveway.
+      These photos confirm why.
+    - Put the steel delivery's crane or forklift on the paved drive too, and lay plywood
+      over mulch for any wheeled traffic beyond it.
+- **The driveway** (photo from its house end, looking out to Candelaria):
+  - **Surface:** exposed-aggregate concrete, curving out to the street.
+  - **Trees:** a corridor of leaning live oaks hangs over it, with shrub beds beside it.
+  - **Circle drive:** any new drive goes through the same canopy. Its route has to dodge
+    those trunks and root zones, as `front_plan.py` assumes.
+- **The yard's oaks:**
+  - A big live oak by the house's west wall leans at ~45° and has a wooden prop under the
+    trunk.
+  - A twin-trunk live oak stands out in the back lawn.
+  - Both are low, wide, sprawling crowns, as the render draws them.
+  - Have the arborist look at the leaning one. Prune only July–January (oak wilt).
+
 ### Apartments drawn as 3 stories (Oct 13 2026)
 
 The owner has heard the apartments won't go above 3 levels, because the developer didn't
@@ -1194,7 +1297,16 @@ still allows 5 stories / 65 ft.
 - Where are the septic tank lids and the drainfield trenches? (It's a conventional gravity system with a 1,200-gal tank.)
 - The building (footprint set at 23 × 43 ft): eave height, what goes in it (vehicles, trailer, RV/boat, shop), door sizes, and power/water?
 - Is the plat's well still there, and is it used (irrigation?) or capped?
-- Where does the house's power come in now, after the back-line overhead was removed: from the street, or underground across the yard?
+  - The owner's photos show a rusty round casing with an expanded-metal lid beside the burn
+    barrel at the west end of the north strip. That's about where the plat puts the well.
+  - If that's the well: how far is it from the back fence, and from the US-290 fence?
+- ~~Where does the house's power come in now?~~ From a meter pole at the NW fence corner, then
+  underground to the house (owner's photo, Oct 13 2026). **Still open:** the buried line's
+  route. Have a private locator trace it; 811 doesn't mark lines past the meter.
+- **The cross fence east of site B:**
+  - Where does it meet the house, and where does it meet the US-290 fence? Measure each
+    from the house's NW corner (A).
+  - What is the vehicle gate's clear opening?
 - Is the garage still used for cars, and is the new covered parking in addition to it?
 - Does Travis County's septic (OSSF) office need to review a new structure on a lot
   with a septic system? Ask before designing the foundation.

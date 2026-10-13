@@ -38,10 +38,18 @@
     {
       "entity_id": "rear_fence",
       "type": "fence",
-      "geometry": { "kind": "wall", "points_m": [[-23.63, 0.0], [23.63, 0.0]], "height_m": 1.83, "thickness_m": 0.15, "z": "terrain" },
-      "source": "owner: likely 6 ft (not yet measured)",
-      "status": "estimated",
-      "notes": "Position, height and type not checked yet. Placed on the platted line. The US-290 fence wanders up to ~2 m off its line, so tape this one against pins too."
+      "geometry": { "kind": "wall", "points_m": [[-23.63, 0.0], [23.63, 0.0]], "height_m": 2.44, "thickness_m": 0.15, "z": "terrain" },
+      "source": "owner, Oct 13 2026: 8 ft; horizontal-board privacy fence (owner's photo from the back-yard spot)",
+      "status": "height from the owner; position drawn on the platted line",
+      "notes": "8 ft horizontal-board privacy fence. Drawn on the platted line; the retail site plan's survey has it on the line at the north end and ~1.6 ft onto the retail tract farther south. A picket fence runs along our south line."
+    },
+    {
+      "entity_id": "electric_meter_pole",
+      "type": "utility",
+      "geometry": { "kind": "point", "point_m": [22.6, -1.0], "z": "terrain" },
+      "source": "owner's photo, Oct 13 2026: meter and disconnect on a wood pole at the yard's NW fence corner; conduit runs up to the overhead drop and down into the ground",
+      "status": "position from the photo, +/-2 m",
+      "notes": "The house's electric service: overhead to this pole, then underground to the house along a route not yet located. It's private past the meter, so 811 won't mark it. Have a private locator trace it before digging the north end of the back-line planting, building B's footings or a US-290 wall footing."
     },
     {
       "entity_id": "back_line_utility_easement",

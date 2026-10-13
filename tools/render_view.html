@@ -113,14 +113,14 @@
 
   // ---- Rear fence: board panels between posts, following the ground ----
   {
-    const boards = canvasTexture(256, (x, n) => {
+    const boards = canvasTexture(256, (x, n) => {   // horizontal boards, ~6 in each (one tile is ~4 ft tall)
       const k = 8;   // boards per tile
       for (let b = 0; b < k; b++) {
         const t = 0.85 + rand() * 0.2;
-        x.fillStyle = `rgb(${Math.round(142 * t)},${Math.round(118 * t)},${Math.round(92 * t)})`;
-        x.fillRect(b * n / k, 0, n / k, n);
-        x.fillStyle = "rgba(40,28,18,0.55)"; x.fillRect((b + 1) * n / k - 2, 0, 2, n);
-        for (let s = 0; s < 6; s++) { x.fillStyle = "rgba(60,45,30,0.12)"; x.fillRect(b * n / k + rand() * n / k, 0, 1, n); }
+        x.fillStyle = `rgb(${Math.round(150 * t)},${Math.round(138 * t)},${Math.round(122 * t)})`;
+        x.fillRect(0, b * n / k, n, n / k);
+        x.fillStyle = "rgba(40,32,24,0.5)"; x.fillRect(0, (b + 1) * n / k - 2, n, 2);
+        for (let s = 0; s < 6; s++) { x.fillStyle = "rgba(60,50,40,0.12)"; x.fillRect(0, b * n / k + rand() * n / k, n, 1); }
       }
     });
     const { posts, height: h } = S.fence, pos = [], uv = [];
@@ -130,7 +130,8 @@
       const q = [P(ax, ay, az - 0.05), P(bx, by, bz - 0.05), P(bx, by, bz + h), P(ax, ay, az + h)];
       for (const k of [0, 1, 2, 0, 2, 3]) pos.push(q[k].x, q[k].y, q[k].z);
       const u0 = s / 1.12, u1 = (s + L) / 1.12;
-      uv.push(u0, 0, u1, 0, u1, 1, u0, 0, u1, 1, u0, 1); s += L;
+      const vt = h / 1.22;   // tiles up the fence: 8 boards per ~4 ft
+      uv.push(u0, 0, u1, 0, u1, vt, u0, 0, u1, vt, u0, vt); s += L;
     }
     const g = new THREE.BufferGeometry();
     g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));

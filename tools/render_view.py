@@ -124,7 +124,7 @@ def main(stage: str, width: int, height: int, chromium: Path | None, out_dir: Pa
     sizes = ", ".join(f"{PLANTS[p]['name'].split(',')[0]} ~{PLANTS[p]['sizes'][STAGES[stage]][0]} ft"
                       for p in ("holly", "yaupon", "laurel"))
     common = ("Ground and existing trees from the 2017 lidar (trees kept where still green in Oct 2026 satellite imagery); "
-              "rear fence 6 ft (est.). Retail and apartments as planned (apartments as 3 stories, ~40 ft).")
+              "rear fence 8 ft. Retail and apartments as planned (apartments as 3 stories, ~40 ft).")
     head = (f"From the back yard: eye {BACKYARD_EYE[1]:g} ft up, {BACKYARD_EYE[0]:g} ft out from the middle of the back wall, "
             f"looking {BACKYARD_GAZE[0]:g}° left of straight back.")
     renders = {"bare": (False, [head, "Without the new trees.", common]),

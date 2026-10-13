@@ -295,6 +295,7 @@ details li b { font-weight: 600; }
       status: "rule", source: "Project rule.", notes: "No digging within 12 ft of either trunk." },
     platted_back_line: { group: "Lines", token: "accent" },
     back_line_utility_easement: { label: "Back-line utility easement", group: "Lines", token: "easement" },
+    electric_meter_pole: { label: "Meter pole (service runs underground)", group: "Keep-outs", token: "warn" },
     retail_lot_1a: { label: "Retail lot (1A)", group: "Next door", token: "retail-lot" },
     retail_east_end_stormwater: { label: "Retail ponds (detention, filtration)", group: "Next door", token: "water" },
     retail_south_arm_woods: { label: "Retail south arm: woods to remain", group: "Next door", token: "oak" },
@@ -313,7 +314,7 @@ details li b { font-weight: 600; }
     if (e.facade_toward_us) m.notes += " " + e.facade_toward_us;
   }
   META.platted_back_line.label = "Platted back line";
-  META.rear_fence.label = "Rear fence (~6 ft, est.)";
+  META.rear_fence.label = "Rear fence (8 ft)";
 
   // ---- Scene ----
   const canvas = document.getElementById("c");

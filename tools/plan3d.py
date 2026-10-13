@@ -450,6 +450,9 @@ def main(spec: Path, out: Path) -> None:
     check("back-line trees vs well", f"{gap:.1f} ft", f"{KEEP_OUT:g} ft", "CONFLICT" if gap < KEEP_OUT else "OK",
           f"well is {well_in:.0f} ft in; rows at {TREE_ROWS[0]:g} and {TREE_ROWS[1]:g} ft; "
           f"{dropped['keep_out']} spot(s) left out by the well, {dropped['existing']} already under existing trees")
+    check("digging vs buried electric service", "not located", "-", "UNKNOWN",
+          "meter pole at the NW corner; the line runs underground to the house; locate it before digging "
+          "the north end of the planting, B's footings or a US-290 wall")
     check("anything vs tank and drainfield", "not located", "-", "UNKNOWN",
           "every check against them waits on finding the lids and trenches")
 

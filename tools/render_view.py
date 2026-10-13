@@ -1,11 +1,12 @@
 # /// script
 # requires-python = ">=3.11"
-# dependencies = ["rich-click", "polars", "pillow", "playwright"]
+# dependencies = ["rich-click", "polars", "pillow", "playwright", "numpy"]
 # ///
 """Static render of the back-yard view, with and without the planned back-line trees.
 
 Builds a three.js scene from the same data as plan3d.py: the lidar ground, the plan's rear
-fence and buildings, building B, the twin oak, the back-line planting and the back-yard eye.
+fence and buildings, building B, the existing trees (the 2017 lidar canopy where it still
+stands, from site/canopy-lidar.json), the back-line planting and the back-yard eye.
 Then it renders the scene in headless Chromium with grass, sky, sun and shadows. Writes
 site/backyard-bare.jpg (no new trees) and site/backyard-<stage>.jpg.
 
@@ -25,7 +26,7 @@ import rich_click as click
 from PIL import Image, ImageDraw, ImageFont
 from playwright.sync_api import sync_playwright
 
-from plan3d import B_EAVE, FT, PLANTS, SPEC, TERRAIN, Frame, Terrain, backyard, planting, read_jsonc
+from plan3d import B_EAVE, CANOPY, FT, PLANTS, SPEC, TERRAIN, Canopy, Frame, Terrain, backyard, planting, read_jsonc
 from site_plan import REPO, SITE_B
 
 TEMPLATE = REPO / "tools" / "render_view.html"
@@ -33,8 +34,7 @@ STAGES = {"planted": 0, "8yr": 1, "mature": 2}
 STAGE_TEXT = {"planted": "at planting", "8yr": "at ~8 years", "mature": "mature"}
 SUN = (140.0, 42.0)  # azimuth and altitude, degrees: late morning in mid-October, behind the viewer
 VFOV = 45.0  # degrees, vertical; about a phone camera's main lens held sideways
-OAK_HEIGHT = 32.0  # ft; the twin oak's height isn't measured (its drip line is ~25 ft)
-OAK_DRIP = 25.1  # ft, measured
+CANOPY_BLOCK = 2  # m; existing trees are drawn per 2 x 2 m block (finer than the viewer's)
 FENCE_POST = 8.0  # ft between posts
 SHED_PITCH = 3 / 12  # building B's roof; undecided
 
@@ -50,7 +50,8 @@ def scene(stage: str) -> dict:
     ground = Terrain(TERRAIN)
     to_m = Frame()
     view, _ = backyard(ground, to_m)
-    trees, _ = planting()
+    canopy = Canopy() if CANOPY.exists() else None
+    trees, _ = planting(canopy)
     ents = {e["entity_id"]: e for e in plan["spatial_entities"]}
 
     buildings = []
@@ -78,10 +79,6 @@ def scene(stage: str) -> dict:
     posts = [[ax + (bx - ax) * i / n, ay + (by - ay) * i / n] for i in range(n + 1)]
     posts = [[round(x, 2), round(y, 2), round(ground(x, y), 3)] for x, y in posts]
 
-    fp = json.loads((REPO / "site" / "field-points.json").read_text())
-    trunks = [to_m(tuple(fp[k]["solutions"][0]["site"])) for k in ("big_oak", "big_oak_2")
-              if fp.get(k, {}).get("solutions")]
-
     k = STAGES[stage]
     th = plan_bearing(SUN[0])
     alt = math.radians(SUN[1])
@@ -94,8 +91,7 @@ def scene(stage: str) -> dict:
         "trees": [{"xy": [round(c, 2) for c in to_m(t["site"])], "z": round(ground(*to_m(t["site"])), 3),
                    "plant": t["plant"], "h": PLANTS[t["plant"]]["sizes"][k][0] * FT,
                    "w": PLANTS[t["plant"]]["sizes"][k][1] * FT} for t in trees],
-        "oak": {"trunks": [[round(x, 2), round(y, 2), round(ground(x, y), 3)] for x, y in trunks],
-                "h": OAK_HEIGHT * FT, "r": OAK_DRIP * FT},
+        "canopy": canopy.for_viewer(ground, CANOPY_BLOCK) if canopy else None,
     }
 
 
@@ -126,11 +122,12 @@ def main(stage: str, width: int, height: int, chromium: Path | None, out_dir: Pa
     data = scene(stage)
     sizes = ", ".join(f"{PLANTS[p]['name'].split(',')[0]} ~{PLANTS[p]['sizes'][STAGES[stage]][0]} ft"
                       for p in ("holly", "yaupon", "laurel"))
-    common = ("Ground from 2017 lidar; rear fence 6 ft (estimated). Retail and apartments as planned "
-              "(apartments at the site's 65 ft maximum). Existing trees other than the twin oak aren't drawn.")
+    common = ("Ground and existing trees from the 2017 lidar (trees kept where still green in Oct 2026 satellite imagery); "
+              "rear fence 6 ft (est.). Retail and apartments as planned (apartments at the 65 ft maximum).")
     head = "From the back yard: eye 6 ft up, 10 ft out from the middle of the back wall, looking 15° left of straight back."
     renders = {"bare": (False, [head, "Without the new trees.", common]),
-               stage: (True, [head, f"New back-line trees {STAGE_TEXT[stage]}: {sizes}.", common])}
+               stage: (True, [head, f"New back-line trees {STAGE_TEXT[stage]}, in the gaps between existing trees: {sizes}.",
+                              common])}
     out_dir.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory() as tmp, sync_playwright() as pw:
         page_path = Path(tmp) / "render.html"

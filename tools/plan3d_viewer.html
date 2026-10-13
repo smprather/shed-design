@@ -25,6 +25,7 @@
   --oak-core: #b59a12;
   --tree: #2c5a3c;        /* proposed holly, dark glossy green */
   --tree-2: #4f7f2a;      /* proposed yaupon and laurel */
+  --canopy: #5b7a44;      /* existing trees (lidar) */
   --retail-lot: #c4482b;
   --retail-bldg: #b83a2e;
   --water: #2565b8;
@@ -46,7 +47,7 @@
     --bg: #111714; --panel: #171f1b; --ink: #e2eae5; --muted: #95a59c; --rule: #2a3530;
     --accent: #f0675b; --stage: #0d1310; --terrain-lo: #2f4655; --terrain-hi: #6b6450;
     --house: #8fb0ea; --shed: #f0a93a; --fence: #c09468; --easement: #b48ae0; --septic: #f05cbf;
-    --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
+    --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
     --water: #6aa6f5; --apt: #79c174; --apt-bldg: #8fa2d6; --apt-new: #f08a4a; --context: #56625b; --lot: #e2eae5; --ok: #5ccf7c; --warn: #f0b13a; --bad: #f0675b;
     --unknown: #95a59c; color-scheme: dark;
   }
@@ -55,7 +56,7 @@
   --bg: #111714; --panel: #171f1b; --ink: #e2eae5; --muted: #95a59c; --rule: #2a3530;
   --accent: #f0675b; --stage: #0d1310; --terrain-lo: #2f4655; --terrain-hi: #6b6450;
   --house: #8fb0ea; --shed: #f0a93a; --fence: #c09468; --easement: #b48ae0; --septic: #f05cbf;
-  --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
+  --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
   --water: #6aa6f5; --apt: #79c174; --apt-bldg: #8fa2d6; --apt-new: #f08a4a; --context: #56625b; --lot: #e2eae5; --ok: #5ccf7c; --warn: #f0b13a; --bad: #f0675b;
   --unknown: #95a59c; color-scheme: dark;
 }
@@ -146,6 +147,8 @@ details li b { font-weight: 600; }
   background: color-mix(in srgb, var(--panel) 85%, transparent); padding: 4px 8px; border-radius: 3px;
 }
 .compass { position: absolute; right: 12px; top: 12px; width: 56px; height: 56px; }
+.fps { position: absolute; right: 12px; bottom: 12px; font: 500 11px var(--font-data); color: var(--muted);
+  background: color-mix(in srgb, var(--panel) 85%, transparent); padding: 3px 6px; border-radius: 3px; }
 .compass svg { width: 100%; height: 100%; }
 .load-error { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; text-align: center; color: var(--muted); }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
@@ -182,16 +185,19 @@ details li b { font-weight: 600; }
     <section class="exag" aria-labelledby="h-exag">
       <h2 id="h-exag" style="grid-column: 1 / -1; margin: 0">Height</h2>
       <label for="exag">Vertical exaggeration</label>
-      <output id="exag-out" for="exag">2×</output>
-      <input type="range" id="exag" min="1" max="4" step="0.5" value="2">
+      <output id="exag-out" for="exag">1×</output>
+      <input type="range" id="exag" min="1" max="4" step="0.5" value="1">
     </section>
 
     <section class="exag" aria-labelledby="h-trees">
-      <h2 id="h-trees" style="grid-column: 1 / -1; margin: 0">Back-line trees (proposed)</h2>
-      <label for="tree-op">Opacity</label>
+      <h2 id="h-trees" style="grid-column: 1 / -1; margin: 0">Trees</h2>
+      <label for="tree-op">New back-line trees, opacity</label>
       <output id="tree-op-out" for="tree-op">85%</output>
       <input type="range" id="tree-op" min="0" max="100" step="5" value="85">
-      <div class="row" id="tree-stages" role="group" aria-label="Tree size"></div>
+      <div class="row" id="tree-stages" role="group" aria-label="New tree size"></div>
+      <label for="canopy-op" style="margin-top: 10px">Existing trees (lidar), opacity</label>
+      <output id="canopy-op-out" for="canopy-op" style="margin-top: 10px">100%</output>
+      <input type="range" id="canopy-op" min="0" max="100" step="5" value="100">
     </section>
 
     <section aria-labelledby="h-sel">
@@ -233,6 +239,7 @@ details li b { font-weight: 600; }
       </svg>
     </div>
     <div class="hint" id="hint">Drag to orbit · scroll or pinch to zoom · right-drag to pan · click to inspect</div>
+    <div class="fps" id="fps" aria-hidden="true"></div>
   </main>
 </div>
 
@@ -328,14 +335,17 @@ details li b { font-weight: 600; }
   const items = {};   // id -> { node, materials, meta }
   const Z0_FT = /*Z0_FT*/;
   const POLES = /*POLES*/;   // range poles straight back from the back-yard eye (plan3d.py)
-  const GRID_TILE = 50 * 0.3048;   // one texture tile is 50 ft; lines every 10 ft
+  const GRID_TILE = 50 * 0.3048;   // one texture tile is 50 ft: lines every 5 ft, heavier every 25 ft
   function gridTexture() {
-    const c = document.createElement("canvas"); c.width = c.height = 512;
+    const n = 1024, c = document.createElement("canvas"); c.width = c.height = n;
     const x = c.getContext("2d");
-    x.fillStyle = "#fff"; x.fillRect(0, 0, 512, 512);
-    x.strokeStyle = "rgba(0,0,0,0.16)"; x.lineWidth = 2;
-    for (let i = 1; i < 5; i++) { const v = i * 512 / 5; x.beginPath(); x.moveTo(v, 0); x.lineTo(v, 512); x.moveTo(0, v); x.lineTo(512, v); x.stroke(); }
-    x.strokeStyle = "rgba(0,0,0,0.32)"; x.lineWidth = 4; x.strokeRect(0, 0, 512, 512);
+    x.fillStyle = "#fff"; x.fillRect(0, 0, n, n);
+    for (let i = 1; i < 10; i++) {
+      const v = i * n / 10;
+      x.strokeStyle = i === 5 ? "rgba(0,0,0,0.26)" : "rgba(0,0,0,0.12)"; x.lineWidth = i === 5 ? 4 : 2;
+      x.beginPath(); x.moveTo(v, 0); x.lineTo(v, n); x.moveTo(0, v); x.lineTo(n, v); x.stroke();
+    }
+    x.strokeStyle = "rgba(0,0,0,0.26)"; x.lineWidth = 4; x.strokeRect(0, 0, n, n);
     const t = new THREE.CanvasTexture(c);
     t.wrapS = t.wrapT = THREE.RepeatWrapping; t.anisotropy = renderer.capabilities.getMaxAnisotropy();
     return t;
@@ -429,7 +439,7 @@ details li b { font-weight: 600; }
       trees_back_row: { kinds: ["holly"], label: "Nellie R. Stevens holly (back row)", token: "tree",
         notes: `${n("holly")} hollies, ${TREES.rows_ft[0]} ft in from the back line (just outside the utility easement), ~${TREES.spacing_ft} ft on center. A female clone, so no pollen; spiny, so deer leave it. Drawn as cones, height × width in ft: ${size("holly")} (planted in 15 gal → ~8 years with drip → mature).` },
       trees_front_row: { kinds: ["yaupon", "laurel"], label: "Yaupon, mountain laurel (front row)", token: "tree-2",
-        notes: `${n("yaupon")} yaupon and ${n("laurel")} mountain laurel, alternating, ${TREES.rows_ft[1]} ft in and offset between the hollies. Buy berried (female) yaupons: the males shed some pollen. Height × width in ft, planted → ~8 years → mature: yaupon ${size("yaupon")}; laurel ${size("laurel")}. ${TREES.dropped} left out by the well's 10 ft keep-out.` },
+        notes: `${n("yaupon")} yaupon and ${n("laurel")} mountain laurel, alternating, ${TREES.rows_ft[1]} ft in and offset between the hollies. Buy berried (female) yaupons: the males shed some pollen. Height × width in ft, planted → ~8 years → mature: yaupon ${size("yaupon")}; laurel ${size("laurel")}. ${TREES.dropped.keep_out} spot(s) left out by the well's 10 ft keep-out. Across both rows, ${TREES.dropped.existing} spot(s) already under existing trees (lidar) are left out too: the plan fills the gaps.` },
     };
     for (const [id, spec_] of Object.entries(ITEMS)) {
       const node = new THREE.Group(); node.userData.id = id; root.add(node);
@@ -465,6 +475,57 @@ details li b { font-weight: 600; }
     for (const { mesh } of treeParts) mesh.visible = opacity > 0;   // invisible trees can't be clicked
   }
   sizeTrees(1); fadeTrees(0.85);
+
+  // Existing trees: the 2017 lidar canopy still standing in the latest Sentinel-2 scene (fetch_canopy.py).
+  // Each block of canopy gets a foliage clump near its top, and a lower one in tall trees; treetops get trunks.
+  const CANOPY = /*CANOPY*/;
+  const canopyMats = [];
+  if (CANOPY) {
+    const bytes = (s) => Uint8Array.from(atob(s), ch => ch.charCodeAt(0));
+    const zg = bytes(CANOPY.zg), hh = bytes(CANOPY.h), k = CANOPY.cell, st = CANOPY.step;
+    const spots = [];
+    let seed = 290;
+    const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+    for (let j = 0; j < CANOPY.ny; j++) for (let i = 0; i < CANOPY.nx; i++) {
+      const h = hh[j * CANOPY.nx + i] * st; if (h <= 0) continue;
+      const x = CANOPY.x0 + (i + 0.5) * k, y = CANOPY.y0 + (j + 0.5) * k, z = CANOPY.zmin + zg[j * CANOPY.nx + i] * st;
+      const s = k / 2;   // clump size follows the block size
+      spots.push([x + (rnd() - 0.5) * s, y + (rnd() - 0.5) * s, z + h - 0.6 * s, (1.25 + 0.3 * rnd()) * s, 0.95 + 0.15 * rnd()]);
+      if (h > 5) spots.push([x + (rnd() - 0.5) * s, y + (rnd() - 0.5) * s, z + Math.max(0.6 * h, 3.6), (1.3 + 0.3 * rnd()) * s, 0.8 + 0.1 * rnd()]);
+    }
+    const node = new THREE.Group(); node.userData.id = "existing_trees"; root.add(node);
+    const mat = new THREE.MeshLambertMaterial({ transparent: true, flatShading: true });
+    const mesh = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(1, 0), mat, spots.length);
+    const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), e = new THREE.Euler(), c = new THREE.Color();
+    spots.forEach(([x, y, z, r, shade], i) => {
+      q.setFromEuler(e.set(rnd() * 6, rnd() * 6, rnd() * 6));
+      m4.compose(P([x, y, z]), q, new THREE.Vector3(r, r * 0.8, r)); mesh.setMatrixAt(i, m4);
+      mesh.setColorAt(i, c.setScalar(shade));
+    });
+    mesh.userData.id = "existing_trees"; node.add(mesh);
+    const trunkMat = new THREE.MeshLambertMaterial({ color: 0x6b5a48, transparent: true });
+    const stick = new THREE.CylinderGeometry(0.7, 1, 1, 6); stick.translate(0, 0.5, 0);
+    const trunks = new THREE.InstancedMesh(stick, trunkMat, CANOPY.tops.length);
+    CANOPY.tops.forEach(([x, y, z, h], i) => {
+      const r = 0.12 + 0.012 * h;
+      m4.compose(P([x, y, z - 0.1]), q.identity(), new THREE.Vector3(r, 0.45 * h, r)); trunks.setMatrixAt(i, m4);
+    });
+    trunks.userData.id = "existing_trees"; node.add(trunks);
+    canopyMats.push(mat, trunkMat);
+    items.existing_trees = { node, mats: [{ mat, kind: "mesh" }], meta: { label: "Existing trees (2017 lidar)", group: "Existing trees",
+      token: "canopy", solid: true, status: "2017 heights; still standing in Oct 2026",
+      source: CANOPY.source + `. Drawn per ${CANOPY.cell} m block, with a trunk at each treetop.`,
+      notes: "Mostly live oak. On our lot the canopy is 17-28 ft for the middle half of it, with a few crowns to 35-42 ft (the twin oak ~37 ft). The woods on the retail lot's south arm and in the apartment lot's undisturbed half still stand; the retail strip and most of the apartment site are cleared. Heights are from 2017, so live oaks have grown a little since, and single trees may have been removed: check against photos." } };
+  }
+  function fadeCanopy(opacity) {
+    for (const m of canopyMats) {
+      const solid = opacity >= 0.999;
+      if (m.depthWrite !== solid) { m.depthWrite = solid; m.needsUpdate = true; }
+      m.opacity = opacity;
+    }
+    if (items.existing_trees) items.existing_trees.node.children.forEach(o => { o.visible = opacity > 0; });
+  }
+  fadeCanopy(1);
 
   // Terrain tint by height, recomputed with the theme.
   function tintTerrain() {
@@ -520,7 +581,7 @@ details li b { font-weight: 600; }
   // ---- Layer list ----
   const groups = {};
   for (const [id, it] of Object.entries(items)) (groups[it.meta.group] ||= []).push(id);
-  const order = ["Your lot", "Proposed", "Keep-outs", "Lines", "Next door", "Apartments", "Context", "Ground"];
+  const order = ["Your lot", "Proposed", "Existing trees", "Keep-outs", "Lines", "Next door", "Apartments", "Context", "Ground"];
   const layersEl = document.getElementById("layers");
   for (const g of order.filter(g => groups[g])) {
     const wrap = document.createElement("div"); wrap.className = "layer-group";
@@ -576,7 +637,7 @@ details li b { font-weight: 600; }
   }
 
   // ---- Views and exaggeration ----
-  let exag = 2;
+  let exag = 1;
   const VIEWS = {
     oblique: { eye: [230, -330, 250], at: [-160, 90, 0] },
     house:   { /*BACKYARD*/, exag: 1, mode: "look" },   // 6 ft up, 10 ft out from the back wall (plan3d.py)
@@ -668,6 +729,8 @@ details li b { font-weight: 600; }
   // ---- Tree controls ----
   const treeOpIn = document.getElementById("tree-op"), treeOpOut = document.getElementById("tree-op-out");
   treeOpIn.addEventListener("input", () => { fadeTrees(+treeOpIn.value / 100); treeOpOut.textContent = treeOpIn.value + "%"; });
+  const canopyOpIn = document.getElementById("canopy-op"), canopyOpOut = document.getElementById("canopy-op-out");
+  canopyOpIn.addEventListener("input", () => { fadeCanopy(+canopyOpIn.value / 100); canopyOpOut.textContent = canopyOpIn.value + "%"; });
   const stagesEl = document.getElementById("tree-stages");
   TREES.stages.forEach((name, i) => {
     const b = document.createElement("button"); b.className = "grow"; b.textContent = name;
@@ -708,9 +771,14 @@ details li b { font-weight: 600; }
   }
   new ResizeObserver(resize).observe(stage);
   const tmp = new THREE.Vector3();
+  const fpsEl = document.getElementById("fps");
+  let frames = 0, since = performance.now();
   function frame() {
     if (mode === "orbit") controls.update();
     renderer.render(scene, camera);
+    frames++;
+    const now = performance.now();
+    if (now - since >= 1000) { fpsEl.textContent = `${Math.round(frames * 1000 / (now - since))} fps`; frames = 0; since = now; }
     const w = stage.clientWidth, h = stage.clientHeight;
     for (const t of [...tags, ...extraTags]) {
       if (t.id && !items[t.id].node.visible) continue;

@@ -1,6 +1,6 @@
 # /// script
 # requires-python = ">=3.11"
-# dependencies = ["rich-click", "polars", "pillow"]
+# dependencies = ["rich-click", "polars", "pillow", "numpy"]
 # ///
 """3D model of property_total_plan.jsonc on the surveyed lot and the lidar terrain, plus septic checks.
 
@@ -17,11 +17,13 @@ interactive viewer: open it in a browser), and prints the checks.
 Run: uv run tools/plan3d.py
 """
 
+import base64
 import bisect
 import json
 import math
 from pathlib import Path
 
+import numpy as np
 import polars as pl
 import rich_click as click
 
@@ -30,6 +32,7 @@ from site_b_plan import HOSE, house_north_y
 
 SPEC = REPO / "property_total_plan.jsonc"
 TERRAIN = REPO / "site" / "terrain-lidar.json"
+CANOPY = REPO / "site" / "canopy-lidar.json"  # tools/fetch_canopy.py; optional
 OUT = REPO / "site" / "plan3d.obj"
 VIEWER = REPO / "tools" / "plan3d_viewer.html"  # template; site/plan3d.html is built from it
 FT = 0.3048
@@ -42,6 +45,8 @@ TREE_ROWS = (10.0, 22.0)  # ft in from the back line: two staggered rows (notes,
 TREE_SPACING = 10.0  # ft on center along each row (holly screen 8-10 ft)
 TREE_SIDE_INSET = 6.0  # ft in from the side lines
 OAK_NO_DIG = 12.0  # ft around the twin oak
+GAP_HEIGHT = 4.5  # m (15 ft): a planned spot under standing canopy this tall already has a tree; plant the gaps only
+CANOPY_CELL = 3  # existing trees are drawn per 3 x 3 m block of the 1 m canopy grid
 # Back row holly; front row alternates yaupon and mountain laurel, offset half a space. No cypress or
 # juniper (allergies). Sizes are (height, crown width) in ft when planted (15 gal), at ~8 years with
 # drip, and mature.
@@ -222,6 +227,42 @@ def poly_dist(p: Pt, poly: list[Pt], closed: bool = True) -> float:
     return min(seg_dist(p, a, b) for a, b in segs) if len(poly) > 1 else math.dist(p, poly[0])
 
 
+class Canopy:
+    """Standing tree canopy (m above ground, 1 m plan cells) from site/canopy-lidar.json: 2017 lidar heights,
+    zeroed where the latest Sentinel-2 scene shows the ground cleared."""
+
+    def __init__(self, path: Path = CANOPY) -> None:
+        d = json.loads(path.read_text())
+        self.x0, self.y0, self.nx, self.ny = d["x0"], d["y0"], d["nx"], d["ny"]
+        grid = lambda key: np.frombuffer(base64.b64decode(d[key]), np.uint8).reshape(self.ny, self.nx)
+        self.h = np.where(grid("standing") > 0, grid("h") * d["h_step_m"], 0.0)
+        self.source = f"{d['lidar']}; standing per Sentinel-2 {d['sentinel_scene']} (NDVI >= {d['ndvi_standing']})"
+
+    def at(self, x: float, y: float, r: float = 1.0) -> float:
+        """Tallest standing canopy within r m of a plan point; 0 off the grid."""
+        c0, c1 = max(int(x - r - self.x0), 0), int(x + r - self.x0) + 1
+        r0, r1 = max(int(y - r - self.y0), 0), int(y + r - self.y0) + 1
+        w = self.h[r0:r1, c0:c1]
+        return float(w.max()) if w.size else 0.0
+
+    def for_viewer(self, ground: "Terrain", k: int = CANOPY_CELL) -> dict:
+        """Blocks of k m (ground and canopy height packed as bytes) and treetops, for the viewers."""
+        ny, nx = self.ny // k, self.nx // k
+        h = self.h[:ny * k, :nx * k].reshape(ny, k, nx, k).max(axis=(1, 3))
+        xs, ys = self.x0 + k / 2 + k * np.arange(nx), self.y0 + k / 2 + k * np.arange(ny)
+        zg = np.array([[ground(x, y) for x in xs] for y in ys])
+        zmin, step = float(zg.min()), 0.2
+        win = np.lib.stride_tricks.sliding_window_view(np.pad(self.h, 3), (7, 7)).max(axis=(2, 3))
+        tops = []  # local maxima at least 4 m tall, tallest first, none within 3 m of a taller one
+        for r, c in sorted(np.argwhere((self.h == win) & (self.h >= 4.0)), key=lambda rc: -self.h[rc[0], rc[1]]):
+            x, y = self.x0 + c + 0.5, self.y0 + r + 0.5
+            if all((x - t[0]) ** 2 + (y - t[1]) ** 2 > 9 for t in tops):
+                tops.append([round(x, 1), round(y, 1), round(ground(x, y), 2), round(float(self.h[r, c]), 1)])
+        pack = lambda a: base64.b64encode(np.clip(np.round(a), 0, 255).astype(np.uint8).tobytes()).decode()
+        return {"x0": self.x0, "y0": self.y0, "cell": k, "nx": nx, "ny": ny, "zmin": round(zmin, 2), "step": step,
+                "zg": pack((zg - zmin) / step), "h": pack(h / step), "tops": tops, "source": self.source}
+
+
 def back_line_trees(keep_outs: list[tuple[Pt, float]]) -> tuple[list[dict], int]:
     """The proposed back-line planting (site ft), less any tree inside a keep-out. Returns the trees and how many were dropped."""
     rs, rn = PARCEL[3], PARCEL[2]
@@ -256,10 +297,16 @@ def field_features() -> tuple[Pt, Pt, Pt]:
             en_to_site(WELL))
 
 
-def planting() -> tuple[list[dict], int]:
-    """The back-line trees, clear of the well, the septic pipe and the oak (see back_line_trees)."""
+def planting(canopy: Canopy | None = None) -> tuple[list[dict], dict[str, int]]:
+    """The back-line trees, clear of the well, the septic pipe and the oak (see back_line_trees), and with a
+    canopy, only in the gaps of the existing trees. Returns the trees and how many spots each rule left out."""
     pipe, oak, well = field_features()
-    return back_line_trees([(well, KEEP_OUT), (pipe, KEEP_OUT), (oak, OAK_NO_DIG)])
+    trees, kept_out = back_line_trees([(well, KEEP_OUT), (pipe, KEEP_OUT), (oak, OAK_NO_DIG)])
+    if canopy is None:
+        return trees, {"keep_out": kept_out, "existing": 0}
+    to_m = Frame()
+    gaps = [t for t in trees if canopy.at(*to_m(t["site"])) < GAP_HEIGHT]
+    return gaps, {"keep_out": kept_out, "existing": len(trees) - len(gaps)}
 
 
 def backyard(ground: Terrain, to_m: Frame) -> tuple[dict, list[dict]]:
@@ -283,7 +330,7 @@ def backyard(ground: Terrain, to_m: Frame) -> tuple[dict, list[dict]]:
 
 
 def write_viewer(path: Path, obj_text: str, plan: dict, checks: list[dict], backyard: dict,
-                 poles: list[dict], trees: dict, z0_ft: float) -> None:
+                 poles: list[dict], trees: dict, canopy: dict | None, z0_ft: float) -> None:
     """Fill the viewer template with the model, the plan's entity notes, the checks, the back-yard view, the poles and the trees."""
     spec = {"entities": [{k: e.get(k) for k in ("entity_id", "status", "source", "notes", "facade_toward_us")}
                          for e in plan["spatial_entities"]],
@@ -295,6 +342,7 @@ def write_viewer(path: Path, obj_text: str, plan: dict, checks: list[dict], back
             .replace("/*BACKYARD*/", json.dumps(backyard)[1:-1])
             .replace("/*POLES*/", json.dumps(poles))
             .replace("/*TREES*/", json.dumps(trees))
+            .replace("/*CANOPY*/", json.dumps(canopy))
             .replace("/*Z0_FT*/", json.dumps(z0_ft)))
     path.write_text('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
                     '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
@@ -392,12 +440,13 @@ def main(spec: Path, out: Path) -> None:
               "CONFLICT" if gap < KEEP_OUT - 0.05 else "AT LIMIT" if gap < KEEP_OUT + 1 else "OK",
               f"{name} is {to_line:.1f} ft from the surveyed line; footing assumed {WALL_FOOTING:g} ft wide")
 
-    trees, dropped = planting()
+    canopy = Canopy() if CANOPY.exists() else None
+    trees, dropped = planting(canopy)
     well_in = seg_dist(well, PARCEL[2], PARCEL[3])
     gap = min(math.dist(tr["site"], well) for tr in trees)
     check("back-line trees vs well", f"{gap:.1f} ft", f"{KEEP_OUT:g} ft", "CONFLICT" if gap < KEEP_OUT else "OK",
           f"well is {well_in:.0f} ft in; rows at {TREE_ROWS[0]:g} and {TREE_ROWS[1]:g} ft; "
-          f"{dropped} front-row tree(s) left out by the well")
+          f"{dropped['keep_out']} spot(s) left out by the well, {dropped['existing']} already under existing trees")
     check("anything vs tank and drainfield", "not located", "-", "UNKNOWN",
           "every check against them waits on finding the lids and trenches")
 
@@ -410,7 +459,8 @@ def main(spec: Path, out: Path) -> None:
     tree_view = {"plants": PLANTS, "stages": ["Planted", "~8 years", "Mature"], "dropped": dropped,
                  "rows_ft": TREE_ROWS, "spacing_ft": TREE_SPACING,
                  "trees": [{"xy": [round(c, 2) for c in to_m(tr["site"])], "plant": tr["plant"]} for tr in trees]}
-    write_viewer(html, out.read_text(), plan, checks, view, poles, tree_view, ground.z0)
+    existing = canopy.for_viewer(ground) if canopy else None
+    write_viewer(html, out.read_text(), plan, checks, view, poles, tree_view, existing, ground.z0)
     click.echo(f"wrote {out.relative_to(REPO)} ({obj.nv} vertices) and {html.relative_to(REPO)}; "
                f"building B slab at z = {slab:.2f} m")
     with pl.Config(tbl_rows=-1, tbl_hide_dataframe_shape=True, tbl_hide_column_data_types=True,

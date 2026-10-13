@@ -654,9 +654,12 @@ checks.
       - It looks 15° left of straight back, toward the apartments, and 4° below level.
       - There you look around in place (drag, arrow keys; scroll zooms the lens). The
         overview views orbit.
-      - From there Buildings 7/8 sit as a band on the horizon ~195 m away.
-    - **Scale cues:** a 10 ft grid on the ground, and a readout of the eye's height above
-      the ground.
+      - From there Buildings 7/8 sit as a band on the horizon ~195 m away. (Superseded Oct
+        13: with the existing trees drawn, woods hide them from that spot.)
+    - **Scale cues:** a 5 ft grid on the ground (heavier every 25 ft; it was 10 ft until
+      Oct 13), and a readout of the eye's height above the ground.
+    - **Defaults (Oct 13):** vertical exaggeration starts at 1×. An fps readout sits in the
+      corner.
     - **Range poles:** four 6 ft poles, banded every foot. They stand in a line straight back
       from the eye, square off the back wall, at 25, 50, 100 and 137 ft. The last is 2 ft
       inside the back line.
@@ -802,12 +805,17 @@ Their pollens cross-react. From here on:
     shade-tolerant picks.
 - **In the 3D viewer (Oct 11 2026; hollies Oct 12).** `plan3d.py` lays out the planting. The
   viewer draws hollies as cones and the broadleaf trees as trunk-and-drum shapes.
-  - **Back row:** 15 Nellie R. Stevens hollies, 10 ft in from the line (just outside the
+  - **Back row:** Nellie R. Stevens hollies, 10 ft in from the line (just outside the
     10 ft easement), ~10 ft on center.
-  - **Front row:** 12 trees, alternating yaupon and mountain laurel, 22 ft in, offset
-    between the hollies.
-  - **Left out:** two front-row trees inside the well's 10 ft keep-out. The nearest tree is
-    17.6 ft from the well.
+  - **Front row:** alternating yaupon and mountain laurel, 22 ft in, offset between the
+    hollies.
+  - **Left out by the well:** two front-row spots inside its 10 ft keep-out.
+  - **Gaps only (Oct 13):** spots under 15 ft or more of standing canopy (lidar) are left
+    out.
+    - 7 of them fall at both ends of the line, under existing 18–24 ft trees.
+    - That leaves **20 new trees: 11 hollies, 5 yaupon, 4 mountain laurel**, mostly in the
+      open middle of the line.
+    - The nearest tree to the well is now 18.1 ft away.
   - **Ends:** both rows stop 6 ft from the side lines.
   - **Viewer controls:** a slider sets the trees' opacity, and buttons switch their size.
 
@@ -818,16 +826,16 @@ Their pollens cross-react. From here on:
     | Mountain laurel | 4 × 3 ft | 8 × 6 ft | 12 × 10 ft |
 
     Sizes are height × width. They're estimates from the ranges above.
-  - **What it isn't:** the rows are drawn evenly, but the plan is to fill gaps in the
-    existing tree line, and that line isn't modeled.
+  - **What it isn't:** the spacing is still even. Fit the real holes on site.
   - **Unchecked:** the tank and drainfield are still unlocated, so the north end of both
     rows can't be checked against them yet.
 - **Static render (Oct 13 2026).** `tools/render_view.py` draws the back-yard view with grass,
   sky, sun and shadows.
   - **Outputs:** `site/backyard-bare.jpg` has no new trees; `site/backyard-8yr.jpg` has the
     planting at ~8 years. `--stage planted|8yr|mature` picks the size.
-  - **At ~8 years** the hollies and yaupon hide the retail storefronts. Retail Building 3's
-    upper wall and parapet still show above them.
+  - **First version, before the existing trees were drawn:** at ~8 years the hollies and
+    yaupon hid the retail storefronts, and Retail Building 3's upper wall still showed.
+    Superseded by "Existing trees from the lidar" below.
   - **The back line can't screen the apartments from the back yard.** Angles are from the
     back-yard eye, measured from straight back:
 
@@ -841,11 +849,8 @@ Their pollens cross-react. From here on:
     - The sight lines to the apartments cross the south neighbor's yard.
     - Hiding them from the yard takes trees along our south side line toward the back, or
       a screen near the patio.
-  - **Not drawn:** existing trees (except the twin oak, which is out of frame), the
-    neighbors' fences, and the house.
-    - **That overstates how exposed the yard is today.** The woods on the retail lot's
-      south arm still stand across the sight lines to the apartments (see "Recent imagery"
-      below).
+  - **Not drawn:** the neighbors' fences and the house. Existing trees are drawn since
+    Oct 13 (below).
   - **Ground beyond the line:** the 2017 lidar from before grading, drawn as native grass.
     The retail pads are drawn down to it.
 
@@ -892,9 +897,8 @@ lot wooded.
     (FAA B4UFLY).
   - **Ground truth for the render:** a phone photo from the back-yard eye, 10 ft out from
     the middle of the back wall at eye height, facing 15° left of straight back.
-- **Next step for the 3D model:** the 2017 lidar's first returns give tree-canopy heights.
-  Those could put the arm's oaks, and the existing trees on our side, into the 3D plan and
-  the render.
+- **Next step for the 3D model:** done on Oct 13, in "Existing trees from the lidar"
+  below.
 
 ### The retail site plan, SP-2019-0411D (Oct 13 2026)
 
@@ -959,7 +963,57 @@ Commercial (Granada Hills Non-Consolidated Site Plans)", 8313 W US 290 Hwy.
   - **Checks:** the plan's 22.67 ft right-of-way segment lands on our lot's north back
     corner within 0.1 m. The 571.05, 196.02 and 282.90 ft calls match within 0.3 ft. The
     traced irrigation area comes to the labeled 0.98 ac.
-  - **Not yet in the render:** the arm's tree heights, which need the lidar canopy.
+  - **The arm's trees** are in the viewer and the render since Oct 13, from the lidar.
+
+### Existing trees from the lidar (Oct 13 2026)
+
+`tools/fetch_canopy.py` writes `site/canopy-lidar.json`. It builds tree heights from the
+2017 USGS lidar point cloud and keeps only the trees still standing.
+
+- **Method:**
+  - The survey's points are pre-classified. Canopy height is the highest
+    vegetation return in each 1 m cell minus the bare-earth ground; the two agree to
+    0.01 m on median.
+  - Single-cell spikes (birds, wires) are clipped to their neighbors.
+  - Cells count as still standing where the Oct 10 2026 Sentinel-2 scene is green
+    (NDVI ≥ 0.35). The woods read ~0.7 and the cleared retail and apartment ground ~0.1.
+    Clearing edges are good to ~10 m.
+- **Area covered:** ~380 × 440 m around the lot. 75% of it was canopy in 2017; 30% still
+  stands.
+- **Our lot:** 55% canopy.
+
+  | Canopy height | Value |
+  |---|---|
+  | Middle half | 17–28 ft |
+  | Median | 23 ft |
+  | Tallest crowns | 35–42 ft |
+  | Twin oak | ~37 ft |
+
+  This matches the owner's estimate of 15–30 ft for most of the oaks.
+- **The back yard isn't open lawn.**
+  - A ~31 ft oak stands ~10–30 ft in front of the back-yard eye. Its crown reaches over
+    that spot (13 ft of canopy right above it).
+  - More oaks, 28–39 ft, stand between the house and the back line.
+  - Existing 18–24 ft trees stand at both ends of the back line.
+- **What the render shows now** (`site/backyard-8yr.jpg`, `site/backyard-bare.jpg`):
+  - From the back-yard eye you look out under our own oak canopy.
+  - The apartments are hidden by trees: ours, the neighbors', and the retail lot's south
+    arm.
+  - Only the top of Retail Building 3 shows, through one gap.
+  - The new trees fill the open middle of the back line.
+- **Caveats:**
+  - Heights are from 2017. Live oaks have grown a little since.
+  - A tree removed since then still shows if its spot stays green, for example where
+    lawn replaced it. The owner's photos will check this.
+- **In the 3D viewer:**
+  - **Layer:** "Existing trees (2017 lidar)", drawn per 3 m block with a trunk at each
+    treetop, with its own opacity slider.
+  - **The render** uses 2 m blocks, with yard oaks limbed up to ~7 ft.
+- **Speed:** ~250k triangles for the trees.
+  - In this session's software-only browser (no GPU) the viewer manages ~3 fps with them,
+    13 without.
+  - A desktop GPU runs it at full frame rate; the corner readout shows it.
+  - Fewer triangles barely helped in software, so they were left as is.
 
 ### Windows and doors
 

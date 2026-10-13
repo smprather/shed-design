@@ -59,6 +59,12 @@ def plan_to_lonlat(x: float, y: float) -> tuple[float, float]:
     return (e / KX - 97.8975, n / KY + LAT0)
 
 
+def lonlat_to_plan(lon, lat):
+    """Inverse of plan_to_lonlat; also works elementwise on numpy arrays."""
+    dx, dy = (lon + 97.8975) * KX - _O[0], (lat - LAT0) * KY - _O[1]
+    return ((dx * _EX[0] + dy * _EX[1]) / M_TO_FT, (dx * _EY[0] + dy * _EY[1]) / M_TO_FT)
+
+
 @click.command()
 @click.option("--x", "xr", nargs=2, type=float, default=(-590.0, 70.0), show_default=True, help="x range (m).")
 @click.option("--y", "yr", nargs=2, type=float, default=(-110.0, 370.0), show_default=True, help="y range (m).")

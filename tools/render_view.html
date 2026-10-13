@@ -58,7 +58,7 @@
   scene.fog = new THREE.Fog(SKY_HAZE, 150, 2200);
   const eye = P(...S.eye), at = P(...S.at);
   const sunDir = P(...S.sun).normalize();
-  scene.add(new THREE.HemisphereLight(lin(0xcfe0f2), lin(0x6b6046), 0.75));
+  scene.add(new THREE.HemisphereLight(lin(0xcfe0f2), lin(0x8c9a6c), 0.85));   // ground bounce from the lawn
   const sun = new THREE.DirectionalLight(lin(0xfff2df), 2.2);
   const focus = eye.clone().lerp(at, 0.12); focus.y = eye.y - 2;   // shadows where the yard and trees are
   sun.position.copy(focus).addScaledVector(sunDir, 200); sun.target.position.copy(focus);
@@ -283,21 +283,30 @@
   newTrees.add(foliage(parts.holly, 0x2b4626, 0.25), foliage(parts.yaupon, 0x4d6a34, 0.3), foliage(parts.laurel, 0x34522e, 0.25));
   newTrees.traverse(o => { o.castShadow = true; o.receiveShadow = true; });
 
-  // The existing twin oak: two leaning trunks under a broad dome (height estimated).
-  {
-    const { trunks, h, r } = S.oak, cx = trunks.reduce((s, t) => s + t[0], 0) / trunks.length, cy = trunks.reduce((s, t) => s + t[1], 0) / trunks.length;
-    const cz = Math.min(...trunks.map(t => t[2]));
-    trunks.forEach(([x, y, z]) => {
-      const dx = x - cx, dy = y - cy, d = Math.hypot(dx, dy) || 1;
-      scene.add(trunk(x, y, z, 3.4, 0.32, [dx / d * 0.35, dy / d * 0.35]));
-    });
-    const leaves = [], base = 2.6, a2 = (h - base) / 2;
-    for (let i = 0; i < 900; i++) {
-      let dx, dy, dz; do { dx = rand() * 2 - 1; dy = rand() * 2 - 1; dz = rand() * 2 - 1; } while (dx * dx + dy * dy + dz * dz > 1);
-      const k = 0.6 + 0.4 * Math.sqrt(rand());
-      leaves.push([cx + dx * r * k, cy + dy * r * k, cz + base + a2 + dz * a2 * k * 0.9, 0.45 + 0.4 * rand(), 0.75 + 0.25 * (dz + 1) / 2]);
+  // Existing trees: the 2017 lidar canopy where it still stands. Each 2 m block gets a clump near its top and,
+  // in taller trees, one lower down; each treetop gets a trunk.
+  if (S.canopy) {
+    const C = S.canopy, bytes = (s) => Uint8Array.from(atob(s), ch => ch.charCodeAt(0));
+    const zg = bytes(C.zg), hh = bytes(C.h), k = C.cell, s = k / 2, near = [], far = [];
+    const [ex, ey, ez] = S.eye;
+    for (let j = 0; j < C.ny; j++) for (let i = 0; i < C.nx; i++) {
+      const h = hh[j * C.nx + i] * C.step; if (h <= 0) continue;
+      const x = C.x0 + (i + 0.5) * k, y = C.y0 + (j + 0.5) * k, z = C.zmin + zg[j * C.nx + i] * C.step;
+      const add = (cz, r, shade) => {
+        const px = x + (rand() - 0.5) * s, py = y + (rand() - 0.5) * s;
+        if (Math.hypot(px - ex, py - ey, cz - ez) < r + 0.6) return;   // keep foliage off the camera
+        (Math.hypot(px - ex, py - ey) < 120 ? near : far).push([px, py, cz, r, shade]);
+      };
+      // Yard oaks are usually limbed up: the lowest foliage sits ~7 ft up or higher.
+      add(z + h - 0.7 * s, (1.15 + 0.35 * rand()) * s, 0.95 + 0.1 * rand());
+      if (h > 5) add(z + Math.max(0.62 * h, 3.6), (1.2 + 0.35 * rand()) * s, 0.85 + 0.1 * rand());
+      if (h > 9) add(z + Math.max(0.42 * h, 3.3), (1.0 + 0.3 * rand()) * s, 0.8 + 0.1 * rand());
     }
-    scene.add(foliage(leaves, 0x3b5129, 0.3));
+    scene.add(foliage(near, 0x3d5629, 0.35), foliage(far, 0x3d5629, 0.35));
+    for (const [x, y, z, h] of C.tops) {
+      if (Math.hypot(x - ex, y - ey) > 160) continue;
+      scene.add(trunk(x, y, z, 0.5 * h, 0.12 + 0.014 * h, [(rand() - 0.5) * 0.15, (rand() - 0.5) * 0.15]));
+    }
   }
 
   // ---- Camera ----

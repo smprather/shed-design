@@ -67,10 +67,26 @@
     {
       "entity_id": "retail_east_end_stormwater",
       "type": "stormwater_area",
-      "geometry": { "kind": "polygon", "points_m": [[15.0, 0.0], [-44.5, 0.0], [-63.1, 32.8], [-4.5, 64.6]], "z": "terrain" },
-      "source": "flyer site-plan overlay (pond contours, an outlet structure, filter or detention hatching), fitted to the parcel map",
-      "status": "approximate, +/-10 m; shape and depth unknown",
-      "notes": "Between the parking loop's east end and our line. The pond contours are near (-51, 33) and the outlet near (-35, 5), in a natural low that was 1037-1046 ft in 2017. The City plan sheets (SP-2019-0411D) give the real outline and depth."
+      "geometry": { "kind": "polygon", "points_m": [[-3.1, 59.7], [5.9, 8.2], [2.9, 4.8], [-15.6, 1.5], [-18.9, 20.4], [-22.9, 19.7], [-46.5, 42.3], [-47.6, 48.3], [-44.2, 52.6]], "z": "terrain" },
+      "source": "retail site plan SP-2019-0411D, Correction #1 (approved Feb 9 2026), sheet OP01, fitted along the tract's east line (our back line)",
+      "status": "outline +/-1.5 m (top of bank)",
+      "notes": "Detention basin with sedimentation and filtration basins and a pond access road. Top of berm 1,047.0 ft; 100-year water level 1,045.7 ft; basin floors about 1,041-1,043 ft, so a 4-6 ft deep basin, mowed to 18 in or less. Its east berm comes within ~1.5 m (5 ft) of our back line and the basins span the whole line. The live oaks inside it (8-18 in trunks) are marked for removal. Correction #1 adds a lift station (wet well) that pumps out the detention basin. Fit check: the 22.67 ft right-of-way segment lands on our lot's north back corner within 0.1 m."
+    },
+    {
+      "entity_id": "retail_south_arm_woods",
+      "type": "woods",
+      "geometry": { "kind": "polygon", "points_m": [[-40.1, 0.0], [-157.4, 0.0], [-157.6, 59.7], [-71.2, 59.7], [-51.8, 61.0]], "z": "terrain" },
+      "source": "SP-2019-0411D Correction #1: sheets OP01 (layout), EC01 (limits of construction, trees to remain) and TL01 (tree list)",
+      "status": "trees to remain (City-approved Feb 9 2026); outline +/-2 m; tree heights not surveyed",
+      "notes": "The retail lot's south arm, 196 ft wide, behind the Candelaria lots south of ours. It holds the water-quality spray-irrigation area, with 50 ft irrigation buffers along the Candelaria lots and at its south end. Construction inside it is limited to narrow trench corridors for the irrigation lines; surveyed trees outside them are marked to remain and protected (no parking, driving or storage under them). Mostly live oak with 8-18 in trunks, some cedar elm and Ashe juniper. These woods sit across our back-yard sight lines to the apartments."
+    },
+    {
+      "entity_id": "retail_irrigation_area",
+      "type": "stormwater_area",
+      "geometry": { "kind": "polygon", "points_m": [[-52.4, 64.0], [-44.2, 20.6], [-141.9, 15.8], [-142.4, 59.6], [-71.2, 59.7]], "z": "terrain" },
+      "source": "SP-2019-0411D Correction #1, sheet OP01 ('Water quality irrigation area, 0.98 acre')",
+      "status": "outline +/-2 m (traced area 0.98 ac, matching the label)",
+      "notes": "Treated runoff from the filtration basin is pumped and sprayed onto the woods here after storms. The soil is Brackett-rock outcrop, design infiltration 0.2 in/hr. The 50 ft buffers keep spray off the Candelaria lots."
     },
     {
       "entity_id": "scenic_brook_plaza_building_3",

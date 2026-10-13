@@ -500,9 +500,8 @@ census-geocoded address, which turned out to sit ~150 ft east of our front line.
   3's east end is **~75–80 m (245–265 ft) out from our line**, opposite the next lot south
   (±8 m).
 - **In between:** the east end of the parking loop (~52–56 m out), then the retail's
-  stormwater area. Its pond contours and outlet structure sit south-west of our back corner,
-  in the natural low. It reaches our line at the lot's east edge; the shape and depth need
-  the City plan sheets.
+  stormwater ponds. The City plan sheets give their real outline and depth: see "The retail
+  site plan" below (Oct 13 2026).
 
 ### The apartment lot (Lot 2A), from City records (Oct 11 2026)
 
@@ -526,7 +525,8 @@ Austin's public GIS layers (site-plan, subdivision and zoning cases) and TDLR:
 - **Distances from our back line** (flyer overlay fitted to the parcel map, ±10%):
   - the parking's east edge is ~355–395 ft (110–120 m) away;
   - the nearest residential buildings are ~700–800 ft (215–245 m) away.
-  - The retail lot's south arm (its stormwater area) lies in between.
+  - The retail lot's south arm lies in between. It's woods kept as a spray-irrigation area
+    (see "The retail site plan" below).
 
   The building distances are superseded by the site-plan figures below; the parking figure
   still comes from the flyer.
@@ -590,8 +590,8 @@ private repo `shed-design-private`, next to this one, because the sheets carry n
   At the site's 65 ft maximum, the roof would be around 1,105–1,110 ft. That's ~50–60 ft
   above our yard, ~640 ft away. Exact floor levels and per-building heights are in the
   architectural plans, which aren't in this file.
-- **Toward us,** the plan has the retail lot's south arm (its stormwater area), then the
-  apartments' east parking and drives, then Buildings 7/8 and 1.
+- **Toward us,** the plan has the retail lot's south arm (woods kept as its spray-irrigation
+  area), then the apartments' east parking and drives, then Buildings 7/8 and 1.
 
 ## 3D plan (Oct 11 2026; `property_total_plan.jsonc`, `tools/plan3d.py`)
 
@@ -879,10 +879,10 @@ lot wooded.
   - The sight lines from the back-yard eye to Apartments 7/8 and 1–6 cross ~100 m of it.
   - Trees on our back line can't cover those sight lines (see the render above), so the
     arm matters more than anything we plant there.
-- **The arm isn't safe.** The plans call it the retail lot's stormwater area.
-  - Check the retail site plan (SP-2019-0411D) for the arm's limits of construction, its
-    tree-protection fencing, and any pond in it.
-  - If it gets cleared, screening toward the apartments has to come from our south side
+- **The arm is safer than it looked.** It isn't a pond: the retail site plan keeps it as
+  wooded spray-irrigation ground, with its trees marked to remain (see "The retail site
+  plan" below; this replaces the earlier worry that it might be cleared).
+  - If it ever is cleared, screening toward the apartments has to come from our south side
     line or near the patio.
 - **Better imagery, if needed:**
   - Google Earth Pro's historical slider has dated captures, sometimes newer than Google
@@ -895,6 +895,71 @@ lot wooded.
 - **Next step for the 3D model:** the 2017 lidar's first returns give tree-canopy heights.
   Those could put the arm's oaks, and the existing trees on our side, into the 3D plan and
   the render.
+
+### The retail site plan, SP-2019-0411D (Oct 13 2026)
+
+The owner got the City and County files for the retail lot (Scenic Brook Plaza):
+- the approved 2021 plan set (44 sheets);
+- the Correction #1 replacement sheets, approved Feb 9 2026;
+- the comment reports and permits.
+
+They're in the private repo (`granada-ridge/`). On the plans the project is "Scenic Brook
+Commercial (Granada Hills Non-Consolidated Site Plans)", 8313 W US 290 Hwy.
+
+- **The project:**
+  - Site plan approved Dec 21 2021, with the County's development permit alongside.
+  - **Correction #1** (approved Feb 9 2026) updated the background for the US-290 work and
+    moved the driveway and water line. It also:
+    - added a lift station to pump out the detention basin;
+    - changed the building footprints, drive aisles, grading and erosion control.
+  - **Buildings:** one story, 25 ft maximum height.
+  - **Impervious cover:** 31.9%.
+- **No screening is required along our line.** The 44-sheet list has no landscape,
+  lighting or tree-planting sheets, as expected in the ETJ. Don't count on a fence or
+  plantings from the developer.
+- **Directly behind us: the stormwater ponds.**
+  - They're a detention basin, a sedimentation basin, a filtration basin and a pond
+    access road.
+  - They span our whole back line and the north part of the next lot's. The east berm
+    comes within ~1.5 m (5 ft) of our line.
+  - **Levels:** top of berm 1,047.0 ft; 100-year water level 1,045.7 ft; basin floors
+    ~1,041–1,043 ft.
+  - So it's a 4–6 ft deep grass basin, mowed to 18 in or less, about level with the ground
+    on our side of the line. Behind a 6 ft fence it mostly won't show from the yard.
+  - **Trees:** the live oaks inside it (8–18 in trunks) are marked for removal.
+  - **Lift station:** the new pump is a wet well by the ponds; it pumps the detention basin
+    out after storms. Expect a pump to run occasionally behind the line.
+  - **Construction limits:** the limits of construction and the silt fence run along our
+    line.
+- **Our rear fence is partly on their land.** The plan's survey notes the fence is on the
+  property line at the north end and 1.6 ft onto the retail tract farther south.
+  - They can take it out during construction.
+  - Any new fence or wall of ours goes on our side of the surveyed line, which this
+    project already designs to.
+- **The south arm is woods kept for stormwater, not a pond.**
+  - **Size:** 196 ft wide and about 385 ft long, behind the Candelaria lots south of ours.
+  - **Irrigation area:** 0.98 ac in the arm. Treated runoff from the filtration basin is
+    sprayed onto the woods after storms.
+  - **Buffers:** 50 ft along the Candelaria lots and at the south end.
+  - **Construction inside it:** only narrow trench corridors for the irrigation lines.
+    Surveyed trees outside them are marked to remain and protected: no parking, driving
+    or storage under them.
+  - **Trees (tree list TL01):** mostly live oak ("LO") with 8–18 in trunks, plus some
+    cedar elm ("CE"), a few cedars ("CDR", Ashe juniper, so some cedar pollen) and a few
+    trees coded "WO".
+  - **So the woods that hide the apartments from our yard are part of the approved
+    stormwater system,** and should stay.
+  - **Risks that remain:** drought, oak wilt, and wear from the spraying itself.
+- **"No buildings within 50 ft"** is noted along the retail tract's east line next to the
+  lot south of ours.
+- **In the 3D plan:** `retail_east_end_stormwater` (now the real pond outline),
+  `retail_south_arm_woods` and `retail_irrigation_area` in `property_total_plan.jsonc`.
+  - **Fit:** the layout sheet (1" = 50') is fitted along the tract's east line, which is
+    our back line.
+  - **Checks:** the plan's 22.67 ft right-of-way segment lands on our lot's north back
+    corner within 0.1 m. The 571.05, 196.02 and 282.90 ft calls match within 0.3 ft. The
+    traced irrigation area comes to the labeled 0.98 ac.
+  - **Not yet in the render:** the arm's tree heights, which need the lidar canopy.
 
 ### Windows and doors
 

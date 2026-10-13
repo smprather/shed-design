@@ -248,7 +248,9 @@ class Canopy:
     def for_viewer(self, ground: "Terrain", k: int = CANOPY_CELL) -> dict:
         """Blocks of k m (ground and canopy height packed as bytes) and treetops, for the viewers."""
         ny, nx = self.ny // k, self.nx // k
-        h = self.h[:ny * k, :nx * k].reshape(ny, k, nx, k).max(axis=(1, 3))
+        blocks = self.h[:ny * k, :nx * k].reshape(ny, k, nx, k)
+        # A block is tree only where about half its cells are canopy, so crown edges don't spread.
+        h = np.where((blocks > 0).mean(axis=(1, 3)) >= 0.45, blocks.max(axis=(1, 3)), 0.0)
         xs, ys = self.x0 + k / 2 + k * np.arange(nx), self.y0 + k / 2 + k * np.arange(ny)
         zg = np.array([[ground(x, y) for x in xs] for y in ys])
         zmin, step = float(zg.min()), 0.2

@@ -293,13 +293,13 @@
       const h = hh[j * C.nx + i] * C.step; if (h <= 0) continue;
       const x = C.x0 + (i + 0.5) * k, y = C.y0 + (j + 0.5) * k, z = C.zmin + zg[j * C.nx + i] * C.step;
       const add = (cz, r, shade) => {
-        const px = x + (rand() - 0.5) * s, py = y + (rand() - 0.5) * s;
+        const px = x + (rand() - 0.5) * s * 0.6, py = y + (rand() - 0.5) * s * 0.6;
         if (Math.hypot(px - ex, py - ey, cz - ez) < r + 0.6) return;   // keep foliage off the camera
         (Math.hypot(px - ex, py - ey) < 120 ? near : far).push([px, py, cz, r, shade]);
       };
       // Yard oaks are usually limbed up: the lowest foliage sits ~7 ft up or higher.
-      add(z + h - 0.7 * s, (1.15 + 0.35 * rand()) * s, 0.95 + 0.1 * rand());
-      if (h > 5) add(z + Math.max(0.62 * h, 3.6), (1.2 + 0.35 * rand()) * s, 0.85 + 0.1 * rand());
+      add(z + h - 0.7 * s, (1.0 + 0.3 * rand()) * s, 0.95 + 0.1 * rand());
+      if (h > 5) add(z + Math.max(0.62 * h, 3.6), (1.05 + 0.3 * rand()) * s, 0.85 + 0.1 * rand());
       if (h > 9) add(z + Math.max(0.42 * h, 3.3), (1.0 + 0.3 * rand()) * s, 0.8 + 0.1 * rand());
     }
     scene.add(foliage(near, 0x3d5629, 0.35), foliage(far, 0x3d5629, 0.35));

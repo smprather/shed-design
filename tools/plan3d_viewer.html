@@ -490,8 +490,8 @@ details li b { font-weight: 600; }
       const h = hh[j * CANOPY.nx + i] * st; if (h <= 0) continue;
       const x = CANOPY.x0 + (i + 0.5) * k, y = CANOPY.y0 + (j + 0.5) * k, z = CANOPY.zmin + zg[j * CANOPY.nx + i] * st;
       const s = k / 2;   // clump size follows the block size
-      spots.push([x + (rnd() - 0.5) * s, y + (rnd() - 0.5) * s, z + h - 0.6 * s, (1.25 + 0.3 * rnd()) * s, 0.95 + 0.15 * rnd()]);
-      if (h > 5) spots.push([x + (rnd() - 0.5) * s, y + (rnd() - 0.5) * s, z + Math.max(0.6 * h, 3.6), (1.3 + 0.3 * rnd()) * s, 0.8 + 0.1 * rnd()]);
+      spots.push([x + (rnd() - 0.5) * s * 0.6, y + (rnd() - 0.5) * s * 0.6, z + h - 0.6 * s, (0.95 + 0.25 * rnd()) * s, 0.95 + 0.15 * rnd()]);
+      if (h > 5) spots.push([x + (rnd() - 0.5) * s * 0.6, y + (rnd() - 0.5) * s * 0.6, z + Math.max(0.6 * h, 3.6), (1.0 + 0.25 * rnd()) * s, 0.8 + 0.1 * rnd()]);
     }
     const node = new THREE.Group(); node.userData.id = "existing_trees"; root.add(node);
     const mat = new THREE.MeshLambertMaterial({ transparent: true, flatShading: true });

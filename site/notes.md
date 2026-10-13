@@ -262,8 +262,8 @@ south.
 - **Measure to the eave, not just the slab.** A roof overhang or gutter on the north side
   would cross the 5 ft setback. Keep the north eave flush, or ask the county whether it
   measures to the wall or the eave.
-- **The ground falls ~3.6 ft across the slab**, high at the NE corner by the oak (2017
-  lidar). Level it with fill on the west side, not a cut toward the oak; see "3D plan".
+- **The ground falls ~3.8 ft across the slab**, high at the NE corner by the oak (2017
+  lidar; 3.6 ft before the Oct 13 alignment fix). Level it with fill on the west side, not a cut toward the oak; see "3D plan".
 - **Septic truck:** it still parks in the lane between B and the house, now ~15 ft wide for a
   truck ~8 ft wide. The hose run around the west end to the pipe is ~70–75 ft.
 - **What could change it:**
@@ -593,7 +593,7 @@ private repo `shed-design-private`, next to this one, because the sheets carry n
   - **Updated Oct 13 2026:** the owner hears the buildings will be 3 stories, since the
     developer didn't want elevators. At ~40 ft over an average pad, Buildings 7/8's roof
     comes to ~1,082–1,085 ft.
-    - That's ~21–24 ft above a standing eye in our back yard (1,061 ft), 765–1,050 ft
+    - That's ~22–25 ft above a standing eye in our back yard (1,060 ft), 765–1,050 ft
       from it: about 1–2° above level.
     - See "Apartments drawn as 3 stories" below.
 - **Toward us,** the plan has the retail lot's south arm (woods kept as its spray-irrigation
@@ -634,9 +634,9 @@ checks.
   - **Unknown:** the tank and drainfield are still unlocated, so nothing can be checked
     against them yet.
   - None of the neighbor geometry touches our septic.
-- **Building B's site falls ~3.6 ft across the slab**, from ~1056.5 ft at the NE corner by
-  the oak to ~1052.9 ft at the SW corner (2017 lidar, ±2 ft; the old carports may have
-  blurred it). Level it with fill or a stem wall on the west side, not a cut toward the
+- **Building B's site falls ~3.8 ft across the slab**, from ~1055.8 ft at the NE corner by
+  the oak to ~1052.0 ft at the SW corner (2017 lidar, ±1 ft after the Oct 13 alignment fix;
+  the old carports may have blurred it). Level it with fill or a stem wall on the west side, not a cut toward the
   oak. Tell the slab engineer.
 - **The whole neighborhood, rendered (Oct 11 2026).** The model now covers ~660 × 480 m, from
   across Candelaria to the far side of the apartment lot.
@@ -677,11 +677,13 @@ checks.
 
       | Point | Ground (ft) | Below the ground at the eye |
       |---|---|---|
-      | The eye's spot, 10 ft out from the wall | 1,054.9 | — |
-      | Pole at 25 ft | 1,052.5 | 2.4 ft |
-      | Pole at 50 ft | 1,050.1 | 4.8 ft |
-      | Pole at 100 ft | 1,048.7 | 6.2 ft |
-      | Pole at 137 ft, by the back line | 1,047.6 | 7.3 ft |
+      | The eye's spot, 10 ft out from the wall | 1,054.0 | — |
+      | Pole at 25 ft | 1,050.9 | 3.1 ft |
+      | Pole at 50 ft | 1,049.6 | 4.4 ft |
+      | Pole at 100 ft | 1,048.2 | 5.8 ft |
+      | Pole at 137 ft, by the back line | 1,047.0 | 7.0 ft |
+
+      These values are from after the Oct 13 alignment fix.
 
     - **So from a standing eye 10 ft out from the house, a 6 ft fence on the line tops
       out ~7 ft below your eye.** That is ~1 ft below the ground you stand on. It hides
@@ -820,9 +822,9 @@ Their pollens cross-react. From here on:
   - **Left out by the well:** two front-row spots inside its 10 ft keep-out.
   - **Gaps only (Oct 13):** spots under 15 ft or more of standing canopy (lidar) are left
     out.
-    - 7 of them fall at both ends of the line, under existing 18–24 ft trees.
-    - That leaves **20 new trees: 11 hollies, 5 yaupon, 4 mountain laurel**, mostly in the
-      open middle of the line.
+    - 6 of them fall at both ends of the line, under existing trees.
+    - That leaves **21 new trees: 13 hollies, 4 yaupon, 4 mountain laurel**, mostly in the
+      open middle of the line. These counts are from after the Oct 13 alignment fix.
     - The nearest tree to the well is now 18.1 ft away.
   - **Ends:** both rows stop 6 ft from the side lines.
   - **Viewer controls:** a slider sets the trees' opacity, and buttons switch their size.
@@ -986,29 +988,32 @@ Commercial (Granada Hills Non-Consolidated Site Plans)", 8313 W US 290 Hwy.
   - Cells count as still standing where the Oct 10 2026 Sentinel-2 scene is green
     (NDVI ≥ 0.35). The woods read ~0.7 and the cleared retail and apartment ground ~0.1.
     Clearing edges are good to ~10 m.
-- **Area covered:** ~380 × 440 m around the lot. 75% of it was canopy in 2017; 30% still
+- **Area covered:** ~380 × 440 m around the lot. 76% of it was canopy in 2017; 29% still
   stands.
-- **Our lot:** 55% canopy.
+- **Our lot:** 50% canopy. Values from after the alignment fix below; before it, they read
+  55% and a 23 ft median.
 
   | Canopy height | Value |
   |---|---|
-  | Middle half | 17–28 ft |
-  | Median | 23 ft |
-  | Tallest crowns | 35–42 ft |
+  | Middle half | 18–29 ft |
+  | Median | 24 ft |
+  | Tallest crowns | up to ~43 ft |
   | Twin oak | ~37 ft |
 
   This matches the owner's estimate of 15–30 ft for most of the oaks.
-- **The back yard isn't open lawn.**
-  - A ~31 ft oak stands ~10–30 ft in front of the back-yard eye. Its crown reaches over
-    that spot (13 ft of canopy right above it).
-  - More oaks, 28–39 ft, stand between the house and the back line.
-  - Existing 18–24 ft trees stand at both ends of the back line.
-- **What the render shows now** (`site/backyard-8yr.jpg`, `site/backyard-bare.jpg`):
-  - From the back-yard eye you look out under our own oak canopy.
-  - The apartments are hidden by trees: ours, the neighbors', and the retail lot's south
-    arm.
-  - Only the top of Retail Building 3 shows, through one gap.
-  - The new trees fill the open middle of the back line.
+- **The back yard has oaks along its sides and an open middle.** The first version of this
+  bullet, before the alignment fix, called it "not open lawn"; that was the ~3 m shift and the
+  inflated crowns (see "Lining the lidar up with the survey").
+  - A ~31 ft oak's crown reaches over the back-yard eye spot.
+  - Existing trees stand at both ends of the back line.
+- **What the render shows now** (`site/backyard-8yr.jpg`, `site/backyard-bare.jpg`, after
+  the alignment fix):
+  - **Framing:** our oaks frame the view, with sky in the middle. The fence and the new
+    trees fill the open middle of the back line.
+  - **Retail:** the buildings sit behind the crown of the oak just ahead of the eye. That's
+    a single crown, so a step or two to either side may show them.
+  - **Apartments:** hidden by trees to the left: ours, the neighbors', and the retail
+    lot's south arm.
 - **Caveats:**
   - Heights are from 2017. Live oaks have grown a little since.
   - A tree removed since then still shows if its spot stays green, for example where
@@ -1022,6 +1027,42 @@ Commercial (Granada Hills Non-Consolidated Site Plans)", 8313 W US 290 Hwy.
     13 without.
   - A desktop GPU runs it at full frame rate; the corner readout shows it.
   - Fewer triangles barely helped in software, so they were left as is.
+
+### Lining the lidar up with the survey (Oct 13 2026)
+
+The owner compared the viewer's overhead view with an aerial: the model had trees where the
+back yard is open lawn.
+
+- **Cause 1: the lidar sat ~3 m off our surveyed lot.**
+  - **Test:** the lidar classifies roof points. They overlapped the surveyed house and porch
+    only 55%.
+  - **Fix:** moving the true-ground data 2.5 m along the back line and 2.0 m toward the lot
+    raises the overlap to 74%. The rest is eaves and covered areas.
+  - **Why:** the plan frame hangs off the county parcel map, which sits that far off true
+    ground here.
+  - **Where:** `fetch_terrain.py` (`TRUE_TO_PLAN`) applies the fix wherever true positions
+    enter the plan, and the terrain, canopy and satellite views were rebuilt.
+  - **Unaffected:** the survey, field and site-plan geometry. It was already in the plan
+    frame.
+- **Cause 2: the viewer inflated the crowns.** A 3 m block counted as tree if any of its
+  nine 1 m cells had canopy, and the foliage clumps were wider than the block.
+  - Now a block needs about half its cells in canopy, and its clumps stay within the block.
+- **Check:** on the Oct 2023 aerial (Esri / Nearmap, 7.5 cm; viewed only, not stored in the
+  repo), the 1 m canopy outlines now trace the crowns. The open back lawn is open.
+  - The aerial's long shadows make the woods look denser than they are, so it wasn't used
+    to measure canopy.
+- **What moved:**
+
+  | Value | Now |
+  |---|---|
+  | Eye elevation | ~1,060 ft |
+  | Ground drop to the back line | 7.0 ft |
+  | Building B slab fall | 3.8 ft |
+  | Planting gaps | 21 trees |
+
+  - **Back-yard render:** the view opens up. Our oaks frame both sides with sky between,
+    and the fence and the new trees sit in the open stretch. The apartments stay behind
+    trees to the left.
 
 ### Apartments drawn as 3 stories (Oct 13 2026)
 
@@ -1040,8 +1081,8 @@ still allows 5 stories / 65 ft.
   | 2 | ~1,098 | ~1,112 |
   | 3–6 | ~1,071–1,075 | ~1,092–1,096 |
 
-- **From the back-yard eye (1,061 ft):**
-  - Buildings 7/8 are 765–1,050 ft away. Their roofs sit ~21–24 ft above eye level,
+- **From the back-yard eye (1,060 ft):**
+  - Buildings 7/8 are 765–1,050 ft away. Their roofs sit ~22–25 ft above eye level,
     ~1.1–1.8° up.
   - Every sight line to them passes treetops 17–22° higher than that, even past our
     yard's first 60 ft.

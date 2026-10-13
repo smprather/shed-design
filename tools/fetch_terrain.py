@@ -52,8 +52,14 @@ _EX = ((_A[0] - _O[0]) / _L, (_A[1] - _O[1]) / _L)
 _EY = (-_EX[1], _EX[0])  # x turned 90 deg CCW: away from our lot
 
 
+# The plan frame hangs off the county parcel map, which sits ~3 m off true ground here. Moving
+# true positions (lidar, DEM, satellite) by this much in the plan frame lines the 2017 lidar's roof
+# up with the surveyed house: overlap of roof and house+porch rises from 55% to 74% (Oct 13 2026).
+TRUE_TO_PLAN = (2.5, -2.0)  # m, plan x and y
+
+
 def plan_to_lonlat(x: float, y: float) -> tuple[float, float]:
-    xf, yf = x * M_TO_FT, y * M_TO_FT
+    xf, yf = (x - TRUE_TO_PLAN[0]) * M_TO_FT, (y - TRUE_TO_PLAN[1]) * M_TO_FT
     e = _O[0] + xf * _EX[0] + yf * _EY[0]
     n = _O[1] + xf * _EX[1] + yf * _EY[1]
     return (e / KX - 97.8975, n / KY + LAT0)
@@ -62,7 +68,7 @@ def plan_to_lonlat(x: float, y: float) -> tuple[float, float]:
 def lonlat_to_plan(lon, lat):
     """Inverse of plan_to_lonlat; also works elementwise on numpy arrays."""
     dx, dy = (lon + 97.8975) * KX - _O[0], (lat - LAT0) * KY - _O[1]
-    return ((dx * _EX[0] + dy * _EX[1]) / M_TO_FT, (dx * _EY[0] + dy * _EY[1]) / M_TO_FT)
+    return ((dx * _EX[0] + dy * _EX[1]) / M_TO_FT + TRUE_TO_PLAN[0], (dx * _EY[0] + dy * _EY[1]) / M_TO_FT + TRUE_TO_PLAN[1])
 
 
 @click.command()
@@ -104,12 +110,13 @@ def main(xr: tuple[float, float], yr: tuple[float, float], spacing: float) -> No
         "source": "USGS 3DEP 1 m DEM (lidar acquired Feb 2017) from the 3DEPElevation ImageServer, "
                   "resampled bilinearly by tools/fetch_terrain.py",
         "frame": "x m along our platted back line toward US-290, y m square to it away from our lot; "
-                 "origin at the back line's midpoint as placed by the Travis CAD parcel map",
-        "origin_lonlat": list(ORIGIN_LONLAT),
-        "x_axis_point_lonlat_10m": list(X_AXIS_LONLAT),
+                 "origin at the back line's midpoint as placed by the Travis CAD parcel map, "
+                 f"with true ground moved {TRUE_TO_PLAN} m to line up with the surveyed house",
+        "origin_lonlat": [round(v, 8) for v in plan_to_lonlat(0.0, 0.0)],
+        "x_axis_point_lonlat_10m": [round(v, 8) for v in plan_to_lonlat(10.0, 0.0)],
         "z_datum": "ft NAVD88",
         "z0_ft": Z0_FT,
-        "accuracy": "+/-2 ft, mostly from where the parcel map puts the lot",
+        "accuracy": "+/-0.5 ft vertically; ~1 m horizontally against the surveyed house",
         "caveat": "Pre-construction: beyond the back line (y > 0) the retail and apartment sites have since been graded.",
     }
     lines = ["{"] + [f"  {json.dumps(k)}: {json.dumps(v)}," for k, v in meta.items()]

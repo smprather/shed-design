@@ -1186,6 +1186,28 @@ and the photos show the neighbors' yards.
   - **Trees:** a corridor of leaning live oaks hangs over it, with shrub beds beside it.
   - **Circle drive:** any new drive goes through the same canopy. Its route has to dodge
     those trunks and root zones, as `front_plan.py` assumes.
+- **The front yard** (two photos from Candelaria, at the driveway and by the mailbox):
+  - **The house front:** one story, stone, with a front gable and the covered porch with
+    stone columns. The two-story section sits behind, to the north.
+  - **A clipped ~4–5 ft hedge** runs from the walk by the mailbox to the porch's south end.
+    It closes off the south part of the front lawn.
+  - **One big live oak stands alone in the front lawn,** leaning, in front of the porch's
+    south end.
+    - The lidar puts its crown ~20–25 ft tall over ~15–25 ft back from the front line and
+      ~48–80 ft from the south line. The trunk is probably near s ≈ 10–15 ft, t ≈ 60 ft
+      (estimated, ±5 ft; not measured).
+    - It sits right where a circle drive would loop to the front door.
+  - **Other canopy:**
+    - The south side, toward the neighbor, is solid canopy up to ~40 ft (t 0–25).
+    - The north half, over and around the existing drive, is mostly canopy (t 64–112).
+    - The open lawn is a band at t ≈ 30–45 ft, plus the area just south of the drive at the
+      street.
+  - **A utility pole stands at the street near the lot's south side.** The 1991 plat shows
+    a line from the street's south corner to the house. Have it located before a second
+    curb cut there.
+  - **Next for the circle drive:** `front_plan.py` doesn't draw these trees yet. The lidar
+    canopy (and a tape shot to the lawn oak's trunk) would show where a loop fits outside
+    the root zones.
 - **The yard's oaks:**
   - A big live oak by the house's west wall leans at ~45° and has a wooden prop under the
     trunk.

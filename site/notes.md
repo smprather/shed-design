@@ -843,8 +843,58 @@ Their pollens cross-react. From here on:
       a screen near the patio.
   - **Not drawn:** existing trees (except the twin oak, which is out of frame), the
     neighbors' fences, and the house.
+    - **That overstates how exposed the yard is today.** The woods on the retail lot's
+      south arm still stand across the sight lines to the apartments (see "Recent imagery"
+      below).
   - **Ground beyond the line:** the 2017 lidar from before grading, drawn as native grass.
     The retail pads are drawn down to it.
+
+### Recent imagery, and the woods still standing (Oct 13 2026)
+
+The owner reports that the oaks on the retail lot are gone, but the strip of mature oaks
+behind the neighbors' yards is still there. Google's satellite view still shows the retail
+lot wooded.
+
+- **What each source shows here:**
+
+  | Source | Imagery date at our lot | Notes |
+  |---|---|---|
+  | Google Maps | before 2026 | Apartment streets graded; retail lot still wooded |
+  | Esri World Imagery | Oct 8 2023 (Nearmap, 7.5 cm) | Checked with its metadata service; predates the clearing |
+  | Texas StratMap / NAIP (TxGIO) | 2021 / 2022 | Older still |
+  | **Sentinel-2 (ESA)** | **every 2–5 days; Oct 10 2026 is clear** | Free, but 10 m (33 ft) pixels: woods vs cleared shows, single trees don't |
+
+- **`tools/sentinel_view.py` → `site/sentinel.png`:** Nov 2024 next to the latest clear
+  scene, with our lot, the neighboring lots and the back-yard sight lines drawn on top.
+  `--series` prints retail lot 1A's mean color month by month.
+- **When lot 1A was cleared (Sentinel-2 series):**
+  - It's woods through July 2025.
+  - Bare ground starts to show in August–September 2025.
+  - Most of it was cleared between Feb 7 and Mar 14, 2026.
+- **What's still wooded (Oct 10 2026):**
+  - the retail lot's south arm, ~60 m wide behind the Candelaria lots, between our south
+    neighbors and the apartment site;
+  - the Candelaria yards themselves.
+- **That arm is what hides the apartments from our yard now.**
+  - The sight lines from the back-yard eye to Apartments 7/8 and 1–6 cross ~100 m of it.
+  - Trees on our back line can't cover those sight lines (see the render above), so the
+    arm matters more than anything we plant there.
+- **The arm isn't safe.** The plans call it the retail lot's stormwater area.
+  - Check the retail site plan (SP-2019-0411D) for the arm's limits of construction, its
+    tree-protection fencing, and any pond in it.
+  - If it gets cleared, screening toward the apartments has to come from our south side
+    line or near the patio.
+- **Better imagery, if needed:**
+  - Google Earth Pro's historical slider has dated captures, sometimes newer than Google
+    Maps.
+  - Nearmap flies Austin several times a year at 7.5 cm, but it's a paid service.
+  - A drone photo over the back yard would be the most current. Check the airspace first
+    (FAA B4UFLY).
+  - **Ground truth for the render:** a phone photo from the back-yard eye, 10 ft out from
+    the middle of the back wall at eye height, facing 15° left of straight back.
+- **Next step for the 3D model:** the 2017 lidar's first returns give tree-canopy heights.
+  Those could put the arm's oaks, and the existing trees on our side, into the 3D plan and
+  the render.
 
 ### Windows and doors
 

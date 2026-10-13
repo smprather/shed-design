@@ -1163,6 +1163,24 @@ and the photos show the neighbors' yards.
       These photos confirm why.
     - Put the steel delivery's crane or forklift on the paved drive too, and lay plywood
       over mulch for any wheeled traffic beyond it.
+- **The twin oak's base** (photo from the apron, looking west):
+  - **Trunks:** two, separate at the ground, ~6–8 ft apart, as measured earlier.
+  - **Ground:** bare and compacted, with surface roots exposed, and bins and a wheelbarrow
+    stored against the trunks. That's the compaction to undo: mulch 3–4 in deep out to the
+    drip line where it isn't paved, and keep storage and cars off it.
+  - **Beyond it:** the cross fence's chain-link double gate is at the house end, as in the
+    other photo. The 8 ft US-290 fence is on the right, with US-290 and its new light poles
+    over it.
+- **The garage front** (photo from the apron):
+  - **Door:** one wide door, so a single two-car door, typically 16 × 7 ft. It's set in
+    stone, under a gable with an attic vent. The open porch's stone columns are on its east
+    side.
+  - **Width check:** taking the door as 16 ft, the garage front spans ~21–22 ft (photo
+    scale, ±1 ft). That matches the county's 441 sq ft (21 × 21 outside).
+  - **For the kitchen:** the door opening already has a ~16 ft header, so it can take a
+    wide window or a glass slider instead of a solid infill wall.
+  - **Overhead:** a big live oak limb reaches over the garage roof. Any roof work or
+    trimming goes July–January.
 - **The driveway** (photo from its house end, looking out to Candelaria):
   - **Surface:** exposed-aggregate concrete, curving out to the street.
   - **Trees:** a corridor of leaning live oaks hangs over it, with shrub beds beside it.

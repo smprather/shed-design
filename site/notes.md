@@ -655,8 +655,16 @@ checks.
     - The leasing plan shows Building 1 smaller than the aerial overlay did (~83 × 74 ft).
     - The flyer gives the leased space as 1,765 + 2,075 sq ft.
   - **Viewer:** `site/plan3d.html`.
-    - **Back-yard view:** an eye 6 ft above the ground, 10 ft out from the middle of the
-      house's back wall, at true scale (1×).
+    - **Back-yard view:** an eye 10 ft out from the middle of the house's back wall, at true
+      scale (1×).
+      - **Eye height:** 5 ft since Oct 13, the owner's camera height. It was 6 ft before;
+        the ground figures below still use a ~6 ft standing eye.
+      - **Photo spot (Oct 13):** a dot and arrow mark it in the overhead and oblique views.
+        - From the house's SW corner, go 22.9 ft along the main back wall (toward the NW
+          wing), then 10 ft straight out.
+        - Face 15° left of straight back.
+        - A deck runs off the back of the house, so the spot may be on or by it. If it's on
+          the deck, note the deck's height so the model's eye can match.
       - It looks 15° left of straight back, toward the apartments, and 4° below level.
       - There you look around in place (drag, arrow keys; scroll zooms the lens). The
         overview views orbit.

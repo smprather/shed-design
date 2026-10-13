@@ -57,7 +57,7 @@ PLANTS = {
 }
 DRAPE_STEP = 2.0  # m between draped vertices
 BACK_WALL_ST = ((100.8, 22.9), (100.8, 68.8))  # the main block's back wall, facing the back lawn (survey s, t)
-BACKYARD_EYE = (10.0, 6.0)  # ft out from that wall's midpoint, and ft above the ground there
+BACKYARD_EYE = (10.0, 5.0)  # ft out from that wall's midpoint, and ft above the ground there (the owner's camera)
 BACKYARD_GAZE = (15.0, 4.0)  # degrees left of straight back (toward the apartments), and below level
 POLES = (25.0, 50.0, 100.0)  # ft straight back from the back-yard eye: 6 ft range poles for scale
 POLE_INSET = 2.0  # ft inside the back line for one more pole
@@ -328,7 +328,8 @@ def backyard(ground: Terrain, to_m: Frame) -> tuple[dict, list[dict]]:
     left, down, reach = math.radians(BACKYARD_GAZE[0]), math.radians(BACKYARD_GAZE[1]), 200.0  # ft
     at_xy = to_m(site([st(s_eye + reach * math.cos(left), t_eye - reach * math.sin(left))])[0])
     at = [round(at_xy[0], 2), round(at_xy[1], 2), round(eye[2] - reach * FT * math.tan(down), 2)]
-    return {"eye": eye, "at": at}, poles
+    spot = {"along_ft": round((t1 - t0) / 2, 1), "out_ft": BACKYARD_EYE[0], "eye_ft": BACKYARD_EYE[1], "gaze_deg": BACKYARD_GAZE[0]}
+    return {"eye": eye, "at": at, "spot": spot}, poles
 
 
 def write_viewer(path: Path, obj_text: str, plan: dict, checks: list[dict], backyard: dict,

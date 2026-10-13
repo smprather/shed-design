@@ -26,7 +26,8 @@ import rich_click as click
 from PIL import Image, ImageDraw, ImageFont
 from playwright.sync_api import sync_playwright
 
-from plan3d import B_EAVE, CANOPY, FT, PLANTS, SPEC, TERRAIN, Canopy, Frame, Terrain, backyard, planting, read_jsonc
+from plan3d import (B_EAVE, BACKYARD_EYE, BACKYARD_GAZE, CANOPY, FT, PLANTS, SPEC, TERRAIN, Canopy, Frame, Terrain,
+                    backyard, planting, read_jsonc)
 from site_plan import REPO, SITE_B
 
 TEMPLATE = REPO / "tools" / "render_view.html"
@@ -124,7 +125,8 @@ def main(stage: str, width: int, height: int, chromium: Path | None, out_dir: Pa
                       for p in ("holly", "yaupon", "laurel"))
     common = ("Ground and existing trees from the 2017 lidar (trees kept where still green in Oct 2026 satellite imagery); "
               "rear fence 6 ft (est.). Retail and apartments as planned (apartments as 3 stories, ~40 ft).")
-    head = "From the back yard: eye 6 ft up, 10 ft out from the middle of the back wall, looking 15° left of straight back."
+    head = (f"From the back yard: eye {BACKYARD_EYE[1]:g} ft up, {BACKYARD_EYE[0]:g} ft out from the middle of the back wall, "
+            f"looking {BACKYARD_GAZE[0]:g}° left of straight back.")
     renders = {"bare": (False, [head, "Without the new trees.", common]),
                stage: (True, [head, f"New back-line trees {STAGE_TEXT[stage]}, in the gaps between existing trees: {sizes}.",
                               common])}

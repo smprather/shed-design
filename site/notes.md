@@ -590,6 +590,12 @@ private repo `shed-design-private`, next to this one, because the sheets carry n
   At the site's 65 ft maximum, the roof would be around 1,105–1,110 ft. That's ~50–60 ft
   above our yard, ~640 ft away. Exact floor levels and per-building heights are in the
   architectural plans, which aren't in this file.
+  - **Updated Oct 13 2026:** the owner hears the buildings will be 3 stories, since the
+    developer didn't want elevators. At ~40 ft over an average pad, Buildings 7/8's roof
+    comes to ~1,082–1,085 ft.
+    - That's ~21–24 ft above a standing eye in our back yard (1,061 ft), 765–1,050 ft
+      from it: about 1–2° above level.
+    - See "Apartments drawn as 3 stories" below.
 - **Toward us,** the plan has the retail lot's south arm (woods kept as its spray-irrigation
   area), then the apartments' east parking and drives, then Buildings 7/8 and 1.
 
@@ -636,9 +642,9 @@ checks.
   across Candelaria to the far side of the apartment lot.
   - **Ground:** a 5 m grid resampled from the USGS 1 m DEM (`tools/fetch_terrain.py`). It
     matches the earlier point samples to within 0.4 ft.
-  - **Apartments:** all eight buildings, from the fitted site plan. Each is drawn as the
-    site's 65 ft maximum above the lowest 2017 ground under it, so the heights are a worst
-    case.
+  - **Apartments:** all eight buildings, from the fitted site plan. They were first drawn
+    at the site's 65 ft maximum above the lowest 2017 ground under each, a worst case.
+    Since Oct 13 they're drawn as 3 stories (see "Apartments drawn as 3 stories").
   - **Retail:** all three buildings. Building 1's 2017 ground (1,071 ft) matches its floor
     level on the flyer, which checks the overlay fit.
   - **Building 1 was drawn turned ~45° at first** (fixed the same day, after the owner
@@ -735,6 +741,8 @@ tall their buildings are.
 | 2nd floor (eye ~15 ft) | ~11–14 ft |
 | 3rd floor (eye ~25 ft) | ~17–22 ft |
 | 4th floor (eye ~35 ft) | ~23–31 ft |
+
+If the apartments are 3 stories (Oct 13 2026), the 4th-floor row doesn't apply.
 
 - **A fence only screens ground-level views.** The trees between the back line and the house
   are the real screen for the upper floors. Protect them: the clearing next door may have
@@ -1014,6 +1022,33 @@ Commercial (Granada Hills Non-Consolidated Site Plans)", 8313 W US 290 Hwy.
     13 without.
   - A desktop GPU runs it at full frame rate; the corner readout shows it.
   - Fewer triangles barely helped in software, so they were left as is.
+
+### Apartments drawn as 3 stories (Oct 13 2026)
+
+The owner has heard the apartments won't go above 3 levels, because the developer didn't
+want to install elevators. It's hearsay, but it fits a garden-style walk-up. The site plan
+still allows 5 stories / 65 ft.
+
+- **Model:** each apartment building is now 40 ft tall over the average 2017 ground under
+  its footprint. That's three ~10 ft stories under a pitched roof, with eaves ~32 ft. The
+  walls still reach down to the lowest ground, so nothing floats.
+
+  | Buildings | Roof (ft), 3 stories | At 65 ft over the lowest ground (before) |
+  |---|---|---|
+  | 7/8 (nearest, ~640 ft away) | ~1,082–1,085 | ~1,102–1,105 |
+  | 1 | ~1,114 | ~1,133 |
+  | 2 | ~1,098 | ~1,112 |
+  | 3–6 | ~1,071–1,075 | ~1,092–1,096 |
+
+- **From the back-yard eye (1,061 ft):**
+  - Buildings 7/8 are 765–1,050 ft away. Their roofs sit ~21–24 ft above eye level,
+    ~1.1–1.8° up.
+  - Every sight line to them passes treetops 17–22° higher than that, even past our
+    yard's first 60 ft.
+  - So they'd show only under crowns or through gaps. The lidar model can't tell how big
+    those are: its crowns are solid. The owner's photos will.
+- **To confirm:** the building permits or the architectural plans give the stories and
+  roof heights. The leasing office may also say.
 
 ### Windows and doors
 

@@ -142,7 +142,7 @@
       },
       "source": "parcel map; site plan SP-2018-0138D (Correction #7, Feb 2026); TDLR TABS2025001890",
       "status": "mapped, +/-2 m",
-      "notes": "Granada Ridge apartments, 40 ac: 473 units in 8 buildings, up to 5 stories / 65 ft. The lot's nearest corner is ~77 m from our lot."
+      "notes": "Granada Ridge apartments, 40 ac: 473 units in 8 buildings. The site plan allows up to 5 stories / 65 ft; the owner hears they'll be 3 stories (no elevators), and the buildings are drawn that way. The lot's nearest corner is ~77 m from our lot."
     },
     {
       "entity_id": "granada_ridge_buildings_7_8",
@@ -218,7 +218,7 @@
               [-230.7, 106.1]
             ],
             "z_bottom_m": -2.7,
-            "z_top_m": 17.1
+            "z_top_m": 11.1
           },
           {
             "name": "Building 7/8, west part",
@@ -281,13 +281,13 @@
               [-288.2, 108.6]
             ],
             "z_bottom_m": -3.6,
-            "z_top_m": 16.2
+            "z_top_m": 10.2
           }
         ]
       },
       "source": "footprints from the overall site plan sheet (Correction #7, Feb 2026), fitted to the parcel map (RMS 1.4 ft); height from the site data table",
-      "status": "footprint +/-2 ft; height is the site's maximum, not per building",
-      "notes": "Added by Correction #7 (Phase 9); Building 7 is 57,534 sq ft. The nearest apartments: 639 ft (195 m) from our lot. Drawn as the 65 ft maximum above the lowest 2017 ground under each part, so this is a worst case. The block steps from ~1,060 ft grade on its north drive to ~1,040-1,045 ft on its south side."
+      "status": "footprint +/-2 ft; height estimated: 3 stories (owner, Oct 13 2026: no elevators, so no more than 3 levels)",
+      "notes": "Added by Correction #7 (Phase 9); Building 7 is 57,534 sq ft. The nearest apartments: 639 ft (195 m) from our lot. Drawn 40 ft tall (three ~10 ft stories under a pitched roof, eaves ~32 ft) above the average 2017 ground under each part, so the roof is ~1,082-1,085 ft. The site plan allows 65 ft, which would put it ~20 ft higher. The block steps from ~1,060 ft grade on its north drive to ~1,040-1,045 ft on its south side."
     },
     {
       "entity_id": "granada_ridge_buildings_1_6",
@@ -352,7 +352,7 @@
               [-203.2, 266.2]
             ],
             "z_bottom_m": 6.0,
-            "z_top_m": 25.8
+            "z_top_m": 19.9
           },
           {
             "name": "Building 2",
@@ -417,7 +417,7 @@
               [-248.1, 264.3]
             ],
             "z_bottom_m": -0.6,
-            "z_top_m": 19.2
+            "z_top_m": 15.1
           },
           {
             "name": "Building 3",
@@ -485,7 +485,7 @@
               [-333.5, 307.5]
             ],
             "z_bottom_m": -5.9,
-            "z_top_m": 13.9
+            "z_top_m": 7.2
           },
           {
             "name": "Building 4",
@@ -549,7 +549,7 @@
               [-408.7, 235.6]
             ],
             "z_bottom_m": -6.5,
-            "z_top_m": 13.3
+            "z_top_m": 6.9
           },
           {
             "name": "Building 5",
@@ -609,7 +609,7 @@
               [-450.3, 164.0]
             ],
             "z_bottom_m": -6.0,
-            "z_top_m": 13.8
+            "z_top_m": 7.2
           },
           {
             "name": "Building 6",
@@ -682,13 +682,13 @@
               [-397.9, 100.0]
             ],
             "z_bottom_m": -5.3,
-            "z_top_m": 14.5
+            "z_top_m": 8.2
           }
         ]
       },
       "source": "footprints from the overall site plan sheet (Correction #7, Feb 2026), fitted to the parcel map (RMS 1.4 ft); height from the site data table",
-      "status": "footprint +/-2 ft; height is the site's maximum, not per building",
-      "notes": "Buildings 1-6 (phases 3-8), 895-1,403 ft from our lot. Each is drawn as the 65 ft maximum above the lowest 2017 ground under it, a worst case."
+      "status": "footprint +/-2 ft; height estimated: 3 stories (owner, Oct 13 2026: no elevators)",
+      "notes": "Buildings 1-6 (phases 3-8), 895-1,403 ft from our lot. Each is drawn 40 ft tall (3 stories, pitched roof) above the average 2017 ground under it. The site plan allows 65 ft."
     },
     {
       "entity_id": "scenic_brook_plaza_buildings_1_2",

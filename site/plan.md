@@ -226,5 +226,8 @@ See `front-yard.png` and the 3D viewer's "Front yard" view.
 - Maps: `site-b.png`, `envelope.png`, `front-yard.png`, `lot.png`, `north-yard.png`.
 - 3D: `plan3d.html` (the viewer); the back-yard renders `backyard-bare.jpg` and
   `backyard-8yr.jpg`.
-- Neighbor plans: SP-2019-0411D (retail) and SP-2018-0138D (apartments), in the private
-  repo.
+- **The private repo** (`smprather/shed-design-private`) holds:
+  - the neighbors' plans, SP-2019-0411D (retail) and SP-2018-0138D (apartments);
+  - the site photos;
+  - our property papers, once they're added (`property/`: the plat, closing and title
+    papers, septic permit).

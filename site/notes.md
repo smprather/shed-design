@@ -31,7 +31,8 @@ Granada Hills, and the HOA is voluntary. Deed restrictions may still apply.
 ## Survey (Samford & Associates, Apr 16 1991; see `lot.png`)
 
 The plat itself isn't in the repo, because the repo is public and the PDF carries
-names and signatures. These are its facts:
+names and signatures. It belongs in the private repo's `property/` folder, but as of
+Oct 14 2026 it isn't there yet. These are its facts:
 
 | Item | Plat |
 |---|---|
@@ -1097,8 +1098,9 @@ back yard is open lawn.
 
 ### First photos from the yard (Oct 13 2026)
 
-The owner took photos with the camera ~5 ft up. They aren't in the repo: the repo is public,
-and the photos show the neighbors' yards.
+The owner took photos with the camera ~5 ft up. They aren't in this repo, which is public and
+the photos show the neighbors' yards. They're in the private repo,
+`photos/2026-10-13_yard-walk/`, with an index.
 
 - **From the photo spot** (23 ft along the back wall, 10 ft out, 15° left of straight back):
   - **Matches the corrected model:**

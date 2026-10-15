@@ -25,7 +25,8 @@ import polars as pl
 import rich_click as click
 
 from front_layout import (
-    ASSUMED_DBH_IN, EXISTING_DRIVE_T, FRONT_ELECTRIC, LONE_OAK_BOX, LOOP_C, NORTH_CARPORT, PORTE_COCHERE,
+    ASSUMED_DBH_IN, EXISTING_DRIVE, EXISTING_DRIVE_T, FRONT_ELECTRIC, FRONT_WALK, LONE_OAK_BOX, LOOP_C,
+    NORTH_CARPORT, PORTE_COCHERE,
     SKETCH_BOX, SKETCH_INNER, SKETCH_OUTER, catmull_rom, loop_c_outline,
 )
 from plan3d import CANOPY, FT, Canopy, Frame
@@ -117,6 +118,10 @@ def main() -> None:
     draw_survey(plan)
     plan.line(st_site(FRONT_ELECTRIC), YELLOW, width=2, dash=True)
 
+    # Existing drive and walk (1991 plat, +/-3 ft).
+    plan.poly(st_site(EXISTING_DRIVE), (235, 235, 225), fill=(235, 235, 225, 70), width=3)
+    plan.poly(st_site(FRONT_WALK), (235, 235, 225), fill=(235, 235, 225, 70), width=2)
+
     # Owner's sketch.
     outer, inner = catmull_rom(SKETCH_OUTER), catmull_rom(SKETCH_INNER)
     plan.line(st_site(outer), RED, width=3)
@@ -156,6 +161,10 @@ def main() -> None:
     cx, cy = site([st(14, 26)])[0]
     plan.label(cx, cy, "C: new curb cut in the open\nsouth lawn; lane hugs the porch,\njoins the existing drive", fill=CYAN, size=15)
     plan.label(300, 262, "1991 electric\n(locate)", fill=YELLOW, size=15)
+    dx, dy = site([st(20, 104)])[0]
+    plan.label(dx, dy, "existing drive\n(1991 plat, +/-3 ft)", fill=(235, 235, 225), size=15)
+    wx, wy = site([st(8, 47)])[0]
+    plan.label(wx, wy, "walk", fill=(235, 235, 225), size=14)
     plan.label(311, 200, "Candelaria\nDr", fill=WHITE, size=16)
     plan.label(214, 266, "Yellow = tree canopy (2017 lidar, still standing). Grid = 10 ft. Up = NNE.", size=15)
     plan.scale_bar()

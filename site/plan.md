@@ -5,7 +5,7 @@ sources, corrections and dates. This file says what we're doing, in what order, 
 still undecided. Update it when a decision changes; record the facts behind the change in
 `notes.md`.
 
-Last updated: Oct 13 2026.
+Last updated: Oct 15 2026.
 
 ## The four projects
 
@@ -184,9 +184,10 @@ See `front-yard.png` and the 3D viewer's "Front yard" view.
 
 - **Loop C (proposed):**
   - **Route:** a 12 ft lane from a new curb cut in the open south lawn, sweeping to the
-    house, along the porch front (drop-off at the porch), then joining the existing drive
-    at the porch's north end.
-  - **Paving:** ~1,065 sq ft, about half the original sketch.
+    house, along the porch front (drop-off at the porch), then across the lawn bulge in
+    front of the porch's north end to join the existing drive (drawn from the 1991 plat).
+  - **Paving:** ~1,260 sq ft new, a little over half the original sketch.
+  - **The front walk:** loop C crosses it about 40 ft back from the street.
   - **The lone oak:** it stays in the island, ~27 ft from the paving (the sketch came within
     ~15 ft). Its trunk is estimated from the lidar crown; tape it before finalizing.
   - **Under the porch-front oaks:** build that stretch no-dig, with permeable pavers or
@@ -216,6 +217,7 @@ See `front-yard.png` and the 3D viewer's "Front yard" view.
 | The rusty casing by the burn barrel: is it the well? Its distance to both fences | Keep-outs for the trees and any wall | Look and tape |
 | Lone front-lawn oak: trunk position (from the front and south lines) and girth | Loop C | Tape |
 | Garage inside: length, width, ceiling, step down | Kitchen design | Tape |
+| Along the street: from the walk's center to the drive's south edge | Whether the drive was widened since 1991 (plat ~36 ft, aerial ~28 ft) | Tape |
 | Twin oak's second trunk girth (worksheet 11) | Root-zone size | Tape around at 4.5 ft up |
 | Branches over B's east end (17a) | Roof and erection clearance | Laser or pole |
 | Eave height wanted for B | Noise, overhead lines | Decision |

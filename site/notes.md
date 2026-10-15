@@ -609,12 +609,10 @@ private repo `shed-design-private`, next to this one, because the sheets carry n
   At the site's 65 ft maximum, the roof would be around 1,105–1,110 ft. That's ~50–60 ft
   above our yard, ~640 ft away. Exact floor levels and per-building heights are in the
   architectural plans, which aren't in this file.
-  - **Updated Oct 13 2026:** the owner hears the buildings will be 3 stories, since the
-    developer didn't want elevators. At ~40 ft over an average pad, Buildings 7/8's roof
-    comes to ~1,082–1,085 ft.
-    - That's ~22–25 ft above a standing eye in our back yard (1,060 ft), 765–1,050 ft
-      from it: about 1–2° above level.
-    - See "Apartments drawn as 3 stories" below.
+  - **Oct 13 2026, now superseded:** the owner heard 3 stories (no elevators), and the
+    model was drawn that way.
+  - **Oct 15 2026:** the owner confirmed **5 stories**. See "Apartments: 5 stories" below:
+    Buildings 7/8's roof is ~1,108–1,111 ft.
 - **Toward us,** the plan has the retail lot's south arm (woods kept as its spray-irrigation
   area), then the apartments' east parking and drives, then Buildings 7/8 and 1.
 
@@ -663,7 +661,8 @@ checks.
     matches the earlier point samples to within 0.4 ft.
   - **Apartments:** all eight buildings, from the fitted site plan. They were first drawn
     at the site's 65 ft maximum above the lowest 2017 ground under each, a worst case.
-    Since Oct 13 they're drawn as 3 stories (see "Apartments drawn as 3 stories").
+    They were drawn as 3 stories Oct 13–15. Since Oct 15 they're 5 stories at 65 ft over
+    the average ground (see "Apartments: 5 stories").
   - **Retail:** all three buildings. Building 1's 2017 ground (1,071 ft) matches its floor
     level on the flyer, which checks the overlay fit.
   - **Building 1 was drawn turned ~45° at first** (fixed the same day, after the owner
@@ -772,7 +771,10 @@ tall their buildings are.
 | 3rd floor (eye ~25 ft) | ~17–22 ft |
 | 4th floor (eye ~35 ft) | ~23–31 ft |
 
-If the apartments are 3 stories (Oct 13 2026), the 4th-floor row doesn't apply.
+The apartments are 5 stories (owner, Oct 15 2026), so a 5th floor (eye ~45 ft) needs still more:
+roughly 30–40 ft at the line. Only tall trees near the back line can screen that, and they
+don't need to cover all of it: woods already stand across most of the sight lines (see
+"Existing trees from the lidar").
 
 - **A fence only screens ground-level views.** The trees between the back line and the house
   are the real screen for the upper floors. Protect them: the clearing next door may have
@@ -1278,32 +1280,70 @@ which the 3D plan also uses ("Front yard" view).
   - B: a carport on the garage apron.
   - The sketch's larger cover crosses the 45 ft building line.
 
-### Apartments drawn as 3 stories (Oct 13 2026)
+### The existing drive, from the 1991 plat (Oct 15 2026)
 
-The owner has heard the apartments won't go above 3 levels, because the developer didn't
-want to install elevators. It's hearsay, but it fits a garden-style walk-up. The site plan
-still allows 5 stories / 65 ft.
+The owner added the 1991 survey plat to the private repo (`property/`). The drive and the
+front walk are traced from it into `tools/front_layout.py`, so `front-yard.png` and the 3D
+plan now draw them.
 
-- **Model:** each apartment building is now 40 ft tall over the average 2017 ground under
-  its footprint. That's three ~10 ft stories under a pitched roof, with eaves ~32 ft. The
-  walls still reach down to the lowest ground, so nothing floats.
+- **Fit:** the plat is hand-drafted; its horizontal and vertical scales differ by ~27%. The
+  scan was fitted with an affine transform to five points: both front pins, the porch's
+  front-north corner, and the house's NW and front-south corners. Residuals were 0.8–2.3 ft,
+  so the trace is good to **±3 ft**. The plat gives no drive dimensions.
+- **The drive:**
+  - **Approach:** ~13–14 ft wide from Candelaria, at t ≈ 88–102 ft from the south line.
+    The plat draws it out to the asphalt, ~16 ft into the street right-of-way.
+  - **The bulge:** at ~30 ft back it swings north around a rounded lawn bulge in front of
+    the porch's north end (s 30–59, t 90–103.5).
+  - **The apron:** north of the porch and garage, from the house's north side out to
+    t ≈ 117–124. It's ~26 ft deep, and its back edge (s ≈ 84–85) lines up with the
+    garage's back wall.
+  - **Area:** ~1,860 sq ft, including the approach in the right-of-way.
+  - **Clearances:** the apron's back corner is ~6–9 ft from the twin oak's near trunk. The
+    north edge stays 4–13 ft inside the surveyed US-290 line.
+- **The front walk:** ~3 ft wide, from the front door's recess (t 51–54) straight to the
+  street, flared at both ends. It matches the aerial's walk within ~1 ft.
+- **Plat vs. aerial:** at the street, the aerial (pre-sale) shows the concrete from t ≈ 80
+  to 100, ~20 ft wide. The plat shows t ≈ 88 to 102.
+  - The north edges agree within ~2 ft, and the walk agrees. So the approach was probably
+    widened ~8 ft on its south side after 1991.
+  - **Tape check:** along the street, from the walk's center to the drive's south edge. The
+    plat says ~36 ft; the aerial says ~28 ft.
+- **Loop C now joins the drive properly.** It used to end at the porch corner, which on the
+  plat is the lawn bulge. It now crosses the bulge (~150 sq ft of lawn) and merges with the
+  drive north of it.
+  - New paving: ~1,260 sq ft, plus ~65 sq ft where it overlaps the existing drive.
+  - Curb cuts: ~62 ft apart, with the existing drive's center at t ≈ 95.5 per the plat.
+  - **Loop C crosses the front walk** about 40 ft back. The walk can stop at the drive
+    there, or continue across it.
 
-  | Buildings | Roof (ft), 3 stories | At 65 ft over the lowest ground (before) |
+### Apartments: 5 stories (Oct 15 2026; replaces "drawn as 3 stories", Oct 13)
+
+On Oct 13 the owner heard the apartments would stop at 3 levels (no elevators), and the
+model was drawn that way. **On Oct 15 the owner confirmed 5 levels**, matching the site plan's
+"5 stories / 65 ft".
+
+- **Model:** each building is now 65 ft tall (the site plan's maximum) over the average 2017
+  ground under its footprint. The walls still reach down to the lowest ground. The real roofs
+  may be a few feet lower: five ~10.5 ft stories plus the roof is ~58–65 ft.
+
+  | Buildings | Roof (ft), 5 stories | 3-story model (Oct 13–15) |
   |---|---|---|
-  | 7/8 (nearest, ~640 ft away) | ~1,082–1,085 | ~1,102–1,105 |
-  | 1 | ~1,114 | ~1,133 |
-  | 2 | ~1,098 | ~1,112 |
-  | 3–6 | ~1,071–1,075 | ~1,092–1,096 |
+  | 7/8 (nearest, 765–1,050 ft from the back-yard eye) | ~1,108–1,111 | ~1,082–1,085 |
+  | 1 | ~1,139 | ~1,114 |
+  | 2 | ~1,122 | ~1,098 |
+  | 3–6 | ~1,096–1,101 | ~1,071–1,076 |
 
-- **From the back-yard eye (1,060 ft):**
-  - Buildings 7/8 are 765–1,050 ft away. Their roofs sit ~22–25 ft above eye level,
-    ~1.1–1.8° up.
-  - Every sight line to them passes treetops 17–22° higher than that, even past our
-    yard's first 60 ft.
-  - So they'd show only under crowns or through gaps. The lidar model can't tell how big
-    those are: its crowns are solid. The owner's photos will.
-- **To confirm:** the building permits or the architectural plans give the stories and
-  roof heights. The leasing office may also say.
+- **From the back-yard eye (5 ft camera, 1,059 ft):**
+  - Buildings 7/8's roofs sit ~50 ft above the eye, ~2.7–3.9° up.
+  - Every sight line to them still passes treetops 14–19° higher than the roofs, beyond
+    our yard's first 60 ft.
+  - So from the back yard they'd still show only through gaps or under crowns. The lidar
+    model draws crowns solid, so it can't size those gaps. The photos so far show none
+    toward the apartments from the photo spot.
+  - Upper floors see farther than the yard does. From a 5th-floor window (~45 ft up) the
+    view down over the woods into our yard is more open than the reverse.
+- **To confirm the exact roof heights:** the architectural plans or the building permits.
 
 ### Windows and doors
 

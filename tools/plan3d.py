@@ -29,7 +29,7 @@ import rich_click as click
 
 from site_plan import HOUSE, PARCEL, REPO, SITE_B, WELL, en_to_site, north_line_y, site, st
 from site_b_plan import HOSE, house_north_y
-from front_layout import LANE, LOOP_C, PORTE_COCHERE, catmull_rom, offset
+from front_layout import EXISTING_DRIVE, FRONT_WALK, LANE, LOOP_C, PORTE_COCHERE, catmull_rom, offset
 
 SPEC = REPO / "property_total_plan.jsonc"
 TERRAIN = REPO / "site" / "terrain-lidar.json"
@@ -174,6 +174,29 @@ class Obj:
         """A paved strip on the ground between two matching edge lines, one quad per station."""
         for (a, b), (c, d) in zip(zip(left, left[1:]), zip(right, right[1:])):
             self.face([(x, y, self.ground(x, y) + lift) for x, y in (a, c, d, b)])
+
+    def pad(self, poly: list[Pt], cell: float = 0.5, lift: float = 0.06) -> None:
+        """A flat-lying paved area on the ground: the polygon filled with small squares that follow the terrain."""
+        xs, ys = [p[0] for p in poly], [p[1] for p in poly]
+        n = len(poly)
+
+        def inside(x: float, y: float) -> bool:
+            c = False
+            for i in range(n):
+                (ax, ay), (bx, by) = poly[i], poly[(i + 1) % n]
+                if (ay > y) != (by > y) and x < (bx - ax) * (y - ay) / (by - ay) + ax:
+                    c = not c
+            return c
+
+        x = min(xs)
+        while x < max(xs):
+            y = min(ys)
+            while y < max(ys):
+                if inside(x + cell / 2, y + cell / 2):
+                    sq = [(x, y), (x + cell, y), (x + cell, y + cell), (x, y + cell)]
+                    self.face([(a, b, self.ground(a, b) + lift) for a, b in sq])
+                y += cell
+            x += cell
 
     def prism(self, poly: list[Pt], z0: float, z1: float) -> None:
         """Closed prism over a footprint, flat bottom and top."""
@@ -405,6 +428,11 @@ def main(spec: Path, out: Path) -> None:
     slab = max(ground(*p) for p in b)  # slab at the high corner; the low side gets fill or a stem wall
     obj.obj(f"building_B_23x43_eave_{B_EAVE:g}ft_assumed")
     obj.prism(b, slab, slab + B_EAVE * FT)
+    # Existing drive and front walk, traced from the 1991 plat (front_layout.py, +/-3 ft).
+    obj.obj("existing_driveway_1991_plat")
+    obj.pad([to_m(p) for p in site(st(*q) for q in EXISTING_DRIVE)], lift=0.05)
+    obj.obj("front_walk_1991_plat")
+    obj.pad([to_m(p) for p in site(st(*q) for q in FRONT_WALK)], cell=0.25, lift=0.05)
     # Proposed front yard (front_layout.py): loop C, and option A's roof at ~10 ft over the porch-front lane.
     obj.obj("proposed_circle_drive_loop_c")
     center = catmull_rom(LOOP_C)

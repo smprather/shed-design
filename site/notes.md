@@ -1345,6 +1345,49 @@ model was drawn that way. **On Oct 15 the owner confirmed 5 levels**, matching t
     view down over the woods into our yard is more open than the reverse.
 - **To confirm the exact roof heights:** the architectural plans or the building permits.
 
+### Kitchen and garage, inside (laser, Oct 15 2026)
+
+The owner's laser shots, drawn up as a floor plan (private repo, `house/`). They're face to
+face, good to about ±½ in. The walls are drawn 4¾ in (a 2×4 with ⅝ in drywall each side),
+which is assumed, not measured.
+
+- **The garage:** 19'-6" E-W × 20'-2" N-S inside, ~393 sq ft. With its walls that's about
+  21 ft each way outside, matching the county's 441 sq ft. The earlier ~20 × 20 guess was
+  close.
+- **The kitchen:** directly south of the garage, on the same front (east) wall line.
+  - **Size:** 21'-5" inside along the south wall, and 10'-3" N-S.
+  - **South wall:** a 2'-6" pocket door, 11'-1" from the west wall and 7'-10" from the east
+    wall.
+  - **Ceilings:** 8'-0", with a tray ceiling at 8'-10". The tray is 6'-8" E-W, starting
+    1'-9" from the west wall; its N-S size is approximate.
+  - **Window:** one in the east wall, under the front porch (position approximate).
+- **Against the plat:**
+  - **N-S:** garage + wall + kitchen = 30'-10" inside. The plat has 32.5 ft from the house's
+    north wall to the porch's south end at the front-door recess. That leaves ~1.7 ft for
+    the north wall and the kitchen's south wall, about right for stone-faced walls. So the
+    kitchen ends at the front-door recess.
+  - **E-W:** the garage's 19'-6" plus its walls fits the plat's ~21 ft.
+- **One thing doesn't close: the kitchen measures 18 in wider than the garage.**
+  - Along its south wall the kitchen is 21'-5". The garage's width plus one wall is only
+    19'-11".
+  - The drawing absorbs the difference by slanting the kitchen's west wall (~10'-4" long).
+    That's the drafter's guess, not a measurement. A square west wall that sits 18 in past
+    the garage's wall line is more likely in a 1972 house.
+  - **To settle it:** laser the kitchen's north wall (along the garage wall, east wall to
+    west wall) and both diagonals.
+    - Square: both diagonals ~23'-9".
+    - Slanted as drawn: 23'-9" (NE to SW) and 22'-5" (NW to SE).
+- **Opening the two into one room:** about 31 ft N-S × 19½–21½ ft E-W, ~615 sq ft (393
+  garage + ~8 wall + ~212–220 kitchen).
+  - That's only if the wall between them carries nothing.
+  - Check the attic: look for ceiling joists or a beam bearing on that wall, and for any
+    second floor over it.
+- **Still to measure:**
+  - the garage's ceiling height;
+  - the step down from the kitchen floor to the garage slab, and the slab's fall toward the
+    door;
+  - the kitchen's north wall and diagonals (above).
+
 ### Windows and doors
 
 - Traffic noise is heavy in low frequencies. Compare windows by **OITC** (made for traffic
@@ -1453,8 +1496,10 @@ model was drawn that way. **On Oct 15 the owner confirmed 5 levels**, matching t
 - Is the garage still used for cars, and is the new covered parking in addition to it?
 - **The lone front-lawn oak:** its trunk position (tape from the front line and the south
   line) and its girth. These set loop C's clearance.
-- **The garage, inside:** length, width and ceiling height, and the step down from the
-  house floor.
+- **The garage, inside:** ~~length and width~~ (19'-6" × 20'-2", Oct 15 2026). Still open:
+  the ceiling height, and the step down from the house floor.
+- **The kitchen:** its north wall and both diagonals. Is its west wall square or slanted?
+  And does the wall between it and the garage carry anything (attic look)?
 - **Who owns the 8 ft US-290 fence?** It stands partly beyond the surveyed line. It
   matters before sealing its gaps or building onto it.
 - Does Travis County's septic (OSSF) office need to review a new structure on a lot

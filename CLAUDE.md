@@ -26,7 +26,7 @@ Everything that can't be public lives in the private repo (Git LFS): the survey 
 and title papers, the neighbors' City plan sets, and the raw site photos and screenshots.
 - **Attach it at the start of a session** (add_repo), next to this repo at
   `/home/user/shed-design-private`.
-- Its README indexes the folders: `property/`, `photos/<date>/`, `screenshots/`,
+- Its README indexes the folders: `property/`, `house/`, `photos/<date>/`, `screenshots/`,
   `granada-ridge/` and `reference/`.
 - **Save new private material there as soon as it arrives:** photos and PDFs sent in chat,
   and data pulled that carries names. Use its `tools/push_private.sh SOURCE DEST`, which

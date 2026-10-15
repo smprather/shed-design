@@ -98,6 +98,7 @@ HOUSE_ST = [
 PORCH_ST = [(54.5, 57.6), (64.2, 57.6), (64.2, 90.1), (54.5, 90.1)]  # CAD open porch 315 sq ft
 # CAD attached garage 441 sq ft = 21 x 21, at the house's NE corner behind the porch
 # (owner marked it on the plat). The door faces north, onto the concrete driveway.
+# Inside 19'-6" x 20'-2" (laser, Oct 15 2026), which fits.
 GARAGE_ST = [(64.2, 69.1), (85.2, 69.1), (85.2, 90.1), (64.2, 90.1)]
 GARAGE_DOOR = (st(74.7, 90.1), st(74.7, 98))  # arrow out of the north wall
 HOUSE_NW = st(126.2, 90.1)  # point A on the measurement plan

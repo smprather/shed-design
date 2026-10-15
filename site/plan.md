@@ -13,7 +13,7 @@ Last updated: Oct 15 2026.
 |---|---|---|---|
 | **1. Building B** | 23 × 43 ft metal building on a slab at the old carport spot, north of the house | Footprint fixed; height, doors and use open | Septic layout; the cross fence; eave height |
 | **2. Screening** (noise and views) | US-290 side: the 8 ft fence, building B, maybe a taller wall. Back line: 21 new trees in the gaps | Back-line planting ready to buy; US-290 side needs re-modeling | Fence gaps and ownership; septic layout |
-| **3. Garage → kitchen** | Convert the 21 × 21 ft attached garage into kitchen space | Idea stage (~90% likely) | Inside measurements; septic capacity question; parking must move first |
+| **3. Garage → kitchen** | Convert the 21 × 21 ft attached garage into kitchen space | Idea stage (~90% likely); inside measured | Garage ceiling and step down; septic capacity question; parking must move first |
 | **4. Circle drive + covered parking** | Loop C through the front lawn, plus a porte-cochère (A) or a carport (B) | Layout proposed | The lone oak's trunk position; covered-parking choice; county permits |
 
 ## Order of work
@@ -163,8 +163,14 @@ house's west end, ~1 dB or less elsewhere.
 
 ## Project 3: Garage → kitchen
 
-- **The garage:** 441 sq ft (county), ~21 × 21 ft outside and ~20 × 20 ft inside. One ~16 ft
-  two-car door facing north onto the drive.
+- **The garage:** 441 sq ft (county), ~21 × 21 ft outside, **19'-6" × 20'-2" inside** (laser,
+  Oct 15 2026). One ~16 ft two-car door facing north onto the drive.
+- **The kitchen beside it:** directly south, 21'-5" × 10'-3" inside, 8 ft ceiling (a tray at
+  8'-10"), with its window under the front porch.
+  - **One room:** opening the wall between them gives about 31 × 20 ft, ~615 sq ft. That's
+    only if the wall carries nothing; check the attic first.
+  - **The kitchen's west wall:** the floor plan draws it slanted, to absorb an 18 in
+    difference. That's a guess: laser the north wall and both diagonals.
 - **Design notes:**
   - The ~16 ft door header can carry a wide window or a glass slider instead of an infill
     wall.
@@ -175,8 +181,8 @@ house's west end, ~1 dB or less elsewhere.
   the house is already ~3,700 sq ft. A new kitchen sink also drains to the same system.
 - **Before construction:** the circle drive and covered parking (project 4) need to be in
   use, since the garage stops holding cars.
-- **To measure:** inside length, width, ceiling height, and the step down from the house
-  floor.
+- **To measure:** the garage's ceiling height, the step down from the kitchen floor and
+  the slab's fall toward the door, and the kitchen's north wall and diagonals.
 
 ## Project 4: Circle drive and covered parking
 
@@ -216,7 +222,8 @@ See `front-yard.png` and the 3D viewer's "Front yard" view.
 | Chain-link gate's clear opening | Truck access to B and the septic | Tape |
 | The rusty casing by the burn barrel: is it the well? Its distance to both fences | Keep-outs for the trees and any wall | Look and tape |
 | Lone front-lawn oak: trunk position (from the front and south lines) and girth | Loop C | Tape |
-| Garage inside: length, width, ceiling, step down | Kitchen design | Tape |
+| Garage ceiling height; step down from the kitchen floor; the slab's fall to the door | Kitchen design | Tape |
+| Kitchen's north wall, and both diagonals (square: both ~23'-9") | Whether the kitchen's west wall is slanted, as drawn | Laser |
 | Along the street: from the walk's center to the drive's south edge | Whether the drive was widened since 1991 (plat ~36 ft, aerial ~28 ft) | Tape |
 | Twin oak's second trunk girth (worksheet 11) | Root-zone size | Tape around at 4.5 ft up |
 | Branches over B's east end (17a) | Roof and erection clearance | Laser or pole |
@@ -231,5 +238,6 @@ See `front-yard.png` and the 3D viewer's "Front yard" view.
 - **The private repo** (`smprather/shed-design-private`) holds:
   - the neighbors' plans, SP-2019-0411D (retail) and SP-2018-0138D (apartments);
   - the site photos;
-  - our property papers, once they're added (`property/`: the plat, closing and title
-    papers, septic permit).
+  - our property papers (`property/`: the 1991 plat; closing, title and septic papers
+    still to add);
+  - the kitchen and garage floor plan (`house/`).

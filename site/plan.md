@@ -163,6 +163,8 @@ house's west end, ~1 dB or less elsewhere.
 
 ## Project 3: Garage → kitchen
 
+Layout mockup (plan + 3D): `kitchen/` (moving to its own repo).
+
 - **The garage:** 441 sq ft (county), ~21 × 21 ft outside, **19'-6" × 20'-2" inside** (laser,
   Oct 15 2026). One ~16 ft two-car door facing north onto the drive.
 - **The kitchen beside it:** directly south, 21'-5" × 10'-3" inside, 8 ft ceiling (a tray at

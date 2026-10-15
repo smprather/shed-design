@@ -19,6 +19,8 @@ limits:
   baseline.
 - The maps in `site/*.png` are rendered by the scripts in `tools/`. Don't edit the maps by
   hand.
+- `kitchen/` is the garage-to-kitchen mockup. It will move to its own repo, so keep it out
+  of the site model (`plan3d.py`, `site/`). See `kitchen/README.md`.
 
 ## Private files: `smprather/shed-design-private`
 

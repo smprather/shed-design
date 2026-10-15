@@ -1378,15 +1378,59 @@ which is assumed, not measured.
     - Square: both diagonals ~23'-9".
     - Slanted as drawn: 23'-9" (NE to SW) and 22'-5" (NW to SE).
 - **Opening the two into one room:** about 31 ft N-S × 19½–21½ ft E-W, ~615 sq ft (393
-  garage + ~8 wall + ~212–220 kitchen).
-  - That's only if the wall between them carries nothing.
-  - Check the attic: look for ceiling joists or a beam bearing on that wall, and for any
-    second floor over it.
+  garage + ~8 wall + ~212–220 kitchen). The hall beside the garage joins too (next section):
+  ~680 sq ft.
 - **Still to measure:**
   - the garage's ceiling height;
   - the step down from the kitchen floor to the garage slab, and the slab's fall toward the
     door;
   - the kitchen's north wall and diagonals (above).
+
+### Garage + hall + kitchen as one room (owner, Oct 15 2026)
+
+The owner marked up the floor plan (private repo, `house/`). **A hall runs along the garage's
+west wall**, from the stairs at its north end south to the kitchen. With the garage converted,
+the hall isn't needed, so it joins the kitchen. The red X's take out two walls: the garage's
+west wall, and the wall between the garage and the kitchen.
+
+- **The hall:** 3'-2½" wide (laser, wall to wall). It's ~18 ft long as drawn, not measured.
+- **The stairs:** at the hall's north end, beside the garage's NW corner. The two-story part
+  of the house is behind there.
+- **The garage has a window in its east wall** too, under the porch, the same as the
+  kitchen's. Position as drawn.
+- **The new room:**
+  - **Width:** ~23'-1" across the north part (19'-6" garage + 4¾" wall + 3'-2½" hall);
+    21'-5" along the kitchen's south wall.
+  - **Depth:** 30'-10" from the garage's north wall to the kitchen's south wall.
+  - **Area:** ~680 sq ft: 393 garage, ~57 hall, ~16 for the two walls, ~212–220 old kitchen.
+    That's ~65 sq ft more than the garage and kitchen alone.
+- **Light:** two east windows under the porch, plus the 16 ft garage-door opening on the
+  north side for a window wall or a slider.
+- **The garage's west wall is probably load-bearing.** That's the big structural question.
+  - The garage's gable faces north over the door, so its ridge runs N-S. Its rafters and
+    ceiling joists then span E-W, from the east wall to this one.
+  - The two-story part is right behind it. If its east wall stands on the garage's west
+    wall, a much bigger beam is needed than if it stands on the hall's west wall (which
+    stays).
+  - **Replacing it:** a ~20 ft beam, flush in the attic so the ceiling stays flat, with
+    posts and footings at both ends. Have a structural engineer size it.
+  - **The wall between the garage and the kitchen** runs parallel to the garage's framing.
+    It may carry only the kitchen's ceiling, or nothing. The attic will show which.
+- **Quick check from outside:** stand on the apron and laser along the house's north wall
+  from its NE corner to where the two-story wall rises.
+  - **~21 ft:** it's over the garage's west wall.
+  - **~24½ ft:** it's over the hall's west wall.
+- **The stairs are then reached through the kitchen.** The old hall's strip becomes the
+  kitchen's walkway: keep ≥ 36 in clear (≥ 42 in where it's also a work aisle along a
+  counter).
+- **The 18 in mismatch is still open.** The kitchen's 21'-5" south wall ends 1'-6" past the
+  garage's wall line, and 1'-8½" short of the hall's west wall. So the old kitchen's west
+  wall doesn't line up with either.
+  - Laser west along the kitchen's north side and measure both diagonals (above). Note
+    where the hall's south end opens into the kitchen.
+- **Still to check:**
+  - doors in the hall's west wall, to the rooms behind;
+  - plumbing, wiring or ducts in the two walls coming out.
 
 ### Windows and doors
 
@@ -1499,7 +1543,10 @@ which is assumed, not measured.
 - **The garage, inside:** ~~length and width~~ (19'-6" × 20'-2", Oct 15 2026). Still open:
   the ceiling height, and the step down from the house floor.
 - **The kitchen:** its north wall and both diagonals. Is its west wall square or slanted?
-  And does the wall between it and the garage carry anything (attic look)?
+- **The walls coming out** (the garage's west wall and the one between the garage and the
+  kitchen): what do they carry? Look in the attic. Laser along the north wall outside to
+  where the two-story wall rises (~21 ft from the NE corner: over the garage's west wall).
+- **The hall:** its length, any doors off it, and where its south end opens into the kitchen.
 - **Who owns the 8 ft US-290 fence?** It stands partly beyond the surveyed line. It
   matters before sealing its gaps or building onto it.
 - Does Travis County's septic (OSSF) office need to review a new structure on a lot

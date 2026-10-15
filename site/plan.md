@@ -13,7 +13,7 @@ Last updated: Oct 15 2026.
 |---|---|---|---|
 | **1. Building B** | 23 × 43 ft metal building on a slab at the old carport spot, north of the house | Footprint fixed; height, doors and use open | Septic layout; the cross fence; eave height |
 | **2. Screening** (noise and views) | US-290 side: the 8 ft fence, building B, maybe a taller wall. Back line: 21 new trees in the gaps | Back-line planting ready to buy; US-290 side needs re-modeling | Fence gaps and ownership; septic layout |
-| **3. Garage → kitchen** | Convert the 21 × 21 ft attached garage into kitchen space | Idea stage (~90% likely); inside measured | Garage ceiling and step down; septic capacity question; parking must move first |
+| **3. Garage → kitchen** | Join the 21 × 21 ft attached garage, the hall beside it and the old kitchen into one ~680 sq ft kitchen | Idea stage (~90% likely); inside measured | What the garage's west wall carries; garage ceiling and step down; septic capacity question; parking must move first |
 | **4. Circle drive + covered parking** | Loop C through the front lawn, plus a porte-cochère (A) or a carport (B) | Layout proposed | The lone oak's trunk position; covered-parking choice; county permits |
 
 ## Order of work
@@ -166,9 +166,20 @@ house's west end, ~1 dB or less elsewhere.
 - **The garage:** 441 sq ft (county), ~21 × 21 ft outside, **19'-6" × 20'-2" inside** (laser,
   Oct 15 2026). One ~16 ft two-car door facing north onto the drive.
 - **The kitchen beside it:** directly south, 21'-5" × 10'-3" inside, 8 ft ceiling (a tray at
-  8'-10"), with its window under the front porch.
-  - **One room:** opening the wall between them gives about 31 × 20 ft, ~615 sq ft. That's
-    only if the wall carries nothing; check the attic first.
+  8'-10"), with its window under the front porch. The garage has a matching window.
+- **The hall:** 3'-2½" wide, along the garage's west wall from the stairs to the kitchen.
+  With the garage converted it isn't needed (owner, Oct 15 2026).
+- **One room:** take out the garage's west wall and the wall between the garage and the
+  kitchen. That gives ~23 ft wide (21½ ft at the south end) × 31 ft deep, ~680 sq ft. The
+  hall's strip becomes the walkway to the stairs, ≥ 36 in clear.
+- **The garage's west wall is probably load-bearing:** the garage roof's framing spans onto
+  it, and the two-story part stands right behind it.
+  - Replacing it takes a ~20 ft beam (flush in the attic) with posts and footings.
+  - Have a structural engineer size it, after an attic look.
+  - Find which wall the two-story part's east wall stands on. Laser along the north wall
+    outside, from the NE corner to where the two-story wall rises: ~21 ft means it's over
+    the garage's west wall; ~24½ ft means it's over the hall's, which stays.
+  - The wall between the garage and the kitchen may carry little or nothing.
   - **The kitchen's west wall:** the floor plan draws it slanted, to absorb an 18 in
     difference. That's a guess: laser the north wall and both diagonals.
 - **Design notes:**
@@ -181,8 +192,12 @@ house's west end, ~1 dB or less elsewhere.
   the house is already ~3,700 sq ft. A new kitchen sink also drains to the same system.
 - **Before construction:** the circle drive and covered parking (project 4) need to be in
   use, since the garage stops holding cars.
-- **To measure:** the garage's ceiling height, the step down from the kitchen floor and
-  the slab's fall toward the door, and the kitchen's north wall and diagonals.
+- **To measure:**
+  - the garage's ceiling height, the step down from the kitchen floor and the slab's fall
+    toward the door;
+  - the kitchen's north wall and diagonals;
+  - the hall's length and any doors off it;
+  - the attic over the two walls coming out.
 
 ## Project 4: Circle drive and covered parking
 
@@ -224,6 +239,8 @@ See `front-yard.png` and the 3D viewer's "Front yard" view.
 | Lone front-lawn oak: trunk position (from the front and south lines) and girth | Loop C | Tape |
 | Garage ceiling height; step down from the kitchen floor; the slab's fall to the door | Kitchen design | Tape |
 | Kitchen's north wall, and both diagonals (square: both ~23'-9") | Whether the kitchen's west wall is slanted, as drawn | Laser |
+| Outside, along the north wall: NE corner to where the two-story wall rises | Whether the two-story part stands on the garage's west wall (~21 ft) or the hall's (~24½ ft) | Laser |
+| Attic over the garage's west wall and the garage–kitchen wall | What they carry, before the beam is sized | Look |
 | Along the street: from the walk's center to the drive's south edge | Whether the drive was widened since 1991 (plat ~36 ft, aerial ~28 ft) | Tape |
 | Twin oak's second trunk girth (worksheet 11) | Root-zone size | Tape around at 4.5 ft up |
 | Branches over B's east end (17a) | Roof and erection clearance | Laser or pole |
@@ -240,4 +257,4 @@ See `front-yard.png` and the 3D viewer's "Front yard" view.
   - the site photos;
   - our property papers (`property/`: the 1991 plat; closing, title and septic papers
     still to add);
-  - the kitchen and garage floor plan (`house/`).
+  - the kitchen and garage floor plan, and the owner's markup with the hall (`house/`).

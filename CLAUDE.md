@@ -19,8 +19,9 @@ limits:
   baseline.
 - The maps in `site/*.png` are rendered by the scripts in `tools/`. Don't edit the maps by
   hand.
-- `kitchen/` is the garage-to-kitchen mockup. It will move to its own repo, so keep it out
-  of the site model (`plan3d.py`, `site/`). See `kitchen/README.md`.
+- **The garage-to-kitchen conversion lives in the private repo
+  `smprather/kitchen-garage-renovation`**: its measurements, layout and notes. Here, keep only
+  what ties it to the site: parking moves out front first, and the septic capacity question.
 
 ## Private files: `smprather/shed-design-private`
 
@@ -28,11 +29,13 @@ Everything that can't be public lives in the private repo (Git LFS): the survey 
 and title papers, the neighbors' City plan sets, and the raw site photos and screenshots.
 - **Attach it at the start of a session** (add_repo), next to this repo at
   `/home/user/shed-design-private`.
-- Its README indexes the folders: `property/`, `house/`, `photos/<date>/`, `screenshots/`,
+- Its README indexes the folders: `property/`, `photos/<date>/`, `screenshots/`,
   `granada-ridge/` and `reference/`.
 - **Save new private material there as soon as it arrives:** photos and PDFs sent in chat,
   and data pulled that carries names. Use its `tools/push_private.sh SOURCE DEST`, which
   dedupes by content and cleans names.
+  Floor plans and inside photos of the garage and kitchen go to
+  `smprather/kitchen-garage-renovation` instead.
 - Container files don't survive between sessions.
 
 ## Privacy: this repo is public

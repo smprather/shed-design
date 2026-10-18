@@ -25,7 +25,13 @@ import math
 
 from front_layout import catmull_rom, offset
 
-STREET_S = -16.0   # ft: the asphalt's edge, where the old drive met the street (plat)
+# Candelaria Dr: the plat's 50 ft right-of-way runs from our front line out to s = -50. The asphalt, measured off the
+# aerial (its white edge lines at s ~ -20 and -38, +/-1.5 ft), is ~19 ft wide and sits off-center in it. So the
+# county's strip between our line and the pavement is ~19.5 ft deep, and every drive crosses it (the old one did).
+ROAD = (-38.5, -19.5)          # s range of the pavement
+ROAD_LINES = (-20.0, -38.0)    # its white edge lines
+ROAD_T = (-640.0, 175.0)       # t range drawn: past the Candelaria lots to the south, as far as the aerial shows it north
+STREET_S = ROAD[1]             # the asphalt's near edge: the drive aprons run out to it
 LANE = 12.0        # ft: loop D's legs
 SERVICE = 10.0     # ft: the service drive and the shop lane, which carry a pickup, a trailer and a septic truck now and then
 CURB = 0.67        # ft: concrete ribbon curb, 8 in wide (and ~12 in deep, with rebar)

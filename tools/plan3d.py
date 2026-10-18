@@ -29,7 +29,7 @@ import rich_click as click
 
 from site_plan import BUILDING_LINE, HOUSE, PARCEL, REPO, SITE_B, WELL, en_to_site, north_line_y, site, st
 from site_b_plan import HOSE, house_north_y
-from drive_layout import APRON_DEEP, CURB, layout as drive_layout
+from drive_layout import APRON_DEEP, CURB, ROAD, ROAD_LINES, ROAD_T, layout as drive_layout
 from front_layout import EXISTING_DRIVE, FRONT_WALK, offset
 from house_layout import FF_FT, house_spec, porte_spec
 from envelope_plan import SITE_A
@@ -590,6 +590,16 @@ def main(spec: Path, out: Path) -> None:
     obj.prism(list(court_m.exterior.coords)[:-1], low, court_top - 0.03)
     obj.obj("proposed_shop_court")
     obj.prism(list(court_m.buffer(-CURB * FT).exterior.coords)[:-1], court_top - 0.06, court_top)
+    # Candelaria Dr (drive_layout.ROAD): very dark asphalt and its white edge lines, drawn straight along the front line
+    # (the aerial shows only our frontage; the lots south of us line up with it).
+    ts = [ROAD_T[0] + (ROAD_T[1] - ROAD_T[0]) * k / 200 for k in range(201)]   # ~4 ft stations
+    obj.obj("candelaria_dr")
+    edges = [ROAD[1] + (ROAD[0] - ROAD[1]) * k / 6 for k in range(7)]          # six strips across, so it follows the ground
+    for a_s, b_s in zip(edges, edges[1:]):
+        obj.ribbon([sv(a_s, t) for t in ts], [sv(b_s, t) for t in ts], lift=0.1)
+    obj.obj("candelaria_dr_edge_lines")
+    for s_line in ROAD_LINES:
+        obj.ribbon([sv(s_line + 0.2, t) for t in ts], [sv(s_line - 0.2, t) for t in ts], lift=0.13)
     keep_outs = {"septic_pipe_keepout_10ft": (pipe, KEEP_OUT), "well_keepout_10ft": (well, KEEP_OUT)}
     for name, (c, r) in {**keep_outs, "oak_drip_line": (oak, 25.1), "oak_no_dig_12ft": (oak, 12.0)}.items():
         obj.obj(name)

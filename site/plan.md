@@ -14,7 +14,7 @@ Last updated: Oct 18 2026 (building A's doors on its south side; the drive redes
 | **1. The building, at site A** | A standard tube-frame steel kit, 30 ft wide × 35, 30 or 25 ft, on the north strip between the well and the septic pipe. Site B is dropped (owner, Oct 18 2026) | Sized and priced (~$49–64k turnkey, likely); doors on the south side; size and use open | The buried service line; the septic layout (the drainfield may be under it) |
 | **2. Screening** (noise and views) | US-290 side: the 8 ft fence, building B, maybe a taller wall. Back line: 21 new trees in the gaps | Back-line planting ready to buy; US-290 side needs re-modeling | Fence gaps and ownership; septic layout |
 | **3. Garage → kitchen** | Join the 21 × 21 ft attached garage, the hall beside it and the old kitchen into one ~680 sq ft kitchen. Its own repo: `smprather/kitchen-garage-renovation` | Idea stage (~90% likely); layout mocked up | Parking must move first; septic capacity question; structure (see its repo) |
-| **4. The drive + porte-cochère** | Redesigned from scratch: loop D, a forecourt with a porte-cochère (2 cars nose to tail) and a passing lane, the service drive and north court, the shop lane to building A. Estate gravel, concrete-curbed | Designed and priced (~$200k likely; $120k of it the drive) | Trunk tapes; buried lines; the septic layout; county permits |
+| **4. The drive + porte-cochère** | Redesigned from scratch: loop D, a forecourt with a porte-cochère (2 cars nose to tail) and a passing lane, the service drive and north court, the shop lane to building A. Estate gravel, concrete-curbed | Designed and priced (~$201k likely; $121k of it the drive) | Trunk tapes; buried lines; the septic layout; county permits |
 
 ## Order of work
 
@@ -298,7 +298,9 @@ drive, redesigned from scratch", has the detail, the clearances and the sources.
   - The old drive and the front walk come out.
 - **The layout:**
   - **Entrances:** a new one in the open south lawn, and the old curb cut on the north.
-    Concrete aprons, flared, from the street to 10 ft inside the line.
+    Concrete aprons, flared, from the asphalt to 10 ft inside the line.
+    - The asphalt is ~19.5 ft out from our front line. The strip between is the county's
+      50 ft right-of-way, so each apron crosses it, as the old drive does.
   - **Loop D's legs** (12 ft) meet at the forecourt along the house front. The north leg runs
     through the open path between the lone oak and the bulge oak, ~13–14 ft from each.
   - **The porte-cochère:** 11 × 49 ft, its roof edge on the 45 ft line.
@@ -323,9 +325,9 @@ drive, redesigned from scratch", has the detail, the clearances and the sources.
   it's ~185 ft, too far. From the north court it's ~100 ft with ~18 ft of lift: that's its
   stop.
 - **Cost (likely, 80% band, with contingency):**
-  - the drive $120k ($107–132k);
+  - the drive $121k ($109–133k);
   - the porte-cochère $80k ($60–100k), the softest number;
-  - all of it $200k ($176–223k).
+  - all of it $201k ($178–224k).
   - Pavers to plain concrete under the cover, and fewer curbs, save ~$15k.
 - **Impervious cover with building A:** 19.3% if gravel doesn't count, 30.1% if it does. That
   waits on the county's answer, as for the building.

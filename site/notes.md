@@ -2176,7 +2176,7 @@ the tables below.
 - **Sizes:**
   - gravel 3,646 sq ft;
   - pavers 698 sq ft;
-  - concrete aprons 712 sq ft, of which 459 is in the right-of-way;
+  - concrete aprons 796 sq ft, of which 542 is in the street right-of-way;
   - curbs 621 ft;
   - the cover's roof 539 sq ft.
 - **Trees** (paving edge to trunk; `drive_plan.py` lists them all):
@@ -2235,9 +2235,12 @@ the tables below.
 
   | Part | Likely (80% band) |
   |---|---|
-  | The drive: demolition, gravel, curbs, pavers, aprons, permits, shop court, arborist | **$120k** ($107–132k) |
+  | The drive: demolition, gravel, curbs, pavers, aprons, permits, shop court, arborist | **$121k** ($109–133k) |
   | The porte-cochère | **$80k** ($60–100k) |
-  | All of it | **$200k** ($176–223k) |
+  | All of it | **$201k** ($178–224k) |
+
+  - Corrected the same day: the street aprons now run out to the asphalt (see "Candelaria Dr
+    and the right-of-way"). It added ~$1k.
 
   - **Unit prices:**
     - gravel in grid on base, $8–14/sq ft;
@@ -2281,6 +2284,25 @@ the tables below.
 - **Retired:** loop C, the owner's first sketch, and the two old covered-parking options (a
   porte-cochère pad and a carport on the garage apron) are gone from the maps and the 3D plan.
   The old drive and walk are hidden in the 3D plan, marked as coming out.
+
+### Candelaria Dr and the right-of-way (owner's question, Oct 18 2026)
+
+- **Why the drives run past our front line:** the street isn't at the line.
+  - The plat gives Candelaria Dr a 50 ft right-of-way, from our front line out to s = -50.
+  - The asphalt sits off-center in it. Its white edge lines are at s ≈ -20 and -38 on the
+    aerial (±1.5 ft), so the pavement is ~19 ft wide, s -38.5 to -19.5.
+  - That leaves ~19.5 ft of county ground between our line and the road: grass, the mailbox,
+    the utility pole.
+  - Every drive crosses that strip to reach the street, the old one included. The Travis County
+    driveway permit covers the apron there.
+- **Correction:** the drive layout had the asphalt's edge at s = -16, from the plat trace of the
+  old drive. The aerial puts it at -19.5, so both concrete aprons now run out to it. Each
+  apron is ~3.5 ft longer, and they hold ~85 sq ft more concrete in the right-of-way.
+- **The 3D plan now draws Candelaria Dr:** very dark asphalt with its white edge lines.
+  - It runs straight along the front line, from past the Candelaria lots to the south
+    (t = -640 ft) to as far north as the aerial shows it (t = 175 ft).
+  - The aerial shows only our frontage. The lots to the south line up with it.
+  - `drive_layout.py` holds the numbers: ROAD, ROAD_LINES, ROAD_T.
 
 ### Windows and doors
 

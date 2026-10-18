@@ -298,6 +298,17 @@ south.
 - **Over the 8 ft fence:** with a 14 ft eave on a 6 in slab, the eave stands ~6½ ft above
   the fence top on flat ground. The real site falls ~3.8 ft, high at the NE corner, so it's
   more at the west end.
+- **In the 3D property model too** (`plan3d.py` → `site/plan3d.html`). The detailed
+  building replaces the old box, on the lidar ground:
+  - the slab is level with the high NE corner, and its exposed edge shows the fill on the
+    low side;
+  - the door aprons slope down to the ground 10 ft out;
+  - the doors are drawn rolled up.
+- **For scale, the owner's John Deere S130 riding mower** is parked in the west bay, in
+  both models:
+  - low-poly, 73.3 in long and 45.5 in tall (TractorData), with a 48.9 in wheelbase and a
+    42 in deck;
+  - ~54 in wide with the chute (estimated).
 
 ### Making B a good sound barrier
 

@@ -4,9 +4,10 @@
 # ///
 """Render building B (tools/building_b.html) to still images.
 
-Writes site/building-b-<view>.jpg for the page's views: oblique, from the yard, from the
-house corner and from US-290. The page is also published as an Artifact, without its own
-<html>/<head>/<body>, so this wraps it in a minimal document first.
+Writes site/building-b-<view>.jpg for the page's views: oblique, from the yard, in the west
+door (the S130 mower inside, for scale), from the house corner and from US-290. The page is
+also published as an Artifact, without its own <html>/<head>/<body>, so this wraps it in a
+minimal document first.
 
 Needs a Playwright Chromium: `uv run --with playwright playwright install chromium`, or
 pass --chromium PATH.
@@ -24,7 +25,7 @@ from playwright.sync_api import sync_playwright
 
 REPO = Path(__file__).resolve().parent.parent
 PAGE = REPO / "tools" / "building_b.html"
-VIEWS = {"oblique": False, "yard": False, "house": True, "north": False}  # view -> doors open
+VIEWS = {"oblique": True, "yard": True, "doorway": True, "house": True, "north": False}  # view -> doors open
 SKELETON = ('<!doctype html><html><head><meta charset="utf-8">'
             '<meta name="viewport" content="width=device-width, initial-scale=1"></head><body>{}</body></html>')
 

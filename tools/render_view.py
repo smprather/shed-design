@@ -26,7 +26,7 @@ import rich_click as click
 from PIL import Image, ImageDraw, ImageFont
 from playwright.sync_api import sync_playwright
 
-from plan3d import (B_EAVE, BACKYARD_EYE, BACKYARD_GAZE, CANOPY, FT, PLANTS, SPEC, TERRAIN, Canopy, Frame, Terrain,
+from plan3d import (B_EAVE, B_PITCH, BACKYARD_EYE, BACKYARD_GAZE, CANOPY, FT, PLANTS, SPEC, TERRAIN, Canopy, Frame, Terrain,
                     backyard, planting, read_jsonc)
 from site_plan import REPO, SITE_B
 
@@ -37,7 +37,6 @@ SUN = (140.0, 42.0)  # azimuth and altitude, degrees: late morning in mid-Octobe
 VFOV = 45.0  # degrees, vertical; about a phone camera's main lens held sideways
 CANOPY_BLOCK = 2  # m; existing trees are drawn per 2 x 2 m block (finer than the viewer's)
 FENCE_POST = 8.0  # ft between posts
-SHED_PITCH = 3 / 12  # building B's roof; undecided
 
 
 def plan_bearing(azimuth: float) -> float:
@@ -72,7 +71,7 @@ def scene(stage: str) -> dict:
     b = [to_m(p) for p in SITE_B]
     slab = max(ground(*p) for p in b)  # as in plan3d.py: slab at the high corner
     buildings.append({"kind": "shed", "points": [[round(c, 2) for c in p] for p in b], "z0": round(slab, 2),
-                      "z1": round(slab + B_EAVE * FT, 2), "rise": round(23 / 2 * SHED_PITCH * FT, 2)})
+                      "z1": round(slab + B_EAVE * FT, 2), "rise": round(23 / 2 * B_PITCH * FT, 2)})
 
     fence = ents["rear_fence"]["geometry"]
     (ax, ay), (bx, by) = fence["points_m"][0], fence["points_m"][-1]

@@ -166,10 +166,10 @@
   });
   const shedTex = canvasTexture(128, (x, n) => {   // ribbed metal panel, one 0.3 m rib
     const g = x.createLinearGradient(0, 0, n, 0);
-    g.addColorStop(0, "#d6d2c8"); g.addColorStop(0.45, "#e2ded4"); g.addColorStop(0.55, "#bdb8ad"); g.addColorStop(1, "#d6d2c8");
+    g.addColorStop(0, "#3b3e42"); g.addColorStop(0.45, "#46494e"); g.addColorStop(0.55, "#2f3135"); g.addColorStop(1, "#3b3e42");
     x.fillStyle = g; x.fillRect(0, 0, n, n);
   });
-  const roofMat = { retail: lin(0x8d8f8c), apartment: lin(0x5f6265), shed: lin(0xa5abad) };
+  const roofMat = { retail: lin(0x8d8f8c), apartment: lin(0x5f6265), shed: lin(0x3b3e42) };
   function prism(b) {
     const pts = b.points[0][0] === b.points.at(-1)[0] && b.points[0][1] === b.points.at(-1)[1] ? b.points.slice(0, -1) : b.points;
     const pos = [], uv = [];

@@ -41,6 +41,9 @@ KEEP_OUT = 10.0  # ft around the septic pipe and the well, until Travis County g
 LANE_MIN = 12.0  # ft, septic truck lane
 HOSE_MAX = 100.0  # ft of pump-truck hose
 B_EAVE = 14.0  # ft; undecided, the noise model's case
+B_PITCH = 3 / 12  # building B's gable roof, ridge along the long side; undecided
+B_DOORS = (12.0, 12.0)  # ft, width x height: two roll-up doors on the south wall at the quarter points (owner, Oct 18 2026); size undecided
+B_MOWER = (43 / 4, 8.0)  # ft from B's SW corner (east, north): the owner's John Deere S130, parked in the west bay for scale
 PORTE_COCHERE_CLEAR = 10.0  # ft to the underside of option A's roof (cars and a pickup need ~8)
 WALL_FOOTING = 2.0  # ft inside the line for a US-290 wall footing
 TREE_ROWS = (10.0, 22.0)  # ft in from the back line: two staggered rows (notes, back-line trees)
@@ -208,6 +211,18 @@ class Obj:
             (ax, ay), (bx, by) = poly[i], poly[(i + 1) % n]
             self.face([(ax, ay, z0), (bx, by, z0), (bx, by, z1), (ax, ay, z1)])
 
+    def gable(self, sw: Pt, se: Pt, ne: Pt, nw: Pt, z0: float, ze: float, rise: float) -> None:
+        """Closed building massing: walls to the eave, gable ends, and a roof with its ridge along sw -> se."""
+        ms, me = ((sw[0] + nw[0]) / 2, (sw[1] + nw[1]) / 2), ((se[0] + ne[0]) / 2, (se[1] + ne[1]) / 2)
+        zr = ze + rise
+        self.face([(*p, z0) for p in (sw, nw, ne, se)])
+        self.face([(*sw, z0), (*se, z0), (*se, ze), (*sw, ze)])
+        self.face([(*ne, z0), (*nw, z0), (*nw, ze), (*ne, ze)])
+        self.face([(*se, z0), (*ne, z0), (*ne, ze), (*me, zr), (*se, ze)])
+        self.face([(*nw, z0), (*sw, z0), (*sw, ze), (*ms, zr), (*nw, ze)])
+        self.face([(*sw, ze), (*se, ze), (*me, zr), (*ms, zr)])
+        self.face([(*ne, ze), (*nw, ze), (*ms, zr), (*me, zr)])
+
     def wall(self, a: Pt, b: Pt, height: float, thickness: float) -> None:
         """Wall standing on the terrain between a and b, one panel per drape step."""
         L = math.dist(a, b)
@@ -369,8 +384,9 @@ def backyard(ground: Terrain, to_m: Frame) -> tuple[dict, list[dict]]:
 
 
 def write_viewer(path: Path, obj_text: str, plan: dict, checks: list[dict], backyard: dict,
-                 poles: list[dict], trees: dict, canopy: dict | None, z0_ft: float) -> None:
-    """Fill the viewer template with the model, the plan's entity notes, the checks, the back-yard view, the poles and the trees."""
+                 poles: list[dict], trees: dict, canopy: dict | None, z0_ft: float, building_b: dict) -> None:
+    """Fill the viewer template with the model, the plan's entity notes, the checks, the back-yard view, the poles,
+    the trees and building B's placement (the viewer draws B in detail)."""
     spec = {"entities": [{k: e.get(k) for k in ("entity_id", "status", "source", "notes", "facade_toward_us")}
                          for e in plan["spatial_entities"]],
             "removed": plan.get("removed_claims", [])}
@@ -382,7 +398,8 @@ def write_viewer(path: Path, obj_text: str, plan: dict, checks: list[dict], back
             .replace("/*POLES*/", json.dumps(poles))
             .replace("/*TREES*/", json.dumps(trees))
             .replace("/*CANOPY*/", json.dumps(canopy))
-            .replace("/*Z0_FT*/", json.dumps(z0_ft)))
+            .replace("/*Z0_FT*/", json.dumps(z0_ft))
+            .replace("/*BUILDING_B*/", json.dumps(building_b)))
     path.write_text('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
                     '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
                     f"{head}</head>\n<body>\n{body}</body>\n</html>\n")
@@ -425,9 +442,22 @@ def main(spec: Path, out: Path) -> None:
     obj.obj("house_footprint_survey")
     obj.drape([to_m(p) for p in HOUSE], closed=True)
     b = [to_m(p) for p in SITE_B]
-    slab = max(ground(*p) for p in b)  # slab at the high corner; the low side gets fill or a stem wall
-    obj.obj(f"building_B_23x43_eave_{B_EAVE:g}ft_assumed")
-    obj.prism(b, slab, slab + B_EAVE * FT)
+    nw, ne, se, sw = b
+    b_ground = [ground(*p) for p in b]
+    slab = max(b_ground)  # slab at the high corner; the low side gets fill or a stem wall
+    b_id = f"building_B_23x43_eave_{B_EAVE:g}ft_assumed"
+    b_len, b_wid = math.dist(sw, se) / FT, math.dist(sw, nw) / FT
+    obj.obj(b_id)
+    obj.gable(sw, se, ne, nw, slab, slab + B_EAVE * FT, b_wid / 2 * B_PITCH * FT)
+    # The viewer draws B in detail from this: its frame (x east from the SW corner, y north, feet), doors and the mower.
+    building_b = {"id": b_id, "origin": [round(c, 3) for c in sw],
+                  "ux": [round((se[i] - sw[i]) / (b_len * FT), 6) for i in (0, 1)],
+                  "uy": [round((nw[i] - sw[i]) / (b_wid * FT), 6) for i in (0, 1)],
+                  "slab_m": round(slab, 3), "drop_ft": round((slab - min(b_ground)) / FT, 2),
+                  "length_ft": round(b_len, 2), "width_ft": round(b_wid, 2), "eave_ft": B_EAVE, "pitch": B_PITCH,
+                  "doors": [{"center_ft": round(c, 2), "width_ft": B_DOORS[0], "height_ft": B_DOORS[1]}
+                            for c in (b_len / 4, 3 * b_len / 4)],
+                  "mower": {"x_ft": B_MOWER[0], "y_ft": B_MOWER[1]}}
     # Existing drive and front walk, traced from the 1991 plat (front_layout.py, +/-3 ft).
     obj.obj("existing_driveway_1991_plat")
     obj.pad([to_m(p) for p in site(st(*q) for q in EXISTING_DRIVE)], lift=0.05)
@@ -520,7 +550,7 @@ def main(spec: Path, out: Path) -> None:
                  "rows_ft": TREE_ROWS, "spacing_ft": TREE_SPACING,
                  "trees": [{"xy": [round(c, 2) for c in to_m(tr["site"])], "plant": tr["plant"]} for tr in trees]}
     existing = canopy.for_viewer(ground) if canopy else None
-    write_viewer(html, out.read_text(), plan, checks, view, poles, tree_view, existing, ground.z0)
+    write_viewer(html, out.read_text(), plan, checks, view, poles, tree_view, existing, ground.z0, building_b)
     click.echo(f"wrote {out.relative_to(REPO)} ({obj.nv} vertices) and {html.relative_to(REPO)}; "
                f"building B slab at z = {slab:.2f} m")
     with pl.Config(tbl_rows=-1, tbl_hide_dataframe_shape=True, tbl_hide_column_data_types=True,

@@ -71,12 +71,13 @@ dd { margin: 0; text-align: right; font-family: var(--f-mono); font-variant-nume
       <div class="views" id="views">
         <button type="button" id="v-oblique" data-view="oblique" aria-pressed="true">Oblique</button>
         <button type="button" id="v-yard" data-view="yard" aria-pressed="false">From the yard</button>
+        <button type="button" id="v-doorway" data-view="doorway" aria-pressed="false">In the west door</button>
         <button type="button" id="v-house" data-view="house" aria-pressed="false">From the house corner</button>
         <button type="button" id="v-north" data-view="north" aria-pressed="false">From US-290</button>
       </div>
     </div>
     <div class="stage" id="stage"><canvas id="c" aria-label="3D model of building B; drag to orbit"></canvas></div>
-    <div class="foot">Drag to orbit · right-drag to pan · scroll or pinch to zoom. The figure is 5'-9".</div>
+    <div class="foot">Drag to orbit · right-drag to pan · scroll or pinch to zoom. For scale: the figure is 5'-9", and the mower is a John Deere S130.</div>
   </section>
 
   <aside class="panel side" aria-label="Building settings and dimensions">
@@ -97,7 +98,9 @@ dd { margin: 0; text-align: right; font-family: var(--f-mono); font-variant-nume
         <small>Capped 1'-6" under the eave, to leave room for the coil.</small>
       </div>
       <div class="toggles">
-        <button type="button" id="open" aria-pressed="false">Doors open</button>
+        <button type="button" id="open" aria-pressed="true">Doors open</button>
+        <button type="button" id="mower" aria-pressed="true">S130 mower</button>
+        <button type="button" id="xray" aria-pressed="false">See-through walls</button>
         <button type="button" id="ctx" aria-pressed="true">Fence and house</button>
       </div>
     </section>
@@ -112,6 +115,7 @@ dd { margin: 0; text-align: right; font-family: var(--f-mono); font-variant-nume
         <dt>Doors (2)</dt><dd id="f-doors"></dd>
         <dt>Eave over the 8 ft fence</dt><dd id="f-fence"></dd>
         <dt>West door to the west end</dt><dd id="f-end"></dd>
+        <dt>S130 mower</dt><dd>6'-1" × ~4'-6" × 3'-10"</dd>
         <dt>Between the doors</dt><dd id="f-gap"></dd>
       </dl>
     </section>
@@ -125,6 +129,7 @@ dd { margin: 0; text-align: right; font-family: var(--f-mono); font-variant-nume
     <li>The roof pitch (3:12), the doors' size and spacing, and the eave height are open choices. These are placeholders.</li>
     <li>The ground is drawn flat. The real slab site falls ~3.8 ft, high at the NE corner, so the west end sits on fill or a stem wall.</li>
     <li>The 8 ft US-290 fence is drawn 6 ft north of the building. The real fence wanders off the surveyed line.</li>
+    <li>The mower is a low-poly John Deere S130: 73.3 in long and 45.5 in tall (TractorData), with a 48.9 in wheelbase, 15 in front and 20 in rear tires, and a 42 in deck. Its ~54 in width with the discharge chute is an estimate.</li>
   </ul>
 </section>
 
@@ -138,7 +143,7 @@ dd { margin: 0; text-align: right; font-family: var(--f-mono); font-variant-nume
 const L = 43, W = 23, SLAB = 0.5, OH = 1.0, PITCH = 3 / 12, T = 0.15;
 const HOUSE_CORNER = [32.0, -15.0];   // the house's NW wall corner, from the site plan
 const FENCE_Y = W + 6;
-const state = { eave: 14, dw: 12, dh: 12, open: false, ctx: true };
+const state = { eave: 14, dw: 12, dh: 12, open: true, ctx: true, mower: true, xray: false };
 
 const fmt = v => { const i = Math.round(v * 12); return `${Math.floor(i / 12)}'-${i % 12}"`; };
 const doorsX = () => [L / 4, 3 * L / 4].map(c => [c - state.dw / 2, c + state.dw / 2]);
@@ -159,6 +164,7 @@ function facts() {
 const views = {
   oblique: { eye: [-24, -40, 27], at: [21.5, 10, 6], fov: 40 },
   yard: { eye: [17, -46, 5.3], at: [21.5, 11.5, 8.5], fov: 50 },
+  doorway: { eye: [13.5, -13, 5.3], at: [10.75, 7, 2.6], fov: 55 },
   house: { eye: [46, -12.5, 6.5], at: [17, 9, 5.5], fov: 55 },
   north: { eye: [10, 78, 5.3], at: [21.5, 11.5, 9], fov: 45 },
 };
@@ -241,6 +247,41 @@ function start() {
   const head = new THREE.Mesh(new THREE.SphereGeometry(0.4, 18, 12), M.skin); head.position.set(0, 5.35, 0);
   for (const m of [body, head]) { m.castShadow = true; fig.add(m); }
   fig.position.copy(P(L / 4 - state.dw / 2 - 2.2, -3.5, 0));
+
+  // John Deere S130 lawn tractor, low-poly, for scale. Inches; local x forward from the rear
+  // axle, y to the left, z up. 73.3 in long and 45.5 in tall (TractorData), 48.9 in wheelbase,
+  // 15x6.00-6 front and 20x10.00-8 rear tires, 42 in deck; ~54 in wide with the chute (estimate).
+  const jd = { green: new THREE.MeshStandardMaterial({ color: col("#367c2b"), roughness: 0.45, metalness: 0.2 }),
+               yellow: new THREE.MeshStandardMaterial({ color: col("#f2c500"), roughness: 0.5 }),
+               black: new THREE.MeshStandardMaterial({ color: col("#1c1d1c"), roughness: 0.85 }) };
+  const mower = new THREE.Group(); scene.add(mower);
+  {
+    const I = 1 / 12, mb = (x0, x1, y0, y1, z0, z1, m) => box(x0 * I, x1 * I, y0 * I, y1 * I, z0 * I, z1 * I, m, mower);
+    const wheel = (x, y, r, w, rim) => {
+      for (const [rr, ww, m] of [[r, w, jd.black], [rim, w + 0.4, jd.yellow]]) {
+        const c = new THREE.Mesh(new THREE.CylinderGeometry(rr * I, rr * I, ww * I, 14), m);
+        c.rotation.x = Math.PI / 2; c.position.copy(P(x * I, y * I, r * I)); c.castShadow = true; mower.add(c);
+      }
+    };
+    for (const s of [-1, 1]) { wheel(0, s * 14, 10, 10, 5.5); wheel(48.9, s * 13, 7.5, 6, 4); }
+    mb(-6, 58, -11, 11, 7, 13, jd.black);          // frame
+    mb(14, 40, -16, 16, 11, 13, jd.black);         // footrests
+    mb(36, 60.3, -10.5, 10.5, 12, 29, jd.green);   // hood
+    mb(59.6, 60.3, -9, 9, 14, 27, jd.black);       // grille
+    mb(28, 36, -8, 8, 13, 33, jd.green);           // dash
+    mb(-13, 16, -19, 19, 20, 23, jd.green);        // rear fenders
+    mb(-6, 12, -9, 9, 23, 27.5, jd.black);         // seat
+    mb(-9.5, -5.5, -9, 9, 26, 41, jd.black);       // seat back
+    mb(14, 36, -23, 23, 4, 10, jd.green);          // 42 in deck
+    mb(20, 30, -31, -23, 4, 8, jd.black);          // discharge chute, right side
+    mb(-14, -12, -2, 2, 8, 10, jd.black);          // hitch
+    bar([31 * I, 0, 32 * I], [24 * I, 0, 42 * I], 2 * I, 2 * I, jd.black, mower);   // steering column
+    const sw = new THREE.Mesh(new THREE.TorusGeometry(7 * I, 0.8 * I, 6, 18), jd.black);
+    sw.position.copy(P(23.5 * I, 0, 43.5 * I)); sw.rotation.x = Math.PI / 2; sw.rotation.y = -0.45; sw.castShadow = true; mower.add(sw);
+  }
+  // Parked in the west bay, nose to the door.
+  mower.rotation.y = -Math.PI / 2;
+  mower.position.copy(P(L / 4, 8.0, SLAB));
 
   // The building, rebuilt when a slider moves.
   let bldg = null;
@@ -374,6 +415,13 @@ function start() {
   const openBtn = document.getElementById("open"), ctxBtn = document.getElementById("ctx");
   openBtn.addEventListener("click", () => { state.open = !state.open; openBtn.setAttribute("aria-pressed", String(state.open)); build(); });
   ctxBtn.addEventListener("click", () => { state.ctx = !state.ctx; ctx.visible = state.ctx; ctxBtn.setAttribute("aria-pressed", String(state.ctx)); render(); });
+  const mowerBtn = document.getElementById("mower"), xrayBtn = document.getElementById("xray");
+  mowerBtn.addEventListener("click", () => { state.mower = !state.mower; mower.visible = state.mower; mowerBtn.setAttribute("aria-pressed", String(state.mower)); render(); });
+  xrayBtn.addEventListener("click", () => {
+    state.xray = !state.xray; xrayBtn.setAttribute("aria-pressed", String(state.xray));
+    for (const m of [M.steel, M.door]) { m.transparent = state.xray; m.opacity = state.xray ? 0.22 : 1; m.depthWrite = !state.xray; m.needsUpdate = true; }
+    render();
+  });
   document.querySelectorAll("#views button").forEach(b => b.addEventListener("click", () => go(b.dataset.view)));
   controls.addEventListener("change", render);
   new ResizeObserver(size).observe(stage);

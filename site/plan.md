@@ -32,7 +32,12 @@ are cheap.
 2. **Locate the buried electric line.** It runs underground from the meter pole at the NW
    fence corner to the house (owner confirmed, Oct 18 2026). The route isn't known.
    - It's private past the meter, so 811 won't mark it. Hire a private utility locator.
-   - Every straight route from the pole to the house runs under site A.
+   - Every straight route from the pole to the house runs under site A. It runs under site
+     B too if it enters the house on the north wall (up to ~32 ft under B); a route to the
+     back gable or the back wall misses B. Where's the main panel?
+   - Have the locator give the depth too.
+   - **No slab over the line as it is** (see notes, "A slab over the buried line"). Reroute it
+     in new conduit around the chosen site. Use the same trench as building B's own power.
    - Call 811 (Texas811) as well before any digging, for the utility-owned lines.
 3. **Stake the property lines.** A surveyor sets pins on the US-290 line and the back line.
    - Both fences wander off the surveyed lines. Building B sits on the 5 ft setback with no

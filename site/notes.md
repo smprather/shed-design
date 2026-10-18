@@ -1589,6 +1589,35 @@ They explained it as "the open path through the trees." It's in the private repo
   under it. The 3D model now draws it that way (`GABLET` in `house_layout.py`, 5.5 ft back, a
   guess).
 
+### A slab over the buried line? (owner's question, Oct 18 2026)
+
+- **Not over the line as it is, but yes in conduit.**
+  - The NEC (300.5 and Table 300.5) lets wiring run under a building only in a raceway
+    (conduit), carried out past the outside walls.
+  - A line buried as cable, as most older yard runs are, has to be dug up across the
+    footprint and replaced or sleeved in conduit. Then there are no splices under the slab.
+- **The construction is the bigger risk.** The line is probably 18–24 in down. The pad's
+  stripping and compaction would reach it, and so would the thickened edges (12–24 in) and a
+  metal building's column piers (often 3–4 ft).
+- **Under a slab, a fault can't be dug out,** so the cable can't be repaired in place. In
+  conduit it can at least be pulled and replaced.
+- **The better fix: reroute it around the pad.**
+  - New conduit from the meter pole to the house, in the same trench as building B's own
+    feed, plus a spare conduit.
+  - It's the owner's line past the meter, so it's the owner's electrician's job.
+  - Keep the trench out of the twin oak's root zone and off the drainfield.
+- **Which site it hits** (straight routes from the meter pole, `plan3d.py` geometry; the
+  real route may bend):
+
+  | Enters the house at | Run | Under site A | Under site B |
+  |---|---|---|---|
+  | Back gable (west wall of the two-story) | 136–146 ft | 28–37 ft | 0–4 ft |
+  | North wall of the two-story | 141–169 ft | 35 ft | 10–32 ft |
+  | Back wall of the main block | 173–190 ft | 14–35 ft | 0 |
+
+  - The house's main panel location narrows it down; the locator settles it.
+- **The sites as drawn:** site B is 23 × 43 ft = 989 sq ft; site A is 27 × 34 ft = 918 sq ft.
+
 ### Viewer: the trees on our lot in more detail (owner's ask, Oct 18 2026)
 
 - **On our lot, and 8 m past its lines, the existing trees are built finer** from the 1 m

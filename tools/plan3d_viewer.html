@@ -537,6 +537,7 @@ details li b { font-weight: 600; }
       trim: lam(0x46494d), glass: new THREE.MeshPhongMaterial({ color: 0x27323b, shininess: 90, specular: 0x8899aa }),
       frame: lam(0xebe8e1), shutter: lam(0x34465e), door: lam(0x4a3426), "garage-door": lam(0x2e3d5c),
       concrete: lam(0xb8b3a8), deck: lam(0x8b5e48), "deck-skirt": lam(0x5e4434),
+      post: lam(0x9a7656), "metal-roof": lam(0x7d7368, { side: THREE.DoubleSide }),
     };
     // Box faces get UVs in feet, so the textures keep their size on every box.
     const worldUV = (geo) => {
@@ -786,17 +787,40 @@ details li b { font-weight: 600; }
   sizeTrees(1); fadeTrees(0.85);
 
   // Existing trees: the 2017 lidar canopy still standing in the latest Sentinel-2 scene (fetch_canopy.py).
-  // Each block of canopy gets a foliage clump near its top, and a lower one in tall trees; treetops get trunks.
+  // Off our lot, each block of canopy gets a low-poly foliage clump near its top, and a lower one in tall trees;
+  // treetops get trunks. On the lot (CANOPY.lot, the 1 m cells) the trees are built finer: smooth, lumpy clumps
+  // every 2 m in up to three layers, and each tree gets a flared trunk with limbs reaching out to its crown.
   const CANOPY = /*CANOPY*/;
   const canopyMats = [];
   if (CANOPY) {
     const bytes = (s) => Uint8Array.from(atob(s), ch => ch.charCodeAt(0));
-    const zg = bytes(CANOPY.zg), hh = bytes(CANOPY.h), k = CANOPY.cell, st = CANOPY.step;
-    const spots = [];
+    const zg = bytes(CANOPY.zg), hh = bytes(CANOPY.h), k = CANOPY.cell, st = CANOPY.step, lot = CANOPY.lot;
     let seed = 290;
     const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+    const inPoly = (x, y, poly) => {
+      let c = false;
+      for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+        const [xi, yi] = poly[i], [xj, yj] = poly[j];
+        if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c;
+      }
+      return c;
+    };
+    const segDist = (x, y, [ax, ay], [bx, by]) => {
+      const dx = bx - ax, dy = by - ay, u = Math.max(0, Math.min(1, ((x - ax) * dx + (y - ay) * dy) / (dx * dx + dy * dy)));
+      return Math.hypot(x - ax - u * dx, y - ay - u * dy);
+    };
+    // A block is drawn in detail when its center is on our lot or within lot.margin of it (so crowns over the line
+    // stay whole); the 1 m cells follow their block, so the two never overlap.
+    const detail = new Uint8Array(CANOPY.nx * CANOPY.ny);
+    if (lot) for (let j = 0; j < CANOPY.ny; j++) for (let i = 0; i < CANOPY.nx; i++) {
+      const x = CANOPY.x0 + (i + 0.5) * k, y = CANOPY.y0 + (j + 0.5) * k;
+      detail[j * CANOPY.nx + i] = inPoly(x, y, lot.poly) || lot.poly.some((a, n) => segDist(x, y, a, lot.poly[(n + 1) % lot.poly.length]) < lot.margin) ? 1 : 0;
+    }
+    const onLot = (i, j) => i >= 0 && j >= 0 && i < CANOPY.nx && j < CANOPY.ny && detail[j * CANOPY.nx + i] === 1;
+    const blockOf = (x, y) => [Math.floor((x - CANOPY.x0) / k), Math.floor((y - CANOPY.y0) / k)];
+    const spots = [];
     for (let j = 0; j < CANOPY.ny; j++) for (let i = 0; i < CANOPY.nx; i++) {
-      const h = hh[j * CANOPY.nx + i] * st; if (h <= 0) continue;
+      const h = hh[j * CANOPY.nx + i] * st; if (h <= 0 || onLot(i, j)) continue;
       const x = CANOPY.x0 + (i + 0.5) * k, y = CANOPY.y0 + (j + 0.5) * k, z = CANOPY.zmin + zg[j * CANOPY.nx + i] * st;
       const s = k / 2;   // clump size follows the block size
       spots.push([x + (rnd() - 0.5) * s * 0.6, y + (rnd() - 0.5) * s * 0.6, z + h - 0.6 * s, (0.95 + 0.25 * rnd()) * s, 0.95 + 0.15 * rnd()]);
@@ -814,16 +838,142 @@ details li b { font-weight: 600; }
     mesh.userData.id = "existing_trees"; node.add(mesh);
     const trunkMat = new THREE.MeshLambertMaterial({ color: 0x6b5a48, transparent: true });
     const stick = new THREE.CylinderGeometry(0.7, 1, 1, 6); stick.translate(0, 0.5, 0);
-    const trunks = new THREE.InstancedMesh(stick, trunkMat, CANOPY.tops.length);
-    CANOPY.tops.forEach(([x, y, z, h], i) => {
+    const offTops = CANOPY.tops.filter(([x, y]) => !onLot(...blockOf(x, y)));
+    const trunks = new THREE.InstancedMesh(stick, trunkMat, Math.max(offTops.length, 1));
+    trunks.count = offTops.length;
+    offTops.forEach(([x, y, z, h], i) => {
       const r = 0.12 + 0.012 * h;
       m4.compose(P([x, y, z - 0.1]), q.identity(), new THREE.Vector3(r, 0.45 * h, r)); trunks.setMatrixAt(i, m4);
     });
     trunks.userData.id = "existing_trees"; node.add(trunks);
     canopyMats.push(mat, trunkMat);
-    items.existing_trees = { node, mats: [{ mat, kind: "mesh" }], meta: { label: "Existing trees (2017 lidar)", group: "Existing trees",
+    const mats = [{ mat, kind: "mesh" }];
+
+    if (lot) {
+      const lh = bytes(lot.h), lz = bytes(lot.zg);
+      const mask = new Uint8Array(lot.nx * lot.ny);
+      for (let r = 0; r < lot.ny; r++) for (let cc = 0; cc < lot.nx; cc++)
+        mask[r * lot.nx + cc] = onLot(...blockOf(lot.x0 + cc + 0.5, lot.y0 + r + 0.5)) ? 1 : 0;
+      const H = (cc, r) => (cc < 0 || r < 0 || cc >= lot.nx || r >= lot.ny || !mask[r * lot.nx + cc]) ? 0 : lh[r * lot.nx + cc] * st;
+      const G = (cc, r) => lot.zmin + lz[Math.min(Math.max(r, 0), lot.ny - 1) * lot.nx + Math.min(Math.max(cc, 0), lot.nx - 1)] * st;
+      // Foliage: one clump per 2 x 2 m of canopy at the crown's top, with a lower and a middle layer in taller trees.
+      const clumps = [];   // [x, y, z, radius, shade, layer]
+      for (let r = 0; r < lot.ny; r += 2) for (let cc = 0; cc < lot.nx; cc += 2) {
+        const cells = [[cc, r], [cc + 1, r], [cc, r + 1], [cc + 1, r + 1]].filter(([a, b]) => H(a, b) > 0);
+        if (cells.length < 2) continue;
+        const h = Math.max(...cells.map(([a, b]) => H(a, b))), z = cells.reduce((sum, [a, b]) => sum + G(a, b), 0) / cells.length;
+        const x = lot.x0 + cc + 1 + (rnd() - 0.5) * 0.8, y = lot.y0 + r + 1 + (rnd() - 0.5) * 0.8;
+        const rr = Math.min(1.25 + 0.4 * rnd(), 0.35 + 0.5 * h), top = z + Math.max(h - 0.7 * rr, 0.75 * rr);
+        clumps.push([x, y, top, rr, 0.95 + 0.15 * rnd(), 0]);
+        if (h > 4.5) {
+          const low = z + Math.max(0.55 * h, 3.0);
+          clumps.push([x + (rnd() - 0.5) * 0.8, y + (rnd() - 0.5) * 0.8, low, rr * (1.05 + 0.15 * rnd()), 0.74 + 0.1 * rnd(), 2]);
+          if (top - low > 2.6) clumps.push([x + (rnd() - 0.5) * 0.8, y + (rnd() - 0.5) * 0.8, (top + low) / 2, rr * (1.0 + 0.15 * rnd()), 0.84 + 0.1 * rnd(), 1]);
+        }
+      }
+      // Four lumpy spheres (bumps from a few random waves), so neighbouring clumps don't repeat.
+      const lumpy = () => {
+        const g = new THREE.SphereGeometry(1, 14, 9), p = g.attributes.position, v = new THREE.Vector3(), n = new THREE.Vector3();
+        const waves = [...Array(6)].map(() => [new THREE.Vector3(rnd() - 0.5, rnd() - 0.5, rnd() - 0.5).normalize(), 3 + 5 * rnd(), rnd() * 6.3]);
+        for (let i = 0; i < p.count; i++) {
+          v.fromBufferAttribute(p, i); n.copy(v).normalize();
+          let d = 0; for (const [w, f, ph] of waves) d += Math.sin(n.dot(w) * f + ph);
+          v.multiplyScalar(1 + 0.06 * d); p.setXYZ(i, v.x, v.y, v.z);
+        }
+        g.computeVertexNormals(); return g;
+      };
+      const leafMat = new THREE.MeshLambertMaterial({ transparent: true });
+      const kinds = [lumpy(), lumpy(), lumpy(), lumpy()];
+      kinds.forEach((geo, kind) => {
+        const mine = clumps.filter((_, i) => i % kinds.length === kind);
+        const im = new THREE.InstancedMesh(geo, leafMat, Math.max(mine.length, 1)); im.count = mine.length;
+        mine.forEach(([x, y, z, r, shade], i) => {
+          q.setFromEuler(e.set((rnd() - 0.5) * 0.6, rnd() * 6.3, (rnd() - 0.5) * 0.6));
+          m4.compose(P([x, y, z]), q, new THREE.Vector3(r * (1 + 0.15 * rnd()), r * 0.78, r * (1 + 0.15 * rnd()))); im.setMatrixAt(i, m4);
+          im.setColorAt(i, c.setScalar(shade));
+        });
+        im.userData.id = "existing_trees"; node.add(im);
+      });
+      // Trunks: the surveyed ones, then the lidar treetops at least 5 m from any trunk already placed.
+      const peak = (x, y, rad) => {
+        let best = 0;
+        for (let r = Math.floor(y - rad - lot.y0); r <= y + rad - lot.y0; r++)
+          for (let cc = Math.floor(x - rad - lot.x0); cc <= x + rad - lot.x0; cc++) best = Math.max(best, H(cc, r));
+        return best;
+      };
+      const trees = lot.trunks.map(([x, y, z, d]) => ({ x, y, z, h: Math.max(peak(x, y, 4), 4), r: d / 2 }));
+      for (const [x, y, z, h] of CANOPY.tops) {
+        if (!onLot(...blockOf(x, y)) || trees.some(t => Math.hypot(t.x - x, t.y - y) < 5)) continue;
+        trees.push({ x, y, z, h, r: 0.12 + 0.012 * h });
+      }
+      // Each top and middle clump belongs to the nearest trunk whose crown could reach it (not to a much taller
+      // tree's understory); the crotch leans toward the crown's middle.
+      const own = trees.map(() => []);
+      for (const cl of clumps) {
+        if (cl[5] === 2) continue;
+        let best = -1, bd = Infinity;
+        trees.forEach((t, i) => {
+          const d = Math.hypot(cl[0] - t.x, cl[1] - t.y);
+          if (d < bd && d < Math.max(4, 0.9 * t.h) && cl[2] - t.z > 0.45 * t.h) { bd = d; best = i; }
+        });
+        if (best >= 0) own[best].push(cl);
+      }
+      const segs = [];   // [from xyz, to xyz, radius at from]
+      trees.forEach((t, i) => {
+        const cl = own[i], cx = cl.length ? cl.reduce((s, p) => s + p[0], 0) / cl.length : t.x, cy = cl.length ? cl.reduce((s, p) => s + p[1], 0) / cl.length : t.y;
+        const lean = Math.min(1, 1.2 / Math.max(Math.hypot(cx - t.x, cy - t.y), 1e-6));
+        const crotch = [t.x + (cx - t.x) * 0.3 * lean, t.y + (cy - t.y) * 0.3 * lean, t.z + Math.min(Math.max(0.3 * t.h, 1.8), 3.5)];
+        segs.push([[t.x, t.y, t.z - 0.15], crotch, t.r, true]);
+        // Limbs: out to the farthest clump in each of 8 directions, arching up a little on the way; twigs to some others.
+        const far = new Array(8).fill(null);
+        for (const p of cl) {
+          const dx = p[0] - crotch[0], dy = p[1] - crotch[1], d = Math.hypot(dx, dy);
+          if (d < 2) continue;
+          const sec = Math.floor(((Math.atan2(dy, dx) + Math.PI) / (2 * Math.PI)) * 8) % 8;
+          if (!far[sec] || d > far[sec].d) far[sec] = { p, d };
+        }
+        const mids = [];
+        for (const f of far) {
+          if (!f) continue;
+          const [x, y, z, rr] = f.p, back = Math.min(0.45 * rr / f.d, 0.4);
+          const end = [x - (x - crotch[0]) * back, y - (y - crotch[1]) * back, Math.max(z - 0.25 * rr, crotch[2] + 0.3)];
+          const mid = [(crotch[0] + end[0]) / 2, (crotch[1] + end[1]) / 2, (crotch[2] + end[2]) / 2 + 0.12 * f.d];
+          const rl = t.r * Math.min(0.75, 0.4 + 0.04 * f.d);
+          segs.push([crotch, mid, rl], [mid, end, rl * 0.7]);
+          mids.push({ mid, rl, end });
+        }
+        if (!mids.length) return;
+        for (const p of cl) {
+          if (rnd() < 0.45) continue;
+          const tip = [p[0], p[1], Math.max(p[2] - 0.3 * p[3], crotch[2] + 0.3)];
+          if (mids.some(m => Math.hypot(m.end[0] - tip[0], m.end[1] - tip[1]) < 2)) continue;
+          let m = mids[0], bd = Infinity;
+          for (const cand of mids) { const d = Math.hypot(cand.mid[0] - tip[0], cand.mid[1] - tip[1]); if (d < bd) { bd = d; m = cand; } }
+          if (bd > 1.2) segs.push([m.mid, tip, m.rl * 0.45]);
+        }
+      });
+      // One tapered, open-ended cylinder per segment (trunks get a root flare), oriented from its start to its end.
+      const limbGeo = new THREE.CylinderGeometry(0.7, 1, 1, 9, 1, true); limbGeo.translate(0, 0.5, 0);
+      const trunkGeo = new THREE.LatheGeometry([[1.7, -0.02], [1.25, 0.05], [1.05, 0.14], [0.9, 0.55], [0.78, 1.0]].map(([x, y]) => new THREE.Vector2(x, y)), 14);
+      const barkMat = new THREE.MeshLambertMaterial({ color: 0x5f5043, transparent: true });
+      const UPV = new THREE.Vector3(0, 1, 0), a = new THREE.Vector3(), b = new THREE.Vector3(), dir = new THREE.Vector3();
+      for (const isTrunk of [true, false]) {
+        const mine = segs.filter(s => !!s[3] === isTrunk);
+        const im = new THREE.InstancedMesh(isTrunk ? trunkGeo : limbGeo, barkMat, Math.max(mine.length, 1)); im.count = mine.length;
+        mine.forEach(([p0, p1, r], i) => {
+          a.copy(P(p0)); b.copy(P(p1)); dir.subVectors(b, a); const len = dir.length();
+          q.setFromUnitVectors(UPV, dir.normalize());
+          m4.compose(a, q, new THREE.Vector3(r, len + (isTrunk ? 0 : 0.6 * r), r)); im.setMatrixAt(i, m4);
+        });
+        im.userData.id = "existing_trees"; node.add(im);
+        if (isTrunk) solids.push(im);   // walking bumps into trunks
+      }
+      canopyMats.push(leafMat, barkMat);
+      mats.push({ mat: leafMat, kind: "mesh" });
+    }
+    items.existing_trees = { node, mats, meta: { label: "Existing trees (2017 lidar)", group: "Existing trees",
       token: "canopy", solid: true, status: "2017 heights; still standing in Oct 2026",
-      source: CANOPY.source + `. Drawn per ${CANOPY.cell} m block, with a trunk at each treetop.`,
+      source: CANOPY.source + `. Off our lot, drawn per ${CANOPY.cell} m block with a trunk at each treetop. On our lot and ${CANOPY.lot ? CANOPY.lot.margin : 0} m past its lines, from the 1 m cells: a clump of foliage per 2 m, a trunk per tree with limbs out to its crown, and the twin oak on its two surveyed trunks (field data). Limbs follow the crown, not the real branches.`,
       notes: "Mostly live oak. On our lot the canopy is 17-28 ft for the middle half of it, with a few crowns to 35-42 ft (the twin oak ~37 ft). The woods on the retail lot's south arm and in the apartment lot's undisturbed half still stand; the retail strip and most of the apartment site are cleared. Heights are from 2017, so live oaks have grown a little since, and single trees may have been removed: check against photos." } };
   }
   function fadeCanopy(opacity) {
@@ -1154,8 +1304,9 @@ details li b { font-weight: 600; }
   const tmp = new THREE.Vector3();
   const fpsEl = document.getElementById("fps");
   let frames = 0, since = performance.now(), last = performance.now(), eyeTick = 0;
-  const fdir = new THREE.Vector3(), right = new THREE.Vector3(), step = new THREE.Vector3(), from = new THREE.Vector3(), wn = new THREE.Vector3();
+  const fdir = new THREE.Vector3(), right = new THREE.Vector3(), step = new THREE.Vector3(), from = new THREE.Vector3(), wn = new THREE.Vector3(), im4 = new THREE.Matrix4();
   // Walking: slide along walls instead of passing through them (rays at knee and chest height).
+  const shown = (o) => { for (; o; o = o.parent) if (!o.visible) return false; return true; };   // hidden things don't stop you
   function collide(v) {
     for (let pass = 0; pass < 3; pass++) {
       const len = v.length(); if (len < 1e-6) return;
@@ -1163,8 +1314,12 @@ details li b { font-weight: 600; }
       for (const h of [0.45, 1.25]) {
         from.set(camera.position.x, feet + h, camera.position.z);
         wallRay.set(from, d); wallRay.far = len + RADIUS;
-        const hit = wallRay.intersectObjects(solids, false)[0];
-        if (hit && hit.face) { wn.copy(hit.face.normal).transformDirection(hit.object.matrixWorld); wn.y = 0; if (wn.lengthSq() > 1e-6) { hitN = wn.normalize().clone(); break; } }
+        const hit = wallRay.intersectObjects(solids, false).find(h => shown(h.object));
+        if (hit && hit.face) {
+          wn.copy(hit.face.normal);
+          if (hit.instanceId !== undefined) { hit.object.getMatrixAt(hit.instanceId, im4); wn.transformDirection(im4); }   // a tree trunk
+          wn.transformDirection(hit.object.matrixWorld); wn.y = 0; if (wn.lengthSq() > 1e-6) { hitN = wn.normalize().clone(); break; }
+        }
       }
       if (!hitN) return;
       if (pass === 2) { v.set(0, 0, 0); return; }

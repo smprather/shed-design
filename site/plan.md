@@ -5,7 +5,7 @@ sources, corrections and dates. This file says what we're doing, in what order, 
 still undecided. Update it when a decision changes; record the facts behind the change in
 `notes.md`.
 
-Last updated: Oct 18 2026 (house model).
+Last updated: Oct 18 2026 (second photo walk: the house's back, an oak on loop C's path).
 
 ## The four projects
 
@@ -222,6 +222,12 @@ See `front-yard.png` and the 3D viewer's "Front yard" view.
   - **The front walk:** loop C crosses it about 40 ft back from the street.
   - **The lone oak:** it stays in the island, ~27 ft from the paving (the sketch came within
     ~15 ft). Its trunk is estimated from the lidar crown; tape it before finalizing.
+  - **The bulge oak (Oct 18 photos):** a big leaning live oak stands in the lawn bulge where
+    loop C joins the existing drive. Its trunk is within a few feet of the lane's edge, or
+    under it (photo GPS, ±10 ft).
+    - Tape the trunk.
+    - Loop C's north end probably has to change: join the drive nearer the street, or end
+      the lane at the porch's north end.
   - **Under the porch-front oaks:** build that stretch no-dig, with permeable pavers or
     gravel over geogrid on the existing grade.
   - **Hedge and myrtle:** the hedge's street end and the crape myrtle may need to move.
@@ -250,6 +256,7 @@ The kitchen's measurements are listed in its own repo.
 | Chain-link gate's clear opening | Truck access to B and the septic | Tape |
 | The rusty casing by the burn barrel: is it the well? Its distance to both fences | Keep-outs for the trees and any wall | Look and tape |
 | Lone front-lawn oak: trunk position (from the front and south lines) and girth | Loop C | Tape |
+| Bulge oak, between the drive and the porch's north end (and the stump beside it): trunk position and girth | Loop C's join to the drive | Tape |
 | Along the street: from the walk's center to the drive's south edge | Whether the drive was widened since 1991 (plat ~36 ft, aerial ~28 ft) | Tape |
 | Twin oak's second trunk girth (worksheet 11) | Root-zone size | Tape around at 4.5 ft up |
 | Branches over B's east end (17a) | Roof and erection clearance | Laser or pole |
@@ -258,6 +265,7 @@ The kitchen's measurements are listed in its own repo.
 | **House model:** ground to the gutter at the front porch, the garage's NE corner, the two-story's north eave and the back wall; the roof pitch on one gable (a phone level on the rake) | Heights and pitches (now guessed) | Laser or tape |
 | **House model:** along the back wall from the SW corner: the deck's ends, the chimney, the back door; the deck's height above the lawn | Deck, chimney and door positions | Tape |
 | **House model:** the step from the walk up to the porch, and from the deck down to the lawn | The floor level | Tape |
+| **House model:** the pergola: its posts from the back wall and the two-story's south face, and the roof's height at both edges | Pergola (now guessed) | Tape |
 
 ## Sources
 

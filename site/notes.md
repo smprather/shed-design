@@ -1398,7 +1398,9 @@ Oct 13 photos (02, 12, 16, 18).
 - **The photos settled:**
   - **The two-story part runs along the north wall.** It goes from just west of the garage
     through the NW wing: s 85.2–126.2 × t 68.8–90.1, ~873 sq ft (the county says 882).
-    - Stone first story, vertical siding above.
+    - Stone first story, vertical siding above, on the north face. The back gable and the
+      south face are sided from the ground up (corrected Oct 18; see "Yard photos, second
+      walk").
     - Eave along the north wall at ~18 ft (photo scale), and a gable facing the back yard.
     - The earlier guess that the two-story part sat behind the front, mid-house, was wrong.
   - **The porch and the garage share one roof plane.** It rises west from the porch eave
@@ -1413,8 +1415,8 @@ Oct 13 photos (02, 12, 16, 18).
   - the roof over the entry and kitchen (drawn as its own gable);
   - the deck's position (10 × 24 ft off the middle of the back wall);
   - the chimney's size and spot;
-  - every window and door on walls not yet photographed: the south wall, most of the back,
-    and the two-story's south face.
+  - every window and door on walls not yet photographed: the south wall and most of the
+    back (the two-story's south face and back gable were photographed Oct 18).
 - **The viewer gained fly and walk modes, Quake style** (owner's ask, Oct 18 2026).
   - Picking Fly or Walk (or clicking the view) captures the mouse to look; WASD moves; Esc
     lets go.
@@ -1495,6 +1497,77 @@ as `north_line_fence` in `property_total_plan.jsonc`, drawn like the back fence.
     overhead, then confirmed it's underground, as the Oct 13 photo suggested.
 - **Construction access to A** is past B's site, along the north strip. A concrete pump would
   need a longer reach than for B.
+
+### Yard photos, second walk (Oct 18 2026)
+
+The owner took 13 more photos around 11:20 am. They're in the private repo,
+`photos/2026-10-18_yard-walk/`, with an index. They carry the phone's GPS and compass, so each
+is placed on the plan: GPS ±5–7 m (±15–25 ft), heading to a few degrees.
+
+- **The back of the house** (from the back lawn):
+  - **Sided, not stone.** These walls have vertical siding from the ground up:
+    - the two-story's back gable;
+    - its south face over the deck;
+    - the wall north of the stone south rooms, which has a sliding door onto the deck.
+  - **Where the stone is:** on the first story of the north face, the front and the south
+    rooms.
+  - **Upstairs windows:**
+    - a band of three tall windows at the west end of the two-story's south face;
+    - one on the back gable by that corner, under a louvered gable vent.
+  - **The deck:**
+    - It's low, with no railing, and steps down to the lawn.
+    - It runs along the two-story's south face and in front of the stone rooms.
+    - A pergola covers its inside corner: cedar-log posts and beams under a corrugated metal
+      roof.
+  - **The tall upright tree by the deck** (Oct 13) is at the deck's SW corner. It isn't a
+    live oak.
+  - **In the 3D model** (`house_layout.py`): the siding, the windows, the pergola and the
+    railing-free deck. The pergola's size and heights are guesses.
+- **The north strip** (from site B, looking west and north-west):
+  - **Same features as Oct 13:**
+    - the burn barrel, a fire ring and the white septic access pipe;
+    - the junipers at the NW corner;
+    - three US-290 poles just past the fence.
+  - **The fences:** both are horizontal boards, ~8 ft. The US-290 one is stained dark; the
+    back one is lighter.
+- **The back-lawn oaks:** looking west from site B, there's a big live oak with long low
+  limbs, and a twin-trunk oak behind it. They stand just south of B's footprint, where the
+  lidar has them. (That photo was taken from inside the footprint.)
+- **The front:**
+  - **A big leaning live oak stands in the lawn bulge** between the drive and the porch's
+    north end.
+    - An old stump stands beside it, toward the porch.
+    - Three photos (3474, 3479, 3481) put the trunk at about s 40–45, t 90–95 (±10 ft).
+    - That's the bulge the existing drive swings around.
+  - **Loop C crosses that bulge to join the drive.** Its lane runs at s 44–56 there, so its
+    edge is within a few feet of the trunk, or over it. Tape the trunk; loop C's north end
+    probably has to change.
+  - **The porch's north end** is open to the apron. The garage door is navy blue. The drive
+    is exposed-aggregate concrete.
+- **For the shadow photos:**
+  - **No overhead sun in late October.** The sun peaks ~48–50° up at solar noon, about
+    1:15 pm CDT.
+  - **At solar noon, shadows point due north.** That's toward US-290, angled ~28° toward the
+    back of the lot.
+  - **Shadow length is ~0.85–0.9× the tree's height.** Note the time with each photo, and the
+    sun angle can be worked out exactly.
+  - **Uses:**
+    - Shadows give heights: tape from the trunk to the shadow's tip.
+    - For crown outlines, the shadow is the crown shifted north by ~0.9× its height. Marking
+      the drip line on the ground under the crown is more direct.
+
+### Viewer: the trees on our lot in more detail (owner's ask, Oct 18 2026)
+
+- **On our lot, and 8 m past its lines, the existing trees are built finer** from the 1 m
+  lidar cells. Off the lot they stay as before, so the viewer stays fast.
+  - **Foliage:** a smooth, lumpy clump of leaves every 2 m, in up to three layers in the
+    tall crowns.
+  - **Trunks:** one per tree, flared at the base. The twin oak stands on its two surveyed
+    trunks (24 in).
+  - **Limbs:** they run out from each trunk to the edge of its crown, with smaller branches
+    to the clumps between.
+- **The limbs follow the crown,** not the real branching.
+- **Walking bumps into those trunks.** Hidden things no longer stop you.
 
 ### Windows and doors
 

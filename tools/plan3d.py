@@ -54,6 +54,7 @@ TREE_SIDE_INSET = 6.0  # ft in from the side lines
 OAK_NO_DIG = 12.0  # ft around the twin oak
 GAP_HEIGHT = 4.5  # m (15 ft): a planned spot under standing canopy this tall already has a tree; plant the gaps only
 CANOPY_CELL = 3  # existing trees are drawn per 3 x 3 m block of the 1 m canopy grid
+DETAIL_MARGIN = 8.0  # ...but in more detail on our lot and this far (m) past its lines, so crowns over the line stay whole
 # Back row holly; front row alternates yaupon and mountain laurel, offset half a space. No cypress or
 # juniper (allergies). Sizes are (height, crown width) in ft when planted (15 gal), at ~8 years with
 # drip, and mature.
@@ -298,8 +299,14 @@ class Canopy:
         w = self.h[r0:r1, c0:c1]
         return float(w.max()) if w.size else 0.0
 
-    def for_viewer(self, ground: "Terrain", k: int = CANOPY_CELL) -> dict:
-        """Blocks of k m (ground and canopy height packed as bytes) and treetops, for the viewers."""
+    def for_viewer(self, ground: "Terrain", k: int = CANOPY_CELL, lot: list[Pt] | None = None,
+                   trunks: list[tuple[float, float, float]] = ()) -> dict:
+        """Blocks of k m (ground and canopy height packed as bytes) and treetops, for the viewers.
+
+        With `lot` (a plan polygon), also the 1 m cells around it, so the viewer can draw the trees on our lot (and
+        DETAIL_MARGIN past its lines) in more detail; `trunks` are surveyed trunks there (plan x, y and diameter, m),
+        drawn instead of nearby treetops.
+        """
         ny, nx = self.ny // k, self.nx // k
         blocks = self.h[:ny * k, :nx * k].reshape(ny, k, nx, k)
         # A block is tree only where about half its cells are canopy, so crown edges don't spread.
@@ -314,8 +321,22 @@ class Canopy:
             if all((x - t[0]) ** 2 + (y - t[1]) ** 2 > 9 for t in tops):
                 tops.append([round(x, 1), round(y, 1), round(ground(x, y), 2), round(float(self.h[r, c]), 1)])
         pack = lambda a: base64.b64encode(np.clip(np.round(a), 0, 255).astype(np.uint8).tobytes()).decode()
-        return {"x0": self.x0, "y0": self.y0, "cell": k, "nx": nx, "ny": ny, "zmin": round(zmin, 2), "step": step,
-                "zg": pack((zg - zmin) / step), "h": pack(h / step), "tops": tops, "source": self.source}
+        out = {"x0": self.x0, "y0": self.y0, "cell": k, "nx": nx, "ny": ny, "zmin": round(zmin, 2), "step": step,
+               "zg": pack((zg - zmin) / step), "h": pack(h / step), "tops": tops, "source": self.source}
+        if lot:
+            # The 1 m cells over the lot's box, the margin and a block beyond, so every block drawn in detail is covered.
+            pad = int(math.ceil(DETAIL_MARGIN)) + k
+            c0 = max(int(math.floor(min(p[0] for p in lot) - self.x0)) - pad, 0)
+            c1 = min(int(math.ceil(max(p[0] for p in lot) - self.x0)) + pad, self.nx)
+            r0 = max(int(math.floor(min(p[1] for p in lot) - self.y0)) - pad, 0)
+            r1 = min(int(math.ceil(max(p[1] for p in lot) - self.y0)) + pad, self.ny)
+            zl = np.array([[ground(self.x0 + c + 0.5, self.y0 + r + 0.5) for c in range(c0, c1)] for r in range(r0, r1)])
+            zlmin = float(zl.min())
+            out["lot"] = {"x0": self.x0 + c0, "y0": self.y0 + r0, "nx": c1 - c0, "ny": r1 - r0, "zmin": round(zlmin, 2),
+                          "zg": pack((zl - zlmin) / step), "h": pack(self.h[r0:r1, c0:c1] / step),
+                          "poly": [[round(c, 2) for c in p] for p in lot], "margin": DETAIL_MARGIN,
+                          "trunks": [[round(x, 2), round(y, 2), round(float(ground(x, y)), 2), round(d, 2)] for x, y, d in trunks]}
+        return out
 
 
 def back_line_trees(keep_outs: list[tuple[Pt, float]]) -> tuple[list[dict], int]:
@@ -569,7 +590,11 @@ def main(spec: Path, out: Path) -> None:
     tree_view = {"plants": PLANTS, "stages": ["Planted", "~8 years", "Mature"], "dropped": dropped,
                  "rows_ft": TREE_ROWS, "spacing_ft": TREE_SPACING,
                  "trees": [{"xy": [round(c, 2) for c in to_m(tr["site"])], "plant": tr["plant"]} for tr in trees]}
-    existing = canopy.for_viewer(ground) if canopy else None
+    # The twin oak's trunks (field data): the near one is 24 in across (6.3 ft around); the second isn't measured yet.
+    fp = json.loads((REPO / "site" / "field-points.json").read_text())
+    oak_trunks = [(*to_m(tuple(fp[key]["solutions"][0]["site"])), 0.61)
+                  for key in ("big_oak", "big_oak_2") if fp.get(key, {}).get("solutions")]
+    existing = canopy.for_viewer(ground, lot=[to_m(p) for p in PARCEL], trunks=oak_trunks) if canopy else None
     # The house, a first pass (house_layout.py), in its own frame: x = -s (east), y = t (north), z up from the floor.
     sv = lambda s, t: to_m(site([st(s, t)])[0])  # noqa: E731
     o, e, n = sv(0, 0), sv(-1, 0), sv(0, 1)

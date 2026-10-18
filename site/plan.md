@@ -99,11 +99,14 @@ doors are in the east end wall. The 3D plan draws 30 × 35 with the S130 inside.
 - Planning ranges from `tools/shed_cost.py`, not quotes. Notes, "What the building at site A
   costs", has the breakdown, the sources and the owner work that cuts the cost.
 - The slope adds ~$11–21k: fill and a stem wall on the low SW side.
-- **Impervious cover is the blocker.** The lot is already at ~16% against the 15% limit
-  (5,502 of 5,065 sq ft allowed). The building makes it ~19–20%, and loop D ~23–24%.
-  - Ask Travis County first: is existing cover grandfathered, and can removing old paving
-    offset new?
-  - See notes, "Impervious cover: already over 15%".
+- **Impervious cover: confirm the limit applies before anything else.**
+  - Against 15%, the lot is already at ~16% (5,502 sq ft of 5,065 allowed). The building
+    makes it ~19–20%, and loop D ~23–24%.
+  - But 15% is the City's SOS number, and the 1992 ordinance exempted single-family
+    development on lots that existed by Nov 1, 1991. This one did (recorded plat Vol. 55
+    Pg. 69; the April 1991 survey shows the house).
+  - Ask Travis County TNR whether any limit applies to an accessory building here.
+  - See notes, "Does the 15% even apply?".
 - **Before anything:** trace the buried service line (it likely runs under the site) and
   find the drainfield. The door aprons reach into the septic pipe's 10 ft keep-out: keep
   them short, or gravel.

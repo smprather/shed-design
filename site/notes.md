@@ -1829,6 +1829,35 @@ They explained it as "the open path through the trees." It's in the private repo
   - Can new cover be offset by removing old?
   - How are wood decks, gravel and permeable pavers counted?
 
+### Does the 15% even apply? Probably not to this lot (Oct 18 2026)
+
+- **15% is the SOS Ordinance's number:** the City's Barton Springs Zone limit for the recharge
+  zone, on net site area. It reaches outside the city limits only through the City's
+  subdivision and site-plan review in its ETJ.
+- **The original 1992 ordinance exempted existing lots** (No. 920903-D, §13-7-36.6): it
+  doesn't apply to development of a single-family, single-family attached or duplex
+  residential structure on a single platted lot that existed as of November 1, 1991.
+- **Our lot existed by then.** It's Lot 176 of Granada Hills Amended (recorded plat, Vol. 55
+  Pg. 69). The April 1991 survey already shows the house on it.
+- **Travis County** issues the permit for an accessory building outside the city. Its page
+  asks for a site plan showing the septic system. The county's own Edwards Aquifer cap found
+  so far is 30%, and it's per subdivision, not per lot.
+- **Still to confirm:**
+  - Is the 1991 existing-lot exemption still in today's code (LDC 25-8), and does it cover an
+    accessory building on a single-family lot?
+  - Is the lot in Austin's ETJ at all?
+  - What did the owner's 15% come from? A deed restriction would be a different matter.
+- **One call or email to Travis County TNR (Development Services) settles it.** Ask whether any
+  impervious-cover limit applies to an accessory building on this lot.
+- Sources:
+  - [1992 SOS ordinance text](https://bartoncreektimestream.org/events/1992-08/save-our-springs-ordinance-passes/SupportingDocument2.pdf)
+  - [Austin Monitor on the SOS limits](https://www.austinmonitor.com/stories/2024/10/sos-variance-for-aquifer-development-fails-to-win-environmental-commission-support/)
+  - [Travis County accessory building permit](https://www.traviscountytx.gov/tnr/development-services/apply-for-a-permit/accessory-building-permit)
+  - [Travis County water availability page](https://www.traviscountytx.gov/tnr/permits/water-availability-regulation)
+- **Earlier miss:** the Barton Springs Zone question was noted on Oct 11 ("What's behind the
+  line"), but it was left as an open question instead of a go/no-go check, and the cover
+  wasn't tallied until Oct 18.
+
 ### Viewer: the trees on our lot in more detail (owner's ask, Oct 18 2026)
 
 - **On our lot, and 8 m past its lines, the existing trees are built finer** from the 1 m

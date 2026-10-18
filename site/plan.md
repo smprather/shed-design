@@ -90,11 +90,14 @@ construction can then follow without working around B's.
 35, 30 or 25 ft long along the line. The ridge runs along the line, and two 12 × 12 ft roll-up
 doors are in the east end wall. The 3D plan draws 30 × 35 with the S130 inside.
 
-| Size | Turnkey, red-iron | Turnkey, tube frame | + insulation and power |
+| Size | Tube frame, likely (80% band) | Red-iron, likely (80% band) | + insulation and power |
 |---|---|---|---|
-| 30 × 35 ft (1,050 sq ft) | $57k–104k | $47k–85k | $8k–17k |
-| 30 × 30 ft (900 sq ft) | $50k–91k | $41k–74k | $7k–16k |
-| 30 × 25 ft (750 sq ft) | $42k–78k | $35k–64k | $7k–15k |
+| 30 × 35 ft (1,050 sq ft) | $66k ($59–72k) | $81k ($71–90k) | $8k–17k |
+| 30 × 30 ft (900 sq ft) | $58k ($52–63k) | $70k ($62–79k) | $7k–16k |
+| 30 × 25 ft (750 sq ft) | $50k ($45–54k) | $60k ($53–67k) | $7k–15k |
+
+- For comparison, ~800 sq ft of portable wood sheds on blocks is ~$25–41k (notes, "For
+  comparison: ~800 sq ft of portable sheds").
 
 - Planning ranges from `tools/shed_cost.py`, not quotes. Notes, "What the building at site A
   costs", has the breakdown, the sources and the owner work that cuts the cost.

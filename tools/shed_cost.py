@@ -15,6 +15,11 @@ Prices are low/high planning ranges for the Austin area, Oct 2026: published Tex
 county bid tabulations (sources in site/notes.md, "What the building at site A costs"). None is a
 quote. Get three itemized local bids; the building and the slab are most of the money.
 
+The outer range adds every low and every high, which no real job does. The "likely" figure is the sum
+of the midpoints, and its band is where 80% of outcomes land if each line's price falls anywhere in its
+range independently (uniform; sd = range / sqrt(12) per line). Prices that move together, like a hot
+concrete market, would widen it.
+
 Run: uv run tools/shed_cost.py
 """
 
@@ -48,6 +53,7 @@ PRICES = {
     "power": ((3500, 8000), "lot", "Option: power: trench, conduit, subpanel, lights and outlets"),
 }
 CONTINGENCY = 0.10
+Z80 = 1.2816  # half-width of an 80% band, in standard deviations
 
 
 def site_quantities(length: float, ground: Terrain, to_m: Frame) -> dict:
@@ -79,10 +85,13 @@ def estimate(length: float, q: dict) -> tuple[list[dict], dict]:
     base = [sums[k] for k in ("prep", "locate", "permits", "fill", "wall", "slab", "aprons")]
     totals = {}
     for frame in ("red_iron", "tube"):
-        lo = (sum(b[0] for b in base) + sums[frame][0]) * (1 + CONTINGENCY)
-        hi = (sum(b[1] for b in base) + sums[frame][1]) * (1 + CONTINGENCY)
+        items = base + [sums[frame]]
+        lo = sum(b[0] for b in items) * (1 + CONTINGENCY)
+        hi = sum(b[1] for b in items) * (1 + CONTINGENCY)
+        mid = sum((a + b) / 2 for a, b in items) * (1 + CONTINGENCY)
+        sd = math.sqrt(sum((b - a) ** 2 / 12 for a, b in items)) * (1 + CONTINGENCY)
         opt = ((sums["insulation"][0] + sums["power"][0]) * (1 + CONTINGENCY), (sums["insulation"][1] + sums["power"][1]) * (1 + CONTINGENCY))
-        totals[frame] = (lo, hi, opt)
+        totals[frame] = (lo, hi, opt, mid, mid - Z80 * sd, mid + Z80 * sd)
     return rows, totals
 
 
@@ -104,12 +113,13 @@ def main(lengths: str, detail: bool) -> None:
                            tbl_rows=-1, thousands_separator=","):
                 click.echo(pl.DataFrame(rows))
         fmt = lambda a, b: f"${a / 1000:,.0f}k-{b / 1000:,.0f}k"  # noqa: E731
+        likely = lambda t: f"${t[3] / 1000:,.0f}k (${t[4] / 1000:,.0f}k-{t[5] / 1000:,.0f}k)"  # noqa: E731
         summary.append({"size": f"{DEPTH:g} x {length:g} ({area:,.0f} sq ft)",
-                        "red-iron, turnkey": fmt(*totals["red_iron"][:2]), "tube frame, turnkey": fmt(*totals["tube"][:2]),
-                        "+ insulation and power": fmt(*totals["red_iron"][2]),
-                        "red-iron $/sq ft": f"{totals['red_iron'][0] / area:.0f}-{totals['red_iron'][1] / area:.0f}"})
+                        "tube frame: likely (80%)": likely(totals["tube"]), "outer range": fmt(*totals["tube"][:2]),
+                        "red-iron: likely (80%)": likely(totals["red_iron"]), "outer range ": fmt(*totals["red_iron"][:2]),
+                        "+ insulation and power": fmt(*totals["red_iron"][2])})
     click.echo(f"\nTurnkey totals, with {CONTINGENCY:.0%} contingency (site work, fill, stem wall, slab, aprons, the building):")
-    with pl.Config(tbl_hide_dataframe_shape=True, tbl_hide_column_data_types=True, fmt_str_lengths=40):
+    with pl.Config(tbl_hide_dataframe_shape=True, tbl_hide_column_data_types=True, fmt_str_lengths=40, tbl_width_chars=160):
         click.echo(pl.DataFrame(summary))
 
 

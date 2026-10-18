@@ -1738,6 +1738,21 @@ They explained it as "the open path through the trees." It's in the private repo
   | 30 × 30 ft (900 sq ft) | $50k–91k | $41k–74k | $7k–16k |
   | 30 × 25 ft (750 sq ft) | $42k–78k | $35k–64k | $7k–15k |
 
+- **The likely figure is much tighter than that.** The outer range adds every low and every
+  high, which no real job does. Summing the midpoints, with the band where 80% of outcomes
+  fall if each line varies on its own (`shed_cost.py`):
+
+  | Size | Tube frame, likely (80% band) | Red-iron, likely (80% band) |
+  |---|---|---|
+  | 30 × 35 | $66k ($59–72k) | $81k ($71–90k) |
+  | 30 × 30 | $58k ($52–63k) | $70k ($62–79k) |
+  | 30 × 25 | $50k ($45–54k) | $60k ($53–67k) |
+
+  - **Three lines carry most of the spread.** For 30 × 25 tube frame: the building ($12–21k),
+    the slab ($7–11k) and the stem wall ($4.5–9k).
+  - **Two quotes would tighten it to about ±$3–5k:**
+    - a tube-frame dealer's configured price, which is published and free;
+    - one concrete contractor bidding the pad, the wall and the slab together.
 - **Where the money goes,** for 30 × 35 (low–high):
   - the building, $26–47k red-iron or $17–29k tube frame;
   - the slab, $9–16k;

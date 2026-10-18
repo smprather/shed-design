@@ -1482,8 +1482,8 @@ as `north_line_fence` in `property_total_plan.jsonc`, drawn like the back fence.
 
   | Item | Site A | Site B |
   |---|---|---|
-  | Size | 27 × 34 ft, 918 sq ft | 23 × 43 ft, 989 sq ft |
-  | Ground fall across the slab | ~2.9 ft (lidar; 1,053.3 NE to 1,050.4 SW) | ~3.8 ft |
+  | Size | 27 × 34 ft, 918 sq ft (30 × 34, 1,020 sq ft since Oct 18) | 23 × 43 ft, 989 sq ft |
+  | Ground fall across the slab | ~2.9 ft (lidar; 1,053.3 NE to 1,050.4 SW); 3.1 ft at 30 ft deep | ~3.8 ft |
   | To the north line | 5.0 ft | 5.1 ft |
   | To the well / septic pipe | 10.3 / 11.3 ft | — / 10.0 ft |
   | To the twin oak | ~90 ft | at the drip line |
@@ -1615,8 +1615,38 @@ They explained it as "the open path through the trees." It's in the private repo
   | North wall of the two-story | 141–169 ft | 35 ft | 10–32 ft |
   | Back wall of the main block | 173–190 ft | 14–35 ft | 0 |
 
-  - The house's main panel location narrows it down; the locator settles it.
-- **The sites as drawn:** site B is 23 × 43 ft = 989 sq ft; site A is 27 × 34 ft = 918 sq ft.
+  - The house's main panel location narrows it down; the locator settles it. (The owner
+    has since marked the endpoints: the line reaches the house at its NW corner. See "The
+    service line's endpoints".)
+- **The sites as drawn:** site B is 23 × 43 ft = 989 sq ft; site A was 27 × 34 ft = 918 sq ft
+  (now 30 × 34 ft = 1,020 sq ft; see below).
+
+### The service line's endpoints, and site A to 30 × 34 ft (Oct 18 2026)
+
+- **The owner marked the buried line's ends** on an aerial (private repo, `screenshots/`):
+  from the meter pole at the NW fence corner to the house's NW corner (field point A).
+  - The route between isn't verified. They may have bent it around the well and the septic.
+  - The owner has no metal detector. One wouldn't help anyway: few reach a cable 18–24 in
+    down, and none follow a line. A cable locator does: a private locating service, or a
+    rented locator.
+- **Drawn straight in the 3D plan** (`buried_service_line_assumed`, 136 ft):
+  - **It passes 0.6 ft from the well** (1991 plat position). So the real run almost certainly
+    bends around the well.
+  - **Under site A:** ~36 ft of run.
+  - **Under building B:** it clips the SW corner, ~4.5 ft of run, ~2 ft in from the corner.
+    Its last stretch reaches the house's NW corner past B's SW corner, whichever way it bends
+    at the well. B's SW corner footing needs the locate before anything else.
+  - **The septic pipe** is ~20 ft from the straight line.
+  - `plan3d.py` prints these as check rows.
+- **Site A, deepened (owner: push the SW wall past 1,000 sq ft):**
+  - The far wall from the line (the SSW one) moved out 3 ft: 27 → 30 ft deep, so 34 × 30 ft
+    = **1,020 sq ft**. 29.5 ft (1,003 sq ft) would just clear 1,000; 30 ft is a standard
+    metal-building width.
+  - Unchanged: 5.0 ft from the north line, 10.3 ft from the well, 11.3 ft from the septic
+    pipe, and 21.5 ft from site B.
+  - The ground falls 3.1 ft across it (was 2.9).
+  - The new 3 ft strip is at the aerial's tree edge (±5 ft). The lidar shows no tall canopy
+    over it.
 
 ### Viewer: the trees on our lot in more detail (owner's ask, Oct 18 2026)
 

@@ -483,9 +483,9 @@ def main(spec: Path, out: Path) -> None:
                   "doors": [{"center_ft": round(c, 2), "width_ft": B_DOORS[0], "height_ft": B_DOORS[1]}
                             for c in (b_len / 4, 3 * b_len / 4)],
                   "mower": {"x_ft": B_MOWER[0], "y_ft": B_MOWER[1]}}
-    # Site A, for comparison (envelope_plan.py): 27 x 34 ft between the well and the septic pipe, 5 ft inside the line.
+    # Site A, for comparison (envelope_plan.py): 30 x 34 ft between the well and the septic pipe, 5 ft inside the line.
     a_m = [to_m(p) for p in SITE_A]
-    obj.obj("site_A_footprint_27x34")
+    obj.obj("site_A_footprint_30x34")
     obj.pad(a_m, cell=0.5, lift=0.07)
     obj.drape(a_m, closed=True, lift=0.12)
     # Existing drive and front walk, traced from the 1991 plat (front_layout.py, +/-3 ft).
@@ -530,7 +530,7 @@ def main(spec: Path, out: Path) -> None:
 
         for name, (c, r) in keep_outs.items():
             gap = min(poly_dist(to_m(c), pts, closed) for pts, closed in footprints(g)) / FT - r
-            if gap < 0 and e["type"] not in ("property_line", "easement", "parcels"):
+            if gap < 0 and e["type"] not in ("property_line", "easement", "parcels", "utility"):
                 check(f"{e['entity_id']} vs {name}", f"{gap + r:.1f} ft", f"{r:g} ft", "CONFLICT")
 
     # --- Our planned additions vs the septic system (site frame, ft) ---
@@ -563,19 +563,32 @@ def main(spec: Path, out: Path) -> None:
           f"well is {well_in:.0f} ft in; rows at {TREE_ROWS[0]:g} and {TREE_ROWS[1]:g} ft; "
           f"{dropped['keep_out']} spot(s) left out by the well, {dropped['existing']} already under existing trees")
     check("digging vs buried electric service", "not located", "-", "UNKNOWN",
-          "meter pole at the NW corner; the line runs underground to the house (owner confirmed); any straight "
-          "route runs under site A; locate it before digging the planting, B's or A's footings or a US-290 wall")
+          "it runs underground from the NW-corner meter pole to the house's NW corner (owner); the route between "
+          "isn't known: locate it before digging the planting, B's or A's footings or a US-290 wall")
+    # The owner's endpoints, drawn straight (buried_service_line_assumed): what it would cross if it were.
+    line = [to_m.to_site(tuple(q)) for q in next(e for e in plan["spatial_entities"]
+                                                 if e["entity_id"] == "buried_service_line_assumed")["geometry"]["points_m"]]
+    def run_under(poly: list[Pt]) -> float:
+        n = 1000
+        return sum(inside((line[0][0] + (line[1][0] - line[0][0]) * (k + 0.5) / n,
+                           line[0][1] + (line[1][1] - line[0][1]) * (k + 0.5) / n), poly) for k in range(n)) / n * math.dist(*line)
+    check("straight service line vs well", f"{seg_dist(well, *line):.1f} ft", "-", "NOTE",
+          "the straight pole-to-house line passes over the well, so the real run probably bends around it")
+    for label, poly in (("site A", SITE_A), ("building B", SITE_B)):
+        u = run_under(poly)
+        check(f"straight service line vs {label}", f"{u:.1f} ft under", "0", "CONFLICT" if u > 0 else "OK",
+              "if it runs straight: reroute it in conduit, or sleeve it under the slab; locate it first")
     check("site A vs well", f"{poly_dist(well, SITE_A):.1f} ft", f"{KEEP_OUT:g} ft",
-          "OK" if poly_dist(well, SITE_A) >= KEEP_OUT else "CONFLICT", "27 x 34 ft, 5 ft inside the line")
+          "OK" if poly_dist(well, SITE_A) >= KEEP_OUT else "CONFLICT", "30 x 34 ft, 5 ft inside the line")
     check("site A vs septic pipe", f"{poly_dist(pipe, SITE_A):.1f} ft", f"{KEEP_OUT:g} ft",
           "OK" if poly_dist(pipe, SITE_A) >= KEEP_OUT else "CONFLICT", "the drainfield may run under site A: find it first")
     fp = json.loads((REPO / "site" / "field-points.json").read_text())
     trunks = [tuple(fp[k]["solutions"][0]["site"]) for k in ("big_oak", "big_oak_2") if fp.get(k, {}).get("solutions")]
     north = (site([BUILDING_LINE[1]])[0], PARCEL[2])   # the fence: back corner to the 45 ft building line
     d_oak = min(seg_dist(tr, *north) for tr in trunks)
-    inside = sum(2 * math.sqrt(OAK_NO_DIG ** 2 - seg_dist(tr, *north) ** 2) for tr in trunks if seg_dist(tr, *north) < OAK_NO_DIG)
+    in_zone = sum(2 * math.sqrt(OAK_NO_DIG ** 2 - seg_dist(tr, *north) ** 2) for tr in trunks if seg_dist(tr, *north) < OAK_NO_DIG)
     check("north-line fence posts vs twin oak no-dig", f"{d_oak:.1f} ft", f"{OAK_NO_DIG:g} ft", "CONFLICT" if d_oak < OAK_NO_DIG else "OK",
-          f"~{inside:.0f} ft of the line is inside a trunk's no-dig zone: hand-dig or air-spade those posts, or bridge it")
+          f"~{in_zone:.0f} ft of the line is inside a trunk's no-dig zone: hand-dig or air-spade those posts, or bridge it")
     check("anything vs tank and drainfield", "not located", "-", "UNKNOWN",
           "every check against them waits on finding the lids and trenches")
 

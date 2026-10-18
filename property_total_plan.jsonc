@@ -57,7 +57,15 @@
       "geometry": { "kind": "point", "point_m": [22.6, -1.0], "z": "terrain" },
       "source": "owner's photo, Oct 13 2026: meter and disconnect on a wood pole at the yard's NW fence corner; conduit runs up to the overhead drop and down into the ground. Owner confirmed the underground feed, Oct 18 2026",
       "status": "position from the photo, +/-2 m",
-      "notes": "The house's electric service: overhead to this pole, then underground to the house along a route not yet located. It's private past the meter, so 811 won't mark it. Any straight route from here to the house runs under site A. Have a private locator trace it before digging the north end of the back-line planting, building B's or site A's footings, or a US-290 wall footing."
+      "notes": "The house's electric service: overhead to this pole, then underground to the house's NW corner (owner, Oct 18 2026), along a route not yet located. It's private past the meter, so 811 won't mark it. See buried_service_line_assumed. Have a private locator trace it before digging the north end of the back-line planting, building B's or site A's footings, or a US-290 wall footing."
+    },
+    {
+      "entity_id": "buried_service_line_assumed",
+      "type": "utility",
+      "geometry": { "kind": "line", "points_m": [[22.6, -1.0], [3.75, -37.81]], "z": "terrain" },
+      "source": "owner, Oct 18 2026 (marked on an aerial, private repo screenshots/): from the meter pole to the house's NW corner (field point A). The route between is not known",
+      "status": "endpoints from the owner; drawn straight, which it probably isn't",
+      "notes": "136 ft if straight. The straight line passes within ~1 ft of the well (1991 plat position), so the real run likely bends around it, and maybe around the septic tank too (not located). Straight, it runs ~36 ft under site A and clips building B's SW corner (~4 ft of run, ~2 ft in from the corner). Its last stretch has to reach the NW corner past B's SW corner whichever way it bends at the well. Locate it with a cable locator (rented, or a private locating service) before digging anything along the strip."
     },
     {
       "entity_id": "back_line_utility_easement",

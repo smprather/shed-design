@@ -30,11 +30,20 @@ are cheap.
    - If there's no drawing, have the septic company locate and probe the tank lids and
      trenches next time it pumps.
 2. **Locate the buried electric line.** It runs underground from the meter pole at the NW
-   fence corner to the house (owner confirmed, Oct 18 2026). The route isn't known.
-   - It's private past the meter, so 811 won't mark it. Hire a private utility locator.
-   - Every straight route from the pole to the house runs under site A. It runs under site
-     B too if it enters the house on the north wall (up to ~32 ft under B); a route to the
-     back gable or the back wall misses B. Where's the main panel?
+   fence corner to the house's NW corner (owner, Oct 18 2026). The route between isn't known.
+   - **Straight, it would pass over the well,** so it probably bends around it, and maybe
+     around the septic tank.
+   - **Straight, it would run ~36 ft under site A and clip building B's SW corner** (~4.5 ft
+     of run). Whichever way it bends at the well, its last stretch passes B's SW corner on
+     the way to the house.
+   - **How to find it:**
+     - It's private past the meter, so 811 won't mark it. Hire a private utility locator, or
+       rent a cable locator (a transmitter on the line and a hand receiver; tool-rental
+       shops have them).
+     - A metal detector wouldn't do it: they rarely reach a cable 18–24 in down, and they
+       don't follow a line.
+     - Clues: which way the conduit sweeps into the ground at the pole and at the house, and
+       a settled or off-color stripe in the grass.
    - Have the locator give the depth too.
    - **No slab over the line as it is** (see notes, "A slab over the buried line"). Reroute it
      in new conduit around the chosen site. Use the same trench as building B's own power.
@@ -127,9 +136,10 @@ house's west end, ~1 dB or less elsewhere.
 - **Doors:** sizes and which walls.
 - **Power:** from the house side or the west. Never trench through the oak's root zone, and
   route around the buried service line once it's located.
-- **For comparison, site A** (Oct 18 2026): 27 × 34 ft between the well and the septic pipe,
-  drawn in the 3D plan.
-  - **Better than B:** the ground falls 2.9 ft (B's falls 3.8), and it's ~90 ft from the oak.
+- **For comparison, site A** (Oct 18 2026): 30 × 34 ft (1,020 sq ft) between the well and the
+  septic pipe, drawn in the 3D plan. It was 27 ft deep; the owner had the far (SSW) wall
+  pushed out past 1,000 sq ft.
+  - **Better than B:** the ground falls 3.1 ft (B's falls 3.8), and it's ~90 ft from the oak.
   - **Worse than B:** the drainfield may be under it, the buried service line likely runs
     under it, and it's farther for trucks.
   - It also screens less of the house from US-290: it sits at the far west end.

@@ -331,9 +331,11 @@ details li b { font-weight: 600; }
     platted_back_line: { group: "Lines", token: "accent" },
     back_line_utility_easement: { label: "Back-line utility easement", group: "Lines", token: "easement" },
     electric_meter_pole: { label: "Meter pole (service runs underground)", group: "Keep-outs", token: "warn" },
-    site_A_footprint_27x34: { label: "Site A footprint, 27 × 34 ft (comparison)", group: "Proposed", token: "site-a", solid: true,
-      status: "for comparison with site B", source: "Envelope option A (Oct 11 2026; SITE_A in tools/envelope_plan.py): 5 ft inside the north line, between the well and the septic pipe.",
-      notes: "918 sq ft. 5.0 ft from the north line, 10.3 ft from the well and 11.3 ft from the septic pipe (both 10 ft keep-outs). The ground falls ~2.9 ft across it (1,053.3 ft at its NE corner to 1,050.4 at its SW), less than site B's 3.8. Its south edge is at the strip's tree edge (aerial, +/-5 ft). The drainfield may run under it, so find the septic layout first. Every straight route of the buried service line from the NW-corner meter pole to the house runs under it: have it traced first." },
+    site_A_footprint_30x34: { label: "Site A footprint, 30 × 34 ft (comparison)", group: "Proposed", token: "site-a", solid: true,
+      status: "for comparison with site B", source: "Envelope option A (Oct 11 2026; SITE_A in tools/envelope_plan.py): 5 ft inside the north line, between the well and the septic pipe. Deepened from 27 to 30 ft on Oct 18 (owner: past 1,000 sq ft).",
+      notes: "1,020 sq ft. 5.0 ft from the north line, 10.3 ft from the well and 11.3 ft from the septic pipe (both 10 ft keep-outs). The ground falls ~3.1 ft across it (1,053.3 ft at its NE corner to 1,050.3 at its SW), less than site B's 3.8. Its far (SSW) wall is ~3 ft into the strip's tree edge (aerial, +/-5 ft); the lidar shows no tall canopy there. The drainfield may run under it, so find the septic layout first. The buried service line, pole to the house's NW corner, would run ~36 ft under it if straight: have it traced first." },
+    buried_service_line_assumed: { label: "Buried electric line (owner's endpoints; drawn straight)", group: "Keep-outs", token: "warn",
+      status: "endpoints from the owner; route not located" },
     existing_driveway_1991_plat: { label: "Driveway (1991 plat)", group: "Your lot", token: "concrete", solid: true,
       status: "traced from the 1991 survey plat, +/-3 ft", source: "Private repo property/CUR-Survey-8400-Candelaria.pdf; tools/front_layout.py",
       notes: "The concrete drive: ~13 ft wide in from Candelaria, swinging north around a lawn bulge in front of the porch, then opening into the ~26 x 30 ft apron north of the porch and garage (its back edge lines up with the garage's back wall). The approach in the street right-of-way is included. The pre-sale aerial shows the street end ~8 ft wider on its south side, so it was probably widened after 1991: tape it." },
@@ -1023,7 +1025,7 @@ details li b { font-weight: 600; }
 
   // ---- Labels ----
   const LABELS = [
-    [HOUSE ? "house_3d_first_pass" : "house_footprint_survey", "Your house"], ["site_A_footprint_27x34", "Site A"], ["building_B_23x43_eave_14ft_assumed", "Building B"],
+    [HOUSE ? "house_3d_first_pass" : "house_footprint_survey", "Your house"], ["site_A_footprint_30x34", "Site A"], ["building_B_23x43_eave_14ft_assumed", "Building B"],
     ["scenic_brook_plaza_building_3", "Retail Bldg 3"], ["retail_east_end_stormwater", "Retail ponds"],
     ["platted_back_line", "Back line"], ["granada_ridge_buildings_7_8", "Apts 7/8 · 639 ft"],
     ["granada_ridge_buildings_1_6", "Apts 1-6"], ["scenic_brook_plaza_buildings_1_2", "Retail 1-2"],

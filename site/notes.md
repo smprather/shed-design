@@ -1844,6 +1844,42 @@ They explained it as "the open path through the trees." It's in the private repo
   - Can new cover be offset by removing old?
   - How are wood decks, gravel and permeable pavers counted?
 
+### Tube frame or red-iron: what would justify red-iron (owner's question, Oct 18 2026)
+
+- **Both can be certified to the code wind load.** "Sturdier" shows up in five measurable
+  places, not in passing code:
+
+  | Measure | Typical tube frame | Typical red-iron |
+  |---|---|---|
+  | Frame | 14-ga (12-ga option) 2.5 in square tube, a truss every 4–5 ft | I-beam columns and rafters every 20–25 ft, purlins and girts |
+  | Hanging loads (hoist, loft, ceiling, roof solar, ducts) | little or none; point loads not designed for | 5–10 psf collateral load typical, plus designed point loads |
+  | Panels | 29-ga typical (26-ga is an option) | 26-ga typical: ~25% thicker, dents less in hail |
+  | Insulation cavity | ~2.5 in tube depth | ~8 in girts |
+  | Span, height, openings | to ~30 ft wide and ~16–20 ft tall; openings limited by the truss spacing | almost any span or height; framed openings anywhere |
+  | Expected life | ~20–30 years | 50+ years |
+
+- **Things that would push it to red-iron:**
+  - a chain hoist or anything hung from the frame;
+  - a loft or mezzanine;
+  - a drywall or liner ceiling, or solar panels on the roof;
+  - heating and cooling it, with thick insulation;
+  - doors bigger than 12 × 12 or close to the corners;
+  - eaves over ~16 ft or a span over 30 ft;
+  - a horizon long enough for its extra life to count.
+- **Resale:** agreed, little or none for a residential outbuilding. Appraisers and buyers see
+  "steel building, X sq ft". So the extra life is worth something only if you'd stay.
+- **Cost per year, for 30 × 25:**
+  - a tube frame building (~$16.5k midpoint) over ~25 years is ~$660 a year;
+  - red-iron (~$26k) over ~50 years is ~$520 a year;
+  - over a 10–15 year stay, the tube frame is plainly cheaper.
+- **Middle ground:** a tube frame upgraded to a 12-ga frame, 26-ga panels, 4 ft truss
+  spacing and certified anchoring. It closes much of the gap for a few thousand dollars.
+- **Comparing quotes like for like:** ask each for:
+  - the certified wind speed and exposure category;
+  - the snow and collateral loads (psf);
+  - the frame and panel gauges and the truss spacing;
+  - whether the roll-up doors are wind-rated (doors are a common failure point on either).
+
 ### For comparison: ~800 sq ft of portable sheds on blocks (owner's question, Oct 18 2026)
 
 - **Texas "portable buildings":** wood-framed, on treated 4×6 skids, delivered and set on

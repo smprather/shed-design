@@ -5,7 +5,7 @@ sources, corrections and dates. This file says what we're doing, in what order, 
 still undecided. Update it when a decision changes; record the facts behind the change in
 `notes.md`.
 
-Last updated: Oct 18 2026 (site B dropped; the building goes on site A, priced).
+Last updated: Oct 18 2026 (impervious cover: already over 15%; site A building priced).
 
 ## The four projects
 
@@ -99,6 +99,11 @@ doors are in the east end wall. The 3D plan draws 30 × 35 with the S130 inside.
 - Planning ranges from `tools/shed_cost.py`, not quotes. Notes, "What the building at site A
   costs", has the breakdown, the sources and the owner work that cuts the cost.
 - The slope adds ~$11–21k: fill and a stem wall on the low SW side.
+- **Impervious cover is the blocker.** The lot is already at ~16% against the 15% limit
+  (5,502 of 5,065 sq ft allowed). The building makes it ~19–20%, and loop D ~23–24%.
+  - Ask Travis County first: is existing cover grandfathered, and can removing old paving
+    offset new?
+  - See notes, "Impervious cover: already over 15%".
 - **Before anything:** trace the buried service line (it likely runs under the site) and
   find the drainfield. The door aprons reach into the septic pipe's 10 ft keep-out: keep
   them short, or gravel.

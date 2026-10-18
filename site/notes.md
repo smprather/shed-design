@@ -1791,6 +1791,44 @@ They explained it as "the open path through the trees." It's in the private repo
   - [Collin County flex base bids](https://eagenda.collincountytx.gov/docs/2025/CC/20251208_3163/59179%5FTABULATION%20FLEXIBLE%20BASE%20DRAFT%2Epdf)
   - [Travis County accessory building permit](https://www.traviscountytx.gov/tnr/development-services/apply-for-a-permit/accessory-building-permit)
 
+### Impervious cover: already over 15% (Oct 18 2026; `tools/impervious_cover.py`)
+
+- **The owner says the limit is 15%.** On the 33,769 sq ft lot (0.78 ac) that's 5,065 sq ft.
+  Areas are on the lot only, overlaps counted once:
+
+  | Item | Sq ft | % of lot |
+  |---|---|---|
+  | House, garage included (plat walls) | 3,175 | 9.4 |
+  | Covered front porch | 315 | 0.9 |
+  | Back deck and pergola (a wood deck over soil may not count) | 240 | 0.7 |
+  | Existing drive and garage apron (plat, ±3 ft) | 1,602 | 4.7 |
+  | Front walk | 172 | 0.5 |
+  | **Now** | **5,502** | **16.3** |
+  | + building at site A, 30 × 35 with two 14 × 10 ft aprons | 6,832 | 20.2 |
+  | + that and loop D (1,267 sq ft new) | 8,099 | 24.0 |
+  | (30 × 30: 19.8% / 23.5%; 30 × 25: 19.3% / 23.1%) | | |
+
+- **Already over, by ~440 sq ft** (~200 without the deck).
+  - The drive is the soft number. It's traced from the 1991 plat, and the aerial shows its
+    street end ~8 ft wider. So now is ~15.5–17%.
+  - Tape the drive: it's on the measurement list.
+- **Where cover could come back:**
+  - **The garage apron** (~830 sq ft behind the porch line), once the garage is a kitchen.
+    But it's also the way to the north strip, for the septic truck and the building. A
+    12 ft lane through it would keep ~350–450 sq ft.
+  - **The door aprons** (280): skip them, or use something the county counts as pervious.
+  - **A smaller building:** 30 × 25 saves 300 over 30 × 35.
+  - **Loop D in permeable pavers,** if the county credits them.
+  - **Taking out the drive's street leg** (~770) once loop D carries the traffic. Loop D's
+    connector ends on part of it.
+  - Even all of that may not reach 15% with a building.
+- **Questions for Travis County, before designing further:**
+  - Where does the 15% come from: the Barton Springs Zone rules, or the deed?
+  - Is it measured on the gross or net site area?
+  - Is existing cover over the limit grandfathered?
+  - Can new cover be offset by removing old?
+  - How are wood decks, gravel and permeable pavers counted?
+
 ### Viewer: the trees on our lot in more detail (owner's ask, Oct 18 2026)
 
 - **On our lot, and 8 m past its lines, the existing trees are built finer** from the 1 m
@@ -1812,6 +1850,8 @@ They explained it as "the open path through the trees." It's in the private repo
 - **Fly speed has a slider** (owner's ask, same day). It's log scale, 3–390 ft/s, and the
   scroll wheel moves it too. The default is twice the old one: 59 ft/s. Shift triples
   whatever it's set to (it was ×4).
+- **Walking is 3× faster** (owner's ask): 14 ft/s, up from 4.6. Shift still runs at ×2.5, and
+  the scroll wheel goes up to 49 ft/s.
 - **The yellow pads start hidden:** the site A footprint (building A stands on it now) and
   porte-cochère option A. Building B (dropped) starts hidden too. Tick any of them in the
   layer list.

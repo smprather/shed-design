@@ -1174,7 +1174,7 @@ details li b { font-weight: 600; }
   };
   const freeLook = () => mode === "look" || mode === "fly" || mode === "walk";
   const EYE = 1.6, CLIMB = 3.0, RADIUS = 0.35;  // m: eye height (5.25 ft), how high a walking surface you step up onto, body radius
-  const speed = { fly: 18, walk: 1.4 };           // m/s; Shift: x3 flying, x2.5 walking (a run). Fly was 9 until Oct 18 2026 (owner: twice as fast)
+  const speed = { fly: 18, walk: 4.2 };           // m/s; Shift: x3 flying, x2.5 walking (a run). Owner, Oct 18 2026: fly 2x (was 9), walk 3x (was 1.4)
   const FLY_MIN = 1, FLY_MAX = 120, FLY_BOOST = 3;   // m/s range of the fly-speed slider (log scale); Shift's multiplier
   let feet = 0, vy = 0;                           // walking: world height of your feet, and vertical speed (falls)
   const GRAVITY = 9.8;                           // m/s²: stepping off a ledge
@@ -1240,7 +1240,7 @@ details li b { font-weight: 600; }
   canvas.addEventListener("wheel", (e) => {
     if (mode === "fly" || mode === "walk") {
       e.preventDefault();
-      speed[mode] = THREE.MathUtils.clamp(speed[mode] * Math.exp(-e.deltaY * 0.0015), mode === "fly" ? FLY_MIN : 0.5, mode === "fly" ? FLY_MAX : 6);
+      speed[mode] = THREE.MathUtils.clamp(speed[mode] * Math.exp(-e.deltaY * 0.0015), mode === "fly" ? FLY_MIN : 0.5, mode === "fly" ? FLY_MAX : 15);
       if (mode === "fly") showFlySpeed();
       updateEye(); return;
     }

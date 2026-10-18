@@ -1648,6 +1648,22 @@ They explained it as "the open path through the trees." It's in the private repo
   - The new 3 ft strip is at the aerial's tree edge (±5 ft). The lidar shows no tall canopy
     over it.
 
+### Building A on site A, drawn (owner's ask, Oct 18 2026)
+
+- **The owner asked for a shed on site A,** for comparison with B. It's drawn like B:
+  - dark grey steel, light grey inside;
+  - a 3:12 gable and a 14 ft eave;
+  - two 12 × 12 ft roll-up doors, drawn rolled up;
+  - a slab level with its high (NE) corner, so ~3.1 ft of fill or stem wall at the SW.
+- **The doors are on the east wall, facing B.** Trees close A's south side and the fence is
+  5 ft off its north side, so the only way in is from the east, along the strip past B.
+  - So the ridge runs north–south, across the strip, over a 34 ft clear span. That's an
+    ordinary span for a steel building.
+  - The doors are 21.5 ft from B's west end. A vehicle comes along the lane south of B and
+    turns in there: fine for a car or the mower; tight for a trailer.
+- **In the 3D plan** as `building_A_30x34_eave_14ft_assumed`, with a check row for its
+  ground fall.
+
 ### Viewer: the trees on our lot in more detail (owner's ask, Oct 18 2026)
 
 - **On our lot, and 8 m past its lines, the existing trees are built finer** from the 1 m

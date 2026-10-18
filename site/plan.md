@@ -137,8 +137,9 @@ house's west end, ~1 dB or less elsewhere.
 - **Power:** from the house side or the west. Never trench through the oak's root zone, and
   route around the buried service line once it's located.
 - **For comparison, site A** (Oct 18 2026): 30 × 34 ft (1,020 sq ft) between the well and the
-  septic pipe, drawn in the 3D plan. It was 27 ft deep; the owner had the far (SSW) wall
-  pushed out past 1,000 sq ft.
+  septic pipe. It was 27 ft deep; the owner had the far (SSW) wall pushed out past 1,000 sq ft.
+  - The 3D plan draws a shed there like B ("building A"). Its doors face east toward B: the
+    only way in, along the strip past B.
   - **Better than B:** the ground falls 3.1 ft (B's falls 3.8), and it's ~90 ft from the oak.
   - **Worse than B:** the drainfield may be under it, the buried service line likely runs
     under it, and it's farther for trucks.

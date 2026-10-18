@@ -310,6 +310,9 @@ details li b { font-weight: 600; }
       status: "surveyed", source: "1991 survey bearings and distances.", notes: "0.78 ac. The front is on Candelaria Dr; the north side runs along US-290." },
     house_footprint_survey: { label: "House footprint", group: "Your lot", token: "house",
       status: "surveyed", source: "Walls rebuilt from the 1991 plat; north wall laser-checked at 62.0 ft.", notes: "Footprint only. There's no room model yet." },
+    building_A_30x34_eave_14ft_assumed: { label: "Building A, 30 × 34 ft (on site A)", group: "Proposed", token: "steel", solid: true,
+      status: "for comparison with B", source: "Site A (SITE_A in tools/envelope_plan.py), built like building B (owner, Oct 18 2026).",
+      notes: "1,020 sq ft. B's look: dark grey steel, light grey inside, a 3:12 gable and a 14 ft eave, two 12 × 12 ft roll-up doors (drawn rolled up). Trees close its south side and the fence is 5 ft off its north side, so it's entered from the east, along the strip past B: the doors are on the east wall, 21.5 ft from B's west end. That runs its ridge north-south over a 34 ft clear span. The slab is level with its high NE corner; the ground falls ~3 ft to the SW, so fill or a stem wall there. The buried service line likely runs under it: have it traced first." },
     building_B_23x43_eave_14ft_assumed: { label: "Building B, 23 × 43 ft", group: "Your lot", token: "steel", solid: true,
       status: "planned", source: "Site B footprint (SITE_B in tools/site_plan.py); look per the owner, Oct 18 2026.",
       notes: "Dark grey steel on every surface, with two roll-up doors on the south wall (drawn rolled up) and a solid north wall toward US-290. Drawn with 12 × 12 ft doors at the quarter points, a 3:12 gable and a 14 ft eave. None of those is decided yet. The slab is level with its high NE corner by the oak. The ground falls ~3.8 ft across it, so the west side needs fill or a stem wall rather than a cut toward the oak. The east door is 15 ft from the house's NW corner." },
@@ -392,6 +395,7 @@ details li b { font-weight: 600; }
   const items = {};   // id -> { node, materials, meta }
   const Z0_FT = /*Z0_FT*/;
   const BLDG_B = /*BUILDING_B*/;   // building B's frame, doors and mower (plan3d.py); drawn in detail below
+  const BLDG_A = /*BUILDING_A*/;   // building A on site A, the same way (no mower)
   const HOUSE = /*HOUSE*/;   // the house, a first pass (plan3d.py, tools/house_layout.py)
   const solids = [], walkables = [];   // for walking: what stops you, and what you can stand on
   const POLES = /*POLES*/;   // range poles straight back from the back-yard eye (plan3d.py)
@@ -413,7 +417,7 @@ details li b { font-weight: 600; }
   }
 
   for (const [id, o] of Object.entries(objects)) {
-    if (BLDG_B && id === BLDG_B.id) continue;   // the OBJ massing; the detailed model replaces it
+    if ([BLDG_B, BLDG_A].some(d => d && id === d.id)) continue;   // the OBJ massing; the detailed model replaces it
     const m = META[id] || { label: id, group: "Other", token: "muted" };
     const node = new THREE.Group(); node.userData.id = id; root.add(node);
     const mats = [];
@@ -584,13 +588,15 @@ details li b { font-weight: 600; }
     items[id] = { node, mats: Object.values(M).map(mat => ({ mat, kind: "mesh", fixed: true })), meta: META[id] };
   }
 
-  // Building B (plan3d.py BUILDING_B), drawn in detail instead of the OBJ massing: dark grey steel on
-  // every surface, a gable roof with its ridge along the length, ribbed panels, trim, and two roll-up
-  // doors on the south wall drawn rolled up, so the John Deere S130 parked inside shows for scale.
-  // Built in feet in B's own frame (x east from the SW corner, y north, z up from the ground at the
-  // slab's high corner), then placed on the plan; heights follow the exaggeration like everything else.
-  if (BLDG_B) {
-    const B = BLDG_B, L = B.length_ft, W = B.width_ft, E = B.eave_ft, OH = 1, T = 0.15, SLAB = 0.5;
+  // Buildings B and A (plan3d.py), drawn in detail instead of the OBJ massing: dark grey steel on every
+  // surface, a gable roof with its ridge along the frame's x, ribbed panels, trim, and two roll-up doors on
+  // the frame's y = 0 wall drawn rolled up; in B, the John Deere S130 parked inside shows for scale.
+  // Built in feet in each building's own frame (B: x east from the SW corner, y north; A: x north from the SE
+  // corner, y west, so its doors face east), z up from the ground at the slab's high corner, then placed on
+  // the plan; heights follow the exaggeration like everything else.
+  for (const B of [BLDG_B, BLDG_A]) {
+    if (!B) continue;
+    const L = B.length_ft, W = B.width_ft, E = B.eave_ft, OH = 1, T = 0.15, SLAB = 0.5;
     const z0 = SLAB, ze = SLAB + E, rise = (W / 2) * B.pitch, zr = ze + rise;
     const Q = (x, y, z) => new THREE.Vector3(x, z, -y);   // B's frame (ft) -> its local three space
     const place = (g) => {
@@ -700,7 +706,7 @@ details li b { font-weight: 600; }
     box(T, L - T, T, W - T, z0, z0 + 0.01, concrete);
     shed.traverse(o => { if (o.isMesh && !o.isInstancedMesh) (o.material === concrete ? walkables : solids).push(o); });
     items[id] = { node, mats: [{ mat: steel, kind: "mesh" }, { mat: coil, kind: "mesh" }, { mat: concrete, kind: "mesh", fixed: true }, { mat: liner, kind: "mesh", fixed: true }],
-                  meta: META[id] || { label: "Building B", group: "Your lot", token: "steel", solid: true } };
+                  meta: META[id] || { label: "Shed", group: "Your lot", token: "steel", solid: true } };
 
     // John Deere S130 lawn tractor, low-poly, for scale. Inches; local x forward from the rear axle, y to the
     // left, z up. 73.3 in long, 45.5 in tall (TractorData); 48.9 in wheelbase; 15x6.00-6 front and 20x10.00-8
@@ -1026,7 +1032,7 @@ details li b { font-weight: 600; }
 
   // ---- Labels ----
   const LABELS = [
-    [HOUSE ? "house_3d_first_pass" : "house_footprint_survey", "Your house"], ["site_A_footprint_30x34", "Site A"], ["building_B_23x43_eave_14ft_assumed", "Building B"],
+    [HOUSE ? "house_3d_first_pass" : "house_footprint_survey", "Your house"], ["building_A_30x34_eave_14ft_assumed", "Building A"], ["building_B_23x43_eave_14ft_assumed", "Building B"],
     ["scenic_brook_plaza_building_3", "Retail Bldg 3"], ["retail_east_end_stormwater", "Retail ponds"],
     ["platted_back_line", "Back line"], ["granada_ridge_buildings_7_8", "Apts 7/8 · 639 ft"],
     ["granada_ridge_buildings_1_6", "Apts 1-6"], ["scenic_brook_plaza_buildings_1_2", "Retail 1-2"],

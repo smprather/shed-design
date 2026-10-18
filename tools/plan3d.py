@@ -408,9 +408,9 @@ def backyard(ground: Terrain, to_m: Frame) -> tuple[dict, list[dict]]:
 
 def write_viewer(path: Path, obj_text: str, plan: dict, checks: list[dict], backyard: dict,
                  poles: list[dict], trees: dict, canopy: dict | None, z0_ft: float, building_b: dict,
-                 house: dict) -> None:
+                 house: dict, building_a: dict) -> None:
     """Fill the viewer template with the model, the plan's entity notes, the checks, the back-yard view, the poles,
-    the trees, building B's placement and the house (the viewer draws both in detail)."""
+    the trees, buildings B's and A's placement and the house (the viewer draws them in detail)."""
     spec = {"entities": [{k: e.get(k) for k in ("entity_id", "status", "source", "notes", "facade_toward_us")}
                          for e in plan["spatial_entities"]],
             "removed": plan.get("removed_claims", [])}
@@ -424,6 +424,7 @@ def write_viewer(path: Path, obj_text: str, plan: dict, checks: list[dict], back
             .replace("/*CANOPY*/", json.dumps(canopy))
             .replace("/*Z0_FT*/", json.dumps(z0_ft))
             .replace("/*BUILDING_B*/", json.dumps(building_b))
+            .replace("/*BUILDING_A*/", json.dumps(building_a))
             .replace("/*HOUSE*/", json.dumps(house)))
     path.write_text('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
                     '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
@@ -488,6 +489,25 @@ def main(spec: Path, out: Path) -> None:
     obj.obj("site_A_footprint_30x34")
     obj.pad(a_m, cell=0.5, lift=0.07)
     obj.drape(a_m, closed=True, lift=0.12)
+    # Building A on it (owner, Oct 18 2026), in B's look. Trees close its south side and the fence is 5 ft off its north
+    # side, so the way in is from the east along the strip, past B: its doors go on the east wall. The viewer's builder
+    # puts doors on its frame's y = 0 wall, so A's frame starts at its SE corner, x north along the east wall, y west.
+    # That runs A's ridge north-south, across the strip, over a 34 ft clear span.
+    anw, ane, ase, asw = a_m
+    a_ground = [ground(*p) for p in a_m]
+    a_slab = max(a_ground)
+    a_id = f"building_A_30x34_eave_{B_EAVE:g}ft_assumed"
+    a_len, a_wid = math.dist(ase, ane) / FT, math.dist(ase, asw) / FT
+    obj.obj(a_id)
+    obj.gable(ase, ane, anw, asw, a_slab, a_slab + B_EAVE * FT, a_wid / 2 * B_PITCH * FT)
+    building_a = {"id": a_id, "origin": [round(c, 3) for c in ase],
+                  "ux": [round((ane[i] - ase[i]) / (a_len * FT), 6) for i in (0, 1)],
+                  "uy": [round((asw[i] - ase[i]) / (a_wid * FT), 6) for i in (0, 1)],
+                  "slab_m": round(a_slab, 3), "drop_ft": round((a_slab - min(a_ground)) / FT, 2),
+                  "length_ft": round(a_len, 2), "width_ft": round(a_wid, 2), "eave_ft": B_EAVE, "pitch": B_PITCH,
+                  "doors": [{"center_ft": round(c, 2), "width_ft": B_DOORS[0], "height_ft": B_DOORS[1]}
+                            for c in (a_len / 4, 3 * a_len / 4)],
+                  "mower": None}
     # Existing drive and front walk, traced from the 1991 plat (front_layout.py, +/-3 ft).
     obj.obj("existing_driveway_1991_plat")
     obj.pad([to_m(p) for p in site(st(*q) for q in EXISTING_DRIVE)], lift=0.05)
@@ -535,6 +555,8 @@ def main(spec: Path, out: Path) -> None:
 
     # --- Our planned additions vs the septic system (site frame, ft) ---
     fall = (slab - min(ground(*p) for p in b)) / FT
+    check("building A ground fall across the slab", f"{building_a['drop_ft']:.1f} ft", "-", "NOTE",
+          "2017 lidar; high at the NE corner, so fill or a stem wall to the SW; doors on the east wall, toward B")
     check("building B ground fall across the slab", f"{fall:.1f} ft", "-", "NOTE",
           "2017 lidar; high at the NE corner by the oak, so level it with fill on the west side, not a cut toward the oak")
     d = poly_dist(pipe, SITE_B)
@@ -617,7 +639,7 @@ def main(spec: Path, out: Path) -> None:
     house = house_spec(lambda s, t: (ground(*sv(s, t)) / FT + ground.z0) - FF_FT)
     house.update({"origin": [round(c, 4) for c in o], "ex": [round((e[i] - o[i]) / FT, 6) for i in (0, 1)],
                   "ey": [round((n[i] - o[i]) / FT, 6) for i in (0, 1)], "ff_m": round((FF_FT - ground.z0) * FT, 3)})
-    write_viewer(html, out.read_text(), plan, checks, view, poles, tree_view, existing, ground.z0, building_b, house)
+    write_viewer(html, out.read_text(), plan, checks, view, poles, tree_view, existing, ground.z0, building_b, house, building_a)
     click.echo(f"wrote {out.relative_to(REPO)} ({obj.nv} vertices) and {html.relative_to(REPO)}; "
                f"building B slab at z = {slab:.2f} m")
     with pl.Config(tbl_rows=-1, tbl_hide_dataframe_shape=True, tbl_hide_column_data_types=True,

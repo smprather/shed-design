@@ -1664,6 +1664,47 @@ They explained it as "the open path through the trees." It's in the private repo
 - **In the 3D plan** as `building_A_30x34_eave_14ft_assumed`, with a check row for its
   ground fall.
 
+### Building up the low side: concrete, walls or crushed stone? (owner's question, Oct 18 2026)
+
+- **Fill under each slab** (2017 lidar; slab top level with the high NE corner):
+
+  | | Site B (989 sq ft) | Site A (1,020 sq ft) |
+  |---|---|---|
+  | Fill at the corners (NW / NE / SE / SW) | 2.2 / 0 / 1.1 / 3.8 ft | 1.8 / 0 / 2.2 / 3.1 ft |
+  | Deep sides (average fill) | south 2.4 ft, west 3.1 ft | south 2.7 ft, west 2.4 ft |
+  | Fill volume | ~66 cu yd | ~71 cu yd |
+
+- **Materials, rough** (Central Texas, unverified locally; the owner's labor not priced):
+  - Concrete: $150–200 per cu yd (as in `cmu_cost.py`).
+  - Crushed limestone base ("flex base"): ~$30–45 a ton delivered, so ~$55–80 per
+    compacted cu yd.
+  - Block wall with its footing: ~$15–22 per sq ft of face (`cmu_cost.py`).
+
+  | Approach | Site B | Site A |
+  |---|---|---|
+  | All concrete: the slab poured thick enough to fill the low side (~81 / ~87 cu yd) | ~$12–16k, plus forms up to ~4 ft deep and a pump | ~$13–17k |
+  | Compacted flex base + a 5 in slab; the fill's edges sloped 2:1 where there's room | ~$8–12k | ~$8–12k |
+  | Same, with a block stem wall on the deep (south and west) sides instead of slopes | ~$10–15k | ~$11–15k |
+
+  - Each total includes a 5 in slab, ~$2.3–3.1k.
+  - The fill rows include skid-steer and compactor rentals, ~$1–1.5k.
+- **Crushed stone is the cheapest and the usual way.**
+  - Angular crushed limestone, spread in 6–8 in lifts, wetted and compacted.
+  - Not rounded pebbles or pea gravel: they roll and never lock, so the slab settles and
+    cracks.
+  - An optional 4 in of clean 3/4 in crushed rock under the vapor barrier drains.
+- **Walls cost about what the extra concrete would.** Use them only where a slope can't go:
+  - **A's south side** is at the tree edge. Fill over roots smothers them, so wall it, or
+    keep the slope out of the root zones.
+  - **B's south side** is the septic truck lane and the door aprons.
+  - **North sides:** 5 ft to the line. B's NW corner needs 2.2 ft of fill, so a 2:1 slope
+    there just fits.
+  - **Keep fill off the drainfield.** It isn't located yet, which matters at A especially.
+- **Either way:**
+  - The steel frame's columns get piers through the fill to native ground, sized by the
+    building's engineer. Ask whether they want density tests on the fill.
+  - Lay the conduits first: B's own power, and the house service if it's rerouted.
+
 ### Viewer: the trees on our lot in more detail (owner's ask, Oct 18 2026)
 
 - **On our lot, and 8 m past its lines, the existing trees are built finer** from the 1 m

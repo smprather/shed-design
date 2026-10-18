@@ -136,6 +136,12 @@ house's west end, ~1 dB or less elsewhere.
 - **Doors:** sizes and which walls.
 - **Power:** from the house side or the west. Never trench through the oak's root zone, and
   route around the buried service line once it's located.
+- **Foundation:** build up the low (SW) side with compacted crushed-limestone base, not extra
+  concrete.
+  - About 66 cu yd at B, the cheapest way by ~$4k.
+  - Slope the fill's edges where there's room. Put a block stem wall only where a slope
+    can't go: the truck lane, root zones.
+  - See notes, "Building up the low side".
 - **For comparison, site A** (Oct 18 2026): 30 × 34 ft (1,020 sq ft) between the well and the
   septic pipe. It was 27 ft deep; the owner had the far (SSW) wall pushed out past 1,000 sq ft.
   - The 3D plan draws a shed there like B ("building A"). Its doors face east toward B: the

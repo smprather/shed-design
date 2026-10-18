@@ -55,9 +55,9 @@
       "entity_id": "electric_meter_pole",
       "type": "utility",
       "geometry": { "kind": "point", "point_m": [22.6, -1.0], "z": "terrain" },
-      "source": "owner's photo, Oct 13 2026: meter and disconnect on a wood pole at the yard's NW fence corner; owner, Oct 18 2026: the house's power comes in overhead",
+      "source": "owner's photo, Oct 13 2026: meter and disconnect on a wood pole at the yard's NW fence corner; conduit runs up to the overhead drop and down into the ground. Owner confirmed the underground feed, Oct 18 2026",
       "status": "position from the photo, +/-2 m",
-      "notes": "The house's electric service runs overhead from this pole to the house (owner, Oct 18 2026; the Oct 13 reading of the conduit into the ground as a buried feed was wrong). Where it lands on the house is still to confirm. Any straight run from here to the house passes over site A. Keep cranes, lifts and steel 10 ft from it while either building goes up."
+      "notes": "The house's electric service: overhead to this pole, then underground to the house along a route not yet located. It's private past the meter, so 811 won't mark it. Any straight route from here to the house runs under site A. Have a private locator trace it before digging the north end of the back-line planting, building B's or site A's footings, or a US-290 wall footing."
     },
     {
       "entity_id": "back_line_utility_easement",

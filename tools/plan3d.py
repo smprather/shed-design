@@ -538,9 +538,9 @@ def main(spec: Path, out: Path) -> None:
     check("back-line trees vs well", f"{gap:.1f} ft", f"{KEEP_OUT:g} ft", "CONFLICT" if gap < KEEP_OUT else "OK",
           f"well is {well_in:.0f} ft in; rows at {TREE_ROWS[0]:g} and {TREE_ROWS[1]:g} ft; "
           f"{dropped['keep_out']} spot(s) left out by the well, {dropped['existing']} already under existing trees")
-    check("overhead service line, meter pole to the house", "route not confirmed", "10 ft", "UNKNOWN",
-          "overhead, not buried (owner, Oct 18 2026); every straight run from the NW-corner pole to the house "
-          "crosses site A; keep cranes and lifts 10 ft from it")
+    check("digging vs buried electric service", "not located", "-", "UNKNOWN",
+          "meter pole at the NW corner; the line runs underground to the house (owner confirmed); any straight "
+          "route runs under site A; locate it before digging the planting, B's or A's footings or a US-290 wall")
     check("site A vs well", f"{poly_dist(well, SITE_A):.1f} ft", f"{KEEP_OUT:g} ft",
           "OK" if poly_dist(well, SITE_A) >= KEEP_OUT else "CONFLICT", "27 x 34 ft, 5 ft inside the line")
     check("site A vs septic pipe", f"{poly_dist(pipe, SITE_A):.1f} ft", f"{KEEP_OUT:g} ft",

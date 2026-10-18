@@ -46,9 +46,9 @@
     {
       "entity_id": "north_line_fence",
       "type": "fence",
-      "geometry": { "kind": "wall", "points_m": [[23.63, 0.0], [11.23, -76.27]], "height_m": 2.44, "thickness_m": 0.15, "z": "terrain" },
-      "source": "owner, Oct 18 2026: an 8 ft fence on the north (US-290) property line. Ends from the survey (PARCEL in tools/site_plan.py), back-north to front-north corner, 253.5 ft",
-      "status": "proposed; drawn on the surveyed line, full length",
+      "geometry": { "kind": "wall", "points_m": [[23.63, 0.0], [13.46, -62.55]], "height_m": 2.44, "thickness_m": 0.15, "z": "terrain" },
+      "source": "owner, Oct 18 2026: an 8 ft fence on the north (US-290) property line, pulled back to the 45 ft building line (owner, Oct 18). Ends from the survey (PARCEL and BUILDING_LINE in tools/site_plan.py): back-north corner to the building line, 207.9 ft",
+      "status": "proposed; drawn on the surveyed line, from the back corner to the 45 ft building line",
       "notes": "8 ft, drawn like the back fence. The existing US-290 fence wanders off this line: on it at the west end, ~3 ft inside at the bend, up to ~7 ft beyond it by the garage. The twin oak's second trunk is 5.8 ft from the line, so ~21 ft of fence falls inside its 12 ft no-dig zone: hand-dig or air-spade those posts, or bridge the zone between posts outside it, and do any cutting July-January. Building B's north wall is 5.1 ft from the line at its NE corner (~4 ft clear under the eave)."
     },
     {

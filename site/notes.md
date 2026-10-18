@@ -1426,8 +1426,29 @@ Oct 13 photos (02, 12, 16, 18).
 ### An 8 ft fence on the north line, drawn (Oct 18 2026)
 
 The owner asked for an 8 ft fence on the north (US-290) property line. It's in the 3D model
-as `north_line_fence` in `property_total_plan.jsonc`. It runs the full surveyed line, 253.5 ft
-from the back-north corner to the front-north corner, drawn like the back fence.
+as `north_line_fence` in `property_total_plan.jsonc`, drawn like the back fence.
+
+- **Corrected the same day:** the owner pulled it back to the 45 ft building line. It now
+  runs 207.9 ft from the back-north corner to the building line, not the full 253.5 ft.
+- **The front 45.6 ft** waits on the deed restrictions. The owner may ask for a variance,
+  since that side faces US-290.
+- **Noise** (`noise_model.py` geometry; an airtight 8 ft fence vs. none, 550 Hz, no ground
+  effect; for comparison only):
+
+  | Receiver | Full line | To the 45 ft line | Same, 2% open | Same, 5% open |
+  |---|---|---|---|---|
+  | House west end, ground / 2nd | 4.4 / 4.5 | 3.9 / 4.1 | 3.7 / 3.9 | 3.4 / 3.6 |
+  | House middle, ground / 2nd | 4.7 / 4.5 | 3.8 / 3.6 | 3.6 / 3.4 | 3.3 / 3.2 |
+  | Kitchen end, ground / 2nd | 4.7 / 4.1 | 2.8 / 2.5 | 2.7 / 2.4 | 2.4 / 2.1 |
+  | Yard behind B | 4.9 | 4.5 | 4.2 | 3.9 |
+
+  - **Stopping at the 45 ft line** costs the kitchen end ~2 dB. Traffic east of the fence's
+    end arrives unblocked.
+  - **Gaps cost little here** (~0.5 dB at 5% open). The fence only adds a few dB over the
+    hill: the road sits 17.5 ft below.
+  - Gaps matter more for tire hiss (higher frequencies) than this 550 Hz model shows.
+  - **The owner's idea, two layers of boards offset half a board,** is the standard
+    board-on-board way to make a wood fence solid. Add a kickboard at the ground.
 
 - **The existing fence isn't on the line.** It's on it at the west end, ~3 ft inside at the
   bend, and up to ~7 ft beyond it by the garage. So this is a new line, not a trace.

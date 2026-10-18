@@ -136,7 +136,19 @@ house's west end, ~1 dB or less elsewhere.
   3. Re-run the noise model with the fence as the baseline, then decide whether a taller
      wall or a return along Candelaria is still worth it.
 - **An 8 ft fence on the surveyed north line** (owner, Oct 18 2026) is drawn in the 3D
-  model, full length (253.5 ft, back corner to front corner).
+  model.
+  - **Length:** from the back corner to the 45 ft building line, 207.9 ft. It was pulled back
+    from the front corner the same day.
+  - **The front 45.6 ft** could follow if the deed restrictions allow a variance, since that
+    side faces US-290.
+  - **What it buys (`noise_model.py` geometry, airtight 8 ft fence vs. none):**
+    - ~4 dB at the house's west end and middle, ~2.5–3 dB at the kitchen end;
+    - running it to the front corner adds ~2 dB at the kitchen end.
+  - **Sealing the gaps** (two layers of boards, offset half a board) is worth ~0.5 dB at 5%
+    open area in this model. That's because the fence's effect is modest here: the road sits
+    17.5 ft below.
+  - **A kickboard** closes the gap at the bottom of the fence.
+  - **Height, and how far the fence runs,** matter more than sealing the gaps.
   - **The twin oak:** its second trunk is 5.8 ft from the line, so ~21 ft of fence falls
     inside the 12 ft no-dig zone. Hand-dig or air-spade those posts, or bridge that stretch,
     and do any cutting July–January.

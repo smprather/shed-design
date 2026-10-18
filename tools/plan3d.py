@@ -27,7 +27,7 @@ import numpy as np
 import polars as pl
 import rich_click as click
 
-from site_plan import HOUSE, PARCEL, REPO, SITE_B, WELL, en_to_site, north_line_y, site, st
+from site_plan import BUILDING_LINE, HOUSE, PARCEL, REPO, SITE_B, WELL, en_to_site, north_line_y, site, st
 from site_b_plan import HOSE, house_north_y
 from front_layout import EXISTING_DRIVE, FRONT_WALK, LANE, LOOP_C, PORTE_COCHERE, catmull_rom, offset
 from house_layout import FF_FT, house_spec
@@ -537,7 +537,7 @@ def main(spec: Path, out: Path) -> None:
           "the north end of the planting, B's footings or a US-290 wall")
     fp = json.loads((REPO / "site" / "field-points.json").read_text())
     trunks = [tuple(fp[k]["solutions"][0]["site"]) for k in ("big_oak", "big_oak_2") if fp.get(k, {}).get("solutions")]
-    north = (PARCEL[1], PARCEL[2])
+    north = (site([BUILDING_LINE[1]])[0], PARCEL[2])   # the fence: back corner to the 45 ft building line
     d_oak = min(seg_dist(tr, *north) for tr in trunks)
     inside = sum(2 * math.sqrt(OAK_NO_DIG ** 2 - seg_dist(tr, *north) ** 2) for tr in trunks if seg_dist(tr, *north) < OAK_NO_DIG)
     check("north-line fence posts vs twin oak no-dig", f"{d_oak:.1f} ft", f"{OAK_NO_DIG:g} ft", "CONFLICT" if d_oak < OAK_NO_DIG else "OK",

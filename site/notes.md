@@ -1829,6 +1829,51 @@ They explained it as "the open path through the trees." It's in the private repo
   - Can new cover be offset by removing old?
   - How are wood decks, gravel and permeable pavers counted?
 
+### For comparison: ~800 sq ft of portable sheds on blocks (owner's question, Oct 18 2026)
+
+- **Texas "portable buildings":** wood-framed, on treated 4×6 skids, delivered and set on
+  leveled concrete-block piers. They come out to ~$30–45 per sq ft all in, about half the
+  steel building's cost per sq ft.
+- **Dealer cash prices** (before tax):
+  - 12 × 24 lofted barn: ~$9.4–11k; utility shed ~$8.2k.
+  - 12 × 32 lofted barn: ~$11.5–15k; utility shed ~$10.7k.
+  - Delivery is often free within ~50 miles. Sales tax is ~6.25–8.25%, by the delivery
+    address.
+- **About 800 sq ft:**
+
+  | Mix | Sq ft | Buildings | + tax, blocks, anchors, ramps | All in |
+  |---|---|---|---|---|
+  | Two 12 × 32 | 768 | $21–30k | $3–6k | ~$25–36k |
+  | 12 × 32 + 12 × 24 + 10 × 12 | 792 | $22–31k | $4–7k | ~$26–38k |
+  | Three 12 × 24 | 864 | $25–33k | $4–8k | ~$29–41k |
+
+  - The steel building at 30 × 25 (750 sq ft) runs $35–64k tube frame, $42–78k red-iron,
+    turnkey with its slab.
+- **What they do well:**
+  - **No slab, fill or stem wall.** Each building is only 12 ft deep, so it sees about
+    1–1.5 ft of the slope. Stacked blocks take that up, or a few treated piers.
+  - **No digging.** Blocks sit on the surface, so they can go nearer roots, including on
+    the old site B, outside the 12 ft no-dig rings. Keep them off the drainfield, the tank
+    and the pump-truck lane.
+  - **No concrete trucks.** Dealers place them with a tracked shed mover (a "mule"). It
+    needs a ~14 ft opening for a 12 ft building, and it's light on the oak roots.
+  - **Fast, movable, rent-to-own available,** and easy to haul off later.
+- **What they don't:**
+  - **They're 12 ft wide (16 at most):** one bay, not two cars. Low sidewalls on lofted
+    barns.
+  - **The floors are wood.** A "garage" model, with 12 in joist spacing and a roll-up door,
+    costs ~$1–2k more. The S130 is fine on a standard floor with a ramp.
+  - **Less noise screening** than one tall, continuous steel wall.
+  - **A 15–25 year life;** they need tie-down anchors for wind.
+  - **The roofs still count** as impervious cover anywhere it's counted.
+- Sources:
+  - [MaCo 2026 shed price guide](https://www.macostructures.com/post/2026-shed-price-guide)
+  - [Texas Backyard Structures, lofted barn](https://texasbackyardstructures.com/product/lofted-barn/)
+  - [Laredo Portable Storage inventory](https://laredoportablestorage.com/inventory)
+  - [Bridgeport Portable Buildings inventory](https://bridgeportportablebuildings.com/inventory)
+  - [Quality Portable Buildings, 12 × 32](https://quality-buildings.com/building/lofted-barn-cabin-12x32-plbc-716221-1232-072326)
+  - [North Texas Sheds](https://www.northtexassheds.com/sheds)
+
 ### Does the 15% even apply? Probably not to this lot (Oct 18 2026)
 
 - **15% is the SOS Ordinance's number:** the City's Barton Springs Zone limit for the recharge

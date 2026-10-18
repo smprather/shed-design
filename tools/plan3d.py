@@ -535,6 +535,13 @@ def main(spec: Path, out: Path) -> None:
     check("digging vs buried electric service", "not located", "-", "UNKNOWN",
           "meter pole at the NW corner; the line runs underground to the house; locate it before digging "
           "the north end of the planting, B's footings or a US-290 wall")
+    fp = json.loads((REPO / "site" / "field-points.json").read_text())
+    trunks = [tuple(fp[k]["solutions"][0]["site"]) for k in ("big_oak", "big_oak_2") if fp.get(k, {}).get("solutions")]
+    north = (PARCEL[1], PARCEL[2])
+    d_oak = min(seg_dist(tr, *north) for tr in trunks)
+    inside = sum(2 * math.sqrt(OAK_NO_DIG ** 2 - seg_dist(tr, *north) ** 2) for tr in trunks if seg_dist(tr, *north) < OAK_NO_DIG)
+    check("north-line fence posts vs twin oak no-dig", f"{d_oak:.1f} ft", f"{OAK_NO_DIG:g} ft", "CONFLICT" if d_oak < OAK_NO_DIG else "OK",
+          f"~{inside:.0f} ft of the line is inside a trunk's no-dig zone: hand-dig or air-spade those posts, or bridge it")
     check("anything vs tank and drainfield", "not located", "-", "UNKNOWN",
           "every check against them waits on finding the lids and trenches")
 

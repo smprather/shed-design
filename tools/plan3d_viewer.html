@@ -219,8 +219,8 @@ details li b { font-weight: 600; }
       <input type="range" id="tree-op" min="0" max="100" step="5" value="85">
       <div class="row" id="tree-stages" role="group" aria-label="New tree size"></div>
       <label for="canopy-op" style="margin-top: 10px">Existing trees (lidar), opacity</label>
-      <output id="canopy-op-out" for="canopy-op" style="margin-top: 10px">100%</output>
-      <input type="range" id="canopy-op" min="0" max="100" step="5" value="100">
+      <output id="canopy-op-out" for="canopy-op" style="margin-top: 10px">20%</output>
+      <input type="range" id="canopy-op" min="0" max="100" step="5" value="20">
     </section>
 
     <section aria-labelledby="h-sel">
@@ -317,6 +317,7 @@ details li b { font-weight: 600; }
       status: "for scale", source: "TractorData: 73.3 in long, 45.5 in tall; dealer: 48.9 in wheelbase. The width with the deck and chute (~54 in) is an estimate.",
       notes: "Low-poly model of the owner's S130, parked in building B's west bay, nose to the door." },
     rear_fence: { group: "Your lot", token: "fence", solid: true },
+    north_line_fence: { label: "8 ft fence, north line (proposed)", group: "Your lot", token: "fence", solid: true },
     septic_pipe_keepout_10ft: { label: "Septic pipe, 10 ft keep-out", group: "Keep-outs", token: "septic",
       status: "laser, ±2 ft", source: "Field shots from A and F1.", notes: "Kept 10 ft clear in case the pipe marks the tank. The tank lids and drainfield trenches haven't been found yet." },
     well_keepout_10ft: { label: "Well, 10 ft keep-out", group: "Keep-outs", token: "well",
@@ -829,34 +830,7 @@ details li b { font-weight: 600; }
     }
     if (items.existing_trees) items.existing_trees.node.children.forEach(o => { o.visible = opacity > 0; });
   }
-  fadeCanopy(1);
-
-  // The back-yard eye, marked for taking photos from it: a dot that keeps its size on screen and shows
-  // through the trees, a pin down to the ground, and an arrow on the ground along the gaze. Hidden while
-  // looking from the spot itself.
-  const photoSpot = new THREE.Group();
-  {
-    const node = new THREE.Group(); node.userData.id = "photo_spot"; root.add(node); node.add(photoSpot);
-    const [ex, ey, ez] = BACKYARD.eye, [ax, ay] = BACKYARD.at, gz = groundAt(ex, ey);
-    const red = new THREE.MeshBasicMaterial({ color: 0xe8401c, side: THREE.DoubleSide });
-    const c = document.createElement("canvas"); c.width = c.height = 64;
-    const g2 = c.getContext("2d"); g2.beginPath(); g2.arc(32, 32, 25, 0, 7); g2.fillStyle = "#e8401c"; g2.fill();
-    g2.lineWidth = 7; g2.strokeStyle = "#ffffff"; g2.stroke();
-    const dot = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(c), sizeAttenuation: false, depthTest: false }));
-    dot.scale.set(0.03, 0.03, 1); dot.position.copy(P([ex, ey, ez])); dot.renderOrder = 10;
-    const pin = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, ez - gz, 8), red);
-    pin.position.copy(P([ex, ey, (ez + gz) / 2]));
-    const dx = ax - ex, dy = ay - ey, L = Math.hypot(dx, dy), ux = dx / L, uy = dy / L, vx = -uy, vy = ux;
-    const at = (f, s) => { const x = ex + ux * f + vx * s, y = ey + uy * f + vy * s; return P([x, y, groundAt(x, y) + 0.06]); };
-    const pts = [at(0.3, -0.08), at(3, -0.08), at(3, 0.08), at(0.3, -0.08), at(3, 0.08), at(0.3, 0.08),   // shaft
-                 at(3, -0.45), at(4.2, 0), at(3, 0.45)];                                              // head
-    const arrow = new THREE.Mesh(new THREE.BufferGeometry().setFromPoints(pts), red);
-    for (const o of [dot, pin, arrow]) { o.userData.id = "photo_spot"; photoSpot.add(o); }
-    const s = BACKYARD.spot;
-    items.photo_spot = { node, mats: [], meta: { label: "Photo spot (back-yard eye)", group: "Your lot", token: "accent",
-      status: `camera ${s.eye_ft} ft up`, source: "plan3d.py: the main back wall from the 1991 survey's house outline.",
-      notes: `From the house's SW corner, go ${s.along_ft} ft along the back wall (toward the NW wing), then ${s.out_ft} ft straight out from the wall. Hold the camera ${s.eye_ft} ft up and face ${s.gaze_deg}° left of straight back (the arrow). The range poles mark straight back. Extra shots toward each end of the back line help too.` } };
-  }
+  fadeCanopy(0.2);   // the existing trees start faint, so the buildings read (owner, Oct 18 2026)
 
   // Terrain tint by height, recomputed with the theme.
   function tintTerrain() {
@@ -895,7 +869,6 @@ details li b { font-weight: 600; }
     ["scenic_brook_plaza_building_3", "Retail Bldg 3"], ["retail_east_end_stormwater", "Retail ponds"],
     ["platted_back_line", "Back line"], ["granada_ridge_buildings_7_8", "Apts 7/8 · 639 ft"],
     ["granada_ridge_buildings_1_6", "Apts 1-6"], ["scenic_brook_plaza_buildings_1_2", "Retail 1-2"],
-    ["photo_spot", "Photo spot"],
   ];
   const labelLayer = document.getElementById("labels");
   const tags = LABELS.filter(([id]) => items[id]).map(([id, text]) => {
@@ -1035,7 +1008,7 @@ details li b { font-weight: 600; }
       camera.fov = 42; camera.near = 0.5; camera.updateProjectionMatrix();
       controls.enabled = true; controls.update();
     }
-    mode = m; hint.textContent = HINTS[m]; photoSpot.visible = m !== "look" && m !== "walk";
+    mode = m; hint.textContent = HINTS[m];
     if (m === "fly" || m === "walk") { vy = 0; if (retarget) lockMouse(); } else if (document.pointerLockElement === canvas) document.exitPointerLock();
     showLock();
     document.querySelectorAll("button.mode").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.mode === m)));
@@ -1224,7 +1197,9 @@ details li b { font-weight: 600; }
   // Eye height off whatever is under you: the ground, or the porch, deck or a slab (true scale, not exaggerated).
   function showEyeHeight() {
     const p = camera.position, under = floorAt(p.x, p.z, p.y);
-    eyeHeightEl.textContent = under === null ? "Eye height: off the model" : `Eye height ${((p.y - under) / exag / 0.3048).toFixed(1)} ft off the ground`;
+    eyeHeightEl.textContent = under === null   // past the edge of the lidar ground: measure from the back line's ground (plan z = 0)
+      ? `Eye height ~${Math.round(p.y / exag / 0.3048)} ft (off the model's edge; from the back line's ground)`
+      : `Eye height ${((p.y - under) / exag / 0.3048).toFixed(1)} ft off the ground`;
   }
   function frame() {
     const t0 = performance.now(), dt = Math.min(0.1, (t0 - last) / 1000); last = t0;
@@ -1237,7 +1212,7 @@ details li b { font-weight: 600; }
     if (now - since >= 1000) { fpsEl.textContent = `${Math.round(frames * 1000 / (now - since))} fps`; frames = 0; since = now; }
     const w = stage.clientWidth, h = stage.clientHeight;
     for (const t of [...tags, ...extraTags]) {
-      if (mode === "walk" || (t.id === "photo_spot" && !photoSpot.visible)) { t.el.hidden = true; continue; }   // no labels at eye level
+      if (mode === "walk") { t.el.hidden = true; continue; }   // no labels at eye level
       if (t.id && !items[t.id].node.visible) continue;
       tmp.copy(t.local); tmp.y *= exag; tmp.project(camera);
       const off = tmp.z > 1 || tmp.x < -1.1 || tmp.x > 1.1 || tmp.y < -1.1 || tmp.y > 1.1;

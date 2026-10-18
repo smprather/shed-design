@@ -135,6 +135,14 @@ house's west end, ~1 dB or less elsewhere.
      of boards on our side.
   3. Re-run the noise model with the fence as the baseline, then decide whether a taller
      wall or a return along Candelaria is still worth it.
+- **An 8 ft fence on the surveyed north line** (owner, Oct 18 2026) is drawn in the 3D
+  model, full length (253.5 ft, back corner to front corner).
+  - **The twin oak:** its second trunk is 5.8 ft from the line, so ~21 ft of fence falls
+    inside the 12 ft no-dig zone. Hand-dig or air-spade those posts, or bridge that stretch,
+    and do any cutting July–January.
+  - **Building B:** its north wall is 5.1 ft from the line (~4 ft clear under the eave).
+  - **Front yard:** the deed restrictions may limit fence height in front of the 45 ft
+    building line.
 - **Wall constraints, if we go further:**
   - The footing must be fully on our side of the line.
   - It conflicts with the septic pipe (6 ft from a footing at the line); the wall would jog

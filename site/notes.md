@@ -1423,6 +1423,30 @@ Oct 13 photos (02, 12, 16, 18).
     height. Walls, fences, buildings and the mower stop you. No jumping.
   - A readout along the bottom shows the eye height off the ground, in every mode.
 
+### An 8 ft fence on the north line, drawn (Oct 18 2026)
+
+The owner asked for an 8 ft fence on the north (US-290) property line. It's in the 3D model
+as `north_line_fence` in `property_total_plan.jsonc`. It runs the full surveyed line, 253.5 ft
+from the back-north corner to the front-north corner, drawn like the back fence.
+
+- **The existing fence isn't on the line.** It's on it at the west end, ~3 ft inside at the
+  bend, and up to ~7 ft beyond it by the garage. So this is a new line, not a trace.
+- **The twin oak:**
+  - The second trunk is 5.8 ft from the line, the near trunk 13.1 ft.
+  - So ~21 ft of the line is inside the 12 ft no-dig zone. `plan3d.py` now flags it
+    (CONFLICT).
+  - Hand-dig or air-spade those posts, or span that stretch from posts outside the zone.
+  - Do any root or limb cutting July–January.
+- **Building B's north wall** is 5.1 ft from the line at its NE corner: ~4 ft clear under the
+  eave and gutter.
+- **The driveway** stays 4–13 ft inside the line, so the fence doesn't cross it.
+- **In front of the 45 ft building line,** the deed restrictions may cap fence height. Check
+  the title commitment before building the front stretch.
+- **Viewer, same day (owner's asks):**
+  - the back-yard photo-spot marker is gone, now that the photos are taken (the "From the
+    back yard" view stays);
+  - the existing lidar trees start at 20% opacity, so the buildings read.
+
 ### Windows and doors
 
 - Traffic noise is heavy in low frequencies. Compare windows by **OITC** (made for traffic

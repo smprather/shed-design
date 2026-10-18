@@ -11,7 +11,7 @@ strip from the 5 ft setback line, and 35, 30 or 25 ft long along the line, in th
 size keeps site A's east end, where the doors are; the smaller ones give up length at the west end, by the
 well. Quantities come from the site: the fill
 needed to bring the ground up level with the footprint's high corner (2017 lidar), the stem wall along
-the sides where that fill runs deeper than 1.5 ft, and one 14 x 10 ft door apron.
+the sides where that fill runs deeper than 1.5 ft, one 14 x 10 ft door apron and the walk door's landing.
 
 Prices are low/high planning ranges for the Austin area, Oct 2026: published Texas cost guides and
 county bid tabulations (sources in site/notes.md, "What the building at site A costs"). None is a
@@ -38,6 +38,7 @@ FULL = 35.0          # ft along the line: site A as drawn (30 x 35 = 1,050 sq ft
 X0 = 98.6            # site x of site A's NW corner (envelope_plan.SITE_A)
 EAVE = 14.0
 APRON = 14 * 10      # sq ft: one door apron (a north door's would sit on the septic access pipe)
+STOOP = 4.5 * 4      # sq ft: the walk door's landing, joined to the apron
 DEEP = 1.5           # ft of fill past which an edge gets a stem wall instead of a thickened slab edge
 
 # (low, high) dollars, and the unit.
@@ -48,8 +49,10 @@ PRICES = {
     "fill": ((70, 125), "cu yd", "Fill: crushed limestone base, placed and compacted in lifts"),
     "wall": ((70, 140), "ft", "Stem wall where the fill is deeper than 1.5 ft, with its footing"),
     "slab": ((9, 15), "sq ft", "Slab: 6 in, rebar, thickened edges, vapor barrier, column piers"),
-    "aprons": ((7, 11), "sq ft", "Door apron, 14 x 10 ft"),
-    "tube": ((16, 28), "sq ft", "Building, installed: tube frame, 14 ft eave, a 12 x 12 roll-up, walk door"),
+    "aprons": ((7, 11), "sq ft", "Door apron, 14 x 10 ft, and the walk door's 4.5 x 4 ft landing"),
+    "tube": ((16, 28), "sq ft", "Building, installed: tube frame, 14 ft eave, a 12 x 12 roll-up, the kit's walk door"),
+    "walk_door": ((1500, 3000), "lot", "Walk door upgrade, net of the kit door: 3070 hollow metal, welded frame, continuous hinge, "
+                                      "Grade 1 lever and deadbolt, closer, stop, seals"),
     "insulation": ((1.25, 2.5), "sq ft of wall and roof", "Option: insulation, walls and roof"),
     "power": ((3500, 8000), "lot", "Option: power: trench, conduit, subpanel, lights and outlets"),
 }
@@ -77,13 +80,13 @@ def site_quantities(length: float, ground: Terrain, to_m: Frame) -> dict:
 def estimate(length: float, q: dict) -> tuple[list[dict], dict]:
     area = length * DEPTH
     surface = 2 * (length + DEPTH) * EAVE + area / math.cos(math.atan(3 / 12))
-    qty = {"prep": 1, "locate": 1, "permits": 1, "fill": q["fill"], "wall": q["wall"], "slab": area, "aprons": APRON,
+    qty = {"prep": 1, "locate": 1, "permits": 1, "fill": q["fill"], "wall": q["wall"], "slab": area, "aprons": APRON + STOOP, "walk_door": 1,
            "tube": area, "insulation": surface, "power": 1}
     rows, sums = [], {}
     for key, ((lo, hi), unit, label) in PRICES.items():
         rows.append({"item": label, "qty": f"{qty[key]:,.0f} {unit}", "low": int(round(lo * qty[key], -2)), "high": int(round(hi * qty[key], -2))})
         sums[key] = (lo * qty[key], hi * qty[key])
-    base = [sums[k] for k in ("prep", "locate", "permits", "fill", "wall", "slab", "aprons")]
+    base = [sums[k] for k in ("prep", "locate", "permits", "fill", "wall", "slab", "aprons", "walk_door")]
     items = base + [sums["tube"]]
     lo = sum(b[0] for b in items) * (1 + CONTINGENCY)
     hi = sum(b[1] for b in items) * (1 + CONTINGENCY)
@@ -121,7 +124,7 @@ def main(lengths: str, detail: bool) -> None:
                         "per sq ft": f"${totals['likely'][0] / area:,.0f}",
                         "all lows to all highs": f"{k(totals['range'][0])}-{k(totals['range'][1])}",
                         "+ insulation and power, likely": likely(totals["options"])})
-    click.echo(f"\nTurnkey totals, with {CONTINGENCY:.0%} contingency (site work, fill, stem wall, slab, aprons, the building):")
+    click.echo(f"\nTurnkey totals, with {CONTINGENCY:.0%} contingency (site work, fill, stem wall, slab, aprons, the building, the walk door):")
     with pl.Config(tbl_hide_dataframe_shape=True, tbl_hide_column_data_types=True, fmt_str_lengths=40, tbl_width_chars=160):
         click.echo(pl.DataFrame(summary))
 

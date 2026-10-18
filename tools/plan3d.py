@@ -46,6 +46,7 @@ B_EAVE = 14.0  # ft; undecided, the noise model's case
 B_PITCH = 3 / 12  # building B's gable roof, ridge along the long side; undecided
 B_DOORS = (12.0, 12.0)  # ft, width x height: two roll-up doors on the south wall at the quarter points (owner, Oct 18 2026); size undecided
 MOWER_IN = 8.0  # ft in from the door wall to the rear axle: the owner's John Deere S130, parked in building A, for scale
+WALK_AT = 16.5  # ft north of building A's SW corner: the walk door's center, a foot of wall past the roll-up's north jamb
 PORTE_COCHERE_CLEAR = 10.0  # ft to the underside of option A's roof (cars and a pickup need ~8)
 WALL_FOOTING = 2.0  # ft inside the line for a US-290 wall footing
 TREE_ROWS = (10.0, 22.0)  # ft in from the back line: two staggered rows (notes, back-line trees)
@@ -511,6 +512,11 @@ def main(spec: Path, out: Path) -> None:
                   # sit on the septic access pipe, ~10 ft east of the wall (owner caught it, Oct 18 2026).
                   "doors": [{"center_ft": round(c, 2), "width_ft": B_DOORS[0], "height_ft": B_DOORS[1]}
                             for c in (a_wid / 4,)],
+                  # A commercial walk door just north of the roll-up (owner, Oct 18 2026): 3070 hollow metal in a
+                  # welded frame, outswing, hinged on its north edge so it opens away from the roll-up's lane. Its
+                  # 4 ft landing joins the roll-up's apron and stays 10 ft off the septic pipe.
+                  "walk_doors": [{"center_ft": WALK_AT, "width_ft": 3.0, "height_ft": 7.0, "hinge": "north",
+                                  "stoop_ft": [WALK_AT - 2.25, WALK_AT + 2.25, 4.0]}],
                   "mower": {"x_ft": round(a_len - MOWER_IN, 2), "y_ft": round(a_wid / 4, 2)}}   # south bay, nose to the door
     # Existing drive and front walk, traced from the 1991 plat (front_layout.py, +/-3 ft).
     obj.obj("existing_driveway_1991_plat")
@@ -570,6 +576,12 @@ def main(spec: Path, out: Path) -> None:
         gap = 0.0 if inside(pipe, apron) else poly_dist(pipe, apron)
         check(f"building A door apron (y {d['center_ft']:g} ft) vs septic pipe", f"{gap:.1f} ft", f"{KEEP_OUT:g} ft",
               "OK" if gap >= KEEP_OUT else "CONFLICT", "the tank is likely under or beside the access pipe: no aprons or traffic over it")
+    for d in building_a["walk_doors"]:
+        y0, y1, deep = d["stoop_ft"]
+        stoop = [a_at(a_l, y0), a_at(a_l + deep, y0), a_at(a_l + deep, y1), a_at(a_l, y1)]
+        gap = 0.0 if inside(pipe, stoop) else poly_dist(pipe, stoop)
+        check(f"building A walk-door landing (y {d['center_ft']:g} ft) vs septic pipe", f"{gap:.1f} ft", f"{KEEP_OUT:g} ft",
+              "OK" if gap >= KEEP_OUT else "CONFLICT", f"{y1 - y0:g} x {deep:g} ft concrete landing; the path to it can be stepping stones")
     check("building A ground fall across the slab", f"{building_a['drop_ft']:.1f} ft", "-", "NOTE",
           "2017 lidar; high at the NE corner, so fill or a stem wall to the SW; doors on the east wall, toward B")
     check("building B ground fall across the slab", f"{fall:.1f} ft", "-", "NOTE",

@@ -1740,12 +1740,14 @@ They explained it as "the open path through the trees." It's in the private repo
 
   | Size | Likely (80% band) | Per sq ft | All lows to all highs | + insulation and power |
   |---|---|---|---|---|
-  | 30 × 35 ft (1,050 sq ft) | **$64k** ($58–71k) | $61 | $46–83k | $12k ($10–15k) |
-  | 30 × 30 ft (900 sq ft) | **$56k** ($51–62k) | $62 | $40–73k | $12k ($9–14k) |
-  | 30 × 25 ft (750 sq ft) | **$48k** ($43–53k) | $64 | $34–62k | $11k ($9–13k) |
+  | 30 × 35 ft (1,050 sq ft) | **$67k** ($60–74k) | $64 | $47–87k | $12k ($10–15k) |
+  | 30 × 30 ft (900 sq ft) | **$59k** ($53–65k) | $65 | $41–76k | $12k ($9–14k) |
+  | 30 × 25 ft (750 sq ft) | **$51k** ($46–56k) | $68 | $36–66k | $11k ($9–13k) |
 
-  - These have one door and one apron (corrected the same day; they had two). The building
+  - These have one roll-up and one apron (corrected the same day; they had two). The building
     line still carries two doors' worth, so a single-door kit may come ~$1k lower.
+  - They include the commercial walk door, $1.5–3k over the kit's (re-priced the same day; it
+    added ~$3k to each size: see "The walk door"). Before it: $64k, $56k, $48k.
 
   - "Likely" sums each line's midpoint. The band is where 80% of outcomes fall if each line
     varies on its own.
@@ -1758,7 +1760,8 @@ They explained it as "the open path through the trees." It's in the private repo
   | Slab | $12.6k | $10.8k | $9.0k |
   | Stem wall on the low sides | $8.8k | $7.7k | $6.8k |
   | Fill (73 / 60 / 47 cu yd) | $7.1k | $5.8k | $4.6k |
-  | Door apron | $1.3k | $1.3k | $1.3k |
+  | Door apron and the walk door's landing | $1.4k | $1.4k | $1.4k |
+  | Walk door upgrade (commercial) | $2.3k | $2.3k | $2.3k |
   | Prep, locate, permits and plans | $5.7k | $5.7k | $5.7k |
 
   - **The slope** (fill and wall) is ~$11–16k of it.
@@ -1821,9 +1824,9 @@ They explained it as "the open path through the trees." It's in the private repo
   | Existing drive and garage apron (plat, ±3 ft) | 1,602 | 4.7 |
   | Front walk | 172 | 0.5 |
   | **Now** | **5,502** | **16.3** |
-  | + building at site A, 30 × 35 with its 14 × 10 ft apron | 6,692 | 19.8 |
-  | + that and loop D (1,267 sq ft new) | 7,959 | 23.6 |
-  | (30 × 30: 19.4% / 23.1%; 30 × 25: 18.9% / 22.7%) | | |
+  | + building at site A, 30 × 35 with its 14 × 10 ft apron and the walk door's landing | 6,710 | 19.9 |
+  | + that and loop D (1,267 sq ft new) | 7,977 | 23.6 |
+  | (30 × 30: 19.4% / 23.2%; 30 × 25: 19.0% / 22.7%) | | |
 
 - **Already over, by ~440 sq ft** (~200 without the deck).
   - The drive is the soft number. It's traced from the 1991 plat, and the aerial shows its
@@ -1833,7 +1836,8 @@ They explained it as "the open path through the trees." It's in the private repo
   - **The garage apron** (~830 sq ft behind the porch line), once the garage is a kitchen.
     But it's also the way to the north strip, for the septic truck and the building. A
     12 ft lane through it would keep ~350–450 sq ft.
-  - **The door apron** (140): skip it, or use something the county counts as pervious.
+  - **The door apron and landing** (158): skip them, or use something the county counts as
+    pervious.
   - **A smaller building:** 30 × 25 saves 300 over 30 × 35.
   - **Loop D in permeable pavers,** if the county credits them.
   - **Taking out the drive's street leg** (~770) once loop D carries the traffic. Loop D's
@@ -2005,6 +2009,60 @@ They explained it as "the open path through the trees." It's in the private repo
 - **The yellow pads start hidden:** the site A footprint (building A stands on it now) and
   porte-cochère option A. Building B (dropped) starts hidden too. Tick any of them in the
   layer list.
+
+### The walk door: commercial hollow metal, so it doesn't stick (owner, Oct 18 2026)
+
+- **The owner wants a walk door, and a good one:** a door that binds or sticks in its frame
+  is a pet peeve. It goes just north of the roll-up, in the east end wall.
+- **Where:** centered 16.5 ft north of the SW corner, so the opening runs 15–18 ft.
+  - That leaves about a foot of wall past the roll-up's north jamb, for the framing.
+  - It swings out and is hinged on its north edge. Open, it folds back toward the NE corner,
+    out of the roll-up's lane, and the latch is on the side you come from.
+  - Its concrete landing is 4.5 × 4 ft, level, half an inch below the slab, and joined to the
+    apron. It's 10.3 ft from the septic pipe, just outside the 10 ft keep-out. The path to it
+    can be gravel or stepping stones: foot traffic near the pipe is fine.
+  - It's on the gable end, so no roof water sheets over it. A drip cap over the head handles
+    the wall.
+- **Why kit doors stick:**
+  - The usual tube-frame walk door is a light residential-style steel door. Its knock-down
+    frame is screwed to the girts.
+  - The girts flex and the frame racks, so the gap at the latch closes.
+  - Butt hinges sag the door on its screws.
+  - Out of level, the sweep drags.
+  - Vinyl weatherstrip goes tacky in the sun.
+- **The spec to buy, all standard commercial items:**
+
+  | Part | Spec | Why |
+  |---|---|---|
+  | Door | Hollow metal, 1-3/4 in, 18 ga (16 if it'll get abuse), galvannealed (A60), insulated core; 3070 (3 × 7 ft), outswing | stiff, flat, doesn't dent or rust |
+  | Frame | 16 ga welded (not knock-down), galvannealed; on its own jamb posts and header, anchored to the slab with base clips | it can't rack, so the gap stays even |
+  | Hinge | Continuous geared aluminum, full height (e.g. Select SL11 or Pemko CFM) | can't sag; takes the weight along the whole edge |
+  | Lever | ANSI/BHMA Grade 1 cylindrical (e.g. Schlage ND) | built for commercial use |
+  | Deadbolt | Grade 1, keyed alike with the lever | |
+  | Closer | Grade 1, parallel arm on the inside (e.g. LCN 4040XP) | closes and latches it every time |
+  | Stop | Overhead stop/holder (e.g. Glynn-Johnson 90) | the wind can't tear an outswing door open |
+  | Seals | Adjustable silicone bulb weatherstrip, aluminum threshold, sweep, drip cap | silicone doesn't stick to paint in heat; adjustable keeps the seal from binding |
+  | Latch guard | Optional, steel plate over the latch | security |
+
+- **Install so it stays right:**
+  - Frame the opening with tube jamb posts from the slab to the eave strut, and a header.
+    Don't hang it from girts alone.
+  - Set the frame plumb and square with spreaders, and check the slab is level across the
+    opening (±1/8 in) before the pour is finished. Ask the slab crew to hold that spot.
+  - Look for an even ~1/8 in gap all round the door. Adjust the weatherstrip last, so it
+    seals without loading the latch.
+  - It can go in after the building has settled for a season, if the dealer's door is left
+    out.
+- **What it costs:** $1.5–3k over the kit's door, installed. The door, frame and hardware
+  run ~$1.2–2.2k, plus framing and labor, less the kit door's ~$400–600 credit. It's a line
+  in `shed_cost.py`; it added ~$3k to each size's likely total, with the landing.
+  - Ask the building dealer to leave the walk door out of the kit and frame the opening.
+    Then buy the door, frame and hardware as a set from a commercial door supplier (they
+    sell to contractors and the public), and have them or a handyman install it.
+- **Sources** (guides, unverified locally):
+  - [Latest Cost: metal door frames](https://latestcost.com/cost-install-metal-door-frame/)
+  - [Commercial door installation cost guide, 2026](https://new.risingsunartscentre.org/news/commercial-door-installation-cost-guide-2026.html)
+  - [Hollow metal door price guide, 2026](https://partner.kurlon.com/news/hollow-metal-door-price-guide-2026-8211-adnan-painting-and-remodeling.html)
 
 ### Windows and doors
 

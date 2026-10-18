@@ -316,7 +316,7 @@ details li b { font-weight: 600; }
     building_A_30x35_eave_14ft_assumed: { label: "Building A, 30 × 35 ft", group: "Your lot", token: "steel", solid: true,
       status: "planned at site A (site B dropped, owner, Oct 18 2026); size open: standard 30 × 35, 30 × 30 or 30 × 25 ft (tools/shed_cost.py)",
       source: "Site A (SITE_A in tools/envelope_plan.py), built like building B (owner, Oct 18 2026), sized as a standard kit.",
-      notes: "1,050 sq ft as drawn, with the owner's S130 parked inside for scale. B's look: dark grey steel, light grey inside, a 3:12 gable and a 14 ft eave. Laid out like a standard kit: 30 ft wide (the clear span, across the strip), its ridge along the line, and one 12 × 12 ft roll-up door in the south half of the east end wall (drawn rolled up). A second door in the north half would put its apron and traffic on the septic access pipe, ~10 ft east of the wall. Trees close its south side and the fence is 5 ft off its north side, so it's entered from the east along the strip. The slab is level with its high NE corner; the ground falls ~3 ft to the SW: compacted crushed-stone fill, with a stem wall on the deep sides. 10.3 ft from both the well and the septic pipe. The buried service line likely runs under it: have it traced first." },
+      notes: "1,050 sq ft as drawn, with the owner's S130 parked inside for scale. B's look: dark grey steel, light grey inside, a 3:12 gable and a 14 ft eave. Laid out like a standard kit: 30 ft wide (the clear span, across the strip), its ridge along the line, and one 12 × 12 ft roll-up door in the south half of the east end wall (drawn rolled up). Just north of it, a commercial 3 × 7 ft walk door (owner, Oct 18 2026): hollow metal in a welded frame, outswing, a continuous hinge on its north edge, a Grade 1 lever and deadbolt, a closer, on a 4.5 × 4 ft landing joined to the apron. A second roll-up in the north half would put its apron and traffic on the septic access pipe, ~10 ft east of the wall; the landing stays 10 ft off it. Trees close its south side and the fence is 5 ft off its north side, so it's entered from the east along the strip. The slab is level with its high NE corner; the ground falls ~3 ft to the SW: compacted crushed-stone fill, with a stem wall on the deep sides. 10.3 ft from both the well and the septic pipe. The buried service line likely runs under it: have it traced first." },
     building_B_23x43_eave_14ft_assumed: { label: "Building B, 23 × 43 ft (dropped)", group: "Proposed", token: "steel", solid: true, hidden: true,
       status: "dropped: site B is out (owner, Oct 18 2026); hidden at first, tick it in the layer list to compare", source: "Site B footprint (SITE_B in tools/site_plan.py); look per the owner, Oct 18 2026.",
       notes: "Dark grey steel on every surface, with two roll-up doors on the south wall (drawn rolled up) and a solid north wall toward US-290. Drawn with 12 × 12 ft doors at the quarter points, a 3:12 gable and a 14 ft eave. None of those is decided yet. The slab is level with its high NE corner by the oak. The ground falls ~3.8 ft across it, so the west side needs fill or a stem wall rather than a cut toward the oak. The east door is 15 ft from the house's NW corner." },
@@ -638,6 +638,9 @@ details li b { font-weight: 600; }
     const doors = B.doors.map(o => [o.center_ft - o.width_ft / 2, o.center_ft + o.width_ft / 2, Math.min(o.height_ft, E - 1.5)]);
     const endDoors = B.door_wall === "end";   // doors across the east end wall (x = L), spans along y
     const hd = Math.max(...doors.map(d => d[2]));
+    // Walk doors (A): openings in the same wall as the roll-ups, 7 ft tall, with wall above them up to hd.
+    const walks = (B.walk_doors || []).map(o => [o.center_ft - o.width_ft / 2, o.center_ft + o.width_ft / 2, o.height_ft, o]);
+    const opens = [...doors, ...walks].sort((p, q) => p[0] - q[0]);
     const gaps = (doorsOn, span) => {   // the solid stretches of a wall [0, span] between door openings
       const out = []; let a0 = 0;
       for (const [a, b] of doorsOn) { out.push([a0, a]); a0 = b; }
@@ -653,12 +656,18 @@ details li b { font-weight: 600; }
       if (endDoors) bar([L + 0.35, (a + b) / 2, z0 - 0.24], [L + 10, (a + b) / 2, groundFt(L + 10, (a + b) / 2) - 0.1], b - a + 2, 0.4, concrete);
       else bar([(a + b) / 2, -0.35, z0 - 0.24], [(a + b) / 2, -10, groundFt((a + b) / 2, -10) - 0.1], b - a + 2, 0.4, concrete);
     }
+    // Walk-door landings: level, half an inch below the slab, down to the ground at their edges.
+    for (const [, , , o] of walks) {
+      const [a, b, out] = o.stoop_ft, low = Math.min(groundFt(L + out, a), groundFt(L + out, b), groundFt(L, a), groundFt(L, b)) - 0.3;
+      if (endDoors) box(L + 0.35, L + out, a, b, low, z0 - 0.04, concrete);
+      else box(a, b, -out, -0.35, low, z0 - 0.04, concrete);
+    }
     // Walls: the north wall solid toward US-290; the south wall with the door openings unless they're in the end wall.
     box(0, L, W - T, W, z0, ze, steel);
     if (endDoors) box(0, L, 0, T, z0, ze, steel);
     else {
-      for (const [a, b] of gaps(doors, L)) box(a, b, 0, T, z0, ze, steel);
-      for (const [a, b, h] of doors) box(a, b, 0, T, z0 + h, ze, steel);
+      for (const [a, b] of gaps(opens, L)) box(a, b, 0, T, z0, ze, steel);
+      for (const [a, b, h] of opens) box(a, b, 0, T, z0 + h, ze, steel);
     }
     const gableFrom = (v0) => new THREE.Shape([[0, v0], [W, v0], [W, ze], [W / 2, zr], [0, ze]].map(([u, v]) => new THREE.Vector2(u, v)));
     const gable = gableFrom(z0), gableTop = gableFrom(z0 + hd);   // gableTop: an end wall above its door heads
@@ -666,7 +675,10 @@ details li b { font-weight: 600; }
     const endWall = (gx, depth, mat, withDoors) => {
       const g = new THREE.ExtrudeGeometry(withDoors ? gableTop : gable, { depth, bevelEnabled: false }); g.applyMatrix4(toLocal);
       const m = new THREE.Mesh(g, mat); m.position.x = gx; m.userData.id = id; shed.add(m);
-      if (withDoors) for (const [a, b] of gaps(doors, W)) box(gx, gx + depth, a, b, z0, z0 + hd, mat);
+      if (withDoors) {
+        for (const [a, b] of gaps(opens, W)) box(gx, gx + depth, a, b, z0, z0 + hd, mat);
+        for (const [a, b, h] of opens) if (h < hd) box(gx, gx + depth, a, b, z0 + h, z0 + hd, mat);
+      }
     };
     endWall(0, T, steel, false); endWall(L - T, T, steel, endDoors);
     // Inside faces in a very light grey, so the interior reads (owner, Oct 18 2026): walls, gable ends, roof underside.
@@ -674,23 +686,24 @@ details li b { font-weight: 600; }
     box(0, L, W - T - LT, W - T, z0, ze, liner);
     if (endDoors) box(0, L, T, T + LT, z0, ze, liner);
     else {
-      for (const [a, b] of gaps(doors, L)) box(a, b, T, T + LT, z0, ze, liner);
-      for (const [a, b, h] of doors) box(a, b, T, T + LT, z0 + h, ze, liner);
+      for (const [a, b] of gaps(opens, L)) box(a, b, T, T + LT, z0, ze, liner);
+      for (const [a, b, h] of opens) box(a, b, T, T + LT, z0 + h, ze, liner);
     }
     endWall(T, LT, liner, false); endWall(L - T - LT, LT, liner, endDoors);
     for (const yW of [T, W - T]) bar([L / 2, yW, ze - 0.16], [L / 2, W / 2, zr - 0.16], L - 2 * T, 0.03, liner);
     // Panel ribs every foot, and the roof's ribs down the slope (instanced).
     const unit = new THREE.BoxGeometry(1, 1, 1), ribs = [];
-    const inDoor = (r) => doors.find(([a, b]) => r > a - 0.1 && r < b + 0.1);
+    const inDoor = (r) => opens.find(([a, b]) => r > a - 0.1 && r < b + 0.1);
+    const above = (dd) => dd ? dd[2] + (dd[3] ? 0.22 : 0) : 0;   // ribs start over an opening (and a walk door's frame and drip cap)
     for (let rx = 0.5; rx < L; rx += 1) {
       const dd = endDoors ? null : inDoor(rx);
-      ribs.push([[rx, -0.06, z0 + (dd ? dd[2] : 0)], [0.1, 0.12], ze - z0 - (dd ? dd[2] : 0)]);
+      ribs.push([[rx, -0.06, z0 + above(dd)], [0.1, 0.12], ze - z0 - above(dd)]);
       ribs.push([[rx, W + 0.06, z0], [0.1, 0.12], ze - z0]);
     }
     for (let ry = 0.5; ry < W; ry += 1) {
       const top = ze + rise * (1 - Math.abs(ry - W / 2) / (W / 2)), dd = endDoors ? inDoor(ry) : null;
       ribs.push([[-0.06, ry, z0], [0.12, 0.1], top - z0]);
-      ribs.push([[L + 0.06, ry, z0 + (dd ? dd[2] : 0)], [0.12, 0.1], top - z0 - (dd ? dd[2] : 0)]);
+      ribs.push([[L + 0.06, ry, z0 + above(dd)], [0.12, 0.1], top - z0 - above(dd)]);
     }
     const slope = [];
     for (const s of [-1, 1]) for (let rx = -OH + 0.5; rx < L + OH; rx += 1) slope.push([rx, s]);
@@ -716,8 +729,8 @@ details li b { font-weight: 600; }
     for (const [cx, cy] of [[0, 0], [L, 0], [0, W], [L, W]]) box(cx - 0.2, cx + 0.2, cy - 0.2, cy + 0.2, z0, ze, steel);
     if (endDoors) {
       box(0, L, -0.14, 0, z0, z0 + 0.3, steel);
-      for (const [a, b] of gaps(doors, W)) box(L, L + 0.14, a, b, z0, z0 + 0.3, steel);
-    } else for (const [a, b] of gaps(doors, L)) box(a, b, -0.14, 0, z0, z0 + 0.3, steel);
+      for (const [a, b] of gaps(opens, W)) box(L, L + 0.14, a, b, z0, z0 + 0.3, steel);
+    } else for (const [a, b] of gaps(opens, L)) box(a, b, -0.14, 0, z0, z0 + 0.3, steel);
     box(0, L, W, W + 0.14, z0, z0 + 0.3, steel);
     // Roll-up doors, rolled up: jambs, head trim and the coiled curtain at the top of the opening.
     for (const [a, b, h] of doors) {
@@ -731,9 +744,37 @@ details li b { font-weight: 600; }
         box(a, b, 0.02, 0.14, z0 + h - 1.2, z0 + h, coil);
       }
     }
+    // Walk doors, closed: a welded hollow-metal frame (2 in face) proud of the panels, the door slab (1-3/4 in) with
+    // an even reveal, a continuous hinge down the hinge edge, a lever and deadbolt on the latch side (both faces),
+    // a parallel-arm closer inside and a drip cap over the head. Built in the door wall's own (out, along) axes.
+    const dframe = new THREE.MeshPhongMaterial({ color: 0x1e2023, specular: 0x222222, shininess: 30 });
+    const dslab = new THREE.MeshPhongMaterial({ color: 0x2f3236, specular: 0x2a2a2a, shininess: 36 });
+    const hw = new THREE.MeshPhongMaterial({ color: 0xc9ccd1, specular: 0x888888, shininess: 60 });
+    for (const [a, b, h, o] of walks) {
+      // wb(n0, n1, s0, s1, z0, z1): n is out from the wall's outer face, s along the wall.
+      const wb = endDoors ? (n0, n1, s0, s1, za, zb, m) => box(L + n0, L + n1, s0, s1, za, zb, m)
+                          : (n0, n1, s0, s1, za, zb, m) => box(s0, s1, -n1, -n0, za, zb, m);
+      const F = 0.17, D = 0.146, r = 0.01, hingeHi = o.hinge === "north" || o.hinge === "east";
+      const [hs, ls] = hingeHi ? [b, a] : [a, b], toward = hingeHi ? 1 : -1;   // hinge edge, latch edge; latch -> hinge
+      wb(-T - 0.05, 0.06, a - F, a, z0, z0 + h + F, dframe); wb(-T - 0.05, 0.06, b, b + F, z0, z0 + h + F, dframe);
+      wb(-T - 0.05, 0.06, a - F, b + F, z0 + h, z0 + h + F, dframe);
+      wb(-D, 0, a + r, b - r, z0 + 0.04, z0 + h - r, dslab);
+      wb(0, 0.05, hs - toward * 0.04 - 0.03, hs - toward * 0.04 + 0.03, z0 + 0.05, z0 + h - 0.02, hw);   // continuous hinge
+      for (const [n0, n1, dir] of [[0, 0.07, 1], [-D - 0.07, -D, -1]]) {
+        const s = ls + toward * 0.2, out = dir > 0 ? n1 : n0;
+        wb(n0, n1, Math.min(s - 0.09, s + 0.09), Math.max(s - 0.09, s + 0.09), z0 + 3.08, z0 + 3.26, hw);   // rose
+        const lv = [s, s + toward * 0.45].sort((p, q) => p - q);
+        wb(Math.min(out, out + dir * 0.07), Math.max(out, out + dir * 0.07), lv[0], lv[1], z0 + 3.13, z0 + 3.21, hw);   // lever
+        wb(n0, n1, Math.min(s - 0.07, s + 0.07), Math.max(s - 0.07, s + 0.07), z0 + 3.6, z0 + 3.75, hw);   // deadbolt
+      }
+      const c = [hs - toward * 1.5, hs - toward * 0.3].sort((p, q) => p - q);
+      wb(-T - 0.3, -T - LT, c[0], c[1], z0 + h - 0.45, z0 + h - 0.12, hw);   // closer, inside
+      wb(0, 0.22, a - 0.3, b + 0.3, z0 + h + F, z0 + h + F + 0.05, dframe);   // drip cap
+    }
     box(T, L - T, T, W - T, z0, z0 + 0.01, concrete);
     shed.traverse(o => { if (o.isMesh && !o.isInstancedMesh) (o.material === concrete ? walkables : solids).push(o); });
-    items[id] = { node, mats: [{ mat: steel, kind: "mesh" }, { mat: coil, kind: "mesh" }, { mat: concrete, kind: "mesh", fixed: true }, { mat: liner, kind: "mesh", fixed: true }],
+    items[id] = { node, mats: [{ mat: steel, kind: "mesh" }, { mat: coil, kind: "mesh" }, { mat: concrete, kind: "mesh", fixed: true }, { mat: liner, kind: "mesh", fixed: true },
+                               ...[dframe, dslab, hw].map(mat => ({ mat, kind: "mesh", fixed: true }))],
                   meta: META[id] || { label: "Shed", group: "Your lot", token: "steel", solid: true } };
 
     // John Deere S130 lawn tractor, low-poly, for scale. Inches; local x forward from the rear axle, y to the

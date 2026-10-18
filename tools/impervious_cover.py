@@ -11,7 +11,7 @@ with overlaps counted once. Sources and accuracy:
   the pergola's metal roof over part of it does);
 - the existing drive and walk: traced from the plat, +/-3 ft on every edge;
 - the building at site A: the standard kit sizes in tools/shed_cost.py, plus its 14 x 10 ft door
-  apron (gravel counts too under most rules, so it's counted either way);
+  apron and the walk door's 4.5 x 4 ft landing (gravel counts too under most rules, so it's counted either way);
 - loop D: tools/front_layout.py, the part that isn't already the existing drive or walk.
 
 Not counted: the A/C pads, the septic lids, stepping stones and anything not yet mapped.
@@ -29,7 +29,7 @@ from front_layout import EXISTING_DRIVE, FRONT_WALK, LOOP_D, lane_outline
 from front_plan import SurveyFrame
 from house_layout import DECK
 from site_plan import HOUSE_ST, PARCEL, PORCH_ST
-from shed_cost import APRON, DEPTH, FULL, X0
+from shed_cost import APRON, DEPTH, FULL, STOOP, X0
 
 SIZES = (35.0, 30.0, 25.0)   # building A's length along the line (ft); 30 ft wide
 
@@ -69,7 +69,7 @@ def main(limit: float) -> None:
     out = []
     for length in SIZES:
         bldg = on_lot(Polygon([sf.from_site(p) for p in line_rect(X0 + max(FULL - length, 0) * ALONG[0], length, DEPTH)]))
-        b = bldg.area + APRON
+        b = bldg.area + APRON + STOOP
         for label, extra in (("+ building", 0.0), ("+ building + loop D", loop_d.area)):
             total = now.area + b + extra
             out.append({"case": f"{label} {DEPTH:g} x {length:g} (+ apron)", "sq ft": round(total),

@@ -1847,8 +1847,28 @@ They explained it as "the open path through the trees." It's in the private repo
     accessory building on a single-family lot?
   - Is the lot in Austin's ETJ at all?
   - What did the owner's 15% come from? A deed restriction would be a different matter.
-- **One call or email to Travis County TNR (Development Services) settles it.** Ask whether any
-  impervious-cover limit applies to an accessory building on this lot.
+- **Checked against the county code itself** (Chapter 482, amended through Oct 28 2025).
+  Another agent had claimed the county caps single-family lots at 15% of gross acreage, citing
+  §482.229. The code doesn't say that.
+  - **§482.229's 15%** ("Impervious cover shall not exceed fifteen percent (15%) of the
+    property's acreage for single family and duplex residential development") is in
+    Subchapter C, Conservation Development.
+    - That subchapter "applies only outside the ETJ" (§482.220).
+    - It binds only an owner who signs a conservation development agreement with the county
+      before filing a preliminary plan or final plat (§482.221). It's an elective program for
+      new subdivisions.
+  - **§482.216** caps new subdivisions over the Edwards Aquifer recharge or contributing zone:
+    30% residential, 45% commercial, with exceptions. That's per subdivision.
+  - **§482.944(b)(3)** treats "15 percent or less" gross cover as an alternate standard that
+    lets a subdivision skip water-quality ponds. It's not a cap.
+  - Nothing found in Chapter 482 caps the cover on an existing lot in a recorded subdivision,
+    or on its accessory-building permit.
+  - The county's guidance asks for permanent water-quality controls only past 10,000 sq ft of
+    added cover on a residential lot that isn't in a subdivision. We're neither.
+- **Still worth one call or email to Travis County TNR (Development Services):** ask whether any
+  impervious-cover limit applies to an accessory building on this lot. Also check the deed
+  restrictions, in the title commitment's Schedule B, which the county code wouldn't show.
+- Code: [Travis County Code Chapter 482](https://www.traviscountytx.gov/images/commissioners_court/Doc/county-code/subtitle19/Ch.482_Development_Regulations.pdf).
 - Sources:
   - [1992 SOS ordinance text](https://bartoncreektimestream.org/events/1992-08/save-our-springs-ordinance-passes/SupportingDocument2.pdf)
   - [Austin Monitor on the SOS limits](https://www.austinmonitor.com/stories/2024/10/sos-variance-for-aquifer-development-fails-to-win-environmental-commission-support/)

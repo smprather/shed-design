@@ -56,6 +56,7 @@ Each script carries its dependencies inline (PEP 723). Run them from the repo ro
 | `measure_plan.py` | `site/measure-plan.png` (shot key for the worksheet) |
 | `lot_plan.py` | `site/lot.png` (whole-lot overview) |
 | `front_plan.py` | `site/front-yard.png` (circle drive vs. the building line and the lidar trees, prints clearances); shapes in `front_layout.py`, shared with `plan3d.py` |
+| `house_layout.py` | the house in 3D, a first pass (walls, roofs, porch, deck, chimney, known openings) in survey (s, t) feet; used by `plan3d.py` |
 | `envelope_plan.py` | `site/envelope.png` (where a building fits) |
 | `site_b_plan.py` | `site/site-b.png` (the chosen site) |
 | `solve_field.py` | `site/field-data.json` → `site/field-points.json` (trilateration, baselines) |
@@ -63,7 +64,7 @@ Each script carries its dependencies inline (PEP 723). Run them from the repo ro
 | `noise_model.py` | traffic-noise comparison of barrier options (printed table) |
 | `cmu_cost.py` | DIY block-wall material takeoff (printed table) |
 | `fetch_terrain.py` | `site/terrain-lidar.json` (USGS 3DEP 1 m lidar resampled onto the 3D plan's grid) |
-| `plan3d.py` | `site/plan3d.obj` and `site/plan3d.html` (a 3D viewer; template `tools/plan3d_viewer.html`) from `property_total_plan.jsonc` on the lidar terrain (`site/terrain-lidar.json`), plus septic conflict checks (printed table). The viewer draws building B in detail (as in `building_b.html`) with the owner's S130 mower inside for scale |
+| `plan3d.py` | `site/plan3d.obj` and `site/plan3d.html` (a 3D viewer; template `tools/plan3d_viewer.html`) from `property_total_plan.jsonc` on the lidar terrain (`site/terrain-lidar.json`), plus septic conflict checks (printed table). The viewer draws building B in detail (as in `building_b.html`) with the owner's S130 mower inside for scale, and the house (`house_layout.py`). It has orbit, look-around, WASD fly and WASD walk modes (walking follows the ground and stops at walls) |
 | `render_view.py` | `site/backyard-bare.jpg` and `site/backyard-8yr.jpg` (static render of the back-yard view, with and without the planned trees; template `tools/render_view.html`; needs a Playwright Chromium: `uv run --with playwright playwright install chromium`, or `--chromium PATH`) |
 | `sentinel_view.py` | `site/sentinel.png` (an older and the latest clear Sentinel-2 satellite scene, 10 m, with the lots and the back-yard sight lines; `--series` dates the retail lot's clearing) |
 | `render_building_b.py` | `site/building-b-*.jpg` (stills of building B from `tools/building_b.html`, the 3D page with sliders for eave height and door size, also published at https://claude.ai/artifact/HkCoRoNiUNBYoisHaoPWPw; needs a Playwright Chromium) |

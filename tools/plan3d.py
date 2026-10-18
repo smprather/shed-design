@@ -30,6 +30,7 @@ import rich_click as click
 from site_plan import HOUSE, PARCEL, REPO, SITE_B, WELL, en_to_site, north_line_y, site, st
 from site_b_plan import HOSE, house_north_y
 from front_layout import EXISTING_DRIVE, FRONT_WALK, LANE, LOOP_C, PORTE_COCHERE, catmull_rom, offset
+from house_layout import FF_FT, house_spec
 
 SPEC = REPO / "property_total_plan.jsonc"
 TERRAIN = REPO / "site" / "terrain-lidar.json"
@@ -384,9 +385,10 @@ def backyard(ground: Terrain, to_m: Frame) -> tuple[dict, list[dict]]:
 
 
 def write_viewer(path: Path, obj_text: str, plan: dict, checks: list[dict], backyard: dict,
-                 poles: list[dict], trees: dict, canopy: dict | None, z0_ft: float, building_b: dict) -> None:
+                 poles: list[dict], trees: dict, canopy: dict | None, z0_ft: float, building_b: dict,
+                 house: dict) -> None:
     """Fill the viewer template with the model, the plan's entity notes, the checks, the back-yard view, the poles,
-    the trees and building B's placement (the viewer draws B in detail)."""
+    the trees, building B's placement and the house (the viewer draws both in detail)."""
     spec = {"entities": [{k: e.get(k) for k in ("entity_id", "status", "source", "notes", "facade_toward_us")}
                          for e in plan["spatial_entities"]],
             "removed": plan.get("removed_claims", [])}
@@ -399,7 +401,8 @@ def write_viewer(path: Path, obj_text: str, plan: dict, checks: list[dict], back
             .replace("/*TREES*/", json.dumps(trees))
             .replace("/*CANOPY*/", json.dumps(canopy))
             .replace("/*Z0_FT*/", json.dumps(z0_ft))
-            .replace("/*BUILDING_B*/", json.dumps(building_b)))
+            .replace("/*BUILDING_B*/", json.dumps(building_b))
+            .replace("/*HOUSE*/", json.dumps(house)))
     path.write_text('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
                     '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
                     f"{head}</head>\n<body>\n{body}</body>\n</html>\n")
@@ -550,7 +553,13 @@ def main(spec: Path, out: Path) -> None:
                  "rows_ft": TREE_ROWS, "spacing_ft": TREE_SPACING,
                  "trees": [{"xy": [round(c, 2) for c in to_m(tr["site"])], "plant": tr["plant"]} for tr in trees]}
     existing = canopy.for_viewer(ground) if canopy else None
-    write_viewer(html, out.read_text(), plan, checks, view, poles, tree_view, existing, ground.z0, building_b)
+    # The house, a first pass (house_layout.py), in its own frame: x = -s (east), y = t (north), z up from the floor.
+    sv = lambda s, t: to_m(site([st(s, t)])[0])  # noqa: E731
+    o, e, n = sv(0, 0), sv(-1, 0), sv(0, 1)
+    house = house_spec(lambda s, t: (ground(*sv(s, t)) / FT + ground.z0) - FF_FT)
+    house.update({"origin": [round(c, 4) for c in o], "ex": [round((e[i] - o[i]) / FT, 6) for i in (0, 1)],
+                  "ey": [round((n[i] - o[i]) / FT, 6) for i in (0, 1)], "ff_m": round((FF_FT - ground.z0) * FT, 3)})
+    write_viewer(html, out.read_text(), plan, checks, view, poles, tree_view, existing, ground.z0, building_b, house)
     click.echo(f"wrote {out.relative_to(REPO)} ({obj.nv} vertices) and {html.relative_to(REPO)}; "
                f"building B slab at z = {slab:.2f} m")
     with pl.Config(tbl_rows=-1, tbl_hide_dataframe_shape=True, tbl_hide_column_data_types=True,

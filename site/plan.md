@@ -5,7 +5,7 @@ sources, corrections and dates. This file says what we're doing, in what order, 
 still undecided. Update it when a decision changes; record the facts behind the change in
 `notes.md`.
 
-Last updated: Oct 18 2026.
+Last updated: Oct 18 2026 (house model).
 
 ## The four projects
 
@@ -227,6 +227,10 @@ The kitchen's measurements are listed in its own repo.
 | Twin oak's second trunk girth (worksheet 11) | Root-zone size | Tape around at 4.5 ft up |
 | Branches over B's east end (17a) | Roof and erection clearance | Laser or pole |
 | Eave height wanted for B | Noise, overhead lines | Decision |
+| **House model:** photos taken square-on to each wall, with the 6 ft range pole (or a tape) standing against it: south wall, back walls, the two-story's south face, the front | Windows, doors, eave and gable heights on walls not yet seen | Photos |
+| **House model:** ground to the gutter at the front porch, the garage's NE corner, the two-story's north eave and the back wall; the roof pitch on one gable (a phone level on the rake) | Heights and pitches (now guessed) | Laser or tape |
+| **House model:** along the back wall from the SW corner: the deck's ends, the chimney, the back door; the deck's height above the lawn | Deck, chimney and door positions | Tape |
+| **House model:** the step from the walk up to the porch, and from the deck down to the lawn | The floor level | Tape |
 
 ## Sources
 

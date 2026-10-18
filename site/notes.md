@@ -1387,6 +1387,37 @@ What stays relevant here:
 - The conversion's old garage door becomes glass onto the apron. The apron stays the drive
   lane to the north gate.
 
+### The house in 3D, first pass (Oct 18 2026; `tools/house_layout.py`)
+
+The 3D property model now draws the house instead of only its footprint. It's built from the
+1991 plat's walls, the county record, the owner's garage and kitchen measurements, and the
+Oct 13 photos (02, 12, 16, 18).
+
+- **The photos settled:**
+  - **The two-story part runs along the north wall.** It goes from just west of the garage
+    through the NW wing: s 85.2–126.2 × t 68.8–90.1, ~873 sq ft (the county says 882).
+    - Stone first story, vertical siding above.
+    - Eave along the north wall at ~18 ft (photo scale), and a gable facing the back yard.
+    - The earlier guess that the two-story part sat behind the front, mid-house, was wrong.
+  - **The porch and the garage share one roof plane.** It rises west from the porch eave
+    (~7.6 ft) to the two-story's eave, about 4:12. The garage's north wall is the tall
+    sloped face over the 16 ft door: ~11 ft at its east end, ~18 ft at its west.
+  - **The south rooms have the front gable,** with siding above stone and two shuttered
+    windows.
+  - **The stone back wing with the chimney** is south of the deck.
+- **Guesses, to tighten:**
+  - the floor level (1,055.5 ft, just under the lidar ground at the garage's NE corner);
+  - the 5:12 pitches and the 8.5 ft first-story eave;
+  - the roof over the entry and kitchen (drawn as its own gable);
+  - the deck's position (10 × 24 ft off the middle of the back wall);
+  - the chimney's size and spot;
+  - every window and door on walls not yet photographed: the south wall, most of the back,
+    and the two-story's south face.
+- **The viewer gained fly and walk modes (WASD).**
+  - Walking keeps the eye 5.25 ft above whatever you stand on (the ground, the porch, the
+    deck, building B's slab and aprons).
+  - Steps of up to ~1½ ft are fine. Walls, fences and buildings stop you.
+
 ### Windows and doors
 
 - Traffic noise is heavy in low frequencies. Compare windows by **OITC** (made for traffic

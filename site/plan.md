@@ -11,7 +11,7 @@ Last updated: Oct 18 2026 (impervious cover: already over 15%; site A building p
 
 | Project | What it is now | Status | Blocked on |
 |---|---|---|---|
-| **1. The building, at site A** | A standard steel kit, 30 ft wide × 35, 30 or 25 ft, on the north strip between the well and the septic pipe. Site B is dropped (owner, Oct 18 2026) | Sized and priced (~$47–104k turnkey for 30 × 35); size, frame type and use open | The buried service line; the septic layout (the drainfield may be under it) |
+| **1. The building, at site A** | A standard tube-frame steel kit, 30 ft wide × 35, 30 or 25 ft, on the north strip between the well and the septic pipe. Site B is dropped (owner, Oct 18 2026) | Sized and priced (~$50–66k turnkey, likely); size and use open | The buried service line; the septic layout (the drainfield may be under it) |
 | **2. Screening** (noise and views) | US-290 side: the 8 ft fence, building B, maybe a taller wall. Back line: 21 new trees in the gaps | Back-line planting ready to buy; US-290 side needs re-modeling | Fence gaps and ownership; septic layout |
 | **3. Garage → kitchen** | Join the 21 × 21 ft attached garage, the hall beside it and the old kitchen into one ~680 sq ft kitchen. Its own repo: `smprather/kitchen-garage-renovation` | Idea stage (~90% likely); layout mocked up | Parking must move first; septic capacity question; structure (see its repo) |
 | **4. Circle drive + covered parking** | Loop D through the front lawn and the open path between the oaks, plus a porte-cochère (A) or a carport (B) | Layout proposed | Both front oaks' trunk positions; covered-parking choice; county permits |
@@ -90,11 +90,13 @@ construction can then follow without working around B's.
 35, 30 or 25 ft long along the line. The ridge runs along the line, and two 12 × 12 ft roll-up
 doors are in the east end wall. The 3D plan draws 30 × 35 with the S130 inside.
 
-| Size | Tube frame, likely (80% band) | Red-iron, likely (80% band) | + insulation and power |
+Tube frame, dealer-installed (owner, Oct 18 2026: red-iron is out).
+
+| Size | Turnkey, likely (80% band) | Per sq ft | + insulation and power |
 |---|---|---|---|
-| 30 × 35 ft (1,050 sq ft) | $66k ($59–72k) | $81k ($71–90k) | $8k–17k |
-| 30 × 30 ft (900 sq ft) | $58k ($52–63k) | $70k ($62–79k) | $7k–16k |
-| 30 × 25 ft (750 sq ft) | $50k ($45–54k) | $60k ($53–67k) | $7k–15k |
+| 30 × 35 ft (1,050 sq ft) | $66k ($59–72k) | $63 | $12k ($10–15k) |
+| 30 × 30 ft (900 sq ft) | $58k ($52–63k) | $64 | $12k ($9–14k) |
+| 30 × 25 ft (750 sq ft) | $50k ($45–54k) | $66 | $11k ($9–13k) |
 
 - For comparison, ~800 sq ft of portable wood sheds on blocks is ~$25–41k (notes, "For
   comparison: ~800 sq ft of portable sheds").
@@ -113,7 +115,7 @@ doors are in the east end wall. The 3D plan draws 30 × 35 with the S130 inside.
 - **Before anything:** trace the buried service line (it likely runs under the site) and
   find the drainfield. The door aprons reach into the septic pipe's 10 ft keep-out: keep
   them short, or gravel.
-- **Decisions for you:** the size; tube frame or red-iron; insulation; power.
+- **Decisions for you:** the size; insulation; power.
 
 The rest of this section is building B's study at site B, kept for the record.
 

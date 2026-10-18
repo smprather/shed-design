@@ -2,7 +2,9 @@
 # requires-python = ">=3.11"
 # dependencies = ["rich-click", "polars", "pillow", "numpy"]
 # ///
-"""Turnkey budget for the steel building at site A: site work, foundation and the building, by size.
+"""Turnkey budget for the steel building at site A: site work, foundation and a tube-frame building, by size.
+
+Tube frame only: the owner ruled out red-iron (Oct 18 2026; see site/notes.md, "Tube frame or red-iron").
 
 The sizes are standard kit sizes (owner, Oct 18 2026): 30 ft wide, the most common shop span, across the
 strip from the 5 ft setback line, and 35, 30 or 25 ft long along the line, in the usual 5 ft steps. Every
@@ -47,8 +49,7 @@ PRICES = {
     "wall": ((70, 140), "ft", "Stem wall where the fill is deeper than 1.5 ft, with its footing"),
     "slab": ((9, 15), "sq ft", "Slab: 6 in, rebar, thickened edges, vapor barrier, column piers"),
     "aprons": ((7, 11), "sq ft", "Door aprons, two 14 x 10 ft"),
-    "red_iron": ((25, 45), "sq ft", "Building, erected: red-iron frame, 14 ft eave, two 12 x 12 roll-ups, walk door"),
-    "tube": ((16, 28), "sq ft", "Building, installed: tube frame, same size and doors"),
+    "tube": ((16, 28), "sq ft", "Building, installed: tube frame, 14 ft eave, two 12 x 12 roll-ups, walk door"),
     "insulation": ((1.25, 2.5), "sq ft of wall and roof", "Option: insulation, walls and roof"),
     "power": ((3500, 8000), "lot", "Option: power: trench, conduit, subpanel, lights and outlets"),
 }
@@ -77,21 +78,22 @@ def estimate(length: float, q: dict) -> tuple[list[dict], dict]:
     area = length * DEPTH
     surface = 2 * (length + DEPTH) * EAVE + area / math.cos(math.atan(3 / 12))
     qty = {"prep": 1, "locate": 1, "permits": 1, "fill": q["fill"], "wall": q["wall"], "slab": area, "aprons": APRON,
-           "red_iron": area, "tube": area, "insulation": surface, "power": 1}
+           "tube": area, "insulation": surface, "power": 1}
     rows, sums = [], {}
     for key, ((lo, hi), unit, label) in PRICES.items():
         rows.append({"item": label, "qty": f"{qty[key]:,.0f} {unit}", "low": int(round(lo * qty[key], -2)), "high": int(round(hi * qty[key], -2))})
         sums[key] = (lo * qty[key], hi * qty[key])
     base = [sums[k] for k in ("prep", "locate", "permits", "fill", "wall", "slab", "aprons")]
-    totals = {}
-    for frame in ("red_iron", "tube"):
-        items = base + [sums[frame]]
-        lo = sum(b[0] for b in items) * (1 + CONTINGENCY)
-        hi = sum(b[1] for b in items) * (1 + CONTINGENCY)
-        mid = sum((a + b) / 2 for a, b in items) * (1 + CONTINGENCY)
-        sd = math.sqrt(sum((b - a) ** 2 / 12 for a, b in items)) * (1 + CONTINGENCY)
-        opt = ((sums["insulation"][0] + sums["power"][0]) * (1 + CONTINGENCY), (sums["insulation"][1] + sums["power"][1]) * (1 + CONTINGENCY))
-        totals[frame] = (lo, hi, opt, mid, mid - Z80 * sd, mid + Z80 * sd)
+    items = base + [sums["tube"]]
+    lo = sum(b[0] for b in items) * (1 + CONTINGENCY)
+    hi = sum(b[1] for b in items) * (1 + CONTINGENCY)
+    mid = sum((a + b) / 2 for a, b in items) * (1 + CONTINGENCY)
+    sd = math.sqrt(sum((b - a) ** 2 / 12 for a, b in items)) * (1 + CONTINGENCY)
+    options = [sums["insulation"], sums["power"]]
+    opt_mid = sum((a + b) / 2 for a, b in options) * (1 + CONTINGENCY)
+    opt_sd = math.sqrt(sum((b - a) ** 2 / 12 for a, b in options)) * (1 + CONTINGENCY)
+    totals = {"range": (lo, hi), "likely": (mid, mid - Z80 * sd, mid + Z80 * sd),
+              "options": (opt_mid, opt_mid - Z80 * opt_sd, opt_mid + Z80 * opt_sd)}
     return rows, totals
 
 
@@ -112,12 +114,13 @@ def main(lengths: str, detail: bool) -> None:
             with pl.Config(tbl_hide_dataframe_shape=True, tbl_hide_column_data_types=True, fmt_str_lengths=90, tbl_width_chars=150,
                            tbl_rows=-1, thousands_separator=","):
                 click.echo(pl.DataFrame(rows))
-        fmt = lambda a, b: f"${a / 1000:,.0f}k-{b / 1000:,.0f}k"  # noqa: E731
-        likely = lambda t: f"${t[3] / 1000:,.0f}k (${t[4] / 1000:,.0f}k-{t[5] / 1000:,.0f}k)"  # noqa: E731
+        k = lambda v: f"${v / 1000:,.0f}k"  # noqa: E731
+        likely = lambda t: f"{k(t[0])} ({k(t[1])}-{k(t[2])})"  # noqa: E731
         summary.append({"size": f"{DEPTH:g} x {length:g} ({area:,.0f} sq ft)",
-                        "tube frame: likely (80%)": likely(totals["tube"]), "outer range": fmt(*totals["tube"][:2]),
-                        "red-iron: likely (80%)": likely(totals["red_iron"]), "outer range ": fmt(*totals["red_iron"][:2]),
-                        "+ insulation and power": fmt(*totals["red_iron"][2])})
+                        "turnkey, likely (80% band)": likely(totals["likely"]),
+                        "per sq ft": f"${totals['likely'][0] / area:,.0f}",
+                        "all lows to all highs": f"{k(totals['range'][0])}-{k(totals['range'][1])}",
+                        "+ insulation and power, likely": likely(totals["options"])})
     click.echo(f"\nTurnkey totals, with {CONTINGENCY:.0%} contingency (site work, fill, stem wall, slab, aprons, the building):")
     with pl.Config(tbl_hide_dataframe_shape=True, tbl_hide_column_data_types=True, fmt_str_lengths=40, tbl_width_chars=160):
         click.echo(pl.DataFrame(summary))

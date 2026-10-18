@@ -1729,53 +1729,47 @@ They explained it as "the open path through the trees." It's in the private repo
 
 ### What the building at site A costs (Oct 18 2026; `tools/shed_cost.py`)
 
-- **Turnkey: site work, crushed-stone fill, stem wall, slab, door aprons and the building
-  erected, plus 10% contingency.** Planning ranges, not quotes:
+- **Tube frame only** (owner, Oct 18 2026: red-iron is out; see "Tube frame or red-iron").
+- **Turnkey: site work, crushed-stone fill, stem wall, slab, door aprons and the tube-frame
+  building installed, plus 10% contingency.** Planning figures, not quotes:
 
-  | Size | Red-iron (engineered) | Tube frame (dealer-installed) | Add insulation and power |
+  | Size | Likely (80% band) | Per sq ft | All lows to all highs | + insulation and power |
+  |---|---|---|---|---|
+  | 30 × 35 ft (1,050 sq ft) | **$66k** ($59–72k) | $63 | $47–85k | $12k ($10–15k) |
+  | 30 × 30 ft (900 sq ft) | **$58k** ($52–63k) | $64 | $41–74k | $12k ($9–14k) |
+  | 30 × 25 ft (750 sq ft) | **$50k** ($45–54k) | $66 | $35–64k | $11k ($9–13k) |
+
+  - "Likely" sums each line's midpoint. The band is where 80% of outcomes fall if each line
+    varies on its own.
+  - "All lows to all highs" adds every low and every high, which no real job does.
+- **The midpoints, line by line,** for 30 × 35 / 30 × 30 / 30 × 25 (before the 10%):
+
+  | Line | 30 × 35 | 30 × 30 | 30 × 25 |
   |---|---|---|---|
-  | 30 × 35 ft (1,050 sq ft) | $57k–104k | $47k–85k | $8k–17k |
-  | 30 × 30 ft (900 sq ft) | $50k–91k | $41k–74k | $7k–16k |
-  | 30 × 25 ft (750 sq ft) | $42k–78k | $35k–64k | $7k–15k |
+  | Building, installed | $23.1k | $19.8k | $16.5k |
+  | Slab | $12.6k | $10.8k | $9.0k |
+  | Stem wall on the low sides | $8.8k | $7.7k | $6.8k |
+  | Fill (73 / 60 / 47 cu yd) | $7.1k | $5.8k | $4.6k |
+  | Door aprons | $2.6k | $2.6k | $2.6k |
+  | Prep, locate, permits and plans | $5.7k | $5.7k | $5.7k |
 
-- **The likely figure is much tighter than that.** The outer range adds every low and every
-  high, which no real job does. Summing the midpoints, with the band where 80% of outcomes
-  fall if each line varies on its own (`shed_cost.py`):
-
-  | Size | Tube frame, likely (80% band) | Red-iron, likely (80% band) |
-  |---|---|---|
-  | 30 × 35 | $66k ($59–72k) | $81k ($71–90k) |
-  | 30 × 30 | $58k ($52–63k) | $70k ($62–79k) |
-  | 30 × 25 | $50k ($45–54k) | $60k ($53–67k) |
-
-  - **Three lines carry most of the spread.** For 30 × 25 tube frame: the building ($12–21k),
-    the slab ($7–11k) and the stem wall ($4.5–9k).
+  - **The slope** (fill and wall) is ~$11–16k of it.
+  - **Three lines carry most of the spread:** the building, the slab and the stem wall.
   - **Two quotes would tighten it to about ±$3–5k:**
     - a tube-frame dealer's configured price, which is published and free;
     - one concrete contractor bidding the pad, the wall and the slab together.
-- **Where the money goes,** for 30 × 35 (low–high):
-  - the building, $26–47k red-iron or $17–29k tube frame;
-  - the slab, $9–16k;
-  - the stem wall, $6–12k;
-  - the fill, $5–9k (73 cu yd: the ground falls 3.1 ft);
-  - the aprons, $2–3k;
-  - prep, the locate, permits and plans, $3–8k.
-  - The slope alone (fill and wall) adds ~$11–21k over a flat site.
 - **The unit prices behind it:**
 
   | Item | Range | Basis |
   |---|---|---|
-  | Erected red-iron shell | $25–45/sq ft | Texas guides |
   | Tube frame, installed | $16–28/sq ft | dealer listings; a 30 × 30 × 12 with doors lists from ~$16k |
   | Slab, 6 in with rebar and thickened edges | $9–15/sq ft | Austin guides |
   | Flex base | ~$31–54/ton delivered | a 2025 Collin County bid; placed and compacted, ~$70–125/cu yd |
   | Stem wall | $70–140/ft | |
 
-- **Tube frame vs. red-iron:**
-  - **Tube frame** is the cheaper way: the dealer delivers and installs it. It's lighter
-    (galvanized tube), with fewer options.
-  - **Red-iron** is an engineered I-beam frame: stiffer, more options, and an erector crew.
-  - Either way, ask for engineering stamped for Travis County's wind load.
+- **Tube frame:** the dealer delivers and installs it, galvanized tube. Ask for engineering
+  stamped for Travis County's wind load. Red-iron was priced too, then ruled out by the
+  owner.
 - **Permits:** Travis County's accessory-building permit wants a site plan showing the septic
   system (OSSF), and a separate OSSF permit can apply. Another reason to locate the tank and
   drainfield first.
@@ -1846,6 +1840,9 @@ They explained it as "the open path through the trees." It's in the private repo
 
 ### Tube frame or red-iron: what would justify red-iron (owner's question, Oct 18 2026)
 
+- **Decided the same day: tube frame.** The owner ruled out red-iron; none of the triggers
+  below applies. Kept for the record.
+
 - **Both can be certified to the code wind load.** "Sturdier" shows up in five measurable
   places, not in passing code:
 
@@ -1898,7 +1895,7 @@ They explained it as "the open path through the trees." It's in the private repo
   | 12 × 32 + 12 × 24 + 10 × 12 | 792 | $22–31k | $4–7k | ~$26–38k |
   | Three 12 × 24 | 864 | $25–33k | $4–8k | ~$29–41k |
 
-  - The steel building at 30 × 25 (750 sq ft) runs $35–64k tube frame, $42–78k red-iron,
+  - The steel building at 30 × 25 (750 sq ft) runs ~$50k ($45–54k) tube frame,
     turnkey with its slab.
 - **What they do well:**
   - **No slab, fill or stem wall.** Each building is only 12 ft deep, so it sees about

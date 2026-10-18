@@ -1,0 +1,400 @@
+<title>Building B</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: the building fills the stage; a narrow spec sheet beside it with the open choices
+   as sliders, stacking under the stage on phones. */
+:root {
+  --paper: #eef0f1; --sheet: #f8f9f9; --ink: #1b1e21; --ink-2: #454b51; --muted: #6c737a; --rule: #d2d7db;
+  --accent: #2f6690; --accent-ink: #ffffff; --stage: #dfe4e7; --track: #c9d0d5;
+  --f-display: "Archivo", "Arial Narrow", "Helvetica Neue", sans-serif;
+  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111315; --sheet: #171a1d; --ink: #e4e7ea; --ink-2: #b7bec4; --muted: #8a9299; --rule: #2a2f34;
+    --accent: #7fb2d8; --accent-ink: #0d1318; --stage: #1a1e21; --track: #343b41; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111315; --sheet: #171a1d; --ink: #e4e7ea; --ink-2: #b7bec4; --muted: #8a9299; --rule: #2a2f34;
+  --accent: #7fb2d8; --accent-ink: #0d1318; --stage: #1a1e21; --track: #343b41; color-scheme: dark;
+}
+body { background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 1320px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header.wrap { padding-block: 26px 16px; display: grid; gap: 6px; }
+.eyebrow { margin: 0; font: 600 12.5px/1.2 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+h1 { margin: 0; font-family: var(--f-display); font-stretch: 78%; font-weight: 800; font-size: clamp(36px, 5.4vw, 58px); line-height: .95; letter-spacing: -.01em; text-wrap: balance; }
+.lede { margin: 6px 0 0; max-width: 70ch; color: var(--ink-2); }
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 16px; align-items: start; padding-block: 2px 14px; }
+@media (max-width: 960px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+.panel { background: var(--sheet); border: 1px solid var(--rule); border-radius: 4px; min-width: 0; }
+.bar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; justify-content: space-between; padding: 10px 12px; border-bottom: 1px solid var(--rule); }
+.views { display: flex; flex-wrap: wrap; gap: 6px; }
+button { font: 500 12.5px/1 var(--f-body); color: var(--ink-2); background: transparent; border: 1px solid var(--rule); border-radius: 3px; padding: 7px 10px; cursor: pointer; }
+button:hover { border-color: var(--ink-2); color: var(--ink); }
+button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.stage { position: relative; aspect-ratio: 16 / 10; max-width: 100%; background: var(--stage); }
+.stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+.stage .msg { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; text-align: center; color: var(--muted); }
+.foot { padding: 8px 12px; border-top: 1px solid var(--rule); font-size: 12.5px; color: var(--muted); }
+.side { display: grid; gap: 0; }
+.side section { padding: 14px 16px; border-bottom: 1px solid var(--rule); display: grid; gap: 12px; }
+.side section:last-child { border-bottom: 0; }
+h2 { margin: 0; font: 600 12px/1.2 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.ctl { display: grid; gap: 6px; }
+.ctl label { display: flex; justify-content: space-between; gap: 8px; font-weight: 500; font-size: 14px; }
+.ctl output { font-family: var(--f-mono); font-variant-numeric: tabular-nums; color: var(--ink); }
+.ctl small { color: var(--muted); font-size: 12px; }
+input[type=range] { width: 100%; accent-color: var(--accent); }
+.toggles { display: flex; flex-wrap: wrap; gap: 6px; }
+dl { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 7px 14px; font-size: 14px; }
+dt { color: var(--ink-2); }
+dd { margin: 0; text-align: right; font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+.notes { padding-block: 10px 40px; }
+.notes ul { margin: 8px 0 0; padding-left: 18px; color: var(--ink-2); display: grid; gap: 5px; max-width: 80ch; }
+</style>
+
+<header class="wrap">
+  <p class="eyebrow">Site B · steel building on a slab</p>
+  <h1>Building B</h1>
+  <p class="lede">A 23 × 43 ft metal building, dark grey on every surface. Two roll-up doors on the south long wall face the yard. The north wall toward US-290 stays solid, which the noise plan wants.</p>
+</header>
+
+<main class="wrap grid">
+  <section class="panel" aria-label="3D model">
+    <div class="bar">
+      <div class="views" id="views">
+        <button type="button" id="v-oblique" data-view="oblique" aria-pressed="true">Oblique</button>
+        <button type="button" id="v-yard" data-view="yard" aria-pressed="false">From the yard</button>
+        <button type="button" id="v-house" data-view="house" aria-pressed="false">From the house corner</button>
+        <button type="button" id="v-north" data-view="north" aria-pressed="false">From US-290</button>
+      </div>
+    </div>
+    <div class="stage" id="stage"><canvas id="c" aria-label="3D model of building B; drag to orbit"></canvas></div>
+    <div class="foot">Drag to orbit · right-drag to pan · scroll or pinch to zoom. The figure is 5'-9".</div>
+  </section>
+
+  <aside class="panel side" aria-label="Building settings and dimensions">
+    <section>
+      <h2>Open choices</h2>
+      <div class="ctl">
+        <label for="eave">Eave height <output id="eave-o"></output></label>
+        <input type="range" id="eave" min="10" max="16" step="0.5" value="14">
+        <small>14 ft is the noise model's case. Check the overhead-line clearance.</small>
+      </div>
+      <div class="ctl">
+        <label for="dw">Door width <output id="dw-o"></output></label>
+        <input type="range" id="dw" min="8" max="14" step="1" value="12">
+      </div>
+      <div class="ctl">
+        <label for="dh">Door height <output id="dh-o"></output></label>
+        <input type="range" id="dh" min="8" max="14" step="0.5" value="12">
+        <small>Capped 1'-6" under the eave, to leave room for the coil.</small>
+      </div>
+      <div class="toggles">
+        <button type="button" id="open" aria-pressed="false">Doors open</button>
+        <button type="button" id="ctx" aria-pressed="true">Fence and house</button>
+      </div>
+    </section>
+    <section>
+      <h2>Dimensions</h2>
+      <dl>
+        <dt>Footprint</dt><dd>23'-0" × 43'-0"</dd>
+        <dt>Floor area</dt><dd>989 sq ft</dd>
+        <dt>Roof</dt><dd>gable, 3:12</dd>
+        <dt>Eave</dt><dd id="f-eave"></dd>
+        <dt>Ridge</dt><dd id="f-ridge"></dd>
+        <dt>Doors (2)</dt><dd id="f-doors"></dd>
+        <dt>Eave over the 8 ft fence</dt><dd id="f-fence"></dd>
+        <dt>West door to the west end</dt><dd id="f-end"></dd>
+        <dt>Between the doors</dt><dd id="f-gap"></dd>
+      </dl>
+    </section>
+  </aside>
+</main>
+
+<section class="wrap notes" aria-labelledby="n-h">
+  <h2 id="n-h">Drawn as</h2>
+  <ul>
+    <li>Footprint and position from the site plan. The house's NW corner is 15 ft south of the south wall, in line with the east door.</li>
+    <li>The roof pitch (3:12), the doors' size and spacing, and the eave height are open choices. These are placeholders.</li>
+    <li>The ground is drawn flat. The real slab site falls ~3.8 ft, high at the NE corner, so the west end sits on fill or a stem wall.</li>
+    <li>The 8 ft US-290 fence is drawn 6 ft north of the building. The real fence wanders off the surveyed line.</li>
+  </ul>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+(() => {
+"use strict";
+// Building frame, feet: x east along the building (0 = west end), y north (0 = south wall,
+// the door side), z up from grade. Building B is 23 x 43 ft (site_plan.py SITE_B).
+const L = 43, W = 23, SLAB = 0.5, OH = 1.0, PITCH = 3 / 12, T = 0.15;
+const HOUSE_CORNER = [32.0, -15.0];   // the house's NW wall corner, from the site plan
+const FENCE_Y = W + 6;
+const state = { eave: 14, dw: 12, dh: 12, open: false, ctx: true };
+
+const fmt = v => { const i = Math.round(v * 12); return `${Math.floor(i / 12)}'-${i % 12}"`; };
+const doorsX = () => [L / 4, 3 * L / 4].map(c => [c - state.dw / 2, c + state.dw / 2]);
+
+function facts() {
+  const rise = (W / 2) * PITCH, d = doorsX();
+  document.getElementById("eave-o").textContent = fmt(state.eave);
+  document.getElementById("dw-o").textContent = fmt(state.dw);
+  document.getElementById("dh-o").textContent = fmt(state.dh);
+  document.getElementById("f-eave").textContent = fmt(state.eave);
+  document.getElementById("f-ridge").textContent = fmt(state.eave + rise);
+  document.getElementById("f-doors").textContent = `${fmt(state.dw)} × ${fmt(state.dh)}`;
+  document.getElementById("f-fence").textContent = `+${fmt(state.eave + SLAB - 8)}`;
+  document.getElementById("f-end").textContent = fmt(d[0][0]);
+  document.getElementById("f-gap").textContent = fmt(d[1][0] - d[0][1]);
+}
+
+const views = {
+  oblique: { eye: [-24, -40, 27], at: [21.5, 10, 6], fov: 40 },
+  yard: { eye: [17, -46, 5.3], at: [21.5, 11.5, 8.5], fov: 50 },
+  house: { eye: [46, -12.5, 6.5], at: [17, 9, 5.5], fov: 55 },
+  north: { eye: [10, 78, 5.3], at: [21.5, 11.5, 9], fov: 45 },
+};
+
+function start() {
+  const stage = document.getElementById("stage"), canvas = document.getElementById("c");
+  const fail = m => { const d = document.createElement("div"); d.className = "msg"; d.textContent = m; stage.appendChild(d); window.failed = m; };
+  if (!window.THREE || !THREE.OrbitControls) return fail("The 3D view needs three.js, which didn't load.");
+  let renderer;
+  try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true }); } catch (e) { return fail("This browser can't show WebGL."); }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.1;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+  const scene = new THREE.Scene();
+  const col = h => new THREE.Color(h).convertSRGBToLinear();
+  const skyColor = () => col(getComputedStyle(document.documentElement).getPropertyValue("--stage").trim() || "#dfe4e7");
+  scene.background = skyColor();
+  scene.fog = new THREE.Fog(scene.background, 160, 420);
+  const camera = new THREE.PerspectiveCamera(40, 1.6, 0.3, 900);
+  const controls = new THREE.OrbitControls(camera, canvas);
+  controls.maxPolarAngle = Math.PI * 0.495; controls.minDistance = 4; controls.maxDistance = 220;
+
+  const P = (x, y, z) => new THREE.Vector3(x, z, -y);
+  const tex = (w, h, draw) => { const c = document.createElement("canvas"); c.width = w; c.height = h; draw(c.getContext("2d"), w, h); const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; return t; };
+  // Roll-up curtain: horizontal slat corrugation, one tile = 1 ft.
+  const slats = tex(16, 128, (c, w, h) => { for (let y = 0; y < h; y++) { const v = 128 + 110 * Math.sin((y / h) * Math.PI * 2 * 4); c.fillStyle = `rgb(${v},${v},${v})`; c.fillRect(0, y, w, 1); } });
+  const grassTex = tex(256, 256, (c, w, h) => {
+    c.fillStyle = "#7c8c5c"; c.fillRect(0, 0, w, h);
+    let s = 5; const r = () => (s = (s * 16807) % 2147483647) / 2147483647;
+    for (let i = 0; i < 2600; i++) { c.fillStyle = `hsla(${70 + r() * 25},${25 + r() * 20}%,${30 + r() * 22}%,.5)`; c.fillRect(r() * w, r() * h, 1.5, 3); }
+  });
+  grassTex.encoding = THREE.sRGBEncoding; grassTex.repeat.set(60, 60);
+  const fenceTex = tex(32, 128, (c, w, h) => { c.fillStyle = "#8b7c69"; c.fillRect(0, 0, w, h); c.fillStyle = "rgba(40,30,20,.45)"; for (let y = 0; y < h; y += 8) c.fillRect(0, y, w, 1); });
+  fenceTex.encoding = THREE.sRGBEncoding;
+
+  const GREY = "#3b3e42";
+  const M = {
+    steel: new THREE.MeshStandardMaterial({ color: col(GREY), roughness: 0.48, metalness: 0.45 }),
+    door: new THREE.MeshStandardMaterial({ color: col(GREY), roughness: 0.5, metalness: 0.45, bumpMap: slats, bumpScale: 0.035 }),
+    concrete: new THREE.MeshStandardMaterial({ color: col("#b9b6ae"), roughness: 0.95 }),
+    grass: new THREE.MeshStandardMaterial({ map: grassTex, roughness: 1 }),
+    fence: new THREE.MeshStandardMaterial({ map: fenceTex, roughness: 0.95 }),
+    post: new THREE.MeshStandardMaterial({ color: col("#6f6253"), roughness: 0.9 }),
+    house: new THREE.MeshStandardMaterial({ color: col("#cfc8bb"), roughness: 0.95, transparent: true, opacity: 0.4, depthWrite: false }),
+    shirt: new THREE.MeshStandardMaterial({ color: col("#5d7186"), roughness: 0.9 }),
+    skin: new THREE.MeshStandardMaterial({ color: col("#c6a588"), roughness: 0.8 }),
+  };
+  M.door.bumpMap.repeat.set(1, 1);
+
+  const box = (x0, x1, y0, y1, z0, z1, mat, parent) => {
+    const m = new THREE.Mesh(new THREE.BoxGeometry(x1 - x0, z1 - z0, y1 - y0), mat);
+    m.position.set((x0 + x1) / 2, (z0 + z1) / 2, -(y0 + y1) / 2);
+    m.castShadow = m.receiveShadow = true; parent.add(m); return m;
+  };
+  // A bar of the given cross-section running from a to b (plan points with z).
+  const bar = (a, b, w, h, mat, parent) => {
+    const A = P(...a), B = P(...b), len = A.distanceTo(B);
+    const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, len), mat);
+    m.position.copy(A).add(B).multiplyScalar(0.5); m.lookAt(B);
+    m.castShadow = m.receiveShadow = true; parent.add(m); return m;
+  };
+
+  // Ground.
+  const ground = new THREE.Mesh(new THREE.PlaneGeometry(900, 900), M.grass);
+  ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
+
+  // Context: the 8 ft fence to the north and the house's NW corner to the south.
+  const ctx = new THREE.Group(); scene.add(ctx);
+  box(-30, 75, FENCE_Y, FENCE_Y + 0.1, 0, 8, M.fence, ctx);
+  for (let x = -30; x <= 75; x += 8) box(x - 0.17, x + 0.17, FENCE_Y + 0.1, FENCE_Y + 0.43, 0, 8.2, M.post, ctx);
+  box(HOUSE_CORNER[0], HOUSE_CORNER[0] + 40, HOUSE_CORNER[1] - 26, HOUSE_CORNER[1], 0, 11, M.house, ctx);
+
+  // Figure, 5'-9".
+  const fig = new THREE.Group(); scene.add(fig);
+  const body = new THREE.Mesh(new THREE.CylinderGeometry(0.62, 0.5, 4.95, 18), M.shirt); body.position.set(0, 2.47, 0);
+  const head = new THREE.Mesh(new THREE.SphereGeometry(0.4, 18, 12), M.skin); head.position.set(0, 5.35, 0);
+  for (const m of [body, head]) { m.castShadow = true; fig.add(m); }
+  fig.position.copy(P(L / 4 - state.dw / 2 - 2.2, -3.5, 0));
+
+  // The building, rebuilt when a slider moves.
+  let bldg = null;
+  function build() {
+    if (bldg) { scene.remove(bldg); bldg.traverse(o => o.geometry && o.geometry.dispose()); }
+    bldg = new THREE.Group(); scene.add(bldg);
+    const z0 = SLAB, E = state.eave, ze = z0 + E, rise = (W / 2) * PITCH, zr = ze + rise;
+    const dh = Math.min(state.dh, E - 1.5), d = doorsX();
+
+    // Slab and door aprons.
+    box(-0.35, L + 0.35, -0.35, W + 0.35, -0.3, z0, M.concrete, bldg);
+    for (const [a, b] of d) box(a - 1, b + 1, -10, -0.35, -0.3, z0 - 0.04, M.concrete, bldg);
+
+    // Long walls: north solid, south with two door openings.
+    box(0, L, W - T, W, z0, ze, M.steel, bldg);
+    let p = 0;
+    for (const [a, b] of d) { box(p, a, 0, T, z0, ze, M.steel, bldg); box(a, b, 0, T, z0 + dh, ze, M.steel, bldg); p = b; }
+    box(p, L, 0, T, z0, ze, M.steel, bldg);
+    // Gable ends, up to the roof line.
+    const gable = new THREE.Shape([new THREE.Vector2(0, z0), new THREE.Vector2(W, z0), new THREE.Vector2(W, ze), new THREE.Vector2(W / 2, zr), new THREE.Vector2(0, ze)]);
+    const toWorld = new THREE.Matrix4().set(0, 0, 1, 0, 0, 1, 0, 0, -1, 0, 0, 0, 0, 0, 0, 1);
+    for (const x of [0, L - T]) {
+      const g = new THREE.ExtrudeGeometry(gable, { depth: T, bevelEnabled: false }); g.applyMatrix4(toWorld);
+      const m = new THREE.Mesh(g, M.steel); m.position.x = x; m.castShadow = m.receiveShadow = true; bldg.add(m);
+    }
+    // Inside: the slab, seen through open doors.
+    box(T, L - T, T, W - T, z0, z0 + 0.01, M.concrete, bldg);
+
+    // Wall ribs (PBR panel major ribs, 12 in on center), instanced.
+    const ribs = [];
+    const inDoor = x => d.some(([a, b]) => x > a - 0.1 && x < b + 0.1);
+    for (let x = 0.5; x < L; x += 1) {
+      ribs.push([x, -0.08, z0 + (inDoor(x) ? dh : 0), ze]);   // south face
+      ribs.push([x, W + 0.08, z0, ze]);                        // north face
+    }
+    for (let y = 0.5; y < W; y += 1) {
+      const top = ze + rise * (1 - Math.abs(y - W / 2) / (W / 2));
+      ribs.push(["w", y, z0, top]); ribs.push(["e", y, z0, top]);
+    }
+    const ribGeo = new THREE.BoxGeometry(1, 1, 1), dummy = new THREE.Object3D();
+    const inst = new THREE.InstancedMesh(ribGeo, M.steel, ribs.length);
+    ribs.forEach(([a, b, zz0, zz1], i) => {
+      const h = zz1 - zz0;
+      if (a === "w" || a === "e") { dummy.position.set(a === "w" ? -0.08 : L + 0.08, zz0 + h / 2, -b); dummy.scale.set(0.12, h, 0.1); }
+      else { dummy.position.set(a, zz0 + h / 2, -b); dummy.scale.set(0.1, h, 0.12); }
+      dummy.rotation.set(0, 0, 0); dummy.updateMatrix(); inst.setMatrixAt(i, dummy.matrix);
+    });
+    inst.castShadow = inst.receiveShadow = true; bldg.add(inst);
+
+    // Roof: two planes with ribs down the slope, ridge cap, eave and rake trim.
+    const slope = Math.atan(PITCH), dz = OH * PITCH;
+    for (const s of [-1, 1]) {
+      const yEave = s < 0 ? -OH : W + OH, zEave = ze - dz;
+      bar([L / 2, yEave, zEave + 0.06], [L / 2, W / 2, zr + 0.06], L + 2 * OH, 0.12, M.steel, bldg);
+      const rr = new THREE.InstancedMesh(ribGeo, M.steel, Math.floor(L + 2 * OH));
+      let i = 0;
+      for (let x = -OH + 0.5; x < L + OH; x += 1, i++) {
+        const A = P(x, yEave, zEave + 0.17), B = P(x, W / 2, zr + 0.17);
+        dummy.position.copy(A).add(B).multiplyScalar(0.5); dummy.scale.set(0.1, 0.1, A.distanceTo(B)); dummy.lookAt(B);
+        dummy.updateMatrix(); rr.setMatrixAt(i, dummy.matrix);
+      }
+      rr.count = i; rr.castShadow = rr.receiveShadow = true; bldg.add(rr);
+      // Eave trim (gutter) and rake trims.
+      box(-OH - 0.05, L + OH + 0.05, s < 0 ? yEave - 0.35 : yEave, s < 0 ? yEave : yEave + 0.35, zEave - 0.45, zEave + 0.12, M.steel, bldg);
+      for (const x of [-OH - 0.05, L + OH + 0.05]) bar([x, yEave, zEave + 0.05], [x, W / 2, zr + 0.05], 0.14, 0.42, M.steel, bldg);
+    }
+    box(-OH, L + OH, W / 2 - 0.55, W / 2 + 0.55, zr - 0.02, zr + 0.28, M.steel, bldg);
+    // Downspouts at the corners of both eaves.
+    for (const x of [0.3, L - 0.3]) for (const [y0, y1] of [[-0.45, -0.15], [W + 0.15, W + 0.45]]) box(x - 0.15, x + 0.15, y0, y1, z0, ze - dz - 0.4, M.steel, bldg);
+    // Corner trim and base trim.
+    for (const [x, y] of [[0, 0], [L, 0], [0, W], [L, W]]) box(x - 0.2, x + 0.2, y - 0.2, y + 0.2, z0, ze, M.steel, bldg);
+    for (const [a, b] of [[0, d[0][0]], [d[0][1], d[1][0]], [d[1][1], L]]) box(a, b, -0.14, 0, z0, z0 + 0.3, M.steel, bldg);
+    box(0, L, W, W + 0.14, z0, z0 + 0.3, M.steel, bldg);
+    box(-0.14, 0, 0, W, z0, z0 + 0.3, M.steel, bldg); box(L, L + 0.14, 0, W, z0, z0 + 0.3, M.steel, bldg);
+
+    // Roll-up doors: jamb and head trim, the slatted curtain, a bottom bar and a handle.
+    for (const [a, b] of d) {
+      box(a - 0.35, a, -0.16, T, z0, z0 + dh + 0.35, M.steel, bldg);
+      box(b, b + 0.35, -0.16, T, z0, z0 + dh + 0.35, M.steel, bldg);
+      box(a - 0.35, b + 0.35, -0.16, T, z0 + dh, z0 + dh + 0.35, M.steel, bldg);
+      const g = new THREE.BoxGeometry(b - a, state.open ? 1.2 : dh, 0.06);
+      const curtain = new THREE.Mesh(g, M.door);
+      M.door.bumpMap.repeat.set(1, state.open ? 1.2 : dh);
+      curtain.position.copy(P((a + b) / 2, 0.08, state.open ? z0 + dh - 0.6 : z0 + dh / 2));
+      curtain.castShadow = curtain.receiveShadow = true; bldg.add(curtain);
+      if (!state.open) {
+        box(a, b, 0.0, 0.1, z0, z0 + 0.25, M.steel, bldg);
+        box((a + b) / 2 - 0.4, (a + b) / 2 + 0.4, -0.06, 0.0, z0 + 1.2, z0 + 1.32, M.steel, bldg);
+      }
+    }
+    render();
+  }
+
+  // Light: sky, and a mid-afternoon sun from the south-west, onto the door side.
+  scene.add(new THREE.HemisphereLight(col("#e6eef5"), col("#7b7766"), 0.8));
+  const sun = new THREE.DirectionalLight(col("#fff3e2"), 1.55);
+  sun.position.copy(P(-40, -70, 60)); sun.target.position.copy(P(21.5, 11.5, 0)); scene.add(sun, sun.target);
+  sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.03;
+  Object.assign(sun.shadow.camera, { left: -60, right: 60, top: 60, bottom: -60, near: 1, far: 260 });
+
+  const render = () => renderer.render(scene, camera);
+  const size = () => { const w = stage.clientWidth, h = stage.clientHeight; if (!w || !h) return; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); render(); };
+  const place = v => { camera.position.copy(P(...v.eye)); controls.target.copy(P(...v.at)); camera.fov = v.fov; camera.updateProjectionMatrix(); controls.update(); };
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let anim = null;
+  const go = (name, instant) => {
+    const v = views[name];
+    document.querySelectorAll("#views button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.view === name)));
+    if (anim) cancelAnimationFrame(anim);
+    if (instant || reduce) { place(v); render(); return; }
+    const e0 = camera.position.clone(), t0 = controls.target.clone(), f0 = camera.fov, e1 = P(...v.eye), t1 = P(...v.at), st = performance.now();
+    const step = now => {
+      const k = Math.min(1, (now - st) / 700), s = k * k * (3 - 2 * k);
+      camera.position.lerpVectors(e0, e1, s); controls.target.lerpVectors(t0, t1, s); camera.fov = f0 + (v.fov - f0) * s;
+      camera.updateProjectionMatrix(); controls.update(); render(); anim = k < 1 ? requestAnimationFrame(step) : null;
+    };
+    anim = requestAnimationFrame(step);
+  };
+
+  // Controls.
+  const eave = document.getElementById("eave"), dw = document.getElementById("dw"), dh = document.getElementById("dh");
+  const sync = () => {
+    state.eave = +eave.value; state.dw = +dw.value;
+    dh.max = String(state.eave - 1.5);
+    if (+dh.value > state.eave - 1.5) dh.value = String(state.eave - 1.5);
+    state.dh = +dh.value;
+    fig.position.copy(P(L / 4 - state.dw / 2 - 2.2, -3.5, 0));
+    facts(); build();
+  };
+  for (const el of [eave, dw, dh]) el.addEventListener("input", sync);
+  const openBtn = document.getElementById("open"), ctxBtn = document.getElementById("ctx");
+  openBtn.addEventListener("click", () => { state.open = !state.open; openBtn.setAttribute("aria-pressed", String(state.open)); build(); });
+  ctxBtn.addEventListener("click", () => { state.ctx = !state.ctx; ctx.visible = state.ctx; ctxBtn.setAttribute("aria-pressed", String(state.ctx)); render(); });
+  document.querySelectorAll("#views button").forEach(b => b.addEventListener("click", () => go(b.dataset.view)));
+  controls.addEventListener("change", render);
+  new ResizeObserver(size).observe(stage);
+  const retheme = () => { scene.background = skyColor(); scene.fog.color = scene.background; render(); };
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", retheme);
+  new MutationObserver(retheme).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+  // For tools/render_building_b.py: one view at a fixed size, as a JPEG.
+  window.still = (name, w, h, opts = {}) => {
+    if ("open" in opts) { state.open = opts.open; build(); }
+    const pr = renderer.getPixelRatio();
+    renderer.setPixelRatio(1); renderer.setSize(w, h, false); camera.aspect = w / h; place(views[name]); render();
+    const url = renderer.domElement.toDataURL("image/jpeg", 0.92);
+    renderer.setPixelRatio(pr); size(); return url;
+  };
+
+  sync(); go("oblique", true); size();
+  window.ready = true;
+}
+
+facts();
+start();
+})();
+</script>

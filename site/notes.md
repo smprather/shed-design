@@ -279,6 +279,26 @@ south.
 - **Noise:** ~3.5 dB at the house's west end (it was ~3), ~7 dB in the yard right behind it,
   and still ~1 dB or less elsewhere (`noise_model.py`, rerun with this footprint).
 
+### Building B's look: dark grey, two roll-up doors (owner, Oct 18 2026)
+
+- **The owner's ask:** a metal building, dark grey on every surface, with two roll-up
+  ("scroll") doors on the long side.
+- **The doors go on the south long wall,** facing the yard. The north wall toward US-290
+  stays solid, as the noise plan wants.
+- **Drawn in `tools/building_b.html`** (stills: `site/building-b-*.jpg`):
+  - two 12 × 12 ft doors at the quarter points, leaving 4'-9" to each end and 9'-6" between
+    them;
+  - a 3:12 gable with 1 ft overhangs, PBR-style ribbed panels, trim, gutters and 10 ft
+    concrete aprons;
+  - eave 14 ft (the noise model's case), so the ridge is ~16'-11".
+  - The eave height, door size, roof pitch and door spacing are all still open.
+- **The east door lines up with the house's NW corner, 15 ft south of the wall.**
+  - Turning a vehicle into it would be tight.
+  - The west door faces open yard.
+- **Over the 8 ft fence:** with a 14 ft eave on a 6 in slab, the eave stands ~6½ ft above
+  the fence top on flat ground. The real site falls ~3.8 ft, high at the NE corner, so it's
+  more at the west end.
+
 ### Making B a good sound barrier
 
 - **Solid highway side.** No doors, windows or vents on the north (US-290) wall. Put the

@@ -5,7 +5,7 @@ sources, corrections and dates. This file says what we're doing, in what order, 
 still undecided. Update it when a decision changes; record the facts behind the change in
 `notes.md`.
 
-Last updated: Oct 16 2026.
+Last updated: Oct 18 2026.
 
 ## The four projects
 
@@ -101,6 +101,14 @@ the slab is laid out.
   under the twin oak.
 - The steel delivery's crane or forklift works from the paved drive. Lay plywood over mulch
   for anything wheeled beyond it.
+
+**Look (Oct 18 2026):** dark grey on every surface, with two roll-up doors on the south long
+wall. See `building-b-*.jpg` and the 3D page (`tools/building_b.html`), which has sliders
+for the eave height and door size. Drawn with 12 × 12 ft doors at the quarter points and a
+3:12 gable; both are placeholders.
+- **The east door faces the house's NW corner, ~15 ft away.** That's tight for driving a
+  vehicle in. The west door has the open yard in front of it.
+- **If both doors take vehicles,** shift them west, or put the second door in the east end.
 
 **For noise:** solid north wall with no doors, windows or vents; roll-up doors on the south or
 east side; insulated wall panels. It's a yard shield: ~7 dB right behind it, ~3.5 dB at the

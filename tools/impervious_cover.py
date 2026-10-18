@@ -10,8 +10,8 @@ with overlaps counted once. Sources and accuracy:
 - the deck: the county record's 240 sq ft, placed by photo (a wood deck over soil may not count;
   the pergola's metal roof over part of it does);
 - the existing drive and walk: traced from the plat, +/-3 ft on every edge;
-- the building at site A: the standard kit sizes in tools/shed_cost.py, plus two 14 x 10 ft door
-  aprons (gravel counts too under most rules, so they're counted either way);
+- the building at site A: the standard kit sizes in tools/shed_cost.py, plus its 14 x 10 ft door
+  apron (gravel counts too under most rules, so it's counted either way);
 - loop D: tools/front_layout.py, the part that isn't already the existing drive or walk.
 
 Not counted: the A/C pads, the septic lids, stepping stones and anything not yet mapped.
@@ -72,7 +72,7 @@ def main(limit: float) -> None:
         b = bldg.area + APRON
         for label, extra in (("+ building", 0.0), ("+ building + loop D", loop_d.area)):
             total = now.area + b + extra
-            out.append({"case": f"{label} {DEPTH:g} x {length:g} (+ aprons)", "sq ft": round(total),
+            out.append({"case": f"{label} {DEPTH:g} x {length:g} (+ apron)", "sq ft": round(total),
                         "% of lot": round(pct(total), 1), f"vs {limit:g}% (sq ft)": round(allowed - total)})
     with pl.Config(tbl_hide_dataframe_shape=True, tbl_hide_column_data_types=True, fmt_str_lengths=60, tbl_rows=-1,
                    thousands_separator=","):

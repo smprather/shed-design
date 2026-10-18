@@ -1719,13 +1719,18 @@ They explained it as "the open path through the trees." It's in the private repo
     the well and the septic pipe. It's what the 3D plan draws.
   - **30 × 30 (900)** and **30 × 25 (750)** keep the east end and give up length by the well.
     750 is the standard size nearest 800 that keeps the 30 ft door end.
-  - **Laid out like a kit:** the ridge runs along the line, like B's was, with two 12 × 12 ft
-    roll-up doors in the east end wall. A's first drawing ran the ridge across the strip,
-    which made it 34–35 ft wide, an odd span.
-- **The door aprons reach into the septic access pipe's 10 ft keep-out.** The pipe is ~10 ft
-  east of the doors.
-  - Keep the concrete aprons short, or make them gravel.
-  - Don't park or drive heavy loads over the tank once it's found.
+  - **Laid out like a kit:** the ridge runs along the line, like B's was, with the roll-up
+    door in the east end wall. A's first drawing ran the ridge across the strip, which made
+    it 34–35 ft wide, an odd span.
+- **One door, not two (corrected the same day; the owner caught it).**
+  - The septic access pipe is ~10 ft east of the east wall, opposite its north half.
+  - The second door's 10 ft apron ended 0.3 ft from the pipe, and its traffic would have run
+    over the tank, which is likely under or beside the pipe.
+  - Building A now has one 12 × 12 ft roll-up in the south half of the east wall, plus a walk
+    door. Its apron is 12.5 ft from the pipe, outside the 10 ft keep-out.
+  - `plan3d.py` now checks every apron against the pipe.
+  - The tank's outline still isn't known. Find it before pouring anything east of the
+    building, and don't park or drive heavy loads over it.
 
 ### What the building at site A costs (Oct 18 2026; `tools/shed_cost.py`)
 
@@ -1735,9 +1740,12 @@ They explained it as "the open path through the trees." It's in the private repo
 
   | Size | Likely (80% band) | Per sq ft | All lows to all highs | + insulation and power |
   |---|---|---|---|---|
-  | 30 × 35 ft (1,050 sq ft) | **$66k** ($59–72k) | $63 | $47–85k | $12k ($10–15k) |
-  | 30 × 30 ft (900 sq ft) | **$58k** ($52–63k) | $64 | $41–74k | $12k ($9–14k) |
-  | 30 × 25 ft (750 sq ft) | **$50k** ($45–54k) | $66 | $35–64k | $11k ($9–13k) |
+  | 30 × 35 ft (1,050 sq ft) | **$64k** ($58–71k) | $61 | $46–83k | $12k ($10–15k) |
+  | 30 × 30 ft (900 sq ft) | **$56k** ($51–62k) | $62 | $40–73k | $12k ($9–14k) |
+  | 30 × 25 ft (750 sq ft) | **$48k** ($43–53k) | $64 | $34–62k | $11k ($9–13k) |
+
+  - These have one door and one apron (corrected the same day; they had two). The building
+    line still carries two doors' worth, so a single-door kit may come ~$1k lower.
 
   - "Likely" sums each line's midpoint. The band is where 80% of outcomes fall if each line
     varies on its own.
@@ -1750,7 +1758,7 @@ They explained it as "the open path through the trees." It's in the private repo
   | Slab | $12.6k | $10.8k | $9.0k |
   | Stem wall on the low sides | $8.8k | $7.7k | $6.8k |
   | Fill (73 / 60 / 47 cu yd) | $7.1k | $5.8k | $4.6k |
-  | Door aprons | $2.6k | $2.6k | $2.6k |
+  | Door apron | $1.3k | $1.3k | $1.3k |
   | Prep, locate, permits and plans | $5.7k | $5.7k | $5.7k |
 
   - **The slope** (fill and wall) is ~$11–16k of it.
@@ -1781,7 +1789,7 @@ They explained it as "the open path through the trees." It's in the private repo
   | Hand-dig to confirm the line's depth once it's marked, plastic-handled shovel, no bar or pick | — | care |
   | Trench for B's power and any service reroute (rented trencher), lay the conduit; the electrician pulls and connects | ~$1–3k | low |
   | Spread and compact the fill (rented skid steer and plate compactor or roller; 6–8 in lifts, wetted) | ~$1–2k; pay for a density test | low–moderate |
-  | Gravel door aprons instead of concrete (also suits the septic keep-out) | ~$1–2k | low |
+  | A gravel door apron instead of concrete | ~$0.5–1k | low |
   | Lay the block stem wall (`cmu_cost.py` lists the materials) | ~$3–6k of labor | moderate, learnable |
   | Keep the new slab wet for a week; seal it later | — | none |
   | Gutters' splash blocks, a gravel drip strip, swales away from the walls | ~$0.5–1.5k | low |
@@ -1813,9 +1821,9 @@ They explained it as "the open path through the trees." It's in the private repo
   | Existing drive and garage apron (plat, ±3 ft) | 1,602 | 4.7 |
   | Front walk | 172 | 0.5 |
   | **Now** | **5,502** | **16.3** |
-  | + building at site A, 30 × 35 with two 14 × 10 ft aprons | 6,832 | 20.2 |
-  | + that and loop D (1,267 sq ft new) | 8,099 | 24.0 |
-  | (30 × 30: 19.8% / 23.5%; 30 × 25: 19.3% / 23.1%) | | |
+  | + building at site A, 30 × 35 with its 14 × 10 ft apron | 6,692 | 19.8 |
+  | + that and loop D (1,267 sq ft new) | 7,959 | 23.6 |
+  | (30 × 30: 19.4% / 23.1%; 30 × 25: 18.9% / 22.7%) | | |
 
 - **Already over, by ~440 sq ft** (~200 without the deck).
   - The drive is the soft number. It's traced from the 1991 plat, and the aerial shows its
@@ -1825,7 +1833,7 @@ They explained it as "the open path through the trees." It's in the private repo
   - **The garage apron** (~830 sq ft behind the porch line), once the garage is a kitchen.
     But it's also the way to the north strip, for the septic truck and the building. A
     12 ft lane through it would keep ~350–450 sq ft.
-  - **The door aprons** (280): skip them, or use something the county counts as pervious.
+  - **The door apron** (140): skip it, or use something the county counts as pervious.
   - **A smaller building:** 30 × 25 saves 300 over 30 × 35.
   - **Loop D in permeable pavers,** if the county credits them.
   - **Taking out the drive's street leg** (~770) once loop D carries the traffic. Loop D's
@@ -1895,7 +1903,7 @@ They explained it as "the open path through the trees." It's in the private repo
   | 12 × 32 + 12 × 24 + 10 × 12 | 792 | $22–31k | $4–7k | ~$26–38k |
   | Three 12 × 24 | 864 | $25–33k | $4–8k | ~$29–41k |
 
-  - The steel building at 30 × 25 (750 sq ft) runs ~$50k ($45–54k) tube frame,
+  - The steel building at 30 × 25 (750 sq ft) runs ~$48k ($43–53k) tube frame,
     turnkey with its slab.
 - **What they do well:**
   - **No slab, fill or stem wall.** Each building is only 12 ft deep, so it sees about

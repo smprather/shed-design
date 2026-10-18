@@ -507,8 +507,10 @@ def main(spec: Path, out: Path) -> None:
                   "slab_m": round(a_slab, 3), "drop_ft": round((a_slab - min(a_ground)) / FT, 2),
                   "length_ft": round(a_len, 2), "width_ft": round(a_wid, 2), "eave_ft": B_EAVE, "pitch": B_PITCH,
                   "door_wall": "end",
+                  # One roll-up, in the south half of the end wall: a north door's apron and its traffic would
+                  # sit on the septic access pipe, ~10 ft east of the wall (owner caught it, Oct 18 2026).
                   "doors": [{"center_ft": round(c, 2), "width_ft": B_DOORS[0], "height_ft": B_DOORS[1]}
-                            for c in (a_wid / 4, 3 * a_wid / 4)],
+                            for c in (a_wid / 4,)],
                   "mower": {"x_ft": round(a_len - MOWER_IN, 2), "y_ft": round(a_wid / 4, 2)}}   # south bay, nose to the door
     # Existing drive and front walk, traced from the 1991 plat (front_layout.py, +/-3 ft).
     obj.obj("existing_driveway_1991_plat")
@@ -557,6 +559,17 @@ def main(spec: Path, out: Path) -> None:
 
     # --- Our planned additions vs the septic system (site frame, ft) ---
     fall = (slab - min(ground(*p) for p in b)) / FT
+    # Building A's door aprons (the viewer draws them 10 ft out, the door's width + 2 ft) vs. the septic access pipe.
+    a_sw, a_se, a_nw = SITE_A[3], SITE_A[2], SITE_A[0]
+    a_l, a_w = math.dist(a_sw, a_se), math.dist(a_sw, a_nw)
+    a_at = lambda x, y: (a_sw[0] + (a_se[0] - a_sw[0]) * x / a_l + (a_nw[0] - a_sw[0]) * y / a_w,  # noqa: E731
+                         a_sw[1] + (a_se[1] - a_sw[1]) * x / a_l + (a_nw[1] - a_sw[1]) * y / a_w)
+    for d in building_a["doors"]:
+        y0, y1 = d["center_ft"] - d["width_ft"] / 2 - 1, d["center_ft"] + d["width_ft"] / 2 + 1
+        apron = [a_at(a_l, y0), a_at(a_l + 10, y0), a_at(a_l + 10, y1), a_at(a_l, y1)]
+        gap = 0.0 if inside(pipe, apron) else poly_dist(pipe, apron)
+        check(f"building A door apron (y {d['center_ft']:g} ft) vs septic pipe", f"{gap:.1f} ft", f"{KEEP_OUT:g} ft",
+              "OK" if gap >= KEEP_OUT else "CONFLICT", "the tank is likely under or beside the access pipe: no aprons or traffic over it")
     check("building A ground fall across the slab", f"{building_a['drop_ft']:.1f} ft", "-", "NOTE",
           "2017 lidar; high at the NE corner, so fill or a stem wall to the SW; doors on the east wall, toward B")
     check("building B ground fall across the slab", f"{fall:.1f} ft", "-", "NOTE",

@@ -6,7 +6,8 @@ limits:
   was dropped, Oct 18 2026);
 - traffic-noise and visual screening;
 - a garage-to-kitchen conversion;
-- a front circle drive.
+- the drive, redesigned from scratch (Oct 18 2026): loop D, a forecourt with a porte-cochère, the
+  service drive and north court, and the shop lane to building A.
 
 ## Start here
 
@@ -56,7 +57,9 @@ Each script carries its dependencies inline (PEP 723). Run them from the repo ro
 | `site_plan.py` | `site/north-yard.png`; also the shared module (frames, survey, field features) |
 | `measure_plan.py` | `site/measure-plan.png` (shot key for the worksheet) |
 | `lot_plan.py` | `site/lot.png` (whole-lot overview) |
-| `front_plan.py` | `site/front-yard.png` (circle drive vs. the building line and the lidar trees, prints clearances); shapes in `front_layout.py`, shared with `plan3d.py` |
+| `front_plan.py` | `site/front-yard.png` (the front of the drive: loop D's legs, the forecourt and the porte-cochère vs. the building line and the lidar trees, prints clearances); old-drive and tree shapes in `front_layout.py` |
+| `drive_layout.py` | the drive system's shapes in survey (s, t) feet (lanes, forecourt, porte-cochère, courts, materials); shared by `drive_plan.py`, `front_plan.py`, `impervious_cover.py` and `plan3d.py` |
+| `drive_plan.py` | `site/drives.png` (the whole drive over the aerial), plus clearances to trunks and lines, grades, areas, impervious cover and a budget (printed tables) |
 | `house_layout.py` | the house in 3D, a first pass (walls, roofs, porch, deck, chimney, known openings) in survey (s, t) feet; used by `plan3d.py` |
 | `envelope_plan.py` | `site/envelope.png` (where a building fits) |
 | `site_b_plan.py` | `site/site-b.png` (the chosen site) |
@@ -64,10 +67,10 @@ Each script carries its dependencies inline (PEP 723). Run them from the repo ro
 | `import_field.py EXPORT_DIR` | merges exported worksheet shots into `site/field-data.json` |
 | `noise_model.py` | traffic-noise comparison of barrier options (printed table) |
 | `cmu_cost.py` | DIY block-wall material takeoff (printed table) |
-| `shed_cost.py` | turnkey budget for the building at site A, by standard kit size (printed tables; fill and stem wall from the lidar) |
-| `impervious_cover.py` | impervious cover now and with the building and loop D, vs. the limit (printed tables) |
+| `shed_cost.py` | turnkey budget for the building at site A, by standard kit size (printed tables; cut, fill and stem wall from the lidar; `--cut` sets the slab below the high corner) |
+| `impervious_cover.py` | impervious cover now, and with the building and the new drive (gravel counted and not), vs. the limit (printed tables) |
 | `fetch_terrain.py` | `site/terrain-lidar.json` (USGS 3DEP 1 m lidar resampled onto the 3D plan's grid) |
-| `plan3d.py` | `site/plan3d.obj` and `site/plan3d.html` (a 3D viewer; template `tools/plan3d_viewer.html`) from `property_total_plan.jsonc` on the lidar terrain (`site/terrain-lidar.json`), plus septic conflict checks (printed table). The viewer draws building A on site A in detail (the plan: a standard 30 × 35 kit with a roll-up and a commercial walk door in the end wall, the owner's S130 mower inside for scale), building B the same way (dropped, hidden at first), and the house (`house_layout.py`). Trees on our lot are drawn in finer detail (lumpy crowns, trunks and limbs; the twin oak on its surveyed trunks). It has orbit, look-around, and Quake-style fly and walk modes (the mouse is captured to look, WASD moves; walking clamps to the surface under you and stops at walls) |
+| `plan3d.py` | `site/plan3d.obj` and `site/plan3d.html` (a 3D viewer; template `tools/plan3d_viewer.html`) from `property_total_plan.jsonc` on the lidar terrain (`site/terrain-lidar.json`), plus septic conflict checks (printed table). The viewer draws building A on site A in detail (the plan: a standard 30 × 35 kit with two roll-ups and a commercial walk door in its south wall behind one apron, on a cut-and-fill pad, the owner's S130 mower inside for scale), building B the same way (dropped, hidden at first), the house and the porte-cochère (`house_layout.py`), and the drive's surfaces, curbs and raised shop court (`drive_layout.py`; the old drive and walk start hidden). Trees on our lot are drawn in finer detail (lumpy crowns, trunks and limbs; the twin oak on its surveyed trunks). It has orbit, look-around, and Quake-style fly and walk modes (the mouse is captured to look, WASD moves; walking clamps to the surface under you and stops at walls) |
 | `render_view.py` | `site/backyard-bare.jpg` and `site/backyard-8yr.jpg` (static render of the back-yard view, with and without the planned trees; template `tools/render_view.html`; needs a Playwright Chromium: `uv run --with playwright playwright install chromium`, or `--chromium PATH`) |
 | `sentinel_view.py` | `site/sentinel.png` (an older and the latest clear Sentinel-2 satellite scene, 10 m, with the lots and the back-yard sight lines; `--series` dates the retail lot's clearing) |
 | `render_building_b.py` | `site/building-b-*.jpg` (stills of building B from `tools/building_b.html`, the 3D page with sliders for eave height and door size, also published at https://claude.ai/artifact/HkCoRoNiUNBYoisHaoPWPw; needs a Playwright Chromium) |

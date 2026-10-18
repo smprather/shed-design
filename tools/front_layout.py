@@ -7,16 +7,8 @@ can use it.
 
 import math
 
-# Owner's sketch, read off the plat (+/-3 ft).
-SKETCH_BOX = [(28, 39), (61, 39), (61, 66), (28, 66)]
-SKETCH_OUTER = [(0, 9), (36, 21), (48.5, 36.7), (51, 55), (45.6, 78), (34, 91), (0, 96)]
-SKETCH_INNER = [(0, 30), (25, 38), (27.6, 55), (23, 76), (8, 91)]
-
-# Option A: porte-cochere between the 45' line and the house/porch front, two cars nose-to-tail.
-PORTE_COCHERE = [(45, 32), (57, 32), (57, 76), (45, 76)]
-# Option B: carport on the old garage apron (north side), reached from the existing driveway,
-# with the existing covered porch as the covered walk to the front door.
-NORTH_CARPORT = [(62, 91), (86, 91), (86, 114), (62, 114)]
+# The owner's first sketch, loop C and the two covered-parking options were retired on Oct 18 2026, when the drive
+# was redesigned from scratch: drive_layout.py has the drive now (loop D's legs, the forecourt, the porte-cochere).
 # 1991 plat: electric line from the front-south pin to the house's SE corner.
 FRONT_ELECTRIC = [(0, 0), (59.3, 22.7)]
 
@@ -41,18 +33,6 @@ FRONT_WALK = [
 ]
 EXISTING_DRIVE_T = 95.5  # ft: middle of the existing drive's straight run at the front line (plat)
 
-# Loop C (proposal): a new curb cut in the open south lawn, a 12 ft lane that sweeps to the
-# house and runs along the porch front (drop-off at the porch), then crosses the plat's lawn
-# bulge in front of the porch's north end to join the existing drive. Centerline, (s, t) ft.
-LOOP_C = [(-1, 33), (12, 34), (26, 36.5), (37, 41), (44, 48), (48, 57), (48, 68), (49, 78), (50, 89),
-          (49, 99), (47, 108)]
-# Loop D (Oct 18, from the owner's photos of the open path through the trees): loop C's south leg and
-# porch-front lane, then a connector that leaves the porch lane's north half and runs diagonally back to the
-# existing drive near the street, between the lone lawn oak and the oak in the lawn bulge. It replaces
-# loop C's crossing of the bulge, which runs into that oak.
-LOOP_D = [(-1, 33), (12, 34), (26, 36.5), (37, 41), (44, 48), (48, 57), (47, 63), (42, 69.5), (34, 75), (25, 81),
-          (16, 86.5), (8, 91.5)]
-LANE = 12.0  # ft
 # Trunks placed from the owner's street photo (Oct 18: camera solved from the house front, trunk bases cast onto
 # the lidar ground) and the GPS photos; +/-8 ft. Tape them.
 LONE_OAK_PHOTO = (8.0, 69.0)
@@ -87,15 +67,3 @@ def offset(pts, d: float):
         L = math.hypot(dx, dy)
         out.append((p[0] - dy / L * d, p[1] + dx / L * d))
     return out
-
-
-
-def lane_outline(points) -> list[tuple[float, float]]:
-    """A 12 ft lane along a centerline, as a closed outline (s, t): the left edge out, the right edge back."""
-    center = catmull_rom(points)
-    return offset(center, LANE / 2) + offset(center, -LANE / 2)[::-1]
-
-
-def loop_c_outline() -> list[tuple[float, float]]:
-    """Loop C as a closed outline (s, t)."""
-    return lane_outline(LOOP_C)

@@ -5,16 +5,16 @@ sources, corrections and dates. This file says what we're doing, in what order, 
 still undecided. Update it when a decision changes; record the facts behind the change in
 `notes.md`.
 
-Last updated: Oct 18 2026 (impervious cover: already over 15%; site A building priced).
+Last updated: Oct 18 2026 (building A's doors on its south side; the drive redesigned from scratch, with a porte-cochère).
 
 ## The four projects
 
 | Project | What it is now | Status | Blocked on |
 |---|---|---|---|
-| **1. The building, at site A** | A standard tube-frame steel kit, 30 ft wide × 35, 30 or 25 ft, on the north strip between the well and the septic pipe. Site B is dropped (owner, Oct 18 2026) | Sized and priced (~$51–67k turnkey, likely); size and use open | The buried service line; the septic layout (the drainfield may be under it) |
+| **1. The building, at site A** | A standard tube-frame steel kit, 30 ft wide × 35, 30 or 25 ft, on the north strip between the well and the septic pipe. Site B is dropped (owner, Oct 18 2026) | Sized and priced (~$49–64k turnkey, likely); doors on the south side; size and use open | The buried service line; the septic layout (the drainfield may be under it) |
 | **2. Screening** (noise and views) | US-290 side: the 8 ft fence, building B, maybe a taller wall. Back line: 21 new trees in the gaps | Back-line planting ready to buy; US-290 side needs re-modeling | Fence gaps and ownership; septic layout |
 | **3. Garage → kitchen** | Join the 21 × 21 ft attached garage, the hall beside it and the old kitchen into one ~680 sq ft kitchen. Its own repo: `smprather/kitchen-garage-renovation` | Idea stage (~90% likely); layout mocked up | Parking must move first; septic capacity question; structure (see its repo) |
-| **4. Circle drive + covered parking** | Loop D through the front lawn and the open path between the oaks, plus a porte-cochère (A) or a carport (B) | Layout proposed | Both front oaks' trunk positions; covered-parking choice; county permits |
+| **4. The drive + porte-cochère** | Redesigned from scratch: loop D, a forecourt with a porte-cochère (2 cars nose to tail) and a passing lane, the service drive and north court, the shop lane to building A. Estate gravel, concrete-curbed | Designed and priced (~$200k likely; $120k of it the drive) | Trunk tapes; buried lines; the septic layout; county permits |
 
 ## Order of work
 
@@ -78,48 +78,62 @@ are cheap.
 
 After the buried line is traced and the septic layout is known. See project 1.
 
-### Step 3: circle drive and covered parking, then the kitchen
+### Step 3: the drive and the porte-cochère, then the kitchen
 
-Parking has to exist out front before the garage stops being a garage. Building B's concrete
-pump and steel delivery use the north driveway, so build B first; the circle drive's
-construction can then follow without working around B's.
+Parking has to exist out front before the garage stops being a garage.
+1. **The shop lane's base** comes first: it's the construction road for building A.
+2. **Building A.**
+3. **The forecourt, the porte-cochère and the south leg.** Cars can then park out front while
+   the old drive still serves the north side.
+4. **The north leg, the service drive and the north court,** in the old drive's footprint.
+   The rest of the old drive and the walk come out.
+5. **The kitchen.**
 
 ## Project 1: The building (site A; site B dropped Oct 18 2026)
 
 **Now at site A** (owner, Oct 18 2026): a standard steel kit, 30 ft wide across the strip,
-35, 30 or 25 ft long along the line. The ridge runs along the line, and one 12 × 12 ft roll-up
-door is in the south half of the east end wall: a north door's apron would sit on the septic
-access pipe. Just north of it is a commercial walk door: hollow metal in a welded frame, a
-continuous hinge, Grade 1 hardware and a closer, so it won't sag or stick (owner, Oct 18 2026;
-notes, "The walk door"). The 3D plan draws 30 × 35 with the S130 inside.
+35, 30 or 25 ft long along the line. The ridge runs along the line.
+
+**All the doors face south** (owner, Oct 18 2026), behind one 32 × 12 ft concrete apron, well
+away from the septic pipe:
+- two 12 × 12 ft roll-ups;
+- a commercial walk door centered between them: hollow metal in a welded frame, a continuous
+  hinge, Grade 1 hardware and a closer, so it won't sag or stick (notes, "The walk door").
+
+The south side is the low side, so the pad is cut and filled. The slab sits 1.5 ft below the
+high NE corner, which keeps the apron near grade. The shop lane and shop court reach it
+(project 4). The 3D plan draws 30 × 35 with the S130 inside.
 
 Tube frame, dealer-installed (owner, Oct 18 2026: red-iron is out).
 
 | Size | Turnkey, likely (80% band) | Per sq ft | + insulation and power |
 |---|---|---|---|
-| 30 × 35 ft (1,050 sq ft) | $67k ($60–74k) | $64 | $12k ($10–15k) |
-| 30 × 30 ft (900 sq ft) | $59k ($53–65k) | $65 | $12k ($9–14k) |
-| 30 × 25 ft (750 sq ft) | $51k ($46–56k) | $68 | $11k ($9–13k) |
+| 30 × 35 ft (1,050 sq ft) | $64k ($58–70k) | $61 | $12k ($10–15k) |
+| 30 × 30 ft (900 sq ft) | $56k ($50–61k) | $62 | $12k ($9–14k) |
+| 30 × 25 ft (750 sq ft) | $49k ($44–53k) | $65 | $11k ($9–13k) |
 
-The commercial walk door and its landing add ~$3k to each (it was $64k, $56k, $48k).
+These include the commercial walk door (+$1.5–3k) and the larger apron. The cut-and-fill pad
+saves ~$10k over building it all up on fill ($74k for 30 × 35).
 
 - For comparison, ~800 sq ft of portable wood sheds on blocks is ~$25–41k (notes, "For
   comparison: ~800 sq ft of portable sheds").
 
 - Planning ranges from `tools/shed_cost.py`, not quotes. Notes, "What the building at site A
   costs", has the breakdown, the sources and the owner work that cuts the cost.
-- The slope adds ~$11–21k: fill and a stem wall on the low SW side.
+- The slope adds ~$7–14k with the cut-and-fill pad: fill and a stem wall on the low SW side, a drain on the cut side.
 - **Impervious cover: confirm the limit applies before anything else.**
   - Against 15%, the lot is already at ~16% (5,502 sq ft of 5,065 allowed). The building
-    makes it ~19–20%, and loop D ~23–24%.
+    makes it ~20%. With the new drive (old drive out), ~19% if gravel isn't counted, ~30%
+    if it is.
   - But 15% is the City's SOS number, and the 1992 ordinance exempted single-family
     development on lots that existed by Nov 1, 1991. This one did (recorded plat Vol. 55
     Pg. 69; the April 1991 survey shows the house).
   - Ask Travis County TNR whether any limit applies to an accessory building here.
   - See notes, "Does the 15% even apply?".
 - **Before anything:** trace the buried service line (it likely runs under the site) and
-  find the drainfield and the tank's outline. The door's apron is 12.5 ft from the septic
-  access pipe; nothing gets poured or driven over the tank.
+  find the drainfield and the tank's outline. The apron is 29 ft from the septic access pipe,
+  but the NE corner's cut comes within 10 ft of it: nothing gets dug, poured or driven over the
+  tank.
 - **Decisions for you:** the size; insulation; power.
 
 The rest of this section is building B's study at site B, kept for the record.
@@ -270,43 +284,66 @@ measurements. What ties it to the rest of this plan:
   apron is still the way to the north gate, for the septic truck and building B's
   construction.
 
-## Project 4: Circle drive and covered parking
+## Project 4: The drive and the porte-cochère (redesigned from scratch, Oct 18 2026)
 
-See `front-yard.png` and the 3D viewer's "Front yard" view.
+See `drives.png` (the whole system), `front-yard.png` (the front) and the 3D viewer. Notes, "The
+drive, redesigned from scratch", has the detail, the clearances and the sources.
 
-- **Loop D (proposed, Oct 18; replaces loop C):**
-  - **Route:** a 12 ft lane from a new curb cut in the open south lawn, sweeping to the
-    house, along the porch front (drop-off at the porch).
-    - Then it turns back toward the street through the open path the owner showed in the
-      photos: between the lone lawn oak and the leaning oak in the lawn bulge.
-    - It joins the existing drive ~10–20 ft in from the street.
-  - **Why not loop C:** C crossed the lawn bulge to reach the drive, and the bulge holds a
-    big leaning live oak, ~1 ft from C's paving.
-  - **Paving:** ~1,370 sq ft new, about 60% of the original sketch.
-  - **Clearances, paving edge to trunk:**
-    - ~13 ft to each oak. The trunks were placed from photos, ±8 ft.
-    - That's inside both root zones (assumed 20 ft), so build the connector no-dig:
-      permeable pavers or gravel over geogrid, on the existing grade.
-    - Keep ~13.5 ft of clear height under the limbs for a truck.
-  - **The front walk:** the lane crosses it about 40 ft back from the street.
-  - **Under the porch-front oaks:** build that stretch no-dig too.
-  - **Tape both trunks before finalizing** (see the measurement list).
-  - **Hedge and myrtle:** the hedge's street end and the crape myrtle may need to move.
-- **Covered parking, one of:**
+- **The brief (owner):**
+  - No tree removal.
+  - Keep loop D.
+  - Estate-style gravel, bounded by concrete so it never sinks or spreads.
+  - A cover on the house front, out to the 45 ft line, for two cars nose to tail, with a lane
+    outside it to pass a parked car.
+  - The old drive and the front walk come out.
+- **The layout:**
+  - **Entrances:** a new one in the open south lawn, and the old curb cut on the north.
+    Concrete aprons, flared, from the street to 10 ft inside the line.
+  - **Loop D's legs** (12 ft) meet at the forecourt along the house front. The north leg runs
+    through the open path between the lone oak and the bulge oak, ~13–14 ft from each.
+  - **The porte-cochère:** 11 × 49 ft, its roof edge on the 45 ft line.
+    - Two spaces, either side of the front door, 9 ft clear.
+    - Stone columns like the porch's, a hipped roof at the house's pitch.
+    - Pavers under it and into the door's recess.
+  - **The forecourt's outer lane** (gravel) passes the parked cars.
+  - **The service drive** (10 ft) follows the old drive's curl around the bulge oak to the
+    **north court**, on the old garage apron.
+    - The court is the septic truck's stop, a turnaround and two guest spaces.
+    - It stops 12 ft from the twin oak, and 4 ft off the kitchen's new north glass.
+  - **The shop lane** (10 ft) runs west past the house and the twin oak (12.2 ft) and along
+    the strip to the **shop court** in front of building A's doors. The court is raised on
+    fill, behind a concrete edge.
+- **The surfaces:**
+  - 3/8 in angular gravel locked in a stabilizer grid, on compacted base;
+  - concrete ribbon curbs along every gravel edge;
+  - pavers mortar-set on a slab under the cover.
+  - In the oaks' root zones, the base is built up on grade and the curbs are set on grade, not
+    trenched.
+- **The septic truck:** pumpers reach ~100–150 ft of hose and lift ~20–25 ft. From the street
+  it's ~185 ft, too far. From the north court it's ~100 ft with ~18 ft of lift: that's its
+  stop.
+- **Cost (likely, 80% band, with contingency):**
+  - the drive $120k ($107–132k);
+  - the porte-cochère $80k ($60–100k), the softest number;
+  - all of it $200k ($176–223k).
+  - Pavers to plain concrete under the cover, and fewer curbs, save ~$15k.
+- **Impervious cover with building A:** 19.3% if gravel doesn't count, 30.1% if it does. That
+  waits on the county's answer, as for the building.
+- **Before staking:**
+  - **Tape the trunks** near the lanes: the bulge oak and its leaning crown over the north
+    leg, the lone oak, the twin oak's crown by the shop lane, and the two back-lawn oaks by
+    the shop lane and court.
+  - **Find the crape myrtle and the AC unit.**
+  - **Locate the 1991 electric line and the buried service line.**
+  - **Find the street ditch** (a culvert for each entrance?).
+- **Permits:** Travis County driveway permits for both entrances. The porte-cochère needs a
+  building permit and must stay behind the 45 ft line, roof included. Check the deed
+  restrictions too.
 
-  | Option | What | For | Against |
-  |---|---|---|---|
-  | **A: porte-cochère** | ~12 × 44 ft roof over the porch-front lane, behind the 45 ft building line; 2 cars nose to tail, ~10 ft clear | Fits loop D; dry walk to the door | Tandem parking; under porch-front oaks |
-  | **B: carport on the garage apron** | ~23 × 24 ft off the existing drive | Uses existing paving; covered porch walk | Sits on the septic truck's route (needs a drive-through with ~14 ft clear); under the twin oak |
-  | Original sketch | ~26 × 33 ft cover in front of the house | Most room | Crosses the 45 ft building line: needs relief from the plat or deed restrictions |
-
-- **Permits:** a Travis County driveway permit for the second curb cut (maybe a culvert).
-  Check impervious-cover limits, since the lots next door are in the Barton Springs Zone.
-- **Utilities:** a pole at the street's south side lines up with the plat's 1991 electric
-  line to the house. Loop D's south leg (same as C's) stays ~19 ft from that line; locate it
-  anyway.
-
-**Decision for you:** A, B, or pursuing the larger cover.
+**Decisions for you:**
+- the gravel's color;
+- pavers or concrete under the cover;
+- whether the shop lane is built now or after building A.
 
 ## Measurements still needed
 
@@ -317,8 +354,13 @@ The kitchen's measurements are listed in its own repo.
 | Cross fence: both ends, from the house's NW corner (A) | Building B's east end | Tape |
 | Chain-link gate's clear opening | Truck access to B and the septic | Tape |
 | The rusty casing by the burn barrel: is it the well? Its distance to both fences | Keep-outs for the trees and any wall | Look and tape |
-| Lone front-lawn oak: trunk position and girth. Two tapes from house corners pin it: from the south rooms' front corners (south and north ends) | Loop D | Tape |
-| Bulge oak, between the drive and the porch's north end (and the stump beside it): trunk position and girth, the same way from the porch's front corners | Loop D's connector | Tape |
+| Lone front-lawn oak: trunk position and girth. Two tapes from house corners pin it: from the south rooms' front corners (south and north ends) | Loop D's north leg | Tape |
+| Bulge oak, between the drive and the porch's north end (and the stump beside it): trunk position and girth, the same way from the porch's front corners; the height of its lowest limbs over the north leg (~s 32, t 86) | Loop D's north leg, the forecourt, the service drive | Tape; laser or pole |
+| Trunks near the shop lane and shop court: the back-lawn oaks near s 160, t 92 and s 173, t 83 (lidar treetops), from the house's NW corner (A); their lowest limbs over the lane | The shop lane and court | Tape; laser or pole |
+| The twin oak's limbs over the shop lane, along the house's north wall | Clearance for a pickup, trailer or septic truck | Laser or pole |
+| The AC unit on the house's north wall: its ends and how far it stands out | The shop lane passes 3.4–7 ft off that wall | Tape |
+| The crape myrtle in the south lawn: from the south rooms' front corners | The south leg | Tape |
+| The street's edge at both entrances: a ditch? its depth | Culverts, driveway permits | Look and tape |
 | Along the street: from the walk's center to the drive's south edge | Whether the drive was widened since 1991 (plat ~36 ft, aerial ~28 ft) | Tape |
 | Twin oak's second trunk girth (worksheet 11) | Root-zone size | Tape around at 4.5 ft up |
 | Branches over B's east end (17a) | Roof and erection clearance | Laser or pole |
@@ -332,7 +374,7 @@ The kitchen's measurements are listed in its own repo.
 ## Sources
 
 - `notes.md`: the running record behind every number here.
-- Maps: `site-b.png`, `envelope.png`, `front-yard.png`, `lot.png`, `north-yard.png`.
+- Maps: `drives.png`, `front-yard.png`, `site-b.png`, `envelope.png`, `lot.png`, `north-yard.png`.
 - 3D: `plan3d.html` (the viewer); the back-yard renders `backyard-bare.jpg` and
   `backyard-8yr.jpg`.
 - **The private repo** (`smprather/shed-design-private`) holds:

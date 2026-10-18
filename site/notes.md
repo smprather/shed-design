@@ -1729,6 +1729,8 @@ They explained it as "the open path through the trees." It's in the private repo
   - Building A now has one 12 × 12 ft roll-up in the south half of the east wall, plus a walk
     door. Its apron is 12.5 ft from the pipe, outside the 10 ft keep-out.
   - `plan3d.py` now checks every apron against the pipe.
+  - Superseded the same day: the doors moved to the south side, away from the pipe altogether
+    (see "Building A's doors move to the south side").
   - The tank's outline still isn't known. Find it before pouring anything east of the
     building, and don't park or drive heavy loads over it.
 
@@ -1740,14 +1742,16 @@ They explained it as "the open path through the trees." It's in the private repo
 
   | Size | Likely (80% band) | Per sq ft | All lows to all highs | + insulation and power |
   |---|---|---|---|---|
-  | 30 × 35 ft (1,050 sq ft) | **$67k** ($60–74k) | $64 | $47–87k | $12k ($10–15k) |
-  | 30 × 30 ft (900 sq ft) | **$59k** ($53–65k) | $65 | $41–76k | $12k ($9–14k) |
-  | 30 × 25 ft (750 sq ft) | **$51k** ($46–56k) | $68 | $36–66k | $11k ($9–13k) |
+  | 30 × 35 ft (1,050 sq ft) | **$64k** ($58–70k) | $61 | $45–82k | $12k ($10–15k) |
+  | 30 × 30 ft (900 sq ft) | **$56k** ($50–61k) | $62 | $39–72k | $12k ($9–14k) |
+  | 30 × 25 ft (750 sq ft) | **$49k** ($44–53k) | $65 | $34–63k | $11k ($9–13k) |
 
-  - These have one roll-up and one apron (corrected the same day; they had two). The building
-    line still carries two doors' worth, so a single-door kit may come ~$1k lower.
-  - They include the commercial walk door, $1.5–3k over the kit's (re-priced the same day; it
-    added ~$3k to each size: see "The walk door"). Before it: $64k, $56k, $48k.
+  - **Re-priced the same day for the south doors** (see "Building A's doors move to the south
+    side"): two 12 × 12 roll-ups and the commercial walk door in the south wall, one 12 ft
+    apron, and a cut-and-fill pad with the slab 1.5 ft below the high corner. Built all on fill
+    instead (`--cut 0`), it's $74k / $65k / $55k.
+  - Earlier the same day: one roll-up in the east end wall and the walk door beside it, all on
+    fill: $67k / $59k / $51k. Before the walk door: $64k / $56k / $48k.
 
   - "Likely" sums each line's midpoint. The band is where 80% of outcomes fall if each line
     varies on its own.
@@ -2014,15 +2018,15 @@ They explained it as "the open path through the trees." It's in the private repo
 
 - **The owner wants a walk door, and a good one:** a door that binds or sticks in its frame
   is a pet peeve. It goes just north of the roll-up, in the east end wall.
-- **Where:** centered 16.5 ft north of the SW corner, so the opening runs 15–18 ft.
-  - That leaves about a foot of wall past the roll-up's north jamb, for the framing.
-  - It swings out and is hinged on its north edge. Open, it folds back toward the NE corner,
-    out of the roll-up's lane, and the latch is on the side you come from.
-  - Its concrete landing is 4.5 × 4 ft, level, half an inch below the slab, and joined to the
-    apron. It's 10.3 ft from the septic pipe, just outside the 10 ft keep-out. The path to it
-    can be gravel or stepping stones: foot traffic near the pipe is fine.
-  - It's on the gable end, so no roof water sheets over it. A drip cap over the head handles
-    the wall.
+- **Where (moved the same day):** centered in the south wall, between the two roll-ups (see
+  "Building A's doors move to the south side"). It first went in the east end wall, just north
+  of a single roll-up, with its own 4.5 × 4 ft landing.
+  - About 1.3 ft of wall on each side, between its frame and the roll-ups' jambs.
+  - It swings out and is hinged on its west edge, so the latch is on the east side, the side you
+    come from.
+  - The apron runs in front of it, so it needs no landing of its own.
+  - It's under the eave, so put a drip cap over the head, and the gutter keeps the roof's water
+    off it.
 - **Why kit doors stick:**
   - The usual tube-frame walk door is a light residential-style steel door. Its knock-down
     frame is screwed to the girts.
@@ -2063,6 +2067,220 @@ They explained it as "the open path through the trees." It's in the private repo
   - [Latest Cost: metal door frames](https://latestcost.com/cost-install-metal-door-frame/)
   - [Commercial door installation cost guide, 2026](https://new.risingsunartscentre.org/news/commercial-door-installation-cost-guide-2026.html)
   - [Hollow metal door price guide, 2026](https://partner.kurlon.com/news/hollow-metal-door-price-guide-2026-8211-adnan-painting-and-remodeling.html)
+
+### Building A's doors move to the south side (owner, Oct 18 2026)
+
+- **The owner's call:** two roll-ups and a centered walk door, behind one apron, all on the south
+  side. It replaces the single east-end roll-up from earlier the same day.
+- **Layout along the 35 ft south wall** (feet east of the SW corner):
+
+  | | From | To |
+  |---|---|---|
+  | Wall at the SW corner | 0 | 2.5 |
+  | Roll-up, 12 × 12 | 2.5 | 14.5 |
+  | Walk door, 3 × 7 (frame 15.8–19.2) | 16.0 | 19.0 |
+  | Roll-up, 12 × 12 | 20.5 | 32.5 |
+  | Wall at the SE corner | 32.5 | 35 |
+
+  - The dealer's engineer confirms the jambs and the wall's bracing.
+- **The apron:** one concrete slab, 32 × 12 ft, from a foot past the west roll-up to a foot past
+  the east one. It falls 1.5% away from the doors and covers the walk door's step too.
+- **It's well clear of the septic pipe.** The pipe is ~10 ft off the east wall's north half; the
+  apron is 29.4 ft from it.
+- **The south side is the low side.** The ground falls ~3 ft across the footprint, to the SW.
+  - With the slab level with the high NE corner, as first priced, the apron would have stood
+    2.2–3.4 ft above the ground at the doors, and the court beyond it 3–4 ft. That meant walls
+    and a lot of fill.
+  - So the pad is now cut and filled: the slab sits 1.5 ft below the NE corner's ground.
+    - The fill is 1.6 ft at most.
+    - The stem wall runs 38 ft: on the deep SW side, and where the cut holds the high
+      ground back on the north and east.
+    - A swale and French drain take the north side's water around.
+  - **It saves ~$10k on 30 × 35** ($64k against $74k all on fill). `shed_cost.py --cut` sets it.
+  - The cut reaches the NE corner, 10.3 ft from the septic pipe: find the tank before digging
+    there.
+- **The 3D plan** draws it: two rolled-up doors and the walk door between them on the south
+  face, the apron, and the ground cut down inside the footprint. The S130 is in the west bay,
+  nose to its door.
+
+### The drive, redesigned from scratch (owner, Oct 18 2026)
+
+The owner asked for a clean-slate drive with one hard rule: no tree removal.
+`tools/drive_layout.py` has the shapes; `tools/drive_plan.py` draws `drives.png` and prints
+the tables below.
+
+- **The owner's brief, in order:**
+  - Rip out the old drive and the front walk to the street.
+  - Keep loop D, the circle through the open path between the lawn oaks.
+  - **Surface:** first "concrete grey", then open to crushed rock or pavers, then: "that
+    Downton Abbey type stuff, bounded with concrete walls so it never sinks or pushes out into
+    the yard or the house".
+  - A connected cover on the house front, out to the 45 ft building line. It holds two cars
+    nose to tail, with a lane outside it so a car can get around a parked one without backing
+    out.
+  - Building A's doors face south (the section above).
+- **The layout:**
+  - **Two entrances.** The south one is new, in the open south lawn (loop D's). The north one
+    stays at the old curb cut, so the street end doesn't move under the oaks there. They're
+    62 ft apart.
+  - **The forecourt** fills the front of the house, from 33.5 ft back to the house.
+    - The porte-cochère covers its inner half, from the 45 ft line in.
+    - The gravel lane outside the cover lets a car pass a parked one.
+    - Loop D's legs join it at each end. The north leg goes out through the open path, ~13 ft
+      from the lone oak and ~14 ft from the bulge oak.
+  - **The porte-cochère:** 11 × 49 ft, roof edge on the 45 ft line.
+    - Stone columns like the porch's: three in front, centered on the front door; four at the
+      back, framing the door's recess.
+    - A hipped roof at the house's 5:12. 9 ft clear under the beams.
+    - Two spaces under it, either side of the front door. Heading north, the driver's door
+      opens toward the porch.
+    - Pavers on a concrete base under it and into the door's recess, so the last surface
+      before the house is hard and clean.
+    - Its back eave sits ~2 ft above the porch's and the south rooms' eaves. A roofer flashes
+      it into them.
+  - **The service drive** (10 ft): from the north entrance, around the bulge oak on the old
+    drive's curl, to the north court.
+    - It's rebuilt in the old footprint and no deeper. Those roots have grown around the old
+      slab for 35 years.
+  - **The north court,** on the old garage apron:
+    - It's the septic truck's stop, a turnaround, and two guest spaces.
+    - It stops 12 ft from the twin oak's trunks. The cars now parked against them move off its
+      roots.
+    - It leaves a 4 ft planted strip under the kitchen's new north glass.
+  - **The shop lane** (10 ft): west from the court, 3.4–7 ft off the house's north wall and
+    12.2 ft from the twin oak's near trunk. Then along the strip, north of the back-lawn oaks,
+    through the cross fence's gate, to the shop court.
+  - **The shop court:** gravel, 13 ft beyond building A's 12 ft apron, so a truck can swing
+    into either roll-up.
+    - It stands up to ~1.5–2 ft above the falling ground, on 27 cu yd of fill, behind a
+      concrete retaining edge.
+    - The lane ramps up to it.
+- **The surfaces ("Downton", done so it lasts):**
+  - **Gravel drive:**
+    - 3/8 in angular crushed stone, buff limestone or granite chips. Angular stone locks; round
+      pea gravel rolls and spreads.
+    - Locked in an HDPE cellular stabilizer grid (TRUEGRID, Gravelpave2 or Core Gravel), filled
+      and topped ~1/4 in over.
+    - On geotextile and compacted crushed-limestone base: 6 in for cars, 8–10 in on the
+      service drive and the north court, where the septic truck goes.
+    - The grid stops ruts and washboard. No decomposed granite on the drive: it tracks and
+      turns to mud.
+  - **Curbs:** concrete ribbon curbs, 8 in wide and ~12 in deep with rebar, along every
+    gravel edge, flush or 1/2 in proud. They hold the base and the stone in, so nothing creeps
+    into the lawn.
+    - Inside the oaks' root zones they're cast on grade or set as precast units, not trenched.
+      The base there is built up on the existing grade.
+  - **Under the cover:** pavers mortar-set on a reinforced slab, so they can't shift.
+  - **Street aprons:** concrete, from the asphalt to 10 ft inside the line, flared, to the
+    county's driveway detail. They keep the gravel off the road.
+- **Sizes:**
+  - gravel 3,646 sq ft;
+  - pavers 698 sq ft;
+  - concrete aprons 712 sq ft, of which 459 is in the right-of-way;
+  - curbs 621 ft;
+  - the cover's roof 539 sq ft.
+- **Trees** (paving edge to trunk; `drive_plan.py` lists them all):
+  - **Twin oak:** 12.2 and 16.4 ft. The 12 ft no-dig holds.
+  - **Lone lawn oak:** 13.0 ft. **Bulge oak:** 10.7 ft from the service drive (the old
+    drive's line) and 12.0 ft from the forecourt. Both are placed from photos, ±8 ft.
+  - **Tape these lidar treetops; each is a crown's high point, not a trunk:**
+    - 2.6 ft from the north leg, at s 32, t 86. Probably the bulge oak's crown leaning toward
+      the street. Check the limbs clear ~13.5 ft over the lane.
+    - 4.4 ft from the shop lane, at s 98, t 109. Probably the twin oak's crown.
+    - 10.6 and 10.9 ft from the shop lane and the shop court, the back-lawn oaks at s 160,
+      t 92 and s 173, t 83.
+  - **Crowns over the old drive or the roof** can't have their trunks there: s 49, t 112 and
+    s 58, t 89.
+  - **The crape myrtle in the south lawn** isn't mapped. If the south leg meets it, nudge the
+    leg; don't move the tree.
+  - **The hedge** loses its last ~20 ft where the forecourt crosses it. It's shrubs, not trees.
+- **Other clearances:**
+  - **The septic pipe** is 20.7 ft from the nearest paving; the well 36 ft.
+  - **The buried service line,** if it runs straight, lies along the shop lane. Locate it
+    before digging the base.
+  - **The 1991 electric line** ends at the house's SE corner, 1.2 ft from the forecourt's
+    corner. Locate it.
+  - **The AC unit** on the house's north wall: tape where it is, since the shop lane passes
+    3.4–7 ft off that wall.
+- **Grades (2017 lidar):** south leg 2.9% at most; north leg 3.9%; service drive 5.2%. The
+  shop lane falls 5.2 ft to the shop court, 7.2% at its steepest. All easy.
+- **Septic truck reach (research, Oct 18 2026):**
+  - Pumpers carry ~100–150 ft of 3 in hose as a rule; some carry 200 ft. Many treat ~150 ft
+    level as the practical limit, less with lift.
+  - **Lift:** a standard rotary-vane truck lifts ~20–25 ft, from the tank's bottom to the
+    truck's tank. Hybrid air-assist pumps do 30–50 ft. 33 ft is the theoretical limit at sea
+    level.
+  - Long hose runs cost extra time. Some contracts flag anything over 100 ft.
+  - **Here:**
+    - From the street, it's ~185 ft to the access pipe: past the usual reach.
+    - From the north court, it's ~100 ft, with ~18 ft of lift. The tank is ~3 ft below the
+      court's ground, plus its depth and the truck's height.
+    - So the truck stops in the north court. If the limbs over the shop lane clear ~12–13 ft,
+      it can go on to within ~25 ft.
+  - Ask the pumper for their hose length and lift when they come.
+  - A loaded pumper is 15–30 tons, hence the heavier base on the service drive and court.
+  - **Sources** (an industry Q&A, a forum and a bid document, not a standard):
+    - [InspectApedia, pumper vacuum pumps](https://inspectapedia.com/septic/Septic_Pumper_Truck_Vacuum_Pumps.php)
+    - [Pumper, "The long draw"](https://www.pumper.com/editorial/2010/08/the-long-draw)
+    - [Eawag, faecal sludge collection and transport](https://www.eawag.ch/fileadmin/Domain1/Abteilungen/sandec/publikationen/EWM/Book/FSM_Ch04_Collection_and_Transport.pdf)
+    - [Branford, CT, pump-out bid addendum](https://www.branford-ct.gov/sites/default/files/field/files-docs/rfp/addendum_1-septic_tank_pump_out_services_2.pdf)
+- **Impervious cover** (`impervious_cover.py`; the old drive and walk come out):
+  - **Now:** 16.3%.
+  - **With building A (30 × 35) and the new drive:**
+    - 19.3% if the county doesn't count gravel;
+    - 30.1% if it does.
+  - It hangs on the same open question as before: whether any limit applies here (see "Does
+    the 15% even apply?"), and how Travis County counts gravel.
+- **What it costs** (planning ranges, not quotes; with 10% contingency):
+
+  | Part | Likely (80% band) |
+  |---|---|
+  | The drive: demolition, gravel, curbs, pavers, aprons, permits, shop court, arborist | **$120k** ($107–132k) |
+  | The porte-cochère | **$80k** ($60–100k) |
+  | All of it | **$200k** ($176–223k) |
+
+  - **Unit prices:**
+    - gravel in grid on base, $8–14/sq ft;
+    - structural ribbon curb, $15–35/ft;
+    - pavers on a slab, $25–45/sq ft;
+    - street aprons, $10–16/sq ft;
+    - removing the old concrete, $2–5/sq ft;
+    - the porte-cochère, $90–180/sq ft of roof.
+  - **The cover is the softest number.** Covered patios run $25–120/sq ft. A porte-cochère with
+    9 ft clear, 24 ft spans, stone columns and a roof tied into the house sits at the top of
+    that and past it. Get two bids.
+  - **The biggest lines** are the gravel ($29–51k), the cover, the pavers ($18–31k) and the
+    curbs ($9–22k).
+  - **Where it could come down:**
+    - plain broom-finished concrete instead of pavers under the cover (~$10k less);
+    - curbs only where the gravel meets lawn, with steel edging elsewhere (~$5k);
+    - the shop lane in plain compacted base until the building's done.
+  - **Owner work:**
+    - break out and haul the front walk;
+    - snap in the grid panels, which are DIY-friendly, and spread the stone;
+    - water the curbs while they cure.
+    - Together ~$8–15k. The curbs, the base compaction and the cover are trade work.
+  - **Price sources** (vendor and guide figures, unverified locally):
+    - [TRUEGRID FAQ](https://www.truegridpaver.com/resources/faq/)
+    - [TRUEGRID, budget driveways](https://www.truegridpaver.com/budget-driveway-ideas/)
+    - [TRUEGRID, gravel costs](https://truegridpaver.com/how-much-does-it-cost-to-gravel-a-driveway)
+    - [LawnStarter, edging](https://www.lawnstarter.com/blog/cost/landscape-edging-cost/)
+    - [Lawn Love, curbing](https://lawnlove.com/blog/landscape-curbing-cost/)
+    - [Bob Vila, covered patios](https://bobvila.com/articles/covered-patio-cost)
+- **Order:**
+  1. Locate the tank, the drainfield and both buried lines, and tape the trunks above.
+  2. Build the shop lane's base: it's the construction road for building A, whose concrete
+     and kit come in that way.
+  3. Building A.
+  4. The forecourt, the porte-cochère and the south leg. Cars can then park out front while
+     the old drive still serves the north side.
+  5. The north leg, the service drive and the north court, in the old drive's footprint; then
+     the old drive's leftovers and the walk come out.
+  6. The kitchen conversion: the garage can stop holding cars.
+  - Prune for clearance July–January only (oak wilt).
+- **Retired:** loop C, the owner's first sketch, and the two old covered-parking options (a
+  porte-cochère pad and a carport on the garage apron) are gone from the maps and the 3D plan.
+  The old drive and walk are hidden in the 3D plan, marked as coming out.
 
 ### Windows and doors
 

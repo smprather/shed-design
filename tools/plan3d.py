@@ -1,6 +1,6 @@
 # /// script
 # requires-python = ">=3.11"
-# dependencies = ["rich-click", "polars", "pillow", "numpy"]
+# dependencies = ["rich-click", "polars", "pillow", "numpy", "shapely"]
 # ///
 """3D model of property_total_plan.jsonc on the surveyed lot and the lidar terrain, plus septic checks.
 
@@ -29,8 +29,9 @@ import rich_click as click
 
 from site_plan import BUILDING_LINE, HOUSE, PARCEL, REPO, SITE_B, WELL, en_to_site, north_line_y, site, st
 from site_b_plan import HOSE, house_north_y
-from front_layout import EXISTING_DRIVE, FRONT_WALK, LANE, LOOP_C, LOOP_D, PORTE_COCHERE, catmull_rom, offset
-from house_layout import FF_FT, house_spec
+from drive_layout import APRON_DEEP, CURB, layout as drive_layout
+from front_layout import EXISTING_DRIVE, FRONT_WALK, offset
+from house_layout import FF_FT, house_spec, porte_spec
 from envelope_plan import SITE_A
 
 SPEC = REPO / "property_total_plan.jsonc"
@@ -46,8 +47,12 @@ B_EAVE = 14.0  # ft; undecided, the noise model's case
 B_PITCH = 3 / 12  # building B's gable roof, ridge along the long side; undecided
 B_DOORS = (12.0, 12.0)  # ft, width x height: two roll-up doors on the south wall at the quarter points (owner, Oct 18 2026); size undecided
 MOWER_IN = 8.0  # ft in from the door wall to the rear axle: the owner's John Deere S130, parked in building A, for scale
-WALK_AT = 16.5  # ft north of building A's SW corner: the walk door's center, a foot of wall past the roll-up's north jamb
-PORTE_COCHERE_CLEAR = 10.0  # ft to the underside of option A's roof (cars and a pickup need ~8)
+# Building A's doors, all on its south wall (owner, Oct 18 2026): two 12 x 12 roll-ups and the walk door centered between
+# them, behind one apron. Feet east of the SW corner (the wall is 35 ft long).
+A_DOORS = (8.5, 26.5)   # roll-up centers: 2.5 ft of wall at each corner, 1.3 ft between each roll-up and the walk door's frame
+WALK_AT = 17.5          # the walk door's center
+A_APRON = (1.5, 33.5, APRON_DEEP)   # the apron: from x, to x, ft out from the wall
+A_CUT = 1.5  # ft: building A's slab sits this far below its high (NE) corner, cut and fill, so the south doors' apron is near grade
 WALL_FOOTING = 2.0  # ft inside the line for a US-290 wall footing
 TREE_ROWS = (10.0, 22.0)  # ft in from the back line: two staggered rows (notes, back-line trees)
 TREE_SPACING = 10.0  # ft on center along each row (holly screen 8-10 ft)
@@ -119,6 +124,13 @@ class Terrain:
         z = self.z
         return ((1 - tx) * (1 - ty) * z[j][i] + tx * (1 - ty) * z[j][i + 1]
                 + (1 - tx) * ty * z[j + 1][i] + tx * ty * z[j + 1][i + 1])
+
+    def grade(self, poly: list[Pt], level: float, margin: float = 0.0) -> None:
+        """Cut the ground down to `level` (m) inside `poly` (plan m) and `margin` m past it: a pad dug into its high side."""
+        for j, y in enumerate(self.ys):
+            for i, x in enumerate(self.xs):
+                if self.z[j][i] > level and (inside((x, y), poly) or poly_dist((x, y), poly) <= margin):
+                    self.z[j][i] = level
 
 
 class Frame:
@@ -204,6 +216,26 @@ class Obj:
                     self.face([(a, b, self.ground(a, b) + lift) for a, b in sq])
                 y += cell
             x += cell
+
+    def area(self, geom, cell: float = 0.4, z=None, lift: float = 0.06) -> None:
+        """A paved area of any shape (a shapely geometry in plan m, holes and all) in small squares, on the ground or at z(x, y)."""
+        from shapely.geometry import box
+        from shapely.prepared import prep
+        shape = prep(geom)
+        zf = z or (lambda x, y: self.ground(x, y) + lift)
+        x0, y0, x1, y1 = geom.bounds
+        for i in range(int((x1 - x0) / cell) + 1):
+            for j in range(int((y1 - y0) / cell) + 1):
+                sq = box(x0 + i * cell, y0 + j * cell, x0 + (i + 1) * cell, y0 + (j + 1) * cell)
+                if shape.contains(sq):
+                    pieces = [sq]
+                elif shape.intersects(sq):   # an edge cell: clipped to the outline, so the edges stay clean
+                    cut = geom.intersection(sq)
+                    pieces = [g for g in getattr(cut, "geoms", [cut]) if g.geom_type == "Polygon" and g.area > 1e-4]
+                else:
+                    continue
+                for g in pieces:
+                    self.face([(a, b, zf(a, b)) for a, b in list(g.exterior.coords)[:-1]])
 
     def prism(self, poly: list[Pt], z0: float, z1: float) -> None:
         """Closed prism over a footprint, flat bottom and top."""
@@ -460,6 +492,10 @@ def main(spec: Path, out: Path) -> None:
         if isinstance(path, str) and path.startswith("site/") and not (REPO / path).exists():
             check(f"source {key}", path, "file", "MISSING")
 
+    # Building A's pad, cut into its high side before the ground is drawn (A_CUT): what's left above the slab's level
+    # inside the footprint is dug out, so the floor isn't buried in the 3D view.
+    a_level = max(ground(*to_m(p)) for p in SITE_A) - A_CUT * FT
+    ground.grade([to_m(p) for p in SITE_A], a_level - 0.05, margin=0.3)
     obj.obj("terrain_lidar_2017")
     obj.terrain()
 
@@ -494,11 +530,12 @@ def main(spec: Path, out: Path) -> None:
     obj.obj(f"site_A_footprint_{a_dims}")
     obj.pad(a_m, cell=0.5, lift=0.07)
     obj.drape(a_m, closed=True, lift=0.12)
-    # Building A on it, in B's look, laid out like a standard kit: 30 ft wide (the clear span, across the strip),
-    # its ridge along the line like B's, and the roll-up doors in the east end wall. Trees close its south side
-    # and the fence is 5 ft off its north side, so the way in is from the east along the strip.
+    # Building A on it, in B's look, laid out like a standard kit: 30 ft wide (the clear span, across the strip) and
+    # its ridge along the line like B's. Its doors face south, the yard side (owner, Oct 18 2026): the slab sits A_CUT
+    # below the high corner, cut on the north and filled on the south (the ground falls ~3 ft that way), and the
+    # terrain was graded to match before it was drawn.
     a_ground = [ground(*p) for p in a_m]
-    a_slab = max(a_ground)
+    a_slab = a_level
     a_id = f"building_A_{a_dims}_eave_{B_EAVE:g}ft_assumed"
     obj.obj(a_id)
     obj.gable(asw, ase, ane, anw, a_slab, a_slab + B_EAVE * FT, a_wid / 2 * B_PITCH * FT)
@@ -507,33 +544,52 @@ def main(spec: Path, out: Path) -> None:
                   "uy": [round((anw[i] - asw[i]) / (a_wid * FT), 6) for i in (0, 1)],
                   "slab_m": round(a_slab, 3), "drop_ft": round((a_slab - min(a_ground)) / FT, 2),
                   "length_ft": round(a_len, 2), "width_ft": round(a_wid, 2), "eave_ft": B_EAVE, "pitch": B_PITCH,
-                  "door_wall": "end",
-                  # One roll-up, in the south half of the end wall: a north door's apron and its traffic would
-                  # sit on the septic access pipe, ~10 ft east of the wall (owner caught it, Oct 18 2026).
-                  "doors": [{"center_ft": round(c, 2), "width_ft": B_DOORS[0], "height_ft": B_DOORS[1]}
-                            for c in (a_wid / 4,)],
-                  # A commercial walk door just north of the roll-up (owner, Oct 18 2026): 3070 hollow metal in a
-                  # welded frame, outswing, hinged on its north edge so it opens away from the roll-up's lane. Its
-                  # 4 ft landing joins the roll-up's apron and stays 10 ft off the septic pipe.
-                  "walk_doors": [{"center_ft": WALK_AT, "width_ft": 3.0, "height_ft": 7.0, "hinge": "north",
-                                  "stoop_ft": [WALK_AT - 2.25, WALK_AT + 2.25, 4.0]}],
-                  "mower": {"x_ft": round(a_len - MOWER_IN, 2), "y_ft": round(a_wid / 4, 2)}}   # south bay, nose to the door
+                  "door_wall": "side",
+                  # Two roll-ups and a commercial walk door between them, all in the south wall, behind one apron
+                  # (owner, Oct 18 2026). Away from the septic access pipe, which is ~10 ft off the east wall's north half.
+                  "doors": [{"center_ft": c, "width_ft": B_DOORS[0], "height_ft": B_DOORS[1]} for c in A_DOORS],
+                  # The walk door: 3070 hollow metal in a welded frame, outswing, hinged on its west edge so the latch
+                  # is on the side you come from (the drive arrives from the east).
+                  "walk_doors": [{"center_ft": WALK_AT, "width_ft": 3.0, "height_ft": 7.0, "hinge": "west"}],
+                  "apron_ft": list(A_APRON),
+                  "mower": {"x_ft": A_DOORS[0], "y_ft": MOWER_IN}}   # west bay, nose to the door
     # Existing drive and front walk, traced from the 1991 plat (front_layout.py, +/-3 ft).
     obj.obj("existing_driveway_1991_plat")
     obj.pad([to_m(p) for p in site(st(*q) for q in EXISTING_DRIVE)], lift=0.05)
     obj.obj("front_walk_1991_plat")
     obj.pad([to_m(p) for p in site(st(*q) for q in FRONT_WALK)], cell=0.25, lift=0.05)
-    # Proposed front yard (front_layout.py): loop C, and option A's roof at ~10 ft over the porch-front lane.
-    obj.obj("proposed_circle_drive_loop_c")
-    center = catmull_rom(LOOP_C)
-    obj.ribbon(*([to_m(p) for p in site(st(*q) for q in offset(center, side * LANE / 2))] for side in (1, -1)))
-    obj.obj("proposed_circle_drive_loop_d")   # through the open path between the lawn oaks (owner's photos, Oct 18)
-    center = catmull_rom(LOOP_D)
-    obj.ribbon(*([to_m(p) for p in site(st(*q) for q in offset(center, side * LANE / 2))] for side in (1, -1)), lift=0.11)
-    obj.obj("proposed_porte_cochere_option_a")
-    pc = [to_m(p) for p in site(st(*q) for q in PORTE_COCHERE)]
-    roof = max(ground(*p) for p in pc) + PORTE_COCHERE_CLEAR * FT
-    obj.prism(pc, roof, roof + 1.0 * FT)
+    # The drive system, from scratch (drive_layout.py, owner's brief Oct 18 2026): gravel in a stabilizer grid with
+    # concrete curbs, pavers under the porte-cochere, concrete street aprons, and the shop court raised in front of
+    # building A's apron on a walled pad. The gravel ramps up to the court at 8% where it meets it.
+    from shapely.geometry import Point
+    from shapely.ops import transform
+    o_, e_s, e_t = site([st(0, 0)])[0], site([st(1, 0)])[0], site([st(0, 1)])[0]
+    to_st = lambda p: tuple(sum((p[k] - o_[k]) * (e[k] - o_[k]) for k in (0, 1)) for e in (e_s, e_t))  # noqa: E731
+    sv = lambda s, t: to_m(site([st(s, t)])[0])  # noqa: E731
+    plan_m = lambda g: transform(lambda xs, ys, zs=None: tuple(map(list, zip(*[sv(x, y) for x, y in zip(xs, ys)]))), g)  # noqa: E731
+    dl = drive_layout([to_st(p) for p in SITE_A])
+    court_m = plan_m(dl["court"])
+    court_top = a_level - 0.015 * APRON_DEEP * FT - 0.02
+    ramp = lambda x, y: max(ground(x, y) + 0.03, court_top - 0.08 * court_m.distance(Point(x, y)))  # noqa: E731
+    obj.obj("proposed_drive_gravel")
+    obj.area(plan_m(dl["gravel"].difference(dl["court"])), z=lambda x, y: ramp(x, y) + 0.03)
+    obj.obj("proposed_drive_pavers")
+    obj.area(plan_m(dl["paved"]), lift=0.08)
+    obj.obj("proposed_drive_concrete_aprons")
+    obj.area(plan_m(dl["concrete"]), lift=0.07)
+    obj.obj("proposed_drive_curbs")
+    for line in getattr(dl["curbs"], "geoms", [dl["curbs"]]):
+        pts = list(line.coords)
+        if len(pts) < 2:
+            continue
+        left, right = ([sv(*q) for q in offset(pts, side * CURB / 2)] for side in (1, -1))
+        for (l0, l1), (r0, r1) in zip(zip(left, left[1:]), zip(right, right[1:])):
+            obj.face([(x, y, ramp(x, y) + 0.08) for x, y in (l0, r0, r1, l1)])
+    obj.obj("proposed_shop_court_walls")
+    low = min(ground(*q) for q in court_m.exterior.coords) - 0.1
+    obj.prism(list(court_m.exterior.coords)[:-1], low, court_top - 0.03)
+    obj.obj("proposed_shop_court")
+    obj.prism(list(court_m.buffer(-CURB * FT).exterior.coords)[:-1], court_top - 0.06, court_top)
     keep_outs = {"septic_pipe_keepout_10ft": (pipe, KEEP_OUT), "well_keepout_10ft": (well, KEEP_OUT)}
     for name, (c, r) in {**keep_outs, "oak_drip_line": (oak, 25.1), "oak_no_dig_12ft": (oak, 12.0)}.items():
         obj.obj(name)
@@ -570,20 +626,15 @@ def main(spec: Path, out: Path) -> None:
     a_l, a_w = math.dist(a_sw, a_se), math.dist(a_sw, a_nw)
     a_at = lambda x, y: (a_sw[0] + (a_se[0] - a_sw[0]) * x / a_l + (a_nw[0] - a_sw[0]) * y / a_w,  # noqa: E731
                          a_sw[1] + (a_se[1] - a_sw[1]) * x / a_l + (a_nw[1] - a_sw[1]) * y / a_w)
-    for d in building_a["doors"]:
-        y0, y1 = d["center_ft"] - d["width_ft"] / 2 - 1, d["center_ft"] + d["width_ft"] / 2 + 1
-        apron = [a_at(a_l, y0), a_at(a_l + 10, y0), a_at(a_l + 10, y1), a_at(a_l, y1)]
-        gap = 0.0 if inside(pipe, apron) else poly_dist(pipe, apron)
-        check(f"building A door apron (y {d['center_ft']:g} ft) vs septic pipe", f"{gap:.1f} ft", f"{KEEP_OUT:g} ft",
-              "OK" if gap >= KEEP_OUT else "CONFLICT", "the tank is likely under or beside the access pipe: no aprons or traffic over it")
-    for d in building_a["walk_doors"]:
-        y0, y1, deep = d["stoop_ft"]
-        stoop = [a_at(a_l, y0), a_at(a_l + deep, y0), a_at(a_l + deep, y1), a_at(a_l, y1)]
-        gap = 0.0 if inside(pipe, stoop) else poly_dist(pipe, stoop)
-        check(f"building A walk-door landing (y {d['center_ft']:g} ft) vs septic pipe", f"{gap:.1f} ft", f"{KEEP_OUT:g} ft",
-              "OK" if gap >= KEEP_OUT else "CONFLICT", f"{y1 - y0:g} x {deep:g} ft concrete landing; the path to it can be stepping stones")
-    check("building A ground fall across the slab", f"{building_a['drop_ft']:.1f} ft", "-", "NOTE",
-          "2017 lidar; high at the NE corner, so fill or a stem wall to the SW; doors on the east wall, toward B")
+    x0, x1, deep = building_a["apron_ft"]
+    apron = [a_at(x0, 0), a_at(x1, 0), a_at(x1, -deep), a_at(x0, -deep)]
+    gap = 0.0 if inside(pipe, apron) else poly_dist(pipe, apron)
+    check("building A's apron (south side) vs septic pipe", f"{gap:.1f} ft", f"{KEEP_OUT:g} ft",
+          "OK" if gap >= KEEP_OUT else "CONFLICT", "the tank is likely under or beside the access pipe: no aprons or traffic over it")
+    check("building A's cut at the NE corner vs septic pipe", f"{poly_dist(pipe, SITE_A):.1f} ft", f"{KEEP_OUT:g} ft",
+          "NOTE", f"the slab sits {A_CUT:g} ft below the NE corner's ground: find the tank before cutting near it")
+    check("building A fill under the slab's low (SW) corner", f"{building_a['drop_ft']:.1f} ft", "-", "NOTE",
+          f"2017 lidar; the slab is {A_CUT:g} ft below the high NE corner: cut there, fill and a stem wall to the SW")
     check("building B ground fall across the slab", f"{fall:.1f} ft", "-", "NOTE",
           "2017 lidar; high at the NE corner by the oak, so level it with fill on the west side, not a cut toward the oak")
     d = poly_dist(pipe, SITE_B)
@@ -664,6 +715,7 @@ def main(spec: Path, out: Path) -> None:
     sv = lambda s, t: to_m(site([st(s, t)])[0])  # noqa: E731
     o, e, n = sv(0, 0), sv(-1, 0), sv(0, 1)
     house = house_spec(lambda s, t: (ground(*sv(s, t)) / FT + ground.z0) - FF_FT)
+    house["porte"] = porte_spec(lambda s, t: (ground(*sv(s, t)) / FT + ground.z0) - FF_FT)
     house.update({"origin": [round(c, 4) for c in o], "ex": [round((e[i] - o[i]) / FT, 6) for i in (0, 1)],
                   "ey": [round((n[i] - o[i]) / FT, 6) for i in (0, 1)], "ff_m": round((FF_FT - ground.z0) * FT, 3)})
     write_viewer(html, out.read_text(), plan, checks, view, poles, tree_view, existing, ground.z0, building_b, house, building_a)

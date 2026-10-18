@@ -237,3 +237,44 @@ def _upper(a, b, out, z0, top, L) -> dict:
     ab = ((b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2) ** 0.5
     poly = [(0.0, z0), (ab, z0)] + [(round(u, 3), round(z - TUCK, 3)) for u, z in reversed(top)]
     return {"a": L(*a), "b": L(*b), "out": out, "thick": WALL, "stone": [], "siding": poly}
+
+
+def porte_spec(ground_rel: Callable[[float, float], float]) -> dict:
+    """The porte-cochere (drive_layout.py) in the house's frame, for the same viewer code: stone columns like the
+    porch's, beams, a beadboard ceiling and a hipped roof at the house's pitch, its outer edge on the 45 ft line.
+
+    It stands clear of the house's eaves: its back eave rides ~2 ft over the porch's and the south rooms' eaves,
+    where it would be flashed into them.
+    """
+    from drive_layout import COLUMN, COVER, COVER_COLUMNS, COVER_EAVE, COVER_PITCH
+
+    L = lambda s, t: [round(-s, 3), round(t, 3)]  # noqa: E731
+    boxes, roofs = [], []
+
+    def box(s0, s1, t0, t1, z0, z1, mat):
+        boxes.append({"min": [round(-max(s0, s1), 3), round(min(t0, t1), 3), round(z0, 3)],
+                      "max": [round(-min(s0, s1), 3), round(max(t0, t1), 3), round(z1, 3)], "mat": mat})
+
+    def quad(*pts):
+        roofs.append({"pts": [L(s, t) + [round(z, 3)] for s, t, z in pts], "mat": "roof"})
+
+    s0, s1, t0, t1 = COVER
+    base = sum(ground_rel(cs, ct) for cs, ct in COVER_COLUMNS) / len(COVER_COLUMNS)   # the forecourt, about
+    beam, eave = base + COVER_EAVE - 0.6, base + COVER_EAVE
+    h = COLUMN / 2
+    for cs, ct in COVER_COLUMNS:
+        box(cs - h - 0.12, cs + h + 0.12, ct - h - 0.12, ct + h + 0.12, ground_rel(cs, ct) - 0.3, ground_rel(cs, ct) + 0.6, "stone")   # plinth
+        box(cs - h, cs + h, ct - h, ct + h, ground_rel(cs, ct), beam, "stone")
+        box(cs - h - 0.1, cs + h + 0.1, ct - h - 0.1, ct + h + 0.1, beam - 0.25, beam, "trim")                                  # cap
+    for a, b, c, d in ((s0, s0 + 0.6, t0, t1), (s1 - 0.6, s1, t0, t1), (s0, s1, t0, t0 + 0.6), (s0, s1, t1 - 0.6, t1)):
+        box(a, b, c, d, beam, eave, "trim")                                                                               # beams, fascia
+    box(s0 + 0.6, s1 - 0.6, t0 + 0.6, t1 - 0.6, beam + 0.15, beam + 0.2, "frame")                                         # ceiling
+    rise = (s1 - s0) / 2 * COVER_PITCH
+    sm, r = (s0 + s1) / 2, eave + rise
+    ta, tb = t0 + (s1 - s0) / 2, t1 - (s1 - s0) / 2
+    quad((s0, t0, eave), (s0, t1, eave), (sm, tb, r), (sm, ta, r))
+    quad((s1, t1, eave), (s1, t0, eave), (sm, ta, r), (sm, tb, r))
+    quad((s1, t0, eave), (s0, t0, eave), (sm, ta, r), (sm, ta, r))
+    quad((s0, t1, eave), (s1, t1, eave), (sm, tb, r), (sm, tb, r))
+    box(sm - 0.3, sm + 0.3, ta, tb, r - 0.05, r + 0.15, "trim")                                                           # ridge cap
+    return {"walls": [], "roofs": roofs, "boxes": boxes}

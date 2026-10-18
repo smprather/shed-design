@@ -30,7 +30,10 @@
   --tree-2: #4f7f2a;      /* proposed yaupon and laurel */
   --canopy: #5b7a44;      /* existing trees (lidar) */
   --paving: #7d6f5f;      /* proposed drive */
-  --loop-d: #a8478a;      /* loop D, through the open path */
+  --gravel: #ad9c7c;      /* the drive: estate gravel, buff limestone */
+  --pavers: #a98f78;      /* pavers under the porte-cochere */
+  --curb: #d4d1ca;        /* concrete curbs */
+  --porte: #b9ae9b;       /* the porte-cochere (stone) */
   --concrete: #a9a59a;    /* existing drive and walk */
   --retail-lot: #c4482b;
   --retail-bldg: #b83a2e;
@@ -53,7 +56,7 @@
     --bg: #111714; --panel: #171f1b; --ink: #e2eae5; --muted: #95a59c; --rule: #2a3530;
     --accent: #f0675b; --stage: #0d1310; --terrain-lo: #2f4655; --terrain-hi: #6b6450;
     --house: #8fb0ea; --shed: #f0a93a; --steel: #50555b; --jd: #4f9a3f; --site-a: #f2c14e; --fence: #c09468; --easement: #b48ae0; --septic: #f05cbf;
-    --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --paving: #b9ab98; --loop-d: #e98bcc; --concrete: #8e8a80; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
+    --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --paving: #b9ab98; --gravel: #b8a785; --pavers: #ad937c; --curb: #d8d5ce; --porte: #c3baab; --concrete: #8e8a80; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
     --water: #6aa6f5; --apt: #79c174; --apt-bldg: #8fa2d6; --apt-new: #f08a4a; --context: #56625b; --lot: #e2eae5; --ok: #5ccf7c; --warn: #f0b13a; --bad: #f0675b;
     --unknown: #95a59c; color-scheme: dark;
   }
@@ -62,7 +65,7 @@
   --bg: #111714; --panel: #171f1b; --ink: #e2eae5; --muted: #95a59c; --rule: #2a3530;
   --accent: #f0675b; --stage: #0d1310; --terrain-lo: #2f4655; --terrain-hi: #6b6450;
   --house: #8fb0ea; --shed: #f0a93a; --steel: #50555b; --jd: #4f9a3f; --site-a: #f2c14e; --fence: #c09468; --easement: #b48ae0; --septic: #f05cbf;
-  --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --paving: #b9ab98; --loop-d: #e98bcc; --concrete: #8e8a80; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
+  --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --paving: #b9ab98; --gravel: #b8a785; --pavers: #ad937c; --curb: #d8d5ce; --porte: #c3baab; --concrete: #8e8a80; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
   --water: #6aa6f5; --apt: #79c174; --apt-bldg: #8fa2d6; --apt-new: #f08a4a; --context: #56625b; --lot: #e2eae5; --ok: #5ccf7c; --warn: #f0b13a; --bad: #f0675b;
   --unknown: #95a59c; color-scheme: dark;
 }
@@ -316,7 +319,7 @@ details li b { font-weight: 600; }
     building_A_30x35_eave_14ft_assumed: { label: "Building A, 30 × 35 ft", group: "Your lot", token: "steel", solid: true,
       status: "planned at site A (site B dropped, owner, Oct 18 2026); size open: standard 30 × 35, 30 × 30 or 30 × 25 ft (tools/shed_cost.py)",
       source: "Site A (SITE_A in tools/envelope_plan.py), built like building B (owner, Oct 18 2026), sized as a standard kit.",
-      notes: "1,050 sq ft as drawn, with the owner's S130 parked inside for scale. B's look: dark grey steel, light grey inside, a 3:12 gable and a 14 ft eave. Laid out like a standard kit: 30 ft wide (the clear span, across the strip), its ridge along the line, and one 12 × 12 ft roll-up door in the south half of the east end wall (drawn rolled up). Just north of it, a commercial 3 × 7 ft walk door (owner, Oct 18 2026): hollow metal in a welded frame, outswing, a continuous hinge on its north edge, a Grade 1 lever and deadbolt, a closer, on a 4.5 × 4 ft landing joined to the apron. A second roll-up in the north half would put its apron and traffic on the septic access pipe, ~10 ft east of the wall; the landing stays 10 ft off it. Trees close its south side and the fence is 5 ft off its north side, so it's entered from the east along the strip. The slab is level with its high NE corner; the ground falls ~3 ft to the SW: compacted crushed-stone fill, with a stem wall on the deep sides. 10.3 ft from both the well and the septic pipe. The buried service line likely runs under it: have it traced first." },
+      notes: "1,050 sq ft as drawn, with the owner's S130 parked inside for scale. B's look: dark grey steel, light grey inside, a 3:12 gable and a 14 ft eave. Laid out like a standard kit: 30 ft wide (the clear span, across the strip) with its ridge along the line. All its doors face south, onto the yard (owner, Oct 18 2026): two 12 × 12 ft roll-ups (drawn rolled up) with a commercial 3 × 7 ft walk door centered between them (hollow metal in a welded frame, outswing, a continuous hinge, Grade 1 lever and deadbolt, a closer), behind one 32 × 12 ft concrete apron. The septic access pipe, ~10 ft off the east wall's north half, stays clear of all of it. The ground falls ~3 ft to the SW, so the pad is cut and filled: the slab sits 1.5 ft below the high NE corner, which keeps the apron near grade on the low side. 10.3 ft from both the well and the septic pipe. The buried service line likely runs under it: have it traced first." },
     building_B_23x43_eave_14ft_assumed: { label: "Building B, 23 × 43 ft (dropped)", group: "Proposed", token: "steel", solid: true, hidden: true,
       status: "dropped: site B is out (owner, Oct 18 2026); hidden at first, tick it in the layer list to compare", source: "Site B footprint (SITE_B in tools/site_plan.py); look per the owner, Oct 18 2026.",
       notes: "Dark grey steel on every surface, with two roll-up doors on the south wall (drawn rolled up) and a solid north wall toward US-290. Drawn with 12 × 12 ft doors at the quarter points, a 3:12 gable and a 14 ft eave. None of those is decided yet. The slab is level with its high NE corner by the oak. The ground falls ~3.8 ft across it, so the west side needs fill or a stem wall rather than a cut toward the oak. The east door is 15 ft from the house's NW corner." },
@@ -344,21 +347,28 @@ details li b { font-weight: 600; }
       notes: "1,050 sq ft. 5.0 ft from the north line, 10.3 ft from both the well and the septic pipe (10 ft keep-outs). The ground falls ~3.1 ft across it, high at the NE corner. Its far (SSW) side is ~3 ft into the strip's tree edge (aerial, +/-5 ft); the lidar shows no tall canopy there. The drainfield may run under it, so find the septic layout first." },
     buried_service_line_assumed: { label: "Buried electric line (owner's endpoints; drawn straight)", group: "Keep-outs", token: "warn",
       status: "endpoints from the owner; route not located" },
-    existing_driveway_1991_plat: { label: "Driveway (1991 plat)", group: "Your lot", token: "concrete", solid: true,
+    proposed_drive_gravel: { label: "Drive: gravel (loop D, forecourt, service drive, courts, shop lane)", group: "Proposed", token: "gravel",
+      status: "proposed, Oct 18 2026 (drive_layout.py, drive_plan.py)", source: "The owner's brief: no tree removal; loop D kept; estate gravel bounded by concrete.",
+      notes: "Angular 3/8 in gravel locked in a stabilizer grid on a compacted base, every edge held by a concrete ribbon curb, so it can't rut, sink or spread. Loop D's legs and the forecourt are 12 ft; the service drive and the shop lane 10 ft. Within the oaks' root zones it's built up on the existing grade, no digging. The shop court in front of building A is raised on fill behind a concrete edge; the gravel ramps up to it." },
+    proposed_drive_pavers: { label: "Pavers under the porte-cochère", group: "Proposed", token: "pavers",
+      status: "proposed, Oct 18 2026", source: "drive_layout.py PAVED", notes: "Pavers on a concrete base under the cover and into the front door's recess: a clean, hard surface where people get out of the cars, so no gravel walks into the house." },
+    proposed_drive_concrete_aprons: { label: "Concrete street aprons", group: "Proposed", token: "concrete",
+      status: "proposed, Oct 18 2026", source: "drive_layout.py", notes: "Both entrances are concrete from the street to 10 ft inside the front line, flared at the street (Travis County driveway permits). Keeps gravel off the road." },
+    proposed_drive_curbs: { label: "Concrete curbs", group: "Proposed", token: "curb",
+      status: "proposed, Oct 18 2026", source: "drive_layout.py CURB", notes: "8 in wide, ~12 in deep, with rebar, along every gravel edge. Near the oaks they're set on grade, not trenched." },
+    proposed_shop_court: { label: "Shop court (in front of building A)", group: "Proposed", token: "gravel",
+      status: "proposed, Oct 18 2026", source: "drive_layout.py SHOP_COURT_A", notes: "Gravel, 13 ft beyond building A's 12 ft concrete apron: room to swing a truck into either roll-up. The ground falls away to the south, so it sits on compacted fill." },
+    proposed_shop_court_walls: { label: "Shop court's concrete edge", group: "Proposed", token: "concrete",
+      status: "proposed, Oct 18 2026", source: "drive_plan.py", notes: "The court's retaining edge, up to ~1.5–2 ft where the ground falls away." },
+    proposed_porte_cochere: { label: "Porte-cochère", group: "Proposed", token: "porte",
+      status: "proposed, Oct 18 2026 (owner: a connected cover out to the 45 ft line)", source: "drive_layout.py COVER; house_layout.py porte_spec",
+      notes: "11 × 49 ft, from the house out to the 45 ft building line. Two cars nose to tail, either side of the front door, 9 ft clear under the beams. Stone columns like the porch's (three in front, centered on the front door; four at the back, framing the door's recess), a hipped roof at the house's 5:12 pitch. The forecourt's gravel lane runs outside it, so a car can pass a parked one without backing out." },
+    existing_driveway_1991_plat: { label: "Driveway (1991 plat; coming out)", group: "Your lot", token: "concrete", solid: true, hidden: true,
       status: "traced from the 1991 survey plat, +/-3 ft", source: "Private repo property/CUR-Survey-8400-Candelaria.pdf; tools/front_layout.py",
       notes: "The concrete drive: ~13 ft wide in from Candelaria, swinging north around a lawn bulge in front of the porch, then opening into the ~26 x 30 ft apron north of the porch and garage (its back edge lines up with the garage's back wall). The approach in the street right-of-way is included. The pre-sale aerial shows the street end ~8 ft wider on its south side, so it was probably widened after 1991: tape it." },
-    front_walk_1991_plat: { label: "Front walk (1991 plat)", group: "Your lot", token: "concrete", solid: true,
+    front_walk_1991_plat: { label: "Front walk (1991 plat; coming out)", group: "Your lot", token: "concrete", solid: true, hidden: true,
       status: "traced from the 1991 survey plat, +/-3 ft", source: "Private repo property/CUR-Survey-8400-Candelaria.pdf; tools/front_layout.py",
       notes: "~3 ft wide, from the front door's recess to the street. It matches the aerial within ~1 ft. Loop C crosses it." },
-    proposed_circle_drive_loop_c: { label: "Circle drive, loop C", group: "Proposed", token: "paving",
-      status: "proposed; lone oak's trunk estimated", source: "tools/front_layout.py (see site/front-yard.png and site/plan.md)",
-      notes: "A 12 ft lane from a new curb cut in the open south lawn, along the porch front (drop-off at the porch), then across the plat's lawn bulge to join the existing drive. ~1,330 sq ft of new paving. It keeps ~27 ft from the lone lawn oak's estimated trunk; the owner's sketch came within ~15 ft. But the Oct 18 photos put a big leaning live oak in that bulge, ~1 ft from this lane's edge: see loop D." },
-    proposed_circle_drive_loop_d: { label: "Circle drive, loop D (open path)", group: "Proposed", token: "loop-d",
-      status: "proposed; both trunks placed from photos, +/-8 ft", source: "tools/front_layout.py, from the owner's photos of the open path (Oct 18 2026; see site/front-yard.png)",
-      notes: "Loop C's south leg and porch-front lane, then a connector that leaves the porch lane's north half and runs diagonally back to the existing drive near the street, through the open path between the lone lawn oak and the leaning oak in the lawn bulge. ~1,370 sq ft of new paving. ~13 ft from each trunk to the paving edge, so inside both root zones (assumed 20 ft): build the connector no-dig, permeable pavers or gravel on geogrid over the existing grade, and keep 13.5 ft of clear height for a truck. Tape both trunks to pin it." },
-    proposed_porte_cochere_option_a: { label: "Porte-cochère, option A", group: "Proposed", token: "shed", solid: true, hidden: true,
-      status: "option; not decided", source: "tools/front_layout.py",
-      notes: "~12 x 44 ft roof over the porch-front lane, behind the 45 ft building line, ~10 ft clear. Two cars nose to tail. Option B is a carport on the old garage apron; the owner's larger sketch would need relief from the building line." },
     retail_lot_1a: { label: "Retail lot (1A)", group: "Next door", token: "retail-lot" },
     retail_east_end_stormwater: { label: "Retail ponds (detention, filtration)", group: "Next door", token: "water" },
     retail_south_arm_woods: { label: "Retail south arm: woods to remain", group: "Next door", token: "oak" },
@@ -503,8 +513,8 @@ details li b { font-weight: 600; }
   // The house (plan3d.py HOUSE, from tools/house_layout.py), a first pass: stone first story, vertical
   // siding above, shingle roofs, the porch, deck and chimney, and the windows and doors we know. Built in
   // the house's own frame (x east = -s, y north = t, z up from the finished floor, feet), then placed.
-  if (HOUSE) {
-    const H = HOUSE, id = "house_3d_first_pass";
+  // The house (house_layout.py) and, with the same materials, the proposed porte-cochere on its front.
+  const buildHouse = (H, id) => {
     const node = new THREE.Group(); node.userData.id = id; root.add(node);
     const g = new THREE.Group(); node.add(g);
     const ex = new THREE.Vector3(H.ex[0], 0, -H.ex[1]).multiplyScalar(0.3048);
@@ -590,6 +600,10 @@ details li b { font-weight: 600; }
       (bx.walk ? walkables : solids).push(mesh);
     }
     items[id] = { node, mats: Object.values(M).map(mat => ({ mat, kind: "mesh", fixed: true })), meta: META[id] };
+  };
+  if (HOUSE) {
+    buildHouse(HOUSE, "house_3d_first_pass");
+    if (HOUSE.porte) buildHouse({ ...HOUSE, ...HOUSE.porte }, "proposed_porte_cochere");
   }
 
   // Buildings B and A (plan3d.py), drawn in detail instead of the OBJ massing: dark grey steel on every
@@ -652,12 +666,20 @@ details li b { font-weight: 600; }
     // Door aprons slope from the slab down to the ground 10 ft out (2017 lidar, under the apron's far edge).
     const groundFt = (lx, ly) => (groundAt(B.origin[0] + 0.3048 * (lx * B.ux[0] + ly * B.uy[0]),
                                            B.origin[1] + 0.3048 * (lx * B.ux[1] + ly * B.uy[1])) - B.slab_m) / 0.3048;
-    for (const [a, b] of doors) {
+    if (B.apron_ft) {
+      // One apron along the door wall (A): it falls 1.5% away from the doors, on compacted fill held by its concrete edge,
+      // which stands proud of the ground where the ground falls away (the south side is the low side).
+      const [a, b, out] = B.apron_ft, fall = 0.015 * out;
+      const low = Math.min(groundFt(a, -out), groundFt(b, -out), groundFt(a, 0), groundFt(b, 0)) - 0.3;
+      if (endDoors) { box(L + 0.35, L + out, a, b, low, z0 - 0.3 - fall, concrete); bar([L + 0.35, (a + b) / 2, z0 - 0.24], [L + out, (a + b) / 2, z0 - 0.24 - fall], b - a, 0.4, concrete); }
+      else { box(a, b, -out, -0.35, low, z0 - 0.3 - fall, concrete); bar([(a + b) / 2, -0.35, z0 - 0.24], [(a + b) / 2, -out, z0 - 0.24 - fall], b - a, 0.4, concrete); }
+    } else for (const [a, b] of doors) {
       if (endDoors) bar([L + 0.35, (a + b) / 2, z0 - 0.24], [L + 10, (a + b) / 2, groundFt(L + 10, (a + b) / 2) - 0.1], b - a + 2, 0.4, concrete);
       else bar([(a + b) / 2, -0.35, z0 - 0.24], [(a + b) / 2, -10, groundFt((a + b) / 2, -10) - 0.1], b - a + 2, 0.4, concrete);
     }
-    // Walk-door landings: level, half an inch below the slab, down to the ground at their edges.
+    // Walk-door landings, where a walk door has its own: level, half an inch below the slab, down to the ground at their edges.
     for (const [, , , o] of walks) {
+      if (!o.stoop_ft) continue;
       const [a, b, out] = o.stoop_ft, low = Math.min(groundFt(L + out, a), groundFt(L + out, b), groundFt(L, a), groundFt(L, b)) - 0.3;
       if (endDoors) box(L + 0.35, L + out, a, b, low, z0 - 0.04, concrete);
       else box(a, b, -out, -0.35, low, z0 - 0.04, concrete);

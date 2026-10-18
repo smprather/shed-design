@@ -50,8 +50,9 @@ def line_rect(x0: float, length: float, depth: float):
 
 
 # Site A (Oct 11 2026): the strip west of the septic pipe, between the well and the pipe, square to the line.
-# 34 ft along the line; 30 ft deep since Oct 18 (owner: push the far, SSW wall out past 1,000 sq ft; was 27).
-SITE_A = line_rect(98.6, 34, 30)
+# 30 ft deep since Oct 18 (owner: past 1,000 sq ft; was 27), and 35 ft along the line for a standard 30 x 35 kit
+# (was 34; the extra foot went east, leaving 10.3 ft to both the well and the septic pipe).
+SITE_A = line_rect(98.6, 35, 30)
 
 
 def circle(plan: Plan, c, r, **kw):
@@ -77,7 +78,7 @@ def main() -> None:
     plan.poly(BACK_LAWN_OPEN, WHITE, width=2, dash=True)
 
     candidates = {
-        "A  30 x 34": SITE_A,
+        "A  30 x 35": SITE_A,
         "B  23 x 43": SITE_B,
         "C  30 x 60": [(90, 197), (150, 197), (150, 227), (90, 227)],
     }

@@ -1705,6 +1705,92 @@ They explained it as "the open path through the trees." It's in the private repo
     building's engineer. Ask whether they want density tests on the fill.
   - Lay the conduits first: B's own power, and the house service if it's rerouted.
 
+### Site B dropped; the building goes on site A (owner, Oct 18 2026)
+
+- **The owner dropped site B.** The building goes on site A, as a standard kit size.
+  - In the 3D viewer, building B starts hidden; tick it in the layer list to compare. The
+    S130 now sits in building A.
+- **Standard kit sizes** keep it out of full-custom pricing.
+  - Kits are named width (the clear span) × length, in 5 ft steps. 30 ft is the most common
+    shop width.
+  - So site A's building is 30 ft wide, across the strip from the 5 ft setback, and 35, 30
+    or 25 ft long along the line.
+  - **30 × 35 ft (1,050 sq ft)** fits by taking one more foot east: it's 10.3 ft from both
+    the well and the septic pipe. It's what the 3D plan draws.
+  - **30 × 30 (900)** and **30 × 25 (750)** keep the east end and give up length by the well.
+    750 is the standard size nearest 800 that keeps the 30 ft door end.
+  - **Laid out like a kit:** the ridge runs along the line, like B's was, with two 12 × 12 ft
+    roll-up doors in the east end wall. A's first drawing ran the ridge across the strip,
+    which made it 34–35 ft wide, an odd span.
+- **The door aprons reach into the septic access pipe's 10 ft keep-out.** The pipe is ~10 ft
+  east of the doors.
+  - Keep the concrete aprons short, or make them gravel.
+  - Don't park or drive heavy loads over the tank once it's found.
+
+### What the building at site A costs (Oct 18 2026; `tools/shed_cost.py`)
+
+- **Turnkey: site work, crushed-stone fill, stem wall, slab, door aprons and the building
+  erected, plus 10% contingency.** Planning ranges, not quotes:
+
+  | Size | Red-iron (engineered) | Tube frame (dealer-installed) | Add insulation and power |
+  |---|---|---|---|
+  | 30 × 35 ft (1,050 sq ft) | $57k–104k | $47k–85k | $8k–17k |
+  | 30 × 30 ft (900 sq ft) | $50k–91k | $41k–74k | $7k–16k |
+  | 30 × 25 ft (750 sq ft) | $42k–78k | $35k–64k | $7k–15k |
+
+- **Where the money goes,** for 30 × 35 (low–high):
+  - the building, $26–47k red-iron or $17–29k tube frame;
+  - the slab, $9–16k;
+  - the stem wall, $6–12k;
+  - the fill, $5–9k (73 cu yd: the ground falls 3.1 ft);
+  - the aprons, $2–3k;
+  - prep, the locate, permits and plans, $3–8k.
+  - The slope alone (fill and wall) adds ~$11–21k over a flat site.
+- **The unit prices behind it:**
+
+  | Item | Range | Basis |
+  |---|---|---|
+  | Erected red-iron shell | $25–45/sq ft | Texas guides |
+  | Tube frame, installed | $16–28/sq ft | dealer listings; a 30 × 30 × 12 with doors lists from ~$16k |
+  | Slab, 6 in with rebar and thickened edges | $9–15/sq ft | Austin guides |
+  | Flex base | ~$31–54/ton delivered | a 2025 Collin County bid; placed and compacted, ~$70–125/cu yd |
+  | Stem wall | $70–140/ft | |
+
+- **Tube frame vs. red-iron:**
+  - **Tube frame** is the cheaper way: the dealer delivers and installs it. It's lighter
+    (galvanized tube), with fewer options.
+  - **Red-iron** is an engineered I-beam frame: stiffer, more options, and an erector crew.
+  - Either way, ask for engineering stamped for Travis County's wind load.
+- **Permits:** Travis County's accessory-building permit wants a site plan showing the septic
+  system (OSSF), and a separate OSSF permit can apply. Another reason to locate the tank and
+  drainfield first.
+- **Owner work that cuts the cost:**
+
+  | Task | Saves (rough) | Skill |
+  |---|---|---|
+  | Clear the site: brush, saplings, the burn barrel, fire ring and debris | part of the $1.5–3.5k prep | none. Not the oaks: arborist, July–January only |
+  | Hand-dig to confirm the line's depth once it's marked, plastic-handled shovel, no bar or pick | — | care |
+  | Trench for B's power and any service reroute (rented trencher), lay the conduit; the electrician pulls and connects | ~$1–3k | low |
+  | Spread and compact the fill (rented skid steer and plate compactor or roller; 6–8 in lifts, wetted) | ~$1–2k; pay for a density test | low–moderate |
+  | Gravel door aprons instead of concrete (also suits the septic keep-out) | ~$1–2k | low |
+  | Lay the block stem wall (`cmu_cost.py` lists the materials) | ~$3–6k of labor | moderate, learnable |
+  | Keep the new slab wet for a week; seal it later | — | none |
+  | Gutters' splash blocks, a gravel drip strip, swales away from the walls | ~$0.5–1.5k | low |
+  | Inside: shelving, workbench, paint; insulation retrofit between the girts if it isn't in the kit | part of the $4–7k insulation | low |
+  | Act as your own general contractor: hire the slab crew and the erector directly | ~10–20% of their bids | organizing, not labor |
+
+- **Sources** (vendor and guide figures, unverified locally):
+  - [KC Construction, Texas metal building costs](https://kcconstructiontx.com/resources/metal-building-cost-texas)
+  - [Elite Steel, East Texas](https://elitesteeltx.com/blog/metal-building-cost-east-texas-2026/)
+  - [UTS, Texas](https://utsbuildpros.com/blog/how-much-does-a-metal-building-cost-in-texas)
+  - [Panhandle Metals](https://www.panhandlemetals.com/blog/metal-building-cost-texas/)
+  - [AA Metal Buildings, 30 × 30](https://www.aametalbuildings.com/product/30x30-metal-storage-building)
+  - [Metalamerica, Austin slabs](https://metalamericaconcrete.com/locations/concrete-slab/texas/travis/austin/)
+  - [Angi, Austin slabs](https://www.angi.com/articles/concrete-slab-cost/tx/austin)
+  - [SlabCalc, Austin](https://www.slabcalc.co/cost/foundation/austin-tx)
+  - [Collin County flex base bids](https://eagenda.collincountytx.gov/docs/2025/CC/20251208_3163/59179%5FTABULATION%20FLEXIBLE%20BASE%20DRAFT%2Epdf)
+  - [Travis County accessory building permit](https://www.traviscountytx.gov/tnr/development-services/apply-for-a-permit/accessory-building-permit)
+
 ### Viewer: the trees on our lot in more detail (owner's ask, Oct 18 2026)
 
 - **On our lot, and 8 m past its lines, the existing trees are built finer** from the 1 m
@@ -1723,6 +1809,12 @@ They explained it as "the open path through the trees." It's in the private repo
   - A click on the view captures the mouse; W flies the way you look, so straight down at
     first.
   - The old high overview is the "Whole area" button.
+- **Fly speed has a slider** (owner's ask, same day). It's log scale, 3–390 ft/s, and the
+  scroll wheel moves it too. The default is twice the old one: 59 ft/s. Shift triples
+  whatever it's set to (it was ×4).
+- **The yellow pads start hidden:** the site A footprint (building A stands on it now) and
+  porte-cochère option A. Building B (dropped) starts hidden too. Tick any of them in the
+  layer list.
 
 ### Windows and doors
 

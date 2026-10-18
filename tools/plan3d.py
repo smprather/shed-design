@@ -45,7 +45,7 @@ HOSE_MAX = 100.0  # ft of pump-truck hose
 B_EAVE = 14.0  # ft; undecided, the noise model's case
 B_PITCH = 3 / 12  # building B's gable roof, ridge along the long side; undecided
 B_DOORS = (12.0, 12.0)  # ft, width x height: two roll-up doors on the south wall at the quarter points (owner, Oct 18 2026); size undecided
-B_MOWER = (43 / 4, 8.0)  # ft from B's SW corner (east, north): the owner's John Deere S130, parked in the west bay for scale
+MOWER_IN = 8.0  # ft in from the door wall to the rear axle: the owner's John Deere S130, parked in building A, for scale
 PORTE_COCHERE_CLEAR = 10.0  # ft to the underside of option A's roof (cars and a pickup need ~8)
 WALL_FOOTING = 2.0  # ft inside the line for a US-290 wall footing
 TREE_ROWS = (10.0, 22.0)  # ft in from the back line: two staggered rows (notes, back-line trees)
@@ -483,31 +483,33 @@ def main(spec: Path, out: Path) -> None:
                   "length_ft": round(b_len, 2), "width_ft": round(b_wid, 2), "eave_ft": B_EAVE, "pitch": B_PITCH,
                   "doors": [{"center_ft": round(c, 2), "width_ft": B_DOORS[0], "height_ft": B_DOORS[1]}
                             for c in (b_len / 4, 3 * b_len / 4)],
-                  "mower": {"x_ft": B_MOWER[0], "y_ft": B_MOWER[1]}}
-    # Site A, for comparison (envelope_plan.py): 30 x 34 ft between the well and the septic pipe, 5 ft inside the line.
+                  "mower": None}   # site B is out (owner, Oct 18 2026): the mower moved to building A
+    # Site A (envelope_plan.py): the building's site since site B was dropped (owner, Oct 18 2026). 30 x 35 ft, a
+    # standard kit size, between the well and the septic pipe, 5 ft inside the line.
     a_m = [to_m(p) for p in SITE_A]
-    obj.obj("site_A_footprint_30x34")
+    anw, ane, ase, asw = a_m
+    a_len, a_wid = math.dist(asw, ase) / FT, math.dist(asw, anw) / FT   # along the line; across the strip (the span)
+    a_dims = f"{a_wid:.0f}x{a_len:.0f}"
+    obj.obj(f"site_A_footprint_{a_dims}")
     obj.pad(a_m, cell=0.5, lift=0.07)
     obj.drape(a_m, closed=True, lift=0.12)
-    # Building A on it (owner, Oct 18 2026), in B's look. Trees close its south side and the fence is 5 ft off its north
-    # side, so the way in is from the east along the strip, past B: its doors go on the east wall. The viewer's builder
-    # puts doors on its frame's y = 0 wall, so A's frame starts at its SE corner, x north along the east wall, y west.
-    # That runs A's ridge north-south, across the strip, over a 34 ft clear span.
-    anw, ane, ase, asw = a_m
+    # Building A on it, in B's look, laid out like a standard kit: 30 ft wide (the clear span, across the strip),
+    # its ridge along the line like B's, and the roll-up doors in the east end wall. Trees close its south side
+    # and the fence is 5 ft off its north side, so the way in is from the east along the strip.
     a_ground = [ground(*p) for p in a_m]
     a_slab = max(a_ground)
-    a_id = f"building_A_30x34_eave_{B_EAVE:g}ft_assumed"
-    a_len, a_wid = math.dist(ase, ane) / FT, math.dist(ase, asw) / FT
+    a_id = f"building_A_{a_dims}_eave_{B_EAVE:g}ft_assumed"
     obj.obj(a_id)
-    obj.gable(ase, ane, anw, asw, a_slab, a_slab + B_EAVE * FT, a_wid / 2 * B_PITCH * FT)
-    building_a = {"id": a_id, "origin": [round(c, 3) for c in ase],
-                  "ux": [round((ane[i] - ase[i]) / (a_len * FT), 6) for i in (0, 1)],
-                  "uy": [round((asw[i] - ase[i]) / (a_wid * FT), 6) for i in (0, 1)],
+    obj.gable(asw, ase, ane, anw, a_slab, a_slab + B_EAVE * FT, a_wid / 2 * B_PITCH * FT)
+    building_a = {"id": a_id, "origin": [round(c, 3) for c in asw],
+                  "ux": [round((ase[i] - asw[i]) / (a_len * FT), 6) for i in (0, 1)],
+                  "uy": [round((anw[i] - asw[i]) / (a_wid * FT), 6) for i in (0, 1)],
                   "slab_m": round(a_slab, 3), "drop_ft": round((a_slab - min(a_ground)) / FT, 2),
                   "length_ft": round(a_len, 2), "width_ft": round(a_wid, 2), "eave_ft": B_EAVE, "pitch": B_PITCH,
+                  "door_wall": "end",
                   "doors": [{"center_ft": round(c, 2), "width_ft": B_DOORS[0], "height_ft": B_DOORS[1]}
-                            for c in (a_len / 4, 3 * a_len / 4)],
-                  "mower": None}
+                            for c in (a_wid / 4, 3 * a_wid / 4)],
+                  "mower": {"x_ft": round(a_len - MOWER_IN, 2), "y_ft": round(a_wid / 4, 2)}}   # south bay, nose to the door
     # Existing drive and front walk, traced from the 1991 plat (front_layout.py, +/-3 ft).
     obj.obj("existing_driveway_1991_plat")
     obj.pad([to_m(p) for p in site(st(*q) for q in EXISTING_DRIVE)], lift=0.05)
@@ -601,7 +603,7 @@ def main(spec: Path, out: Path) -> None:
         check(f"straight service line vs {label}", f"{u:.1f} ft under", "0", "CONFLICT" if u > 0 else "OK",
               "if it runs straight: reroute it in conduit, or sleeve it under the slab; locate it first")
     check("site A vs well", f"{poly_dist(well, SITE_A):.1f} ft", f"{KEEP_OUT:g} ft",
-          "OK" if poly_dist(well, SITE_A) >= KEEP_OUT else "CONFLICT", "30 x 34 ft, 5 ft inside the line")
+          "OK" if poly_dist(well, SITE_A) >= KEEP_OUT else "CONFLICT", f"{a_wid:.0f} x {a_len:.0f} ft, 5 ft inside the line")
     check("site A vs septic pipe", f"{poly_dist(pipe, SITE_A):.1f} ft", f"{KEEP_OUT:g} ft",
           "OK" if poly_dist(pipe, SITE_A) >= KEEP_OUT else "CONFLICT", "the drainfield may run under site A: find it first")
     fp = json.loads((REPO / "site" / "field-points.json").read_text())

@@ -205,6 +205,9 @@ details li b { font-weight: 600; }
         <label for="sens">Mouse sensitivity (fly and walk)</label>
         <output id="sens-out" for="sens">1.0</output>
         <input type="range" id="sens" min="0.2" max="3" step="0.1" value="1">
+        <label for="fly-speed" style="margin-top: 6px">Fly speed (Shift ×3)</label>
+        <output id="fly-speed-out" for="fly-speed" style="margin-top: 6px">59 ft/s</output>
+        <input type="range" id="fly-speed" min="0" max="100" step="1" value="62" aria-describedby="fly-speed-out">
       </div>
     </section>
 
@@ -310,18 +313,19 @@ details li b { font-weight: 600; }
       status: "surveyed", source: "1991 survey bearings and distances.", notes: "0.78 ac. The front is on Candelaria Dr; the north side runs along US-290." },
     house_footprint_survey: { label: "House footprint", group: "Your lot", token: "house",
       status: "surveyed", source: "Walls rebuilt from the 1991 plat; north wall laser-checked at 62.0 ft.", notes: "Footprint only. There's no room model yet." },
-    building_A_30x34_eave_14ft_assumed: { label: "Building A, 30 × 34 ft (on site A)", group: "Proposed", token: "steel", solid: true,
-      status: "for comparison with B", source: "Site A (SITE_A in tools/envelope_plan.py), built like building B (owner, Oct 18 2026).",
-      notes: "1,020 sq ft. B's look: dark grey steel, light grey inside, a 3:12 gable and a 14 ft eave, two 12 × 12 ft roll-up doors (drawn rolled up). Trees close its south side and the fence is 5 ft off its north side, so it's entered from the east, along the strip past B: the doors are on the east wall, 21.5 ft from B's west end. That runs its ridge north-south over a 34 ft clear span. The slab is level with its high NE corner; the ground falls ~3 ft to the SW, so fill or a stem wall there. The buried service line likely runs under it: have it traced first." },
-    building_B_23x43_eave_14ft_assumed: { label: "Building B, 23 × 43 ft", group: "Your lot", token: "steel", solid: true,
-      status: "planned", source: "Site B footprint (SITE_B in tools/site_plan.py); look per the owner, Oct 18 2026.",
+    building_A_30x35_eave_14ft_assumed: { label: "Building A, 30 × 35 ft", group: "Your lot", token: "steel", solid: true,
+      status: "planned at site A (site B dropped, owner, Oct 18 2026); size open: standard 30 × 35, 30 × 30 or 30 × 25 ft (tools/shed_cost.py)",
+      source: "Site A (SITE_A in tools/envelope_plan.py), built like building B (owner, Oct 18 2026), sized as a standard kit.",
+      notes: "1,050 sq ft as drawn, with the owner's S130 parked inside for scale. B's look: dark grey steel, light grey inside, a 3:12 gable and a 14 ft eave. Laid out like a standard kit: 30 ft wide (the clear span, across the strip), its ridge along the line, and two 12 × 12 ft roll-up doors in the east end wall (drawn rolled up). Trees close its south side and the fence is 5 ft off its north side, so it's entered from the east along the strip. The slab is level with its high NE corner; the ground falls ~3 ft to the SW: compacted crushed-stone fill, with a stem wall on the deep sides. 10.3 ft from both the well and the septic pipe. The buried service line likely runs under it: have it traced first." },
+    building_B_23x43_eave_14ft_assumed: { label: "Building B, 23 × 43 ft (dropped)", group: "Proposed", token: "steel", solid: true, hidden: true,
+      status: "dropped: site B is out (owner, Oct 18 2026); hidden at first, tick it in the layer list to compare", source: "Site B footprint (SITE_B in tools/site_plan.py); look per the owner, Oct 18 2026.",
       notes: "Dark grey steel on every surface, with two roll-up doors on the south wall (drawn rolled up) and a solid north wall toward US-290. Drawn with 12 × 12 ft doors at the quarter points, a 3:12 gable and a 14 ft eave. None of those is decided yet. The slab is level with its high NE corner by the oak. The ground falls ~3.8 ft across it, so the west side needs fill or a stem wall rather than a cut toward the oak. The east door is 15 ft from the house's NW corner." },
     house_3d_first_pass: { label: "House (first pass)", group: "Your lot", token: "house", solid: true,
       status: "first pass; to be measured", source: "Walls from the 1991 plat; floor areas from the county; the two-story part, the porch and garage roof, the front gable and the materials from the Oct 13 2026 photos; garage and kitchen from the Oct 15 measurements.",
       notes: "Stone first story, vertical siding above. The two-story part runs along the north wall from just west of the garage through the NW wing (~873 sq ft; the county says 882). The porch and garage share one roof rising west to the two-story eave. Guesses: the floor level (1,055.5 ft), the roof pitches (5:12), the wall heights, the roof over the entry and kitchen, the deck's position, the chimney, and every window on a wall not yet photographed." },
     mower_john_deere_s130: { label: "Riding mower (John Deere S130), for scale", group: "Your lot", token: "jd", solid: true,
       status: "for scale", source: "TractorData: 73.3 in long, 45.5 in tall; dealer: 48.9 in wheelbase. The width with the deck and chute (~54 in) is an estimate.",
-      notes: "Low-poly model of the owner's S130, parked in building B's west bay, nose to the door." },
+      notes: "Low-poly model of the owner's S130, parked in building A's south bay, nose to the door." },
     rear_fence: { group: "Your lot", token: "fence", solid: true },
     north_line_fence: { label: "8 ft fence, north line (proposed)", group: "Your lot", token: "fence", solid: true },
     septic_pipe_keepout_10ft: { label: "Septic pipe, 10 ft keep-out", group: "Keep-outs", token: "septic",
@@ -335,9 +339,9 @@ details li b { font-weight: 600; }
     platted_back_line: { group: "Lines", token: "accent" },
     back_line_utility_easement: { label: "Back-line utility easement", group: "Lines", token: "easement" },
     electric_meter_pole: { label: "Meter pole (service runs underground)", group: "Keep-outs", token: "warn" },
-    site_A_footprint_30x34: { label: "Site A footprint, 30 × 34 ft (comparison)", group: "Proposed", token: "site-a", solid: true,
-      status: "for comparison with site B", source: "Envelope option A (Oct 11 2026; SITE_A in tools/envelope_plan.py): 5 ft inside the north line, between the well and the septic pipe. Deepened from 27 to 30 ft on Oct 18 (owner: past 1,000 sq ft).",
-      notes: "1,020 sq ft. 5.0 ft from the north line, 10.3 ft from the well and 11.3 ft from the septic pipe (both 10 ft keep-outs). The ground falls ~3.1 ft across it (1,053.3 ft at its NE corner to 1,050.3 at its SW), less than site B's 3.8. Its far (SSW) wall is ~3 ft into the strip's tree edge (aerial, +/-5 ft); the lidar shows no tall canopy there. The drainfield may run under it, so find the septic layout first. The buried service line, pole to the house's NW corner, would run ~36 ft under it if straight: have it traced first." },
+    site_A_footprint_30x35: { label: "Site A footprint, 30 × 35 ft", group: "Proposed", token: "site-a", solid: true, hidden: true,
+      status: "the site study's pad; building A now stands on it, so it starts hidden (owner, Oct 18 2026)", source: "Envelope option A (Oct 11 2026; SITE_A in tools/envelope_plan.py): 5 ft inside the north line, between the well and the septic pipe. 30 ft deep since Oct 18 (owner: past 1,000 sq ft), 35 ft long for a standard 30 x 35 kit.",
+      notes: "1,050 sq ft. 5.0 ft from the north line, 10.3 ft from both the well and the septic pipe (10 ft keep-outs). The ground falls ~3.1 ft across it, high at the NE corner. Its far (SSW) side is ~3 ft into the strip's tree edge (aerial, +/-5 ft); the lidar shows no tall canopy there. The drainfield may run under it, so find the septic layout first." },
     buried_service_line_assumed: { label: "Buried electric line (owner's endpoints; drawn straight)", group: "Keep-outs", token: "warn",
       status: "endpoints from the owner; route not located" },
     existing_driveway_1991_plat: { label: "Driveway (1991 plat)", group: "Your lot", token: "concrete", solid: true,
@@ -352,7 +356,7 @@ details li b { font-weight: 600; }
     proposed_circle_drive_loop_d: { label: "Circle drive, loop D (open path)", group: "Proposed", token: "loop-d",
       status: "proposed; both trunks placed from photos, +/-8 ft", source: "tools/front_layout.py, from the owner's photos of the open path (Oct 18 2026; see site/front-yard.png)",
       notes: "Loop C's south leg and porch-front lane, then a connector that leaves the porch lane's north half and runs diagonally back to the existing drive near the street, through the open path between the lone lawn oak and the leaning oak in the lawn bulge. ~1,370 sq ft of new paving. ~13 ft from each trunk to the paving edge, so inside both root zones (assumed 20 ft): build the connector no-dig, permeable pavers or gravel on geogrid over the existing grade, and keep 13.5 ft of clear height for a truck. Tape both trunks to pin it." },
-    proposed_porte_cochere_option_a: { label: "Porte-cochère, option A", group: "Proposed", token: "shed", solid: true,
+    proposed_porte_cochere_option_a: { label: "Porte-cochère, option A", group: "Proposed", token: "shed", solid: true, hidden: true,
       status: "option; not decided", source: "tools/front_layout.py",
       notes: "~12 x 44 ft roof over the porch-front lane, behind the 45 ft building line, ~10 ft clear. Two cars nose to tail. Option B is a carport on the old garage apron; the owner's larger sketch would need relief from the building line." },
     retail_lot_1a: { label: "Retail lot (1A)", group: "Next door", token: "retail-lot" },
@@ -589,11 +593,11 @@ details li b { font-weight: 600; }
   }
 
   // Buildings B and A (plan3d.py), drawn in detail instead of the OBJ massing: dark grey steel on every
-  // surface, a gable roof with its ridge along the frame's x, ribbed panels, trim, and two roll-up doors on
-  // the frame's y = 0 wall drawn rolled up; in B, the John Deere S130 parked inside shows for scale.
-  // Built in feet in each building's own frame (B: x east from the SW corner, y north; A: x north from the SE
-  // corner, y west, so its doors face east), z up from the ground at the slab's high corner, then placed on
-  // the plan; heights follow the exaggeration like everything else.
+  // surface, a gable roof with its ridge along the frame's x, ribbed panels, trim, and two roll-up doors drawn
+  // rolled up: on the y = 0 side wall (B) or in the x = L end wall (A, door_wall "end"). The John Deere S130
+  // parked inside one of them shows for scale. Built in feet in each building's own frame (x east from the SW
+  // corner, y north, z up from the ground at the slab's high corner), then placed on the plan; heights follow
+  // the exaggeration like everything else.
   for (const B of [BLDG_B, BLDG_A]) {
     if (!B) continue;
     const L = B.length_ft, W = B.width_ft, E = B.eave_ft, OH = 1, T = 0.15, SLAB = 0.5;
@@ -632,46 +636,61 @@ details li b { font-weight: 600; }
     const shed = new THREE.Group(); place(shed); node.add(shed);
     const { box, bar } = make(shed, id);
     const doors = B.doors.map(o => [o.center_ft - o.width_ft / 2, o.center_ft + o.width_ft / 2, Math.min(o.height_ft, E - 1.5)]);
+    const endDoors = B.door_wall === "end";   // doors across the east end wall (x = L), spans along y
+    const hd = Math.max(...doors.map(d => d[2]));
+    const gaps = (doorsOn, span) => {   // the solid stretches of a wall [0, span] between door openings
+      const out = []; let a0 = 0;
+      for (const [a, b] of doorsOn) { out.push([a0, a]); a0 = b; }
+      out.push([a0, span]); return out;
+    };
 
     // Slab (down to the low ground: fill or a stem wall), aprons and the floor inside.
     box(-0.35, L + 0.35, -0.35, W + 0.35, -B.drop_ft - 0.3, z0, concrete);
     // Door aprons slope from the slab down to the ground 10 ft out (2017 lidar, under the apron's far edge).
     const groundFt = (lx, ly) => (groundAt(B.origin[0] + 0.3048 * (lx * B.ux[0] + ly * B.uy[0]),
                                            B.origin[1] + 0.3048 * (lx * B.ux[1] + ly * B.uy[1])) - B.slab_m) / 0.3048;
-    for (const [a, b] of doors) bar([(a + b) / 2, -0.35, z0 - 0.24], [(a + b) / 2, -10, groundFt((a + b) / 2, -10) - 0.1], b - a + 2, 0.4, concrete);
-    // Walls: the north wall solid toward US-290, the south wall with the two door openings.
-    box(0, L, W - T, W, z0, ze, steel);
-    let x = 0;
-    for (const [a, b, h] of doors) { box(x, a, 0, T, z0, ze, steel); box(a, b, 0, T, z0 + h, ze, steel); x = b; }
-    box(x, L, 0, T, z0, ze, steel);
-    const gable = new THREE.Shape([[0, z0], [W, z0], [W, ze], [W / 2, zr], [0, ze]].map(([u, v]) => new THREE.Vector2(u, v)));
-    const toLocal = new THREE.Matrix4().set(0, 0, 1, 0, 0, 1, 0, 0, -1, 0, 0, 0, 0, 0, 0, 1);
-    for (const gx of [0, L - T]) {
-      const g = new THREE.ExtrudeGeometry(gable, { depth: T, bevelEnabled: false }); g.applyMatrix4(toLocal);
-      const m = new THREE.Mesh(g, steel); m.position.x = gx; m.userData.id = id; shed.add(m);
+    for (const [a, b] of doors) {
+      if (endDoors) bar([L + 0.35, (a + b) / 2, z0 - 0.24], [L + 10, (a + b) / 2, groundFt(L + 10, (a + b) / 2) - 0.1], b - a + 2, 0.4, concrete);
+      else bar([(a + b) / 2, -0.35, z0 - 0.24], [(a + b) / 2, -10, groundFt((a + b) / 2, -10) - 0.1], b - a + 2, 0.4, concrete);
     }
+    // Walls: the north wall solid toward US-290; the south wall with the door openings unless they're in the end wall.
+    box(0, L, W - T, W, z0, ze, steel);
+    if (endDoors) box(0, L, 0, T, z0, ze, steel);
+    else {
+      for (const [a, b] of gaps(doors, L)) box(a, b, 0, T, z0, ze, steel);
+      for (const [a, b, h] of doors) box(a, b, 0, T, z0 + h, ze, steel);
+    }
+    const gableFrom = (v0) => new THREE.Shape([[0, v0], [W, v0], [W, ze], [W / 2, zr], [0, ze]].map(([u, v]) => new THREE.Vector2(u, v)));
+    const gable = gableFrom(z0), gableTop = gableFrom(z0 + hd);   // gableTop: an end wall above its door heads
+    const toLocal = new THREE.Matrix4().set(0, 0, 1, 0, 0, 1, 0, 0, -1, 0, 0, 0, 0, 0, 0, 1);
+    const endWall = (gx, depth, mat, withDoors) => {
+      const g = new THREE.ExtrudeGeometry(withDoors ? gableTop : gable, { depth, bevelEnabled: false }); g.applyMatrix4(toLocal);
+      const m = new THREE.Mesh(g, mat); m.position.x = gx; m.userData.id = id; shed.add(m);
+      if (withDoors) for (const [a, b] of gaps(doors, W)) box(gx, gx + depth, a, b, z0, z0 + hd, mat);
+    };
+    endWall(0, T, steel, false); endWall(L - T, T, steel, endDoors);
     // Inside faces in a very light grey, so the interior reads (owner, Oct 18 2026): walls, gable ends, roof underside.
     const liner = new THREE.MeshLambertMaterial({ color: 0xdcdedf, emissive: 0x606264 }), LT = 0.02;   // lit a little from within: daylight barely reaches inside
     box(0, L, W - T - LT, W - T, z0, ze, liner);
-    let lx = 0;
-    for (const [a, b, h] of doors) { box(lx, a, T, T + LT, z0, ze, liner); box(a, b, T, T + LT, z0 + h, ze, liner); lx = b; }
-    box(lx, L, T, T + LT, z0, ze, liner);
-    for (const gx of [T, L - T - LT]) {
-      const g = new THREE.ExtrudeGeometry(gable, { depth: LT, bevelEnabled: false }); g.applyMatrix4(toLocal);
-      const m = new THREE.Mesh(g, liner); m.position.x = gx; m.userData.id = id; shed.add(m);
+    if (endDoors) box(0, L, T, T + LT, z0, ze, liner);
+    else {
+      for (const [a, b] of gaps(doors, L)) box(a, b, T, T + LT, z0, ze, liner);
+      for (const [a, b, h] of doors) box(a, b, T, T + LT, z0 + h, ze, liner);
     }
+    endWall(T, LT, liner, false); endWall(L - T - LT, LT, liner, endDoors);
     for (const yW of [T, W - T]) bar([L / 2, yW, ze - 0.16], [L / 2, W / 2, zr - 0.16], L - 2 * T, 0.03, liner);
     // Panel ribs every foot, and the roof's ribs down the slope (instanced).
     const unit = new THREE.BoxGeometry(1, 1, 1), ribs = [];
-    const inDoor = (rx) => doors.find(([a, b]) => rx > a - 0.1 && rx < b + 0.1);
+    const inDoor = (r) => doors.find(([a, b]) => r > a - 0.1 && r < b + 0.1);
     for (let rx = 0.5; rx < L; rx += 1) {
-      const dd = inDoor(rx);
+      const dd = endDoors ? null : inDoor(rx);
       ribs.push([[rx, -0.06, z0 + (dd ? dd[2] : 0)], [0.1, 0.12], ze - z0 - (dd ? dd[2] : 0)]);
       ribs.push([[rx, W + 0.06, z0], [0.1, 0.12], ze - z0]);
     }
     for (let ry = 0.5; ry < W; ry += 1) {
-      const top = ze + rise * (1 - Math.abs(ry - W / 2) / (W / 2));
-      ribs.push([[-0.06, ry, z0], [0.12, 0.1], top - z0]); ribs.push([[L + 0.06, ry, z0], [0.12, 0.1], top - z0]);
+      const top = ze + rise * (1 - Math.abs(ry - W / 2) / (W / 2)), dd = endDoors ? inDoor(ry) : null;
+      ribs.push([[-0.06, ry, z0], [0.12, 0.1], top - z0]);
+      ribs.push([[L + 0.06, ry, z0 + (dd ? dd[2] : 0)], [0.12, 0.1], top - z0 - (dd ? dd[2] : 0)]);
     }
     const slope = [];
     for (const s of [-1, 1]) for (let rx = -OH + 0.5; rx < L + OH; rx += 1) slope.push([rx, s]);
@@ -695,13 +714,22 @@ details li b { font-weight: 600; }
     }
     box(-OH, L + OH, W / 2 - 0.55, W / 2 + 0.55, zr - 0.02, zr + 0.28, steel);
     for (const [cx, cy] of [[0, 0], [L, 0], [0, W], [L, W]]) box(cx - 0.2, cx + 0.2, cy - 0.2, cy + 0.2, z0, ze, steel);
-    for (const [a, b] of [[0, doors[0][0]], [doors[0][1], doors[1][0]], [doors[1][1], L]]) box(a, b, -0.14, 0, z0, z0 + 0.3, steel);
+    if (endDoors) {
+      box(0, L, -0.14, 0, z0, z0 + 0.3, steel);
+      for (const [a, b] of gaps(doors, W)) box(L, L + 0.14, a, b, z0, z0 + 0.3, steel);
+    } else for (const [a, b] of gaps(doors, L)) box(a, b, -0.14, 0, z0, z0 + 0.3, steel);
     box(0, L, W, W + 0.14, z0, z0 + 0.3, steel);
     // Roll-up doors, rolled up: jambs, head trim and the coiled curtain at the top of the opening.
     for (const [a, b, h] of doors) {
-      box(a - 0.35, a, -0.16, T, z0, z0 + h + 0.35, steel); box(b, b + 0.35, -0.16, T, z0, z0 + h + 0.35, steel);
-      box(a - 0.35, b + 0.35, -0.16, T, z0 + h, z0 + h + 0.35, steel);
-      box(a, b, 0.02, 0.14, z0 + h - 1.2, z0 + h, coil);
+      if (endDoors) {
+        box(L - T, L + 0.16, a - 0.35, a, z0, z0 + h + 0.35, steel); box(L - T, L + 0.16, b, b + 0.35, z0, z0 + h + 0.35, steel);
+        box(L - T, L + 0.16, a - 0.35, b + 0.35, z0 + h, z0 + h + 0.35, steel);
+        box(L - 0.14, L - 0.02, a, b, z0 + h - 1.2, z0 + h, coil);
+      } else {
+        box(a - 0.35, a, -0.16, T, z0, z0 + h + 0.35, steel); box(b, b + 0.35, -0.16, T, z0, z0 + h + 0.35, steel);
+        box(a - 0.35, b + 0.35, -0.16, T, z0 + h, z0 + h + 0.35, steel);
+        box(a, b, 0.02, 0.14, z0 + h - 1.2, z0 + h, coil);
+      }
     }
     box(T, L - T, T, W - T, z0, z0 + 0.01, concrete);
     shed.traverse(o => { if (o.isMesh && !o.isInstancedMesh) (o.material === concrete ? walkables : solids).push(o); });
@@ -739,7 +767,7 @@ details li b { font-weight: 600; }
       mk.bar([31 * I, 0, 32 * I], [24 * I, 0, 42 * I], 2 * I, 2 * I, jd.black);
       const sw = new THREE.Mesh(new THREE.TorusGeometry(7 * I, 0.8 * I, 6, 18), jd.black);
       sw.position.copy(Q(23.5 * I, 0, 43.5 * I)); sw.rotation.x = Math.PI / 2; sw.rotation.y = -0.45; sw.userData.id = mid; mower.add(sw);
-      mower.rotation.y = -Math.PI / 2;   // forward = south, toward the door
+      mower.rotation.y = endDoors ? 0 : -Math.PI / 2;   // forward toward the door: east (end-wall doors) or south
       mower.position.copy(Q(B.mower.x_ft, B.mower.y_ft, SLAB));
       mower.traverse(o => { if (o.isMesh) solids.push(o); });
       items[mid] = { node: mnode, mats: Object.values(jd).map(mat => ({ mat, kind: "mesh", fixed: true })), meta: META[mid] };
@@ -1032,7 +1060,7 @@ details li b { font-weight: 600; }
 
   // ---- Labels ----
   const LABELS = [
-    [HOUSE ? "house_3d_first_pass" : "house_footprint_survey", "Your house"], ["building_A_30x34_eave_14ft_assumed", "Building A"], ["building_B_23x43_eave_14ft_assumed", "Building B"],
+    [HOUSE ? "house_3d_first_pass" : "house_footprint_survey", "Your house"], ["building_A_30x35_eave_14ft_assumed", "Building A"], ["building_B_23x43_eave_14ft_assumed", "Building B"],
     ["scenic_brook_plaza_building_3", "Retail Bldg 3"], ["retail_east_end_stormwater", "Retail ponds"],
     ["platted_back_line", "Back line"], ["granada_ridge_buildings_7_8", "Apts 7/8 · 639 ft"],
     ["granada_ridge_buildings_1_6", "Apts 1-6"], ["scenic_brook_plaza_buildings_1_2", "Retail 1-2"],
@@ -1061,8 +1089,9 @@ details li b { font-weight: 600; }
     for (const id of groups[g]) {
       const it = items[id];
       const lab = document.createElement("label"); lab.className = "layer"; lab.dataset.id = id;
-      const solid = it.meta.solid ? " solid" : "";
-      lab.innerHTML = `<input type="checkbox" id="layer-${id}" checked><span class="swatch${solid}" style="${solid ? "background" : "border-top-color"}: var(--${it.meta.token})"></span><span class="name">${it.meta.label}</span>`;
+      const solid = it.meta.solid ? " solid" : "", on = !it.meta.hidden;   // meta.hidden: off until ticked (a dropped option)
+      if (!on) { it.node.visible = false; tags.filter(t => t.id === id).forEach(t => t.el.hidden = true); }
+      lab.innerHTML = `<input type="checkbox" id="layer-${id}"${on ? " checked" : ""}><span class="swatch${solid}" style="${solid ? "background" : "border-top-color"}: var(--${it.meta.token})"></span><span class="name">${it.meta.label}</span>`;
       lab.querySelector("input").addEventListener("change", (ev) => {
         it.node.visible = ev.target.checked;
         tags.filter(t => t.id === id).forEach(t => t.el.hidden = !ev.target.checked);
@@ -1140,12 +1169,13 @@ details li b { font-weight: 600; }
   const HINTS = {
     orbit: "Drag to orbit · scroll or pinch to zoom · right-drag to pan · click to inspect",
     look: "Drag to look around · arrow keys to turn · scroll to zoom the lens · click to inspect",
-    fly: "Mouse looks · W A S D flies where you look · E or Space up, Q or C down · Shift ×4 · scroll sets the speed · click inspects what's under the crosshair · Esc lets go of the mouse",
+    fly: "Mouse looks · W A S D flies where you look · E or Space up, Q or C down · Shift ×3 · scroll or the Fly speed slider sets the speed · click inspects what's under the crosshair · Esc lets go of the mouse",
     walk: "Mouse looks · W A S D walks · Shift runs · scroll sets the speed · click inspects what's under the crosshair · Esc lets go of the mouse · you step up onto porches, decks and slabs; walls, fences and buildings stop you",
   };
   const freeLook = () => mode === "look" || mode === "fly" || mode === "walk";
   const EYE = 1.6, CLIMB = 3.0, RADIUS = 0.35;  // m: eye height (5.25 ft), how high a walking surface you step up onto, body radius
-  const speed = { fly: 9, walk: 1.4 };            // m/s; Shift: x4 flying, x2.5 walking (a run)
+  const speed = { fly: 18, walk: 1.4 };           // m/s; Shift: x3 flying, x2.5 walking (a run). Fly was 9 until Oct 18 2026 (owner: twice as fast)
+  const FLY_MIN = 1, FLY_MAX = 120, FLY_BOOST = 3;   // m/s range of the fly-speed slider (log scale); Shift's multiplier
   let feet = 0, vy = 0;                           // walking: world height of your feet, and vertical speed (falls)
   const GRAVITY = 9.8;                           // m/s²: stepping off a ledge
   let sens = 1;                                   // mouse sensitivity multiplier
@@ -1210,7 +1240,8 @@ details li b { font-weight: 600; }
   canvas.addEventListener("wheel", (e) => {
     if (mode === "fly" || mode === "walk") {
       e.preventDefault();
-      speed[mode] = THREE.MathUtils.clamp(speed[mode] * Math.exp(-e.deltaY * 0.0015), mode === "fly" ? 1 : 0.5, mode === "fly" ? 120 : 6);
+      speed[mode] = THREE.MathUtils.clamp(speed[mode] * Math.exp(-e.deltaY * 0.0015), mode === "fly" ? FLY_MIN : 0.5, mode === "fly" ? FLY_MAX : 6);
+      if (mode === "fly") showFlySpeed();
       updateEye(); return;
     }
     if (mode !== "look") return;
@@ -1242,6 +1273,14 @@ details li b { font-weight: 600; }
   });
   const sensIn = document.getElementById("sens"), sensOut = document.getElementById("sens-out");
   sensIn.addEventListener("input", () => { sens = +sensIn.value; sensOut.textContent = sens.toFixed(1); });
+  // Fly speed: a log-scale slider from FLY_MIN to FLY_MAX m/s, shown in ft/s; the scroll wheel moves it too.
+  const flyIn = document.getElementById("fly-speed"), flyOut = document.getElementById("fly-speed-out");
+  function showFlySpeed() {
+    flyIn.value = Math.round(100 * Math.log(speed.fly / FLY_MIN) / Math.log(FLY_MAX / FLY_MIN));
+    flyOut.textContent = `${Math.round(speed.fly / 0.3048)} ft/s`;
+  }
+  flyIn.addEventListener("input", () => { speed.fly = FLY_MIN * Math.pow(FLY_MAX / FLY_MIN, +flyIn.value / 100); showFlySpeed(); updateEye(); });
+  showFlySpeed();
   const MOVE_KEYS = new Set(["KeyW", "KeyA", "KeyS", "KeyD", "KeyQ", "KeyE", "KeyC", "Space", "ShiftLeft", "ShiftRight"]);
   window.addEventListener("keydown", (e) => {
     if ((mode !== "fly" && mode !== "walk") || !MOVE_KEYS.has(e.code) || e.target.closest("input, select, textarea")) return;
@@ -1267,7 +1306,7 @@ details li b { font-weight: 600; }
     if (mode === "orbit") { eyeEl.hidden = true; return; }
     const x = camera.position.x, y = -camera.position.z, zEye = camera.position.y / exag;
     const elev = zEye / 0.3048 + Z0_FT;
-    const pace = mode === "fly" || mode === "walk" ? ` · ${mode} ${Math.round(speed[mode] / 0.3048)} ft/s (Shift ×${mode === "fly" ? 4 : 2.5})` : "";
+    const pace = mode === "fly" || mode === "walk" ? ` · ${mode} ${Math.round(speed[mode] / 0.3048)} ft/s (Shift ×${mode === "fly" ? FLY_BOOST : 2.5})` : "";
     eyeEl.textContent = `Eye elevation ${Math.round(elev).toLocaleString()} ft${pace}`;
     eyeEl.hidden = false;
   }
@@ -1348,7 +1387,7 @@ details li b { font-weight: 600; }
   function move(dt) {
     const f = (keys.has("KeyW") ? 1 : 0) - (keys.has("KeyS") ? 1 : 0), r = (keys.has("KeyD") ? 1 : 0) - (keys.has("KeyA") ? 1 : 0);
     const u = (keys.has("KeyE") || keys.has("Space") ? 1 : 0) - (keys.has("KeyQ") || keys.has("KeyC") ? 1 : 0);
-    const boost = keys.has("ShiftLeft") || keys.has("ShiftRight") ? (mode === "fly" ? 4 : 2.5) : 1;
+    const boost = keys.has("ShiftLeft") || keys.has("ShiftRight") ? (mode === "fly" ? FLY_BOOST : 2.5) : 1;
     camera.getWorldDirection(fdir); right.crossVectors(fdir, UP).normalize();
     if (mode === "fly") {
       if (!f && !r && !u) return;

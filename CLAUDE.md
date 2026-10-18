@@ -2,7 +2,8 @@
 
 Planning for improvements at a house in southwest Austin, in Travis County outside the city
 limits:
-- a large metal building on a slab at "site B" along the US-290 fence;
+- a large metal building on a slab at "site A" on the north strip along the US-290 fence (site B
+  was dropped, Oct 18 2026);
 - traffic-noise and visual screening;
 - a garage-to-kitchen conversion;
 - a front circle drive.
@@ -63,8 +64,9 @@ Each script carries its dependencies inline (PEP 723). Run them from the repo ro
 | `import_field.py EXPORT_DIR` | merges exported worksheet shots into `site/field-data.json` |
 | `noise_model.py` | traffic-noise comparison of barrier options (printed table) |
 | `cmu_cost.py` | DIY block-wall material takeoff (printed table) |
+| `shed_cost.py` | turnkey budget for the building at site A, by standard kit size (printed tables; fill and stem wall from the lidar) |
 | `fetch_terrain.py` | `site/terrain-lidar.json` (USGS 3DEP 1 m lidar resampled onto the 3D plan's grid) |
-| `plan3d.py` | `site/plan3d.obj` and `site/plan3d.html` (a 3D viewer; template `tools/plan3d_viewer.html`) from `property_total_plan.jsonc` on the lidar terrain (`site/terrain-lidar.json`), plus septic conflict checks (printed table). The viewer draws building B in detail (as in `building_b.html`) with the owner's S130 mower inside for scale, building A on site A the same way for comparison, and the house (`house_layout.py`). Trees on our lot are drawn in finer detail (lumpy crowns, trunks and limbs; the twin oak on its surveyed trunks). It has orbit, look-around, and Quake-style fly and walk modes (the mouse is captured to look, WASD moves; walking clamps to the surface under you and stops at walls) |
+| `plan3d.py` | `site/plan3d.obj` and `site/plan3d.html` (a 3D viewer; template `tools/plan3d_viewer.html`) from `property_total_plan.jsonc` on the lidar terrain (`site/terrain-lidar.json`), plus septic conflict checks (printed table). The viewer draws building A on site A in detail (the plan: a standard 30 × 35 kit with end-wall doors, the owner's S130 mower inside for scale), building B the same way (dropped, hidden at first), and the house (`house_layout.py`). Trees on our lot are drawn in finer detail (lumpy crowns, trunks and limbs; the twin oak on its surveyed trunks). It has orbit, look-around, and Quake-style fly and walk modes (the mouse is captured to look, WASD moves; walking clamps to the surface under you and stops at walls) |
 | `render_view.py` | `site/backyard-bare.jpg` and `site/backyard-8yr.jpg` (static render of the back-yard view, with and without the planned trees; template `tools/render_view.html`; needs a Playwright Chromium: `uv run --with playwright playwright install chromium`, or `--chromium PATH`) |
 | `sentinel_view.py` | `site/sentinel.png` (an older and the latest clear Sentinel-2 satellite scene, 10 m, with the lots and the back-yard sight lines; `--series` dates the retail lot's clearing) |
 | `render_building_b.py` | `site/building-b-*.jpg` (stills of building B from `tools/building_b.html`, the 3D page with sliders for eave height and door size, also published at https://claude.ai/artifact/HkCoRoNiUNBYoisHaoPWPw; needs a Playwright Chromium) |

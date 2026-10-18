@@ -304,6 +304,8 @@ south.
     low side;
   - the door aprons slope down to the ground 10 ft out;
   - the doors are drawn rolled up.
+- **Inside faces are a very light grey** (owner, Oct 18 2026), so the interior reads through
+  the doors.
 - **For scale, the owner's John Deere S130 riding mower** is parked in the west bay, in
   both models:
   - low-poly, 73.3 in long and 45.5 in tall (TractorData), with a 48.9 in wheelbase and a
@@ -1413,10 +1415,13 @@ Oct 13 photos (02, 12, 16, 18).
   - the chimney's size and spot;
   - every window and door on walls not yet photographed: the south wall, most of the back,
     and the two-story's south face.
-- **The viewer gained fly and walk modes (WASD).**
-  - Walking keeps the eye 5.25 ft above whatever you stand on (the ground, the porch, the
-    deck, building B's slab and aprons).
-  - Steps of up to ~1½ ft are fine. Walls, fences and buildings stop you.
+- **The viewer gained fly and walk modes, Quake style** (owner's ask, Oct 18 2026).
+  - Picking Fly or Walk (or clicking the view) captures the mouse to look; WASD moves; Esc
+    lets go.
+  - Walking keeps the eye 5.25 ft above whatever surface is under you (the ground, the
+    porch, the deck, building B's slab and aprons), stepping straight up onto it at any
+    height. Walls, fences, buildings and the mower stop you. No jumping.
+  - A readout along the bottom shows the eye height off the ground, in every mode.
 
 ### Windows and doors
 

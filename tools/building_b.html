@@ -209,6 +209,7 @@ function start() {
     steel: new THREE.MeshStandardMaterial({ color: col(GREY), roughness: 0.48, metalness: 0.45 }),
     door: new THREE.MeshStandardMaterial({ color: col(GREY), roughness: 0.5, metalness: 0.45, bumpMap: slats, bumpScale: 0.035 }),
     concrete: new THREE.MeshStandardMaterial({ color: col("#b9b6ae"), roughness: 0.95 }),
+    liner: new THREE.MeshStandardMaterial({ color: col("#dcdedf"), roughness: 0.85, emissive: col("#3c3d3e") }),   // inside faces (owner, Oct 18 2026)
     grass: new THREE.MeshStandardMaterial({ map: grassTex, roughness: 1 }),
     fence: new THREE.MeshStandardMaterial({ map: fenceTex, roughness: 0.95 }),
     post: new THREE.MeshStandardMaterial({ color: col("#6f6253"), roughness: 0.9 }),
@@ -307,6 +308,17 @@ function start() {
       const g = new THREE.ExtrudeGeometry(gable, { depth: T, bevelEnabled: false }); g.applyMatrix4(toWorld);
       const m = new THREE.Mesh(g, M.steel); m.position.x = x; m.castShadow = m.receiveShadow = true; bldg.add(m);
     }
+    // Inside faces in a very light grey, so the interior reads: walls, gable ends, roof underside.
+    const LT = 0.02;
+    box(0, L, W - T - LT, W - T, z0, ze, M.liner, bldg);
+    let lx = 0;
+    for (const [a, b] of d) { box(lx, a, T, T + LT, z0, ze, M.liner, bldg); box(a, b, T, T + LT, z0 + dh, ze, M.liner, bldg); lx = b; }
+    box(lx, L, T, T + LT, z0, ze, M.liner, bldg);
+    for (const x of [T, L - T - LT]) {
+      const g = new THREE.ExtrudeGeometry(gable, { depth: LT, bevelEnabled: false }); g.applyMatrix4(toWorld);
+      const m = new THREE.Mesh(g, M.liner); m.position.x = x; m.receiveShadow = true; bldg.add(m);
+    }
+    for (const yW of [T, W - T]) bar([L / 2, yW, ze - 0.16], [L / 2, W / 2, zr - 0.16], L - 2 * T, 0.03, M.liner, bldg);
     // Inside: the slab, seen through open doors.
     box(T, L - T, T, W - T, z0, z0 + 0.01, M.concrete, bldg);
 
@@ -419,7 +431,7 @@ function start() {
   mowerBtn.addEventListener("click", () => { state.mower = !state.mower; mower.visible = state.mower; mowerBtn.setAttribute("aria-pressed", String(state.mower)); render(); });
   xrayBtn.addEventListener("click", () => {
     state.xray = !state.xray; xrayBtn.setAttribute("aria-pressed", String(state.xray));
-    for (const m of [M.steel, M.door]) { m.transparent = state.xray; m.opacity = state.xray ? 0.22 : 1; m.depthWrite = !state.xray; m.needsUpdate = true; }
+    for (const m of [M.steel, M.door, M.liner]) { m.transparent = state.xray; m.opacity = state.xray ? 0.22 : 1; m.depthWrite = !state.xray; m.needsUpdate = true; }
     render();
   });
   document.querySelectorAll("#views button").forEach(b => b.addEventListener("click", () => go(b.dataset.view)));

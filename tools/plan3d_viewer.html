@@ -147,14 +147,25 @@ details li b { font-weight: 600; }
   background: color-mix(in srgb, var(--panel) 88%, transparent); padding: 4px 8px; border-radius: 3px;
 }
 .hint {
-  position: absolute; left: 12px; bottom: 12px; font-size: 12px; color: var(--muted);
+  position: absolute; left: 12px; bottom: 12px; max-width: calc(50% - 170px); font-size: 12px; color: var(--muted);
   background: color-mix(in srgb, var(--panel) 85%, transparent); padding: 4px 8px; border-radius: 3px;
 }
 .compass { position: absolute; right: 12px; top: 12px; width: 56px; height: 56px; }
+.eyeheight { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); font: 600 13px var(--font-data); color: var(--ink);
+  background: color-mix(in srgb, var(--panel) 90%, transparent); border: 1px solid var(--rule); padding: 4px 10px; border-radius: 3px; white-space: nowrap; pointer-events: none; }
+.crosshair { position: absolute; left: 50%; top: 50%; width: 18px; height: 18px; margin: -9px 0 0 -9px; pointer-events: none; }
+.crosshair::before, .crosshair::after { content: ""; position: absolute; background: var(--ink); box-shadow: 0 0 0 1px color-mix(in srgb, var(--panel) 70%, transparent); }
+.crosshair::before { left: 8px; top: 0; width: 2px; height: 18px; } .crosshair::after { top: 8px; left: 0; width: 18px; height: 2px; }
+.lockprompt { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); pointer-events: none; font: 600 14px var(--font-display);
+  letter-spacing: 0.04em; color: var(--ink); background: color-mix(in srgb, var(--panel) 90%, transparent); border: 1px solid var(--rule); padding: 10px 14px; border-radius: 4px; text-align: center; }
+.mouse { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 4px 10px; margin-top: 10px; font-size: 13px; }
+.mouse input { grid-column: 1 / -1; width: 100%; accent-color: var(--accent); }
+.mouse output { font-family: var(--font-data); }
 .fps { position: absolute; right: 12px; bottom: 12px; font: 500 11px var(--font-data); color: var(--muted);
   background: color-mix(in srgb, var(--panel) 85%, transparent); padding: 3px 6px; border-radius: 3px; }
 .compass svg { width: 100%; height: 100%; }
 .load-error { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; text-align: center; color: var(--muted); }
+@media (max-width: 900px) { .hint { bottom: 50px; max-width: calc(100% - 24px); } }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 <!--BODY-->
@@ -186,6 +197,11 @@ details li b { font-weight: 600; }
         <button class="mode" id="m-look" data-mode="look" aria-pressed="false">Look around</button>
         <button class="mode" id="m-fly" data-mode="fly" aria-pressed="false">Fly (WASD)</button>
         <button class="mode" id="m-walk" data-mode="walk" aria-pressed="false">Walk (WASD)</button>
+      </div>
+      <div class="mouse">
+        <label for="sens">Mouse sensitivity (fly and walk)</label>
+        <output id="sens-out" for="sens">1.0</output>
+        <input type="range" id="sens" min="0.2" max="3" step="0.1" value="1">
       </div>
     </section>
 
@@ -236,6 +252,9 @@ details li b { font-weight: 600; }
     <canvas id="c" tabindex="0" aria-label="3D model of the back line, building B and the retail lot"></canvas>
     <div class="labels" id="labels"></div>
     <div class="eye" id="eye" hidden></div>
+    <div class="eyeheight" id="eyeheight" aria-live="off"></div>
+    <div class="crosshair" id="crosshair" hidden></div>
+    <div class="lockprompt" id="lockprompt" hidden>Click to look with the mouse · Esc lets go</div>
     <div class="compass" aria-hidden="true">
       <svg viewBox="-30 -30 60 60">
         <circle r="27" fill="var(--panel)" fill-opacity="0.8" stroke="var(--rule)" stroke-width="1.5"></circle>
@@ -612,6 +631,17 @@ details li b { font-weight: 600; }
       const g = new THREE.ExtrudeGeometry(gable, { depth: T, bevelEnabled: false }); g.applyMatrix4(toLocal);
       const m = new THREE.Mesh(g, steel); m.position.x = gx; m.userData.id = id; shed.add(m);
     }
+    // Inside faces in a very light grey, so the interior reads (owner, Oct 18 2026): walls, gable ends, roof underside.
+    const liner = new THREE.MeshLambertMaterial({ color: 0xdcdedf, emissive: 0x606264 }), LT = 0.02;   // lit a little from within: daylight barely reaches inside
+    box(0, L, W - T - LT, W - T, z0, ze, liner);
+    let lx = 0;
+    for (const [a, b, h] of doors) { box(lx, a, T, T + LT, z0, ze, liner); box(a, b, T, T + LT, z0 + h, ze, liner); lx = b; }
+    box(lx, L, T, T + LT, z0, ze, liner);
+    for (const gx of [T, L - T - LT]) {
+      const g = new THREE.ExtrudeGeometry(gable, { depth: LT, bevelEnabled: false }); g.applyMatrix4(toLocal);
+      const m = new THREE.Mesh(g, liner); m.position.x = gx; m.userData.id = id; shed.add(m);
+    }
+    for (const yW of [T, W - T]) bar([L / 2, yW, ze - 0.16], [L / 2, W / 2, zr - 0.16], L - 2 * T, 0.03, liner);
     // Panel ribs every foot, and the roof's ribs down the slope (instanced).
     const unit = new THREE.BoxGeometry(1, 1, 1), ribs = [];
     const inDoor = (rx) => doors.find(([a, b]) => rx > a - 0.1 && rx < b + 0.1);
@@ -656,7 +686,7 @@ details li b { font-weight: 600; }
     }
     box(T, L - T, T, W - T, z0, z0 + 0.01, concrete);
     shed.traverse(o => { if (o.isMesh && !o.isInstancedMesh) (o.material === concrete ? walkables : solids).push(o); });
-    items[id] = { node, mats: [{ mat: steel, kind: "mesh" }, { mat: coil, kind: "mesh" }, { mat: concrete, kind: "mesh", fixed: true }],
+    items[id] = { node, mats: [{ mat: steel, kind: "mesh" }, { mat: coil, kind: "mesh" }, { mat: concrete, kind: "mesh", fixed: true }, { mat: liner, kind: "mesh", fixed: true }],
                   meta: META[id] || { label: "Building B", group: "Your lot", token: "steel", solid: true } };
 
     // John Deere S130 lawn tractor, low-poly, for scale. Inches; local x forward from the rear axle, y to the
@@ -964,13 +994,15 @@ details li b { font-weight: 600; }
   const HINTS = {
     orbit: "Drag to orbit · scroll or pinch to zoom · right-drag to pan · click to inspect",
     look: "Drag to look around · arrow keys to turn · scroll to zoom the lens · click to inspect",
-    fly: "Click the view, then W A S D to fly · E or Space up, Q or C down · Shift for speed · drag to look (double-click locks the mouse; Esc frees it) · scroll sets the speed",
-    walk: "Click the view, then W A S D to walk · Shift to run · drag to look (double-click locks the mouse; Esc frees it) · eye 5.25 ft up; walls, fences and buildings stop you",
+    fly: "Mouse looks · W A S D flies where you look · E or Space up, Q or C down · Shift ×4 · scroll sets the speed · click inspects what's under the crosshair · Esc lets go of the mouse",
+    walk: "Mouse looks · W A S D walks · Shift runs · scroll sets the speed · click inspects what's under the crosshair · Esc lets go of the mouse · you step up onto porches, decks and slabs; walls, fences and buildings stop you",
   };
   const freeLook = () => mode === "look" || mode === "fly" || mode === "walk";
-  const EYE = 1.6, STEP = 0.5, RADIUS = 0.35;   // m: eye height (5.25 ft), the highest step you can take, body radius
+  const EYE = 1.6, CLIMB = 3.0, RADIUS = 0.35;  // m: eye height (5.25 ft), how high a walking surface you step up onto, body radius
   const speed = { fly: 9, walk: 1.4 };            // m/s; Shift: x4 flying, x2.5 walking (a run)
-  let feet = 0;                                   // walking: world height of your feet
+  let feet = 0, vy = 0;                           // walking: world height of your feet, and vertical speed (falls)
+  const GRAVITY = 9.8;                           // m/s²: stepping off a ledge
+  let sens = 1;                                   // mouse sensitivity multiplier
   const keys = new Set();
   const floorRay = new THREE.Raycaster(), wallRay = new THREE.Raycaster();
   // What you'd stand on under (x, z), searching down from y (world, m).
@@ -1004,6 +1036,8 @@ details li b { font-weight: 600; }
       controls.enabled = true; controls.update();
     }
     mode = m; hint.textContent = HINTS[m]; photoSpot.visible = m !== "look" && m !== "walk";
+    if (m === "fly" || m === "walk") { vy = 0; if (retarget) lockMouse(); } else if (document.pointerLockElement === canvas) document.exitPointerLock();
+    showLock();
     document.querySelectorAll("button.mode").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.mode === m)));
   }
   function applyLook() {
@@ -1038,15 +1072,30 @@ details li b { font-weight: 600; }
     camera.fov = THREE.MathUtils.clamp(camera.fov * Math.exp(e.deltaY * 0.001), 12, 75);
     camera.updateProjectionMatrix();
   }, { passive: false });
-  // Mouse lock for fly and walk: double-click the view; Esc frees it.
-  canvas.addEventListener("dblclick", () => {
+  // Mouse look for fly and walk, Quake style: the mouse is captured when you pick Fly or Walk, or click the
+  // view; moving it turns your head. Esc lets go (the browser's rule). Without a lock, dragging still looks.
+  const crosshair = document.getElementById("crosshair"), lockPrompt = document.getElementById("lockprompt");
+  const locked = () => document.pointerLockElement === canvas;
+  function lockMouse() {
     if (mode !== "fly" && mode !== "walk") return;
-    try { const r = canvas.requestPointerLock(); if (r && r.catch) r.catch(() => {}); } catch (err) { /* not allowed here: drag to look instead */ }
-  });
+    const refused = () => { lockPrompt.textContent = "Mouse capture isn't available here: drag to look"; lockPrompt.hidden = false; };
+    try { const r = canvas.requestPointerLock(); if (r && r.catch) r.catch(refused); } catch (err) { refused(); }
+  }
+  function showLock() {
+    const free = mode === "fly" || mode === "walk";
+    crosshair.hidden = !(free && locked());
+    lockPrompt.hidden = !(free && !locked());
+    if (lockPrompt.hidden) lockPrompt.textContent = "Click to look with the mouse · Esc lets go";
+  }
+  document.addEventListener("pointerlockchange", showLock);
+  canvas.addEventListener("click", () => { if ((mode === "fly" || mode === "walk") && !locked()) lockMouse(); });
   document.addEventListener("mousemove", (e) => {
-    if (document.pointerLockElement !== canvas) return;
-    look.yaw -= e.movementX * 0.0022; look.pitch -= e.movementY * 0.0022; applyLook();
+    if (!locked()) return;
+    const k = 0.0022 * sens;
+    look.yaw -= e.movementX * k; look.pitch -= e.movementY * k; applyLook();
   });
+  const sensIn = document.getElementById("sens"), sensOut = document.getElementById("sens-out");
+  sensIn.addEventListener("input", () => { sens = +sensIn.value; sensOut.textContent = sens.toFixed(1); });
   const MOVE_KEYS = new Set(["KeyW", "KeyA", "KeyS", "KeyD", "KeyQ", "KeyE", "KeyC", "Space", "ShiftLeft", "ShiftRight"]);
   window.addEventListener("keydown", (e) => {
     if ((mode !== "fly" && mode !== "walk") || !MOVE_KEYS.has(e.code) || e.target.closest("input, select, textarea")) return;
@@ -1071,9 +1120,9 @@ details li b { font-weight: 600; }
   function updateEye() {
     if (mode === "orbit") { eyeEl.hidden = true; return; }
     const x = camera.position.x, y = -camera.position.z, zEye = camera.position.y / exag;
-    const above = mode === "walk" ? (camera.position.y - feet) / 0.3048 : (zEye - groundAt(x, y)) / 0.3048, elev = zEye / 0.3048 + Z0_FT;
+    const elev = zEye / 0.3048 + Z0_FT;
     const pace = mode === "fly" || mode === "walk" ? ` · ${mode} ${Math.round(speed[mode] / 0.3048)} ft/s (Shift ×${mode === "fly" ? 4 : 2.5})` : "";
-    eyeEl.textContent = `Eye ${above.toFixed(1)} ft above ${mode === "walk" ? "your feet" : "the ground"} · elevation ${Math.round(elev).toLocaleString()} ft${pace}`;
+    eyeEl.textContent = `Eye elevation ${Math.round(elev).toLocaleString()} ft${pace}`;
     eyeEl.hidden = false;
   }
   exagIn.addEventListener("input", () => setExag(+exagIn.value));
@@ -1100,9 +1149,11 @@ details li b { font-weight: 600; }
   let down = null;
   canvas.addEventListener("pointerdown", (e) => { down = [e.clientX, e.clientY]; });
   canvas.addEventListener("pointerup", (e) => {
-    if (!down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 5) return;
+    const captured = document.pointerLockElement === canvas;
+    if (!captured && (mode === "fly" || mode === "walk")) return;   // that click captures the mouse instead
+    if (!captured && (!down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 5)) return;
     const r = canvas.getBoundingClientRect();
-    ray.setFromCamera({ x: ((e.clientX - r.left) / r.width) * 2 - 1, y: -((e.clientY - r.top) / r.height) * 2 + 1 }, camera);
+    ray.setFromCamera(captured ? { x: 0, y: 0 } : { x: ((e.clientX - r.left) / r.width) * 2 - 1, y: -((e.clientY - r.top) / r.height) * 2 + 1 }, camera);
     const hits = ray.intersectObjects(root.children, true).filter(h => h.object.visible && h.object.parent.visible);
     const pick = hits.find(h => !String(h.object.userData.id).startsWith("terrain")) || hits[0];
     if (pick) select(pick.object.userData.id);
@@ -1128,7 +1179,6 @@ details li b { font-weight: 600; }
   let frames = 0, since = performance.now(), last = performance.now(), eyeTick = 0;
   const fdir = new THREE.Vector3(), right = new THREE.Vector3(), step = new THREE.Vector3(), from = new THREE.Vector3(), wn = new THREE.Vector3();
   // Walking: slide along walls instead of passing through them (rays at knee and chest height).
-  let ledges = null;   // slabs, decks and the porch: you can step up onto them only from a low edge
   function collide(v) {
     for (let pass = 0; pass < 3; pass++) {
       const len = v.length(); if (len < 1e-6) return;
@@ -1136,8 +1186,7 @@ details li b { font-weight: 600; }
       for (const h of [0.45, 1.25]) {
         from.set(camera.position.x, feet + h, camera.position.z);
         wallRay.set(from, d); wallRay.far = len + RADIUS;
-        if (!ledges) ledges = walkables.filter(m => !String(m.userData.id).startsWith("terrain"));
-        const hit = wallRay.intersectObjects(h < 1 ? solids.concat(ledges) : solids, false)[0];
+        const hit = wallRay.intersectObjects(solids, false)[0];
         if (hit && hit.face) { wn.copy(hit.face.normal).transformDirection(hit.object.matrixWorld); wn.y = 0; if (wn.lengthSq() > 1e-6) { hitN = wn.normalize().clone(); break; } }
       }
       if (!hitN) return;
@@ -1160,15 +1209,27 @@ details li b { font-weight: 600; }
       fdir.y = 0; fdir.normalize();
       step.set(0, 0, 0).addScaledVector(fdir, f).addScaledVector(right, r);
       if (step.lengthSq() > 0) { step.normalize().multiplyScalar(speed.walk * boost * dt); collide(step); camera.position.add(step); }
-      const g = floorAt(camera.position.x, camera.position.z, feet + STEP);
-      if (g !== null) feet = g > feet ? g : Math.max(g, feet - 9 * dt);   // step up at once, settle down smoothly
+      const g = floorAt(camera.position.x, camera.position.z, feet + CLIMB);   // the walking surface under you
+      if (g !== null && g > feet && vy <= 0) { feet = g; vy = 0; }   // step up onto it at once
+      else {
+        vy -= GRAVITY * dt; feet += vy * dt;                         // jump or fall
+        if (g !== null && feet <= g) { feet = g; vy = 0; }
+      }
       camera.position.y = feet + EYE;
     }
     if ((eyeTick += dt) > 0.25) { eyeTick = 0; updateEye(); }
   }
+  const eyeHeightEl = document.getElementById("eyeheight");
+  let heightTick = 1;
+  // Eye height off whatever is under you: the ground, or the porch, deck or a slab (true scale, not exaggerated).
+  function showEyeHeight() {
+    const p = camera.position, under = floorAt(p.x, p.z, p.y);
+    eyeHeightEl.textContent = under === null ? "Eye height: off the model" : `Eye height ${((p.y - under) / exag / 0.3048).toFixed(1)} ft off the ground`;
+  }
   function frame() {
     const t0 = performance.now(), dt = Math.min(0.1, (t0 - last) / 1000); last = t0;
     if (mode === "fly" || mode === "walk") move(dt);
+    if ((heightTick += dt) > 0.15) { heightTick = 0; showEyeHeight(); }
     if (mode === "orbit") controls.update();
     renderer.render(scene, camera);
     frames++;

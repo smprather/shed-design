@@ -46,7 +46,17 @@ EXISTING_DRIVE_T = 95.5  # ft: middle of the existing drive's straight run at th
 # bulge in front of the porch's north end to join the existing drive. Centerline, (s, t) ft.
 LOOP_C = [(-1, 33), (12, 34), (26, 36.5), (37, 41), (44, 48), (48, 57), (48, 68), (49, 78), (50, 89),
           (49, 99), (47, 108)]
+# Loop D (Oct 18, from the owner's photos of the open path through the trees): loop C's south leg and
+# porch-front lane, then a connector that leaves the porch lane's north half and runs diagonally back to the
+# existing drive near the street, between the lone lawn oak and the oak in the lawn bulge. It replaces
+# loop C's crossing of the bulge, which runs into that oak.
+LOOP_D = [(-1, 33), (12, 34), (26, 36.5), (37, 41), (44, 48), (48, 57), (47, 63), (42, 69.5), (34, 75), (25, 81),
+          (16, 86.5), (8, 91.5)]
 LANE = 12.0  # ft
+# Trunks placed from the owner's street photo (Oct 18: camera solved from the house front, trunk bases cast onto
+# the lidar ground) and the GPS photos; +/-8 ft. Tape them.
+LONE_OAK_PHOTO = (8.0, 69.0)
+BULGE_OAK = (45.0, 91.0)   # big leaning live oak in the lawn bulge by the porch's north end
 LONE_OAK_BOX = ((-5.0, 30.0), (44.0, 86.0))  # (s range, t range) holding the lone lawn oak's crown
 ASSUMED_DBH_IN = 20.0  # in; not measured. Root zone = 1 ft radius per inch.
 
@@ -80,7 +90,12 @@ def offset(pts, d: float):
 
 
 
-def loop_c_outline() -> list[tuple[float, float]]:
-    """Loop C as a closed outline (s, t): the lane's left edge out, the right edge back."""
-    center = catmull_rom(LOOP_C)
+def lane_outline(points) -> list[tuple[float, float]]:
+    """A 12 ft lane along a centerline, as a closed outline (s, t): the left edge out, the right edge back."""
+    center = catmull_rom(points)
     return offset(center, LANE / 2) + offset(center, -LANE / 2)[::-1]
+
+
+def loop_c_outline() -> list[tuple[float, float]]:
+    """Loop C as a closed outline (s, t)."""
+    return lane_outline(LOOP_C)

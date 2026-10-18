@@ -18,7 +18,8 @@ What the photos settle:
   covers the deck's inside corner (size and heights guessed from photos).
 - **The porch and the garage share one roof plane** that rises west from the porch eave to the
   two-story's eave. The garage's north wall is the tall sloped face over the door.
-- **The south rooms** have the front gable on the street side. The stone back wing with the
+- **The south rooms** face the street with a hipped front and a small gable set back on it
+  (street photo, Oct 18). The stone back wing with the
   chimney sits south of the deck.
 
 Everything else (roof pitches, heights, the middle roof, windows on the walls nobody has
@@ -46,6 +47,7 @@ GARAGE = (64.2, 85.2, 68.8, 90.1)
 TWO = (85.2, 126.2, 68.8, 90.1)      # two-story part, including the NW wing
 PORCH = (54.5, 64.2, 57.6, 90.1)
 PORCH_EAVE = 7.6                     # porch roof at its front edge (photo scale)
+GABLET = 5.5                         # the south rooms' front gable sits this far back on a hipped front (street photo, Oct 18)
 SHED_K = (EAVE2 - PORCH_EAVE) / (TWO[0] - PORCH[0])   # porch + garage plane, rise per ft going west (~4:12)
 DECK = (100.8, 110.8, 44.8, 68.8)    # 240 sq ft (county), off the middle of the back wall; position a guess
 PERGOLA = (100.8, 110.4, 51.0, 68.8, 9.6, 8.2)   # s0, s1, t0, t1, roof at the house, at its outer edge (guess, Oct 18 photos)
@@ -113,7 +115,7 @@ def house_spec(ground_rel: Callable[[float, float], float]) -> dict:
     tm_s, tm_m, tm_2 = (SOUTH[2] + SOUTH[3]) / 2, (MIDDLE[2] + MIDDLE[3]) / 2, (TWO[2] + TWO[3]) / 2
 
     # Walls, going round the outside (the plat's outline), then the faces that show above lower roofs.
-    wall((56.7, 22.7), (56.7, 50.4), E, gable_top((56.7, 22.7), (56.7, 50.4), EAVE1, EAVE1 + rise_s))   # front gable
+    wall((56.7, 22.7), (56.7, 50.4), E, flat((56.7, 22.7), (56.7, 50.4), EAVE1))   # front of the south rooms, under the hipped front
     wall((56.7, 50.4), (69.2, 50.4), N, flat((56.7, 50.4), (69.2, 50.4), EAVE1))      # beside the entry
     wall((69.2, 50.4), (69.2, 57.6), E, flat((69.2, 50.4), (69.2, 57.6), EAVE1))      # front door's recess
     wall((69.2, 57.6), (64.2, 57.6), S_, flat((69.2, 57.6), (64.2, 57.6), EAVE1))
@@ -131,6 +133,8 @@ def house_spec(ground_rel: Callable[[float, float], float]) -> dict:
     walls.append(_upper((85.2, 68.8), (64.2, 68.8), S_, EAVE1, [(0, shed_z(85.2)), (21.0, shed_z(64.2))], L))
     walls.append(_upper((85.2, 68.8), (85.2, 90.1), E, EAVE2 - 0.6, gable_top((85.2, 68.8), (85.2, 90.1), EAVE2, EAVE2 + rise_2), L))
     walls.append(_upper((64.2, 50.4), (64.2, 68.8), E, EAVE1, gable_top((64.2, 50.4), (64.2, 68.8), EAVE1, EAVE1 + rise_m), L))
+    ga, gb = (SOUTH[0] + GABLET, SOUTH[2] + GABLET), (SOUTH[0] + GABLET, SOUTH[3] - GABLET)
+    walls.append(_upper(ga, gb, E, EAVE1 + GABLET * PITCH, gable_top(ga, gb, EAVE1 + GABLET * PITCH, EAVE1 + rise_s), L))   # front gable
 
     # Roofs.
     def gable_roof(r, eave, rise, oh_s=(OH, OH), oh_t=(OH, OH)):
@@ -142,7 +146,16 @@ def house_spec(ground_rel: Callable[[float, float], float]) -> dict:
         quad((a, t1 + oh_t[1], eave - oh_t[1] * k), (b, t1 + oh_t[1], eave - oh_t[1] * k), (b, tm, zr), (a, tm, zr))
         box(a, b, tm - 0.4, tm + 0.4, zr - 0.05, zr + 0.2, "trim")   # ridge cap
 
-    gable_roof(SOUTH, EAVE1, rise_s, oh_t=(OH, 0.0))
+    # South rooms: a gable roof hipped at the front, with the small front gable set back on the hip.
+    f0, f1, g0, g1 = SOUTH
+    lo, zb, zr = EAVE1 - OH * PITCH, EAVE1 + GABLET * PITCH, EAVE1 + rise_s
+    sw, se, nw, ne = (f1 + OH, g0 - OH, lo), (f0 - OH, g0 - OH, lo), (f1 + OH, g1 + OH, lo), (f0 - OH, g1 + OH, lo)   # eave corners
+    rb, rf = (f1 + OH, tm_s, zr), (f0 + GABLET, tm_s, zr)                           # ridge, back to front
+    fs, fn = (f0 + GABLET, g0 + GABLET, zb), (f0 + GABLET, g1 - GABLET, zb)          # the front gable's feet
+    quad(sw, rb, rf, fs); quad(sw, fs, se, se)        # south slope
+    quad(nw, rb, rf, fn); quad(nw, fn, ne, ne)        # north slope
+    quad(se, ne, fn, fs)                              # hipped front
+    box(f0 + GABLET, f1 + OH, tm_s - 0.4, tm_s + 0.4, zr - 0.05, zr + 0.2, "trim")   # ridge cap
     gable_roof(MIDDLE, EAVE1, rise_m, oh_s=(0.0, OH), oh_t=(0.0, 0.0))
     gable_roof(TWO, EAVE2, rise_2, oh_s=(0.6, OH))
     # Porch + garage: one plane rising west to the two-story's eave.
@@ -199,6 +212,8 @@ def house_spec(ground_rel: Callable[[float, float], float]) -> dict:
 
     opening(face_s=56.7, out=E, span=(28.4, 31.9), z=(2.8, 7.4), shutters=True)    # front, two shuttered windows (photo 18)
     opening(face_s=56.7, out=E, span=(41.2, 44.7), z=(2.8, 7.4), shutters=True)
+    opening(face_s=SOUTH[0] + GABLET, out=E, span=(tm_s - 0.8, tm_s + 0.8), z=(EAVE1 + rise_s - 2.4, EAVE1 + rise_s - 1.2),
+            mat="trim", frame=False)                                               # front gable vent (street photo)
     opening(face_s=69.2, out=E, span=(52.6, 55.6), z=(0, 6.8), mat="door", frame=True)   # front door, in the recess
     opening(face_s=64.2, out=E, span=(60.7, 66.7), z=(3.0, 7.0))                   # kitchen window (floor plan)
     opening(face_s=64.2, out=E, span=(73.8, 79.8), z=(3.0, 7.0))                   # garage window (owner's markup)

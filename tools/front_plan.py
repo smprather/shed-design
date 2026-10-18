@@ -25,13 +25,14 @@ import polars as pl
 import rich_click as click
 
 from front_layout import (
-    ASSUMED_DBH_IN, EXISTING_DRIVE, EXISTING_DRIVE_T, FRONT_ELECTRIC, FRONT_WALK, LONE_OAK_BOX, LOOP_C,
+    ASSUMED_DBH_IN, BULGE_OAK, EXISTING_DRIVE, EXISTING_DRIVE_T, FRONT_ELECTRIC, FRONT_WALK, LONE_OAK_BOX,
+    LONE_OAK_PHOTO, LOOP_C, LOOP_D, lane_outline,
     NORTH_CARPORT, PORTE_COCHERE,
     SKETCH_BOX, SKETCH_INNER, SKETCH_OUTER, catmull_rom, loop_c_outline,
 )
 from plan3d import CANOPY, FT, Canopy, Frame
 from site_plan import (
-    BLUE, BUILDING_LINE, GREEN, ORANGE, PURPLE, RED, REPO, WHITE, YELLOW,
+    BLUE, BUILDING_LINE, GREEN, MAGENTA, ORANGE, PURPLE, RED, REPO, WHITE, YELLOW,
     Plan, draw_survey, site, st,
 )
 
@@ -132,9 +133,21 @@ def main() -> None:
     plan.poly(st_site(PORTE_COCHERE), GREEN, fill=(80, 220, 120, 60), width=3, dash=True)
     plan.poly(st_site(NORTH_CARPORT), GREEN, fill=(80, 220, 120, 60), width=3, dash=True)
 
-    # Loop C.
+    # Loop C, and loop D through the open path (owner's photos, Oct 18).
     loop_c = loop_c_outline()
     plan.poly(st_site(loop_c), CYAN, fill=(90, 230, 255, 70), width=4)
+    loop_d = lane_outline(LOOP_D)
+    plan.poly(st_site(loop_d), MAGENTA, fill=(255, 90, 230, 60), width=4)
+
+    # Trunks placed from the photos (+/-8 ft), with the assumed root zone.
+    for (ts, tt), name, (ls, lt) in ((BULGE_OAK, "bulge oak (photos)", (-4, 9)), (LONE_OAK_PHOTO, "lone oak (street photo)", (2, -6))):
+        ring = [(ts + ASSUMED_DBH_IN * math.cos(a / 36 * 2 * math.pi), tt + ASSUMED_DBH_IN * math.sin(a / 36 * 2 * math.pi))
+                for a in range(37)]
+        plan.line(st_site(ring), MAGENTA, width=2, dash=True)
+        cx, cy = plan.p(*site([st(ts, tt)])[0])
+        plan.d.ellipse([cx - 8, cy - 8, cx + 8, cy + 8], fill=MAGENTA, outline=WHITE, width=2)
+        lx, ly = site([st(ts + ls, tt + lt)])[0]
+        plan.label(lx, ly, name, fill=(255, 170, 240), size=14)
 
     # The lone lawn oak: estimated trunk (crown's center) and its root zone at an assumed size.
     if lone_oak:
@@ -160,6 +173,8 @@ def main() -> None:
     plan.label(226, 133, "B: carport on the old garage\napron ~23 x 24 ft (live oaks)", fill=(150, 255, 170), size=15)
     cx, cy = site([st(14, 26)])[0]
     plan.label(cx, cy, "C: new curb cut in the open\nsouth lawn; lane hugs the porch,\njoins the existing drive", fill=CYAN, size=15)
+    dx, dy = site([st(37, 66)])[0]
+    plan.label(dx, dy, "D: C's south leg, then the\nopen path between the oaks\nto the existing drive", fill=(255, 170, 240), size=14)
     plan.label(300, 262, "1991 electric\n(locate)", fill=YELLOW, size=15)
     dx, dy = site([st(20, 104)])[0]
     plan.label(dx, dy, "existing drive\n(1991 plat, +/-3 ft)", fill=(235, 235, 225), size=15)
@@ -184,6 +199,13 @@ def main() -> None:
             {"layout": "C", "paving to the oak's trunk (ft)": round(poly_dist((ts, tt), loop_c + loop_c[:1]), 1),
              "new curb cut, middle (t ft)": LOOP_C[0][1], "new paving (sq ft)": round(area(loop_c))},
         ]
+        for row, lines in zip(rows, ((inner, outer), (loop_c + loop_c[:1],))):
+            row["to the lone oak, photo (ft)"] = round(min(poly_dist(LONE_OAK_PHOTO, ln) for ln in lines), 1)
+            row["to the bulge oak, photos (ft)"] = round(min(poly_dist(BULGE_OAK, ln) for ln in lines), 1)
+        rows.append({"layout": "D", "paving to the oak's trunk (ft)": round(poly_dist((ts, tt), loop_d + loop_d[:1]), 1),
+                     "new curb cut, middle (t ft)": LOOP_D[0][1], "new paving (sq ft)": round(area(loop_d)),
+                     "to the lone oak, photo (ft)": round(poly_dist(LONE_OAK_PHOTO, loop_d + loop_d[:1]), 1),
+                     "to the bulge oak, photos (ft)": round(poly_dist(BULGE_OAK, loop_d + loop_d[:1]), 1)})
         with pl.Config(tbl_hide_dataframe_shape=True, tbl_hide_column_data_types=True):
             click.echo(pl.DataFrame(rows))
         click.echo(f"root zone assumed {ASSUMED_DBH_IN:.0f} ft; curb cuts {EXISTING_DRIVE_T - LOOP_C[0][1]:.0f} ft apart "

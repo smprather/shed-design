@@ -29,7 +29,7 @@ import rich_click as click
 
 from site_plan import BUILDING_LINE, HOUSE, PARCEL, REPO, SITE_B, WELL, en_to_site, north_line_y, site, st
 from site_b_plan import HOSE, house_north_y
-from front_layout import EXISTING_DRIVE, FRONT_WALK, LANE, LOOP_C, PORTE_COCHERE, catmull_rom, offset
+from front_layout import EXISTING_DRIVE, FRONT_WALK, LANE, LOOP_C, LOOP_D, PORTE_COCHERE, catmull_rom, offset
 from house_layout import FF_FT, house_spec
 from envelope_plan import SITE_A
 
@@ -497,6 +497,9 @@ def main(spec: Path, out: Path) -> None:
     obj.obj("proposed_circle_drive_loop_c")
     center = catmull_rom(LOOP_C)
     obj.ribbon(*([to_m(p) for p in site(st(*q) for q in offset(center, side * LANE / 2))] for side in (1, -1)))
+    obj.obj("proposed_circle_drive_loop_d")   # through the open path between the lawn oaks (owner's photos, Oct 18)
+    center = catmull_rom(LOOP_D)
+    obj.ribbon(*([to_m(p) for p in site(st(*q) for q in offset(center, side * LANE / 2))] for side in (1, -1)), lift=0.11)
     obj.obj("proposed_porte_cochere_option_a")
     pc = [to_m(p) for p in site(st(*q) for q in PORTE_COCHERE)]
     roof = max(ground(*p) for p in pc) + PORTE_COCHERE_CLEAR * FT

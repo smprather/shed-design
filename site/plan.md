@@ -5,7 +5,7 @@ sources, corrections and dates. This file says what we're doing, in what order, 
 still undecided. Update it when a decision changes; record the facts behind the change in
 `notes.md`.
 
-Last updated: Oct 18 2026 (second photo walk: the house's back, an oak on loop C's path).
+Last updated: Oct 18 2026 (loop D through the open path between the front oaks).
 
 ## The four projects
 
@@ -14,7 +14,7 @@ Last updated: Oct 18 2026 (second photo walk: the house's back, an oak on loop C
 | **1. Building B** | 23 × 43 ft metal building on a slab at the old carport spot, north of the house | Footprint fixed; height, doors and use open | Septic layout; the cross fence; eave height |
 | **2. Screening** (noise and views) | US-290 side: the 8 ft fence, building B, maybe a taller wall. Back line: 21 new trees in the gaps | Back-line planting ready to buy; US-290 side needs re-modeling | Fence gaps and ownership; septic layout |
 | **3. Garage → kitchen** | Join the 21 × 21 ft attached garage, the hall beside it and the old kitchen into one ~680 sq ft kitchen. Its own repo: `smprather/kitchen-garage-renovation` | Idea stage (~90% likely); layout mocked up | Parking must move first; septic capacity question; structure (see its repo) |
-| **4. Circle drive + covered parking** | Loop C through the front lawn, plus a porte-cochère (A) or a carport (B) | Layout proposed | The lone oak's trunk position; covered-parking choice; county permits |
+| **4. Circle drive + covered parking** | Loop D through the front lawn and the open path between the oaks, plus a porte-cochère (A) or a carport (B) | Layout proposed | Both front oaks' trunk positions; covered-parking choice; county permits |
 
 ## Order of work
 
@@ -214,35 +214,37 @@ measurements. What ties it to the rest of this plan:
 
 See `front-yard.png` and the 3D viewer's "Front yard" view.
 
-- **Loop C (proposed):**
+- **Loop D (proposed, Oct 18; replaces loop C):**
   - **Route:** a 12 ft lane from a new curb cut in the open south lawn, sweeping to the
-    house, along the porch front (drop-off at the porch), then across the lawn bulge in
-    front of the porch's north end to join the existing drive (drawn from the 1991 plat).
-  - **Paving:** ~1,260 sq ft new, a little over half the original sketch.
-  - **The front walk:** loop C crosses it about 40 ft back from the street.
-  - **The lone oak:** it stays in the island, ~27 ft from the paving (the sketch came within
-    ~15 ft). Its trunk is estimated from the lidar crown; tape it before finalizing.
-  - **The bulge oak (Oct 18 photos):** a big leaning live oak stands in the lawn bulge where
-    loop C joins the existing drive. Its trunk is within a few feet of the lane's edge, or
-    under it (photo GPS, ±10 ft).
-    - Tape the trunk.
-    - Loop C's north end probably has to change: join the drive nearer the street, or end
-      the lane at the porch's north end.
-  - **Under the porch-front oaks:** build that stretch no-dig, with permeable pavers or
-    gravel over geogrid on the existing grade.
+    house, along the porch front (drop-off at the porch).
+    - Then it turns back toward the street through the open path the owner showed in the
+      photos: between the lone lawn oak and the leaning oak in the lawn bulge.
+    - It joins the existing drive ~10–20 ft in from the street.
+  - **Why not loop C:** C crossed the lawn bulge to reach the drive, and the bulge holds a
+    big leaning live oak, ~1 ft from C's paving.
+  - **Paving:** ~1,370 sq ft new, about 60% of the original sketch.
+  - **Clearances, paving edge to trunk:**
+    - ~13 ft to each oak. The trunks were placed from photos, ±8 ft.
+    - That's inside both root zones (assumed 20 ft), so build the connector no-dig:
+      permeable pavers or gravel over geogrid, on the existing grade.
+    - Keep ~13.5 ft of clear height under the limbs for a truck.
+  - **The front walk:** the lane crosses it about 40 ft back from the street.
+  - **Under the porch-front oaks:** build that stretch no-dig too.
+  - **Tape both trunks before finalizing** (see the measurement list).
   - **Hedge and myrtle:** the hedge's street end and the crape myrtle may need to move.
 - **Covered parking, one of:**
 
   | Option | What | For | Against |
   |---|---|---|---|
-  | **A: porte-cochère** | ~12 × 44 ft roof over the porch-front lane, behind the 45 ft building line; 2 cars nose to tail, ~10 ft clear | Fits loop C; dry walk to the door | Tandem parking; under porch-front oaks |
+  | **A: porte-cochère** | ~12 × 44 ft roof over the porch-front lane, behind the 45 ft building line; 2 cars nose to tail, ~10 ft clear | Fits loop D; dry walk to the door | Tandem parking; under porch-front oaks |
   | **B: carport on the garage apron** | ~23 × 24 ft off the existing drive | Uses existing paving; covered porch walk | Sits on the septic truck's route (needs a drive-through with ~14 ft clear); under the twin oak |
   | Original sketch | ~26 × 33 ft cover in front of the house | Most room | Crosses the 45 ft building line: needs relief from the plat or deed restrictions |
 
 - **Permits:** a Travis County driveway permit for the second curb cut (maybe a culvert).
   Check impervious-cover limits, since the lots next door are in the Barton Springs Zone.
 - **Utilities:** a pole at the street's south side lines up with the plat's 1991 electric
-  line to the house. Loop C stays ~19 ft from that line; locate it anyway.
+  line to the house. Loop D's south leg (same as C's) stays ~19 ft from that line; locate it
+  anyway.
 
 **Decision for you:** A, B, or pursuing the larger cover.
 
@@ -255,8 +257,8 @@ The kitchen's measurements are listed in its own repo.
 | Cross fence: both ends, from the house's NW corner (A) | Building B's east end | Tape |
 | Chain-link gate's clear opening | Truck access to B and the septic | Tape |
 | The rusty casing by the burn barrel: is it the well? Its distance to both fences | Keep-outs for the trees and any wall | Look and tape |
-| Lone front-lawn oak: trunk position (from the front and south lines) and girth | Loop C | Tape |
-| Bulge oak, between the drive and the porch's north end (and the stump beside it): trunk position and girth | Loop C's join to the drive | Tape |
+| Lone front-lawn oak: trunk position and girth. Two tapes from house corners pin it: from the south rooms' front corners (south and north ends) | Loop D | Tape |
+| Bulge oak, between the drive and the porch's north end (and the stump beside it): trunk position and girth, the same way from the porch's front corners | Loop D's connector | Tape |
 | Along the street: from the walk's center to the drive's south edge | Whether the drive was widened since 1991 (plat ~36 ft, aerial ~28 ft) | Tape |
 | Twin oak's second trunk girth (worksheet 11) | Root-zone size | Tape around at 4.5 ft up |
 | Branches over B's east end (17a) | Roof and erection clearance | Laser or pole |

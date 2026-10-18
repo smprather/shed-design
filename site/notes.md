@@ -1407,7 +1407,8 @@ Oct 13 photos (02, 12, 16, 18).
     (~7.6 ft) to the two-story's eave, about 4:12. The garage's north wall is the tall
     sloped face over the 16 ft door: ~11 ft at its east end, ~18 ft at its west.
   - **The south rooms have the front gable,** with siding above stone and two shuttered
-    windows.
+    windows. (Corrected Oct 18: it's a small gable set back on a hipped front; see "The open
+    path through the front oaks".)
   - **The stone back wing with the chimney** is south of the deck.
 - **Guesses, to tighten:**
   - the floor level (1,055.5 ft, just under the lidar ground at the garage's NE corner);
@@ -1540,8 +1541,8 @@ is placed on the plan: GPS ±5–7 m (±15–25 ft), heading to a few degrees.
     - Three photos (3474, 3479, 3481) put the trunk at about s 40–45, t 90–95 (±10 ft).
     - That's the bulge the existing drive swings around.
   - **Loop C crosses that bulge to join the drive.** Its lane runs at s 44–56 there, so its
-    edge is within a few feet of the trunk, or over it. Tape the trunk; loop C's north end
-    probably has to change.
+    edge is within a few feet of the trunk, or over it. Loop D replaces that end (see "The
+    open path through the front oaks").
   - **The porch's north end** is open to the apron. The garage door is navy blue. The drive
     is exposed-aggregate concrete.
 - **For the shadow photos:**
@@ -1555,6 +1556,38 @@ is placed on the plan: GPS ±5–7 m (±15–25 ft), heading to a few degrees.
     - Shadows give heights: tape from the trunk to the shadow's tip.
     - For crown outlines, the shadow is the crown shifted north by ~0.9× its height. Marking
       the drip line on the ground under the crown is more direct.
+
+### The open path through the front oaks: loop D (Oct 18 2026)
+
+The owner sent a photo from the drive's street end, looking across the front lawn to the porch.
+They explained it as "the open path through the trees." It's in the private repo,
+`photos/2026-10-18_yard-walk/front-from-drive_2026-10-18.webp`.
+
+- **What it shows:** open lawn from the drive to the porch front, between two trunks.
+  - On the left, the lone lawn oak: one trunk, leaning south toward the street, standing a
+    few feet in front of (north of) the hedge.
+  - On the right, the big leaning oak in the lawn bulge by the porch's north end.
+- **Placing the trunks:**
+  - The camera was solved from the house front: the south rooms' eave ends and two windows
+    (residuals under 9 px).
+    - It's at the drive's street end: ~s −16, t 103, ~5 ft up, looking ~262° true.
+  - The trunk bases were then cast onto the lidar ground:
+    - **Lone oak at about s 8, t 69.** The lidar crown estimate was s 11, t 68, so the two
+      agree.
+    - **Bulge oak at about s 47, t 90.** The GPS photos gave s 40–45, t 90–95.
+    - Taken as s 8, t 69 and s 45, t 91, ±8 ft.
+- **Loop D (`front_layout.py`):**
+  - It keeps loop C's south leg and porch-front lane.
+  - It then leaves the porch lane's north half and runs back to the existing drive through
+    that open path, joining it ~10–20 ft in from the street.
+  - Its paving edge is ~13 ft from each trunk; loop C's edge came within ~1 ft of the bulge
+    oak.
+  - New paving: ~1,370 sq ft (C ~1,330; the sketch ~2,220).
+  - In the 3D viewer as `proposed_circle_drive_loop_d`.
+- **The house front, from the same photo:** the south rooms have a hipped front with a small
+  gable set back on it, not a full-width front gable. The eave runs across the whole front
+  under it. The 3D model now draws it that way (`GABLET` in `house_layout.py`, 5.5 ft back, a
+  guess).
 
 ### Viewer: the trees on our lot in more detail (owner's ask, Oct 18 2026)
 

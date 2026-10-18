@@ -30,6 +30,7 @@
   --tree-2: #4f7f2a;      /* proposed yaupon and laurel */
   --canopy: #5b7a44;      /* existing trees (lidar) */
   --paving: #7d6f5f;      /* proposed drive */
+  --loop-d: #a8478a;      /* loop D, through the open path */
   --concrete: #a9a59a;    /* existing drive and walk */
   --retail-lot: #c4482b;
   --retail-bldg: #b83a2e;
@@ -52,7 +53,7 @@
     --bg: #111714; --panel: #171f1b; --ink: #e2eae5; --muted: #95a59c; --rule: #2a3530;
     --accent: #f0675b; --stage: #0d1310; --terrain-lo: #2f4655; --terrain-hi: #6b6450;
     --house: #8fb0ea; --shed: #f0a93a; --steel: #50555b; --jd: #4f9a3f; --site-a: #f2c14e; --fence: #c09468; --easement: #b48ae0; --septic: #f05cbf;
-    --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --paving: #b9ab98; --concrete: #8e8a80; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
+    --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --paving: #b9ab98; --loop-d: #e98bcc; --concrete: #8e8a80; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
     --water: #6aa6f5; --apt: #79c174; --apt-bldg: #8fa2d6; --apt-new: #f08a4a; --context: #56625b; --lot: #e2eae5; --ok: #5ccf7c; --warn: #f0b13a; --bad: #f0675b;
     --unknown: #95a59c; color-scheme: dark;
   }
@@ -61,7 +62,7 @@
   --bg: #111714; --panel: #171f1b; --ink: #e2eae5; --muted: #95a59c; --rule: #2a3530;
   --accent: #f0675b; --stage: #0d1310; --terrain-lo: #2f4655; --terrain-hi: #6b6450;
   --house: #8fb0ea; --shed: #f0a93a; --steel: #50555b; --jd: #4f9a3f; --site-a: #f2c14e; --fence: #c09468; --easement: #b48ae0; --septic: #f05cbf;
-  --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --paving: #b9ab98; --concrete: #8e8a80; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
+  --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --paving: #b9ab98; --loop-d: #e98bcc; --concrete: #8e8a80; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
   --water: #6aa6f5; --apt: #79c174; --apt-bldg: #8fa2d6; --apt-new: #f08a4a; --context: #56625b; --lot: #e2eae5; --ok: #5ccf7c; --warn: #f0b13a; --bad: #f0675b;
   --unknown: #95a59c; color-scheme: dark;
 }
@@ -341,7 +342,10 @@ details li b { font-weight: 600; }
       notes: "~3 ft wide, from the front door's recess to the street. It matches the aerial within ~1 ft. Loop C crosses it." },
     proposed_circle_drive_loop_c: { label: "Circle drive, loop C", group: "Proposed", token: "paving",
       status: "proposed; lone oak's trunk estimated", source: "tools/front_layout.py (see site/front-yard.png and site/plan.md)",
-      notes: "A 12 ft lane from a new curb cut in the open south lawn, along the porch front (drop-off at the porch), then across the plat's lawn bulge to join the existing drive. ~1,260 sq ft of new paving. It keeps ~27 ft from the lone lawn oak's estimated trunk; the owner's sketch came within ~15 ft. The north leg runs under the porch-front oaks: build it as no-dig, permeable paving there." },
+      notes: "A 12 ft lane from a new curb cut in the open south lawn, along the porch front (drop-off at the porch), then across the plat's lawn bulge to join the existing drive. ~1,330 sq ft of new paving. It keeps ~27 ft from the lone lawn oak's estimated trunk; the owner's sketch came within ~15 ft. But the Oct 18 photos put a big leaning live oak in that bulge, ~1 ft from this lane's edge: see loop D." },
+    proposed_circle_drive_loop_d: { label: "Circle drive, loop D (open path)", group: "Proposed", token: "loop-d",
+      status: "proposed; both trunks placed from photos, +/-8 ft", source: "tools/front_layout.py, from the owner's photos of the open path (Oct 18 2026; see site/front-yard.png)",
+      notes: "Loop C's south leg and porch-front lane, then a connector that leaves the porch lane's north half and runs diagonally back to the existing drive near the street, through the open path between the lone lawn oak and the leaning oak in the lawn bulge. ~1,370 sq ft of new paving. ~13 ft from each trunk to the paving edge, so inside both root zones (assumed 20 ft): build the connector no-dig, permeable pavers or gravel on geogrid over the existing grade, and keep 13.5 ft of clear height for a truck. Tape both trunks to pin it." },
     proposed_porte_cochere_option_a: { label: "Porte-cochère, option A", group: "Proposed", token: "shed", solid: true,
       status: "option; not decided", source: "tools/front_layout.py",
       notes: "~12 x 44 ft roof over the porch-front lane, behind the 45 ft building line, ~10 ft clear. Two cars nose to tail. Option B is a carport on the old garage apron; the owner's larger sketch would need relief from the building line." },

@@ -45,7 +45,7 @@ Oct 14 2026 it isn't there yet. These are its facts:
 | Utility easements | **7.5' and 10' P.U.E.** (plat) along the back line. The plat's overhead electric line on it is **gone** (owner, Oct 2026), but the easements are still on record. |
 | Blanket easements | Cable TV (Vol. 9167 Pg. 659) and electric (Vol. 4094 Pg. 1490); a CATV grant, Vol. 9505 Pg. 970 |
 | Well | A **"Well"** marked near the NW corner, ~28 ft in from the back line and ~12 ft from the US-290 line (read off the sketch, ±3 ft) |
-| Electric service (1991) | A line from the back line to the house's back wall, ~30 ft north of the south line, plus one from the street's south corner to the house. **Now (owner's photo, Oct 13 2026):** the meter and disconnect are on a wood pole at the yard's NW fence corner. Conduit runs up to the overhead drop and down into the ground, so the service runs underground to the house. Route not located. |
+| Electric service (1991) | A line from the back line to the house's back wall, ~30 ft north of the south line, plus one from the street's south corner to the house. **Now (owner's photo, Oct 13 2026):** the meter and disconnect are on a wood pole at the yard's NW fence corner. Conduit runs up to the overhead drop and down into the ground. **Corrected Oct 18 2026 (owner): the house's power comes in overhead, not buried.** Where it lands on the house is still to confirm. |
 | House ties | NW corner 44.6 ft and NE corner 35.2 ft from the US-290 line; 22.9 ft and 22.7 ft from the south line |
 | House | "2 story rock/frame". Main block ~41.5 ft (E-W) × 67.2 ft (N-S), with a 21.3 × 25.4 ft wing at the NW corner reaching toward the back. Covered porch across the front of the north half. Concrete driveway on the north side, flaring to the house's NE corner. |
 | Flood | Zone C (minimal flooding), FIRM 481026-0300-D, 1987 |
@@ -1172,11 +1172,10 @@ the photos show the neighbors' yards. They're in the private repo,
   - **Fences:** the US-290 fence is the same 8 ft horizontal-board fence as the back fence.
   - **Meter pole:** the electric meter and disconnect are on a wood pole right at the NW
     fence corner.
-    - Conduit runs up to the overhead drop and down into the ground, so the house's service
-      runs underground from that corner.
-    - Its route isn't known. It's private past the meter (811 won't mark it), so have it
-      traced before digging.
-    - It's in the 3D plan as `electric_meter_pole`, with an UNKNOWN check row.
+    - Conduit runs up to the overhead drop and down into the ground. I read that as a buried
+      feed to the house. **Wrong (owner, Oct 18 2026): the house's power comes in overhead.**
+    - Where the line lands on the house isn't known yet. It's in the 3D plan as
+      `electric_meter_pole`, with an UNKNOWN check row.
   - **Trees:** large Ashe junipers stand at the NW corner (see "Existing junipers" above).
     Young sumac-like saplings grow along the fences.
   - **Ground features at the west end of the north strip:** a burn barrel, a rusty round
@@ -1468,6 +1467,36 @@ as `north_line_fence` in `property_total_plan.jsonc`, drawn like the back fence.
     back yard" view stays);
   - the existing lidar trees start at 20% opacity, so the buildings read.
 
+### Site A, for comparison; the power comes in overhead (Oct 18 2026)
+
+- **The owner asked to see a second shed site for comparison,** between the septic pipe and
+  the well.
+  - That's envelope option A (Oct 11): 27 × 34 ft (918 sq ft) on the north strip, 5 ft inside
+    the line and square to it.
+  - It's drawn in the 3D plan as `site_A_footprint_27x34`.
+- **Its numbers:**
+
+  | Item | Site A | Site B |
+  |---|---|---|
+  | Size | 27 × 34 ft, 918 sq ft | 23 × 43 ft, 989 sq ft |
+  | Ground fall across the slab | ~2.9 ft (lidar; 1,053.3 NE to 1,050.4 SW) | ~3.8 ft |
+  | To the north line | 5.0 ft | 5.1 ft |
+  | To the well / septic pipe | 10.3 / 11.3 ft | — / 10.0 ft |
+  | To the twin oak | ~90 ft | at the drip line |
+  | Gap between the two | 21.5 ft along the strip | |
+
+- **Risks at A:**
+  - **The drainfield may run under it.** The open strip west of the oak is the likeliest
+    place for it.
+  - **The overhead service line:** the owner says the house's power comes in overhead, not
+    buried, which corrects the Oct 13 notes. Every straight run from the NW-corner meter pole
+    to the house passes over site A.
+    - Those runs are 136–181 ft, long for one span. There may be a pole in between, or a
+      different route.
+    - Confirm the route before going further with A.
+- **Construction access to A** is past B's site, along the north strip. A concrete pump would
+  need a longer reach than for B.
+
 ### Windows and doors
 
 - Traffic noise is heavy in low frequencies. Compare windows by **OITC** (made for traffic
@@ -1540,7 +1569,7 @@ as `north_line_fence` in `property_total_plan.jsonc`, drawn like the back fence.
 | **Well** (1991 plat) | Near the NW corner; if it's still there, don't build over it and keep access for pump service |
 | **Back-line easement** | 7.5' / 10' utility easement, still on record even though the overhead line is gone: no structures in it |
 | **Neighbor behind (west)** | Cleared; retail (Scenic Brook Plaza) right behind, apartments (Granada Ridge) beyond, both under construction. Think about screening, noise, drainage changes along the back line, and who owns the new fence. Our trees near the back line may have lost roots to the clearing, so watch for stress or dieback. |
-| **Buried utilities** | The house's electric feed may have been rerouted underground when the back-line overhead came down. **Call 811 (Texas811) before digging** footings. |
+| **Buried utilities** | The house's electric feed comes in overhead (owner, Oct 18 2026). **Call 811 (Texas811) before digging** footings anyway, for anything else buried. |
 | **Front building line** | 45 ft from Candelaria Dr: no structures in front of it, so no carport in front of the garage |
 | **Drive** from Candelaria Dr | Route and clearance into the site to be confirmed (shots 16–17) |
 | **Jurisdiction** | Outside Austin city limits, probably in the ETJ (the lots next door are in Austin's 2-mile ETJ and the Barton Springs Zone): permits go through Travis County, not the City. City tree rules shouldn't apply, but the oaks' roots still need protecting. |
@@ -1566,9 +1595,9 @@ as `north_line_fence` in `property_total_plan.jsonc`, drawn like the back fence.
   - The owner's photos show a rusty round casing with an expanded-metal lid beside the burn
     barrel at the west end of the north strip. That's about where the plat puts the well.
   - If that's the well: how far is it from the back fence, and from the US-290 fence?
-- ~~Where does the house's power come in now?~~ From a meter pole at the NW fence corner, then
-  underground to the house (owner's photo, Oct 13 2026). **Still open:** the buried line's
-  route. Have a private locator trace it; 811 doesn't mark lines past the meter.
+- ~~Where does the house's power come in now?~~ From the meter pole at the NW fence corner,
+  overhead to the house (owner, Oct 18 2026). The Oct 13 reading of a buried feed was wrong.
+  **Still open:** where the line lands on the house, and whether there's a pole in between.
 - **The cross fence east of site B:**
   - Where does it meet the house, and where does it meet the US-290 fence? Measure each
     from the house's NW corner (A).

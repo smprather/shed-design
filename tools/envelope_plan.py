@@ -49,6 +49,10 @@ def line_rect(x0: float, length: float, depth: float):
             (nw[0] + depth * INWARD[0], nw[1] + depth * INWARD[1])]
 
 
+# Site A (Oct 11 2026): the strip west of the septic pipe, between the well and the pipe, square to the line.
+SITE_A = line_rect(98.6, 34, 27)
+
+
 def circle(plan: Plan, c, r, **kw):
     x0, y0 = plan.p(c[0] - r, c[1] - r)
     x1, y1 = plan.p(c[0] + r, c[1] + r)
@@ -72,7 +76,7 @@ def main() -> None:
     plan.poly(BACK_LAWN_OPEN, WHITE, width=2, dash=True)
 
     candidates = {
-        "A  27 x 34": line_rect(98.6, 34, 27),
+        "A  27 x 34": SITE_A,
         "B  23 x 43": SITE_B,
         "C  30 x 60": [(90, 197), (150, 197), (150, 227), (90, 227)],
     }

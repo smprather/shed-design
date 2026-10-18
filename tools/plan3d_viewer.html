@@ -18,6 +18,7 @@
   --house: #2f4a7a;
   --shed: #d28a1e;
   --steel: #3b3e42;  /* building B: dark grey steel */
+  --site-a: #c99312;
   --jd: #367c2b;
   --fence: #7a5a3a;
   --easement: #7b4fa6;
@@ -50,7 +51,7 @@
   :root:not([data-theme="light"]) {
     --bg: #111714; --panel: #171f1b; --ink: #e2eae5; --muted: #95a59c; --rule: #2a3530;
     --accent: #f0675b; --stage: #0d1310; --terrain-lo: #2f4655; --terrain-hi: #6b6450;
-    --house: #8fb0ea; --shed: #f0a93a; --steel: #50555b; --jd: #4f9a3f; --fence: #c09468; --easement: #b48ae0; --septic: #f05cbf;
+    --house: #8fb0ea; --shed: #f0a93a; --steel: #50555b; --jd: #4f9a3f; --site-a: #f2c14e; --fence: #c09468; --easement: #b48ae0; --septic: #f05cbf;
     --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --paving: #b9ab98; --concrete: #8e8a80; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
     --water: #6aa6f5; --apt: #79c174; --apt-bldg: #8fa2d6; --apt-new: #f08a4a; --context: #56625b; --lot: #e2eae5; --ok: #5ccf7c; --warn: #f0b13a; --bad: #f0675b;
     --unknown: #95a59c; color-scheme: dark;
@@ -59,7 +60,7 @@
 :root[data-theme="dark"] {
   --bg: #111714; --panel: #171f1b; --ink: #e2eae5; --muted: #95a59c; --rule: #2a3530;
   --accent: #f0675b; --stage: #0d1310; --terrain-lo: #2f4655; --terrain-hi: #6b6450;
-  --house: #8fb0ea; --shed: #f0a93a; --steel: #50555b; --jd: #4f9a3f; --fence: #c09468; --easement: #b48ae0; --septic: #f05cbf;
+  --house: #8fb0ea; --shed: #f0a93a; --steel: #50555b; --jd: #4f9a3f; --site-a: #f2c14e; --fence: #c09468; --easement: #b48ae0; --septic: #f05cbf;
   --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --paving: #b9ab98; --concrete: #8e8a80; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
   --water: #6aa6f5; --apt: #79c174; --apt-bldg: #8fa2d6; --apt-new: #f08a4a; --context: #56625b; --lot: #e2eae5; --ok: #5ccf7c; --warn: #f0b13a; --bad: #f0675b;
   --unknown: #95a59c; color-scheme: dark;
@@ -328,7 +329,10 @@ details li b { font-weight: 600; }
       status: "rule", source: "Project rule.", notes: "No digging within 12 ft of either trunk." },
     platted_back_line: { group: "Lines", token: "accent" },
     back_line_utility_easement: { label: "Back-line utility easement", group: "Lines", token: "easement" },
-    electric_meter_pole: { label: "Meter pole (service runs underground)", group: "Keep-outs", token: "warn" },
+    electric_meter_pole: { label: "Meter pole (service runs overhead to the house)", group: "Keep-outs", token: "warn" },
+    site_A_footprint_27x34: { label: "Site A footprint, 27 × 34 ft (comparison)", group: "Proposed", token: "site-a", solid: true,
+      status: "for comparison with site B", source: "Envelope option A (Oct 11 2026; SITE_A in tools/envelope_plan.py): 5 ft inside the north line, between the well and the septic pipe.",
+      notes: "918 sq ft. 5.0 ft from the north line, 10.3 ft from the well and 11.3 ft from the septic pipe (both 10 ft keep-outs). The ground falls ~2.9 ft across it (1,053.3 ft at its NE corner to 1,050.4 at its SW), less than site B's 3.8. Its south edge is at the strip's tree edge (aerial, +/-5 ft). The drainfield may run under it, so find the septic layout first. Every straight run of the overhead service line from the NW-corner meter pole to the house crosses it." },
     existing_driveway_1991_plat: { label: "Driveway (1991 plat)", group: "Your lot", token: "concrete", solid: true,
       status: "traced from the 1991 survey plat, +/-3 ft", source: "Private repo property/CUR-Survey-8400-Candelaria.pdf; tools/front_layout.py",
       notes: "The concrete drive: ~13 ft wide in from Candelaria, swinging north around a lawn bulge in front of the porch, then opening into the ~26 x 30 ft apron north of the porch and garage (its back edge lines up with the garage's back wall). The approach in the street right-of-way is included. The pre-sale aerial shows the street end ~8 ft wider on its south side, so it was probably widened after 1991: tape it." },
@@ -865,7 +869,7 @@ details li b { font-weight: 600; }
 
   // ---- Labels ----
   const LABELS = [
-    [HOUSE ? "house_3d_first_pass" : "house_footprint_survey", "Your house"], ["building_B_23x43_eave_14ft_assumed", "Building B"],
+    [HOUSE ? "house_3d_first_pass" : "house_footprint_survey", "Your house"], ["site_A_footprint_27x34", "Site A"], ["building_B_23x43_eave_14ft_assumed", "Building B"],
     ["scenic_brook_plaza_building_3", "Retail Bldg 3"], ["retail_east_end_stormwater", "Retail ponds"],
     ["platted_back_line", "Back line"], ["granada_ridge_buildings_7_8", "Apts 7/8 · 639 ft"],
     ["granada_ridge_buildings_1_6", "Apts 1-6"], ["scenic_brook_plaza_buildings_1_2", "Retail 1-2"],

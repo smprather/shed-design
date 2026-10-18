@@ -29,10 +29,11 @@ are cheap.
      north end of the back-line trees and the septic truck's route all wait on it.
    - If there's no drawing, have the septic company locate and probe the tank lids and
      trenches next time it pumps.
-2. **Locate the buried electric line.** It runs underground from the meter pole at the NW
-   fence corner to the house; the route isn't known.
-   - It's private past the meter, so 811 won't mark it. Hire a private utility locator.
-   - Call 811 (Texas811) as well before any digging, for the utility-owned lines.
+2. **Trace the overhead service line** from the meter pole at the NW fence corner to the
+   house. It's overhead, not buried (owner, Oct 18 2026).
+   - Every straight route from the pole crosses site A.
+   - Keep cranes and lifts for either building 10 ft from it.
+   - Call 811 (Texas811) before any digging, for anything else buried.
 3. **Stake the property lines.** A surveyor sets pins on the US-290 line and the back line.
    - Both fences wander off the surveyed lines. Building B sits on the 5 ft setback with no
      slack, and the back fence is partly on the retail lot.
@@ -119,8 +120,13 @@ house's west end, ~1 dB or less elsewhere.
 - **Use:** vehicles, trailer or RV/boat, shop. That sets the doors, slab thickness, power
   and water.
 - **Doors:** sizes and which walls.
-- **Power:** from the house side or the west. Never trench through the oak's root zone, and
-  route around the buried service line once it's located.
+- **Power:** from the house side or the west. Never trench through the oak's root zone.
+- **For comparison, site A** (Oct 18 2026): 27 × 34 ft between the well and the septic pipe,
+  drawn in the 3D plan.
+  - **Better than B:** the ground falls 2.9 ft (B's falls 3.8), and it's ~90 ft from the oak.
+  - **Worse than B:** the drainfield may be under it, the overhead service line likely
+    crosses it, and it's farther for trucks.
+  - It also screens less of the house from US-290: it sits at the far west end.
 
 ## Project 2: Screening (noise and views)
 

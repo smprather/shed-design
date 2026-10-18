@@ -31,6 +31,7 @@ from site_plan import BUILDING_LINE, HOUSE, PARCEL, REPO, SITE_B, WELL, en_to_si
 from site_b_plan import HOSE, house_north_y
 from front_layout import EXISTING_DRIVE, FRONT_WALK, LANE, LOOP_C, PORTE_COCHERE, catmull_rom, offset
 from house_layout import FF_FT, house_spec
+from envelope_plan import SITE_A
 
 SPEC = REPO / "property_total_plan.jsonc"
 TERRAIN = REPO / "site" / "terrain-lidar.json"
@@ -461,6 +462,11 @@ def main(spec: Path, out: Path) -> None:
                   "doors": [{"center_ft": round(c, 2), "width_ft": B_DOORS[0], "height_ft": B_DOORS[1]}
                             for c in (b_len / 4, 3 * b_len / 4)],
                   "mower": {"x_ft": B_MOWER[0], "y_ft": B_MOWER[1]}}
+    # Site A, for comparison (envelope_plan.py): 27 x 34 ft between the well and the septic pipe, 5 ft inside the line.
+    a_m = [to_m(p) for p in SITE_A]
+    obj.obj("site_A_footprint_27x34")
+    obj.pad(a_m, cell=0.5, lift=0.07)
+    obj.drape(a_m, closed=True, lift=0.12)
     # Existing drive and front walk, traced from the 1991 plat (front_layout.py, +/-3 ft).
     obj.obj("existing_driveway_1991_plat")
     obj.pad([to_m(p) for p in site(st(*q) for q in EXISTING_DRIVE)], lift=0.05)
@@ -532,9 +538,13 @@ def main(spec: Path, out: Path) -> None:
     check("back-line trees vs well", f"{gap:.1f} ft", f"{KEEP_OUT:g} ft", "CONFLICT" if gap < KEEP_OUT else "OK",
           f"well is {well_in:.0f} ft in; rows at {TREE_ROWS[0]:g} and {TREE_ROWS[1]:g} ft; "
           f"{dropped['keep_out']} spot(s) left out by the well, {dropped['existing']} already under existing trees")
-    check("digging vs buried electric service", "not located", "-", "UNKNOWN",
-          "meter pole at the NW corner; the line runs underground to the house; locate it before digging "
-          "the north end of the planting, B's footings or a US-290 wall")
+    check("overhead service line, meter pole to the house", "route not confirmed", "10 ft", "UNKNOWN",
+          "overhead, not buried (owner, Oct 18 2026); every straight run from the NW-corner pole to the house "
+          "crosses site A; keep cranes and lifts 10 ft from it")
+    check("site A vs well", f"{poly_dist(well, SITE_A):.1f} ft", f"{KEEP_OUT:g} ft",
+          "OK" if poly_dist(well, SITE_A) >= KEEP_OUT else "CONFLICT", "27 x 34 ft, 5 ft inside the line")
+    check("site A vs septic pipe", f"{poly_dist(pipe, SITE_A):.1f} ft", f"{KEEP_OUT:g} ft",
+          "OK" if poly_dist(pipe, SITE_A) >= KEEP_OUT else "CONFLICT", "the drainfield may run under site A: find it first")
     fp = json.loads((REPO / "site" / "field-points.json").read_text())
     trunks = [tuple(fp[k]["solutions"][0]["site"]) for k in ("big_oak", "big_oak_2") if fp.get(k, {}).get("solutions")]
     north = (site([BUILDING_LINE[1]])[0], PARCEL[2])   # the fence: back corner to the 45 ft building line

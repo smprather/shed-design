@@ -1660,6 +1660,12 @@ They explained it as "the open path through the trees." It's in the private repo
     to the clumps between.
 - **The limbs follow the crown,** not the real branching.
 - **Walking bumps into those trunks.** Hidden things no longer stop you.
+- **The viewer now opens overhead in fly mode** (owner's ask, same day).
+  - It starts 100 ft above the ground, looking straight down on the middle of the house, with
+    US-290 at the top and the street to the right, like the site maps.
+  - A click on the view captures the mouse; W flies the way you look, so straight down at
+    first.
+  - The old high overview is the "Whole area" button.
 
 ### Windows and doors
 

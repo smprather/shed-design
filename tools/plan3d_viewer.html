@@ -188,10 +188,11 @@ details li b { font-weight: 600; }
     <section aria-labelledby="h-views">
       <h2 id="h-views">Views</h2>
       <div class="row" role="group" aria-label="Camera views">
-        <button class="view" id="v-oblique" data-view="oblique" aria-pressed="true">Oblique</button>
+        <button class="view" id="v-top" data-view="top" aria-pressed="true">Overhead</button>
+        <button class="view" id="v-oblique" data-view="oblique" aria-pressed="false">Oblique</button>
         <button class="view" id="v-house" data-view="house" aria-pressed="false">From the back yard</button>
         <button class="view" id="v-front" data-view="front" aria-pressed="false">Front yard</button>
-        <button class="view" id="v-top" data-view="top" aria-pressed="false">Overhead</button>
+        <button class="view" id="v-area" data-view="area" aria-pressed="false">Whole area</button>
       </div>
       <div class="drag-mode" role="group" aria-label="How to move">
         <span>Move</span>
@@ -1103,11 +1104,17 @@ details li b { font-weight: 600; }
 
   // ---- Views and exaggeration ----
   let exag = 1;
+  // The house's middle (survey s 91.5, t 56.4 ft) on the ground, in plan meters.
+  const houseMid = HOUSE ? [0, 1].map(i => HOUSE.origin[i] + (HOUSE.ex[i] * -91.5 + HOUSE.ey[i] * 56.4) * 0.3048) : [0, -38];
+  houseMid.push(groundAt(houseMid[0], houseMid[1]));
   const VIEWS = {
+    // Straight down on the house from ~100 ft, US-290 (NNE) at the top and the street to the right, like the site maps.
+    // It opens in fly mode (owner, Oct 18 2026): a click on the view captures the mouse to look.
+    top:     { eye: [houseMid[0] - 0.05, houseMid[1], houseMid[2] + 100 * 0.3048], at: houseMid, exag: 1, mode: "fly" },
     oblique: { eye: [230, -330, 250], at: [-160, 90, 0] },
     house:   { ...BACKYARD, exag: 1, mode: "look" },   // the photo spot (plan3d.py)
-    top:     { eye: [-250, 129, 760], at: [-250, 130, 0] },
     front:   { ...BACKYARD.front },   // from above the street, over the front lawn (plan3d.py)
+    area:    { eye: [-250, 129, 760], at: [-250, 130, 0] },
   };
   const worldOf = (p) => { const v = P(p); v.y *= exag; return v; };
   function setView(name) {
@@ -1162,7 +1169,7 @@ details li b { font-weight: 600; }
         if (camera.fov > 70 || camera.fov < 40) camera.fov = 60;
         camera.updateProjectionMatrix(); applyLook();
       }
-      if (m !== "look") canvas.focus({ preventScroll: true });
+      if (m !== "look" && retarget) canvas.focus({ preventScroll: true });   // not on page load: no focus ring before a click
     } else {
       if (mode !== "orbit" && retarget) controls.target.copy(camera.position).addScaledVector(dir, 60);  // orbit what you were facing
       camera.fov = 42; camera.near = 0.5; camera.updateProjectionMatrix();
@@ -1392,6 +1399,6 @@ details li b { font-weight: 600; }
     compass.setAttribute("transform", `rotate(${ang.toFixed(1)})`);
     requestAnimationFrame(frame);
   }
-  resize(); applyColors(); select(selected); setView("oblique"); frame();
+  resize(); applyColors(); select(selected); setView("top"); frame();
 })();
 </script>

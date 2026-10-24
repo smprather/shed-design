@@ -1266,7 +1266,7 @@ details li b { font-weight: 600; }
   const HINTS = {
     orbit: "Drag to orbit · scroll or pinch to zoom · right-drag to pan · click to inspect",
     look: "Drag to look around · arrow keys to turn · scroll to zoom the lens · click to inspect",
-    fly: "Mouse looks · W A S D flies where you look · E or Space up, Q or C down · Shift ×3 · scroll or the Fly speed slider sets the speed · click inspects what's under the crosshair · Esc lets go of the mouse",
+    fly: "Mouse looks · W A S D flies where you look · C or Space up, E or Q down · Shift ×3 · scroll or the Fly speed slider sets the speed · click inspects what's under the crosshair · Esc lets go of the mouse",
     walk: "Mouse looks · W A S D walks · Shift runs · scroll sets the speed · click inspects what's under the crosshair · Esc lets go of the mouse · you step up onto porches, decks and slabs; walls, fences and buildings stop you",
   };
   const freeLook = () => mode === "look" || mode === "fly" || mode === "walk";
@@ -1483,7 +1483,7 @@ details li b { font-weight: 600; }
   }
   function move(dt) {
     const f = (keys.has("KeyW") ? 1 : 0) - (keys.has("KeyS") ? 1 : 0), r = (keys.has("KeyD") ? 1 : 0) - (keys.has("KeyA") ? 1 : 0);
-    const u = (keys.has("KeyE") || keys.has("Space") ? 1 : 0) - (keys.has("KeyQ") || keys.has("KeyC") ? 1 : 0);
+    const u = (keys.has("KeyC") || keys.has("Space") ? 1 : 0) - (keys.has("KeyE") || keys.has("KeyQ") ? 1 : 0);   // flight style: E down, C up (owner, Oct 24 2026)
     const boost = keys.has("ShiftLeft") || keys.has("ShiftRight") ? (mode === "fly" ? FLY_BOOST : 2.5) : 1;
     camera.getWorldDirection(fdir); right.crossVectors(fdir, UP).normalize();
     if (mode === "fly") {

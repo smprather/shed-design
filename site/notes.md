@@ -2494,6 +2494,8 @@ the tables below.
   - If both are blocked, the page opens on the overhead view as before.
 - **Resetting:** a view button resets the camera. Layers added in later versions start at their
   defaults.
+- **Flying up and down** (owner, Oct 24 2026): flight style now: C or Space climbs, E or Q
+  descends. E used to climb and C to descend.
 
 ### Windows and doors
 

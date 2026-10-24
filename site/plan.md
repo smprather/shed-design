@@ -5,37 +5,41 @@ sources, corrections and dates. This file says what we're doing, in what order, 
 still undecided. Update it when a decision changes; record the facts behind the change in
 `notes.md`.
 
-Last updated: Oct 24 2026 (building A: a 30 × 30 × 11 kit on a pressure-treated pier-and-beam floor, a ramp to its west roll-up and a deck landing for the rest).
+Last updated: Oct 24 2026 (the building at site A comes first, with its ramp for the mower; the drive comes much later and is out of every budget for now).
 
 ## The four projects
 
 | Project | What it is now | Status | Blocked on |
 |---|---|---|---|
-| **1. The building, at site A** | A common 30 × 30 × 11 tube-frame kit on a pressure-treated pier-and-beam floor (owner, Oct 24 2026), on the north strip between the well and the septic pipe. Site B is dropped (owner, Oct 18 2026) | Modeled and priced (~$82k turnkey, likely; $54k on a slab); high side dug down 2 ft inside a block wall; doors on the south side, a ramp to the west roll-up (boats, for a later owner) and a deck landing for the rest; use open | The buried service line; the septic layout (the drainfield may be under it) |
+| **1. The building, at site A** (first: owner, Oct 24 2026) | A common 30 × 30 × 11 tube-frame kit on a pressure-treated pier-and-beam floor (owner, Oct 24 2026), on the north strip between the well and the septic pipe. Site B is dropped (owner, Oct 18 2026) | Modeled and priced (~$85k turnkey, likely; $57k on a slab); high side dug down 2 ft inside a block wall; doors on the south side, a ramp to the west roll-up (boats, for a later owner) and a deck landing for the rest; use open | The buried service line; the septic layout (the drainfield may be under it) |
 | **2. Screening** (noise and views) | US-290 side: the 8 ft fence, building B, maybe a taller wall. Back line: 21 new trees in the gaps | Back-line planting ready to buy; US-290 side needs re-modeling | Fence gaps and ownership; septic layout |
 | **3. Garage → kitchen** | Join the 21 × 21 ft attached garage, the hall beside it and the old kitchen into one ~680 sq ft kitchen. Its own repo: `smprather/kitchen-garage-renovation` | Idea stage (~90% likely); layout mocked up | Parking must move first; septic capacity question; structure (see its repo) |
-| **4. The drive + porte-cochère** | Redesigned from scratch: loop D, a forecourt with a porte-cochère (2 cars nose to tail) and a passing lane, the service drive and north court, the shop lane to building A. Estate gravel, concrete-curbed | Designed and priced (~$188k likely; $108k of it the drive) | Trunk tapes; buried lines; the septic layout; county permits |
+| **4. The drive + porte-cochère** | Redesigned from scratch: loop D, a forecourt with a porte-cochère (2 cars nose to tail) and a passing lane, the service drive and north court, the shop lane to building A. Estate gravel, concrete-curbed | Designed, drawn in the renders; not priced: it comes much later (owner, Oct 24 2026) | Trunk tapes; buried lines; the septic layout; county permits |
 
 ## Order of work
 
-The projects share prerequisites. Doing these first unblocks everything, and most of them
-are cheap.
+**The building at site A comes first** (owner, Oct 24 2026): the shed, and a ramp to drive the
+mower up. The drive comes much later and is out of every budget for now. The building sits
+between the well, the septic pipe and the buried service line, so a few cheap checks come
+before its first dig.
 
-### Step 0: find what's buried, and pin the lines (now)
+### Step 0: before the building's first dig (now)
 
-1. **Get the septic permit file** from Travis County's on-site sewage facility (OSSF) office
-   for this address. The permit file usually has a drawing of the tank and drainfield.
-   - It's the single biggest unknown. Building B's west end, any US-290 wall footing, the
-     north end of the back-line trees and the septic truck's route all wait on it.
+1. **Find the septic tank and drainfield.** Get the septic permit file from Travis County's
+   on-site sewage facility (OSSF) office for this address. It usually has a drawing of the
+   tank and drainfield.
+   - The building's NE piers come within 10.3 ft of the septic access pipe, and the block
+     wall's east run within 8 ft. Nothing gets dug, poured or driven over the tank.
+   - The county's building permit wants a site plan showing the septic system anyway.
+   - The US-290 wall footing, the north end of the back-line trees and the septic truck's
+     route wait on it too.
    - If there's no drawing, have the septic company locate and probe the tank lids and
      trenches next time it pumps.
 2. **Locate the buried electric line.** It runs underground from the meter pole at the NW
    fence corner to the house's NW corner (owner, Oct 18 2026). The route between isn't known.
    - **Straight, it would pass over the well,** so it probably bends around it, and maybe
      around the septic tank.
-   - **Straight, it would run ~36 ft under site A and clip building B's SW corner** (~4.5 ft
-     of run). Whichever way it bends at the well, its last stretch passes B's SW corner on
-     the way to the house.
+   - **Straight, it would run ~32 ft under site A.**
    - **How to find it:**
      - It's private past the meter, so 811 won't mark it. Hire a private utility locator, or
        rent a cable locator (a transmitter on the line and a hand receiver; tool-rental
@@ -45,49 +49,64 @@ are cheap.
      - Clues: which way the conduit sweeps into the ground at the pole and at the house, and
        a settled or off-color stripe in the grass.
    - Have the locator give the depth too.
-   - **No slab over the line as it is** (see notes, "A slab over the buried line"). Reroute it
-     in new conduit around the chosen site. Use the same trench as building B's own power.
+   - **No piers, wall footing or cut over the line as it is** (see notes, "A slab over the
+     buried line"). Reroute it in new conduit around the building, in the same trench as the
+     building's own power.
    - Call 811 (Texas811) as well before any digging, for the utility-owned lines.
-3. **Stake the property lines.** A surveyor sets pins on the US-290 line and the back line.
-   - Both fences wander off the surveyed lines. Building B sits on the 5 ft setback with no
-     slack, and the back fence is partly on the retail lot.
+3. **Stake the US-290 line.** A surveyor sets pins on it. The building sits 5 ft inside the
+   surveyed line, and the fence wanders off it. Pin the back line on the same visit, for the
+   planting; its fence is partly on the retail lot.
 4. **Arborist visit**, one trip:
-   - the twin oak by the garage apron: root-zone protection plan for B's construction, and
-     the compacted ground under the parked cars;
+   - the twin oak: root-zone protection along the crews' route to the building (mats, the
+     pump line), and the compacted ground under the parked cars;
    - the big leaning oak propped by the house's west wall;
-   - the lone oak in the front lawn: trunk size and root zone for the circle drive;
    - the Ashe junipers at the NW corner: which are male (pollen). That check is best in
      December–January.
 5. **Paperwork:**
-   - the title commitment's deed restrictions: walls, fences, outbuildings, materials, the
+   - the title commitment's deed restrictions: outbuildings, materials, walls, fences, the
      45 ft building line;
-   - Travis County: development permit for building B, a driveway permit for the second
-     curb cut, and whether OSSF reviews a new building or a garage conversion on a septic
-     lot.
+   - Travis County's accessory-building permit, and whether OSSF reviews a new building (or,
+     later, a garage conversion) on a septic lot;
+   - the kit dealer's drawings stamped for the county's wind load, and the engineer's pier
+     layout.
 
-### Step 1: this cool season (Oct–Feb)
+### Step 1: the building at site A (first)
+
+See project 1. In order:
+1. Clear the site and lay it out from the pins.
+2. Dig the high side down 2 ft. Build the block wall round the north, east and west, with
+   its drain.
+3. Pour the piers, from a line pump on the old drive.
+4. Frame the pressure-treated beams, joists and floor.
+5. The dealer sets the kit on the floor and ties it down.
+6. Build the ramp to the west roll-up: fill, side walls, the slab (pumped again). The mower
+   can use it about a week after the pour.
+7. Build the landing and its steps, now or later: it stands on its own piers.
+
+Mat the lawn and the twin oak's root zone for the whole job. No loaded trucks drive past the
+oak.
+
+### Step 2: this cool season (Oct–Feb), alongside
 
 - **Plant the back-line trees.** October to February is the planting window; see project 2.
 - **Mulch the twin oak**, 3–4 in deep out to the drip line where it isn't paved. Keep cars,
   bins and storage off its root zone.
 - **Seal the US-290 fence's gaps** if we own it (project 2). It's the cheapest noise step.
-- **Pruning:** any oak pruning for building B's roof or the drive goes July–January only
+- **Pruning:** any oak pruning over the building or the crews' route goes July–January only
   (oak wilt). Finish it by the end of January, or wait until July.
 
-### Step 2: the building at site A
+### Step 3: later: the drive and the porte-cochère, then the kitchen
 
-After the buried line is traced and the septic layout is known. See project 1.
-
-### Step 3: the drive and the porte-cochère, then the kitchen
-
-Parking has to exist out front before the garage stops being a garage.
-1. **The shop lane's base** comes first: it's the construction road for building A.
-2. **Building A.**
-3. **The forecourt, the porte-cochère and the south leg.** Cars can then park out front while
+Not priced for now (owner, Oct 24 2026). Parking has to exist out front before the garage
+stops being a garage.
+1. **The forecourt, the porte-cochère and the south leg.** Cars can then park out front while
    the old drive still serves the north side.
-4. **The north leg, the service drive and the north court,** in the old drive's footprint.
+2. **The north leg, the service drive and the north court,** in the old drive's footprint.
    The rest of the old drive and the walk come out.
-5. **The kitchen.**
+3. **The shop lane and the court** in front of building A's landing.
+4. **The kitchen.**
+5. **Arborist and paperwork for it:** the lone oak in the front lawn (trunk size and root
+   zone), and Travis County's driveway permit for the second curb cut.
 
 ## Project 1: The building (site A; site B dropped Oct 18 2026)
 
@@ -123,7 +142,8 @@ The doors face the low side, but the cut keeps their sills at ~2 ft (~4 ft witho
   - Back-in geometry gets tuned later.
 - **The walk door and the east roll-up open onto a landing** (owner, Oct 24 2026):
   - a pressure-treated pier-and-beam deck at floor level, 17 × 10 ft;
-  - steps 10 ft wide, 4 risers, down to a gravel court where the shop lane ends (project 4);
+  - steps 10 ft wide, 4 risers, down to the lawn (later, a gravel court where the shop lane
+    ends: project 4);
   - room to work outside, e.g. woodworking. A roof over it for shade is to be discussed.
   - Only the mower, carts and hand trucks use the east door.
 
@@ -134,15 +154,22 @@ Tube frame, dealer-installed (owner, Oct 18 2026: red-iron is out).
 
 | 30 × 30 × 11 | Turnkey, likely (80% band) | Per sq ft | Foundation, ramp and landing, or apron | + insulation and power |
 |---|---|---|---|---|
-| **Pier and beam, 2 ft cut and wall** (the plan) | **$82k** ($75–88k) | $91 | $53k ($48–57k) | $11k ($9–13k) |
-| Slab, cut and filled (for comparison) | $54k ($49–59k) | $60 | $25k ($23–28k) | $11k ($9–13k) |
+| **Pier and beam, 2 ft cut and wall** (the plan) | **$85k** ($78–91k) | $94 | $53k ($48–57k) | $11k ($9–13k) |
+| Slab, cut and filled (for comparison) | $57k ($52–62k) | $64 | $25k ($23–28k) | $11k ($9–13k) |
 
 - **The pier and beam itself** costs about what the slab does. The difference is the ramp
   and landing and, with the cut, the wall and drainage.
 - **The landing** ($6–10k, steps $0.6–1.5k) costs ~$2k more than the full-width ramp it
   replaces.
+- **Access, with no drive yet** ($1.5–4k): the shop lane isn't there to drive on, so the
+  concrete is pumped in from the old drive for each pour (the piers, then the ramp), and the
+  lawn and the twin oak's root zone are matted for the crews.
+- **Nothing in these figures is the drive's.** The ramp and the steps come down to the lawn;
+  the mower drives across the grass to the ramp.
 - **Option, for boats:** the west bay's floor framed for a boat on its trailer, $1.5–4k.
 - **Cheaper:**
+  - build the landing later, ~$10k likely: it stands on its own piers, so it bolts on any
+    time. Until then the walk door needs a small stoop and steps;
   - shorten the ramp to 15 ft at ~1:6, but no trailers;
   - a mower-only timber ramp at the west roll-up saves more, but no boats either;
   - or a slab, if vehicles go in.
@@ -169,6 +196,7 @@ Tube frame, dealer-installed (owner, Oct 18 2026: red-iron is out).
   8 ft: nothing gets dug, poured or driven over the tank.
 - **Decisions for you:**
   - the west roll-up's ramp: 25 ft (~1:8.5, boats), 15 ft (~1:6), or mower-only;
+  - the landing now, or later (~$10k; a stoop at the walk door meanwhile);
   - a roof over the landing, for shade (to be discussed);
   - the boat-floor option for the west bay;
   - pier and beam or a slab, if vehicles will go in;
@@ -324,6 +352,9 @@ measurements. What ties it to the rest of this plan:
 
 ## Project 4: The drive and the porte-cochère (redesigned from scratch, Oct 18 2026)
 
+**Later, and not priced for now** (owner, Oct 24 2026): the building comes first, and the drive much
+later in the planning. It stays in the renders, to show the future work.
+
 See `drives.png` (the whole system), `front-yard.png` (the front) and the 3D viewer. Notes, "The
 drive, redesigned from scratch", has the detail, the clearances and the sources.
 
@@ -352,8 +383,8 @@ drive, redesigned from scratch", has the detail, the clearances and the sources.
     - It stops 12 ft from the twin oak, and 4 ft off the kitchen's new north glass.
   - **The shop lane** (10 ft) runs west past the house and the twin oak (12.2 ft) and along
     the strip to a gravel court in front of building A, at the foot of its deck landing's
-    steps and beside the ramp up to its west roll-up. The ramp and landing are priced with the
-    building (project 1).
+    steps and beside the ramp up to its west roll-up. Until then the ramp and the steps come
+    down to the lawn (project 1).
 - **The surfaces:**
   - 3/8 in angular gravel locked in a stabilizer grid, on compacted base;
   - concrete ribbon curbs along every gravel edge;
@@ -363,11 +394,8 @@ drive, redesigned from scratch", has the detail, the clearances and the sources.
 - **The septic truck:** pumpers reach ~100–150 ft of hose and lift ~20–25 ft. From the street
   it's ~185 ft, too far. From the north court it's ~100 ft with ~18 ft of lift: that's its
   stop.
-- **Cost (likely, 80% band, with contingency):**
-  - the drive $108k ($96–119k);
-  - the porte-cochère $80k ($60–100k), the softest number;
-  - all of it $188k ($165–210k).
-  - Pavers to plain concrete under the cover, and fewer curbs, save ~$15k.
+- **Cost:** out of every budget until the drive comes back into the planning. The last
+  figures, and the unit prices, are in notes ("The drive, redesigned from scratch").
 - **Impervious cover with building A, its ramp and landing:** 19.3% if gravel doesn't count, 29.4% if it does. That
   waits on the county's answer, as for the building.
 - **Before staking:**

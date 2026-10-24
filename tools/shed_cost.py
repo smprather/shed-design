@@ -17,11 +17,15 @@ Two foundations, priced side by side:
   low segmental-block wall 2 ft off the building, falling 2% south (drive_layout.cut_zone_a). That puts the door
   sills ~2 ft over the ground. A concrete ramp on fill runs from the west roll-up down to the ground 25 ft out
   (drive_layout.ramp_a; boat storage for a later owner), and the walk door and the east roll-up open onto a PT
-  landing at floor level, 10 ft deep, with steps down (drive_layout.landing_a). The gravel court around them is
-  priced with the drive (drive_plan.py). `--pb-cut 0` prices it without the cut (sills ~4 ft).
+  landing at floor level, 10 ft deep, with steps down (drive_layout.landing_a). `--pb-cut 0` prices it without the
+  cut (sills ~4 ft).
 - slab (for comparison, as priced Oct 18): a slab cut and filled CUT ft below the high corner (`--cut`), with a
   12 ft concrete apron along the doors near grade.
 Quantities come from the 2017 lidar.
+
+The building comes first and the drive much later (owner, Oct 24 2026), so nothing here is the drive's: the ramp
+and the steps come down to the lawn, and with no shop lane to drive on, the concrete is pumped in from the old
+drive and the lawn and the twin oak's root zone are matted for the crews.
 
 Prices are low/high planning ranges for the Austin area, Oct 2026: published Texas cost guides and county bid
 tabulations (sources in site/notes.md, "What the building at site A costs" and "Building A on pier and beam").
@@ -61,6 +65,7 @@ PRICES = {
     "prep": ((1500, 3500), "lot", "Site prep: clear, strip the topsoil, lay out"),
     "locate": ((300, 600), "lot", "Locate the buried service line (private locator)"),
     "permits": ((1500, 4000), "lot", "Permits and plans: county permit, septic (OSSF) review, foundation engineer"),
+    "access": ((1500, 4000), "lot", "Access, no drive yet: a line pump on the old drive for each pour, mats over lawn and oak roots"),
     # pier and beam
     "piers": ((250, 600), "piers", "Concrete piers, 12 in, on footings to rock, formed above the ground, galvanized beam seats"),
     "framing": ((8, 14), "sq ft", "PT floor: triple 2x12 beams, 2x12 joists at 16 in on hangers, 1-1/8 in T&G floor, labor"),
@@ -68,7 +73,7 @@ PRICES = {
     "skirting": ((6, 12), "sq ft", "Skirting round the crawl space: PT frame, metal panels, hardware cloth behind"),
     "ramp": ((10, 16), "sq ft", "Concrete ramp up to the west roll-up, broom finish, on compacted fill"),
     "landing": ((35, 60), "sq ft", "PT landing at floor level: its own beam and piers, 2x10 joists, 2x6 decking, fascia"),
-    "steps": ((600, 1500), "lot", "PT steps from the landing down to the court, 10 ft wide"),
+    "steps": ((600, 1500), "lot", "PT steps from the landing down to the lawn, 10 ft wide"),
     "ramp_fill": ((70, 125), "cu yd", "Fill under the ramp: crushed limestone, compacted in lifts"),
     "ramp_walls": ((80, 160), "ft", "The ramp's concrete side walls, with footings"),
     "grade_cut": ((20, 40), "cu yd", "Cut the high NE side down, reused as fill under the ramp"),
@@ -89,9 +94,9 @@ PRICES = {
     "power": ((3500, 8000), "lot", "Option: power: trench, conduit, subpanel, lights and outlets"),
     "boat_floor": ((1500, 4000), "lot", "Option: the west bay's floor framed for a boat on a trailer: joists at 12 in, a second floor layer, engineered"),
 }
-BASE = {"piers": ("prep", "locate", "permits", "grade_cut", "retaining", "drainage", "piers", "framing", "anchors", "skirting",
+BASE = {"piers": ("prep", "locate", "permits", "access", "grade_cut", "retaining", "drainage", "piers", "framing", "anchors", "skirting",
                   "ramp", "ramp_fill", "ramp_walls", "landing", "steps"),
-        "slab": ("prep", "locate", "permits", "cut", "fill", "wall", "drain", "slab", "aprons")}
+        "slab": ("prep", "locate", "permits", "access", "cut", "fill", "wall", "drain", "slab", "aprons")}
 CONTINGENCY = 0.10
 Z80 = 1.2816  # half-width of an 80% band, in standard deviations
 
@@ -183,7 +188,7 @@ def site_quantities(length: float, ground: Terrain, to_m: Frame, cut: float = CU
 def estimate(length: float, q: dict, kind: str) -> tuple[list[dict], dict]:
     area = length * DEPTH
     surface = 2 * (length + DEPTH) * EAVE + area / math.cos(math.atan(3 / 12))
-    qty = {"prep": 1, "locate": 1, "permits": 1, "grade_cut": q["grade_cut"], "retaining": q["retaining"], "drainage": 1 if q["grade_cut"] > 0.5 else 0,
+    qty = {"prep": 1, "locate": 1, "permits": 1, "access": 1, "grade_cut": q["grade_cut"], "retaining": q["retaining"], "drainage": 1 if q["grade_cut"] > 0.5 else 0,
            "piers": q["piers"], "framing": area, "anchors": 1, "skirting": q["skirting"],
            "ramp": q["ramp"], "ramp_fill": q["ramp_fill"], "ramp_walls": q["ramp_walls"], "cut": q["cut"], "fill": q["fill"],
            "wall": q["wall"], "drain": 1 if q["cut"] > 0.5 else 0, "slab": area, "aprons": q["aprons"], "tube": area,
@@ -195,7 +200,7 @@ def estimate(length: float, q: dict, kind: str) -> tuple[list[dict], dict]:
         rows.append({"item": label, "qty": f"{qty[key]:,.0f} {unit}", "low": int(round(lo * qty[key], -2)), "high": int(round(hi * qty[key], -2))})
         sums[key] = (lo * qty[key], hi * qty[key])
     items = [sums[k] for k in (*BASE[kind], "tube", "walk_door")]
-    found = [sums[k] for k in BASE[kind] if k not in ("prep", "locate", "permits")]
+    found = [sums[k] for k in BASE[kind] if k not in ("prep", "locate", "permits", "access")]
 
     def likely(its):
         mid = sum((a + b) / 2 for a, b in its) * (1 + CONTINGENCY)
@@ -246,7 +251,7 @@ def main(lengths: str, detail: bool, cut: float, pb_cut: float) -> None:
                             "of which the foundation and ramp/landing or apron": fmt(totals["foundation"]),
                             "all lows to all highs": f"{k(totals['range'][0])}-{k(totals['range'][1])}",
                             "+ insulation and power": fmt(totals["options"])})
-    click.echo(f"\nTurnkey totals, with {CONTINGENCY:.0%} contingency (site work, foundation, ramp and landing or apron, the building, the walk door):")
+    click.echo(f"\nTurnkey totals, with {CONTINGENCY:.0%} contingency (site work and access, foundation, ramp and landing or apron, the building, the walk door):")
     with pl.Config(**{**cfg, "fmt_str_lengths": 40}):
         click.echo(pl.DataFrame(summary))
 

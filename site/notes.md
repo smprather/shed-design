@@ -2255,6 +2255,8 @@ the tables below.
   - **Later on Oct 24 2026:** the court came back, at grade, in front of building A's new deck
     landing (see "A ramp to the west roll-up only"). The drive is **$108k** ($96–119k), and with
     the cover **$188k** ($165–210k).
+  - **Then dropped from the budgets** (owner, Oct 24 2026): the drive comes much later. These are
+    its last figures, kept for when it comes back (see "The building first").
 
   - **Unit prices:**
     - gravel in grid on base, $8–14/sq ft;
@@ -2531,7 +2533,8 @@ the tables below.
   - The east roll-up opens onto the deck: fine for the mower, a hand truck or a cart. Nothing
     with wheels gets down except by the steps, so a car or trailer can't use that door.
 - **The court:** the gravel in front of the landing and beside the ramp (~280 sq ft) is back in
-  the drive, at grade, where the shop lane ends.
+  the drive, at grade, where the shop lane ends. Until the drive is built, the steps and the
+  ramp come down to the lawn (see "The building first").
 - **Cost** (`shed_cost.py`):
   - the building, pier and beam with the 2 ft cut, **$82k** likely ($75–88k), up from $80k:
     - the landing $6–10k and its steps $0.6–1.5k;
@@ -2540,6 +2543,8 @@ the tables below.
     12 in, a second floor layer, the piers under it checked by the engineer), $1.5–4k.
   - The drive is **$108k** ($96–119k), up from $103k, with the court back in it. All of it with
     the porte-cochère: **$188k** ($165–210k).
+  - **Later the same day:** an access line took the building to **$85k**, and the drive came
+    out of the budgets (see "The building first").
 - **For a boat, later:**
   - The 10 × 9 ft roll-up limits the boat's height on its trailer, ~8.5 ft with the door's
     headroom. Many runabouts and bass boats fit with the windshield and bimini down; a T-top or a
@@ -2549,6 +2554,38 @@ the tables below.
 - **Impervious cover:** with the ramp and the landing, 20.6% with the old drive; 19.3% with the
   new drive if gravel doesn't count, 29.4% if it does. The landing is counted, though a gapped
   deck over soil may not be.
+
+### The building first; the drive later, and out of the budgets (owner, Oct 24 2026)
+
+- **The owner's call:** "I need a shed today, and a ramp to drive up the lawnmower. That's
+  first order of business." The drive comes much later in the planning, so it's dropped from
+  every cost calculation. It stays in the renders (the 3D viewer, `drives.png`,
+  `front-yard.png`) to show the future work.
+- **What changes for the building:**
+  - The ramp and the landing's steps come down to the lawn, not a gravel court. The mower
+    drives across the grass to the ramp.
+  - **Construction access:** the plan had the shop lane's base going in first as the
+    construction road. Without it:
+    - the concrete is pumped from the old drive, by a line pump, for each pour (the piers,
+      then the ramp). From the old drive's far end it's ~100–130 ft in a straight line to
+      the piers and the ramp (survey frame, ±5 ft), more as the hose bends round the twin oak;
+      line pumps push that far;
+    - the lawn and the twin oak's root zone get ground-protection mats for the crews and the
+      kit's delivery;
+    - no loaded trucks drive past the oak, as before.
+    - Budgeted at **$1.5–4k**: a small line-pump job runs ~$800–1,800 a visit, and mats rent
+      for a few dollars each a day.
+- **The building's budget** (`shed_cost.py`): **$85k** likely ($78–91k) on pier and beam, up
+  from $82k for the access line; $57k on a slab.
+  - The landing is ~$10k of that (likely, with contingency). It stands on its own piers, so
+    it can come later; the walk door would need a small stoop meanwhile.
+- **`drive_plan.py`** no longer prints a budget. It still draws the map and prints the
+  clearances, grades, areas and impervious cover.
+- **The order of work** (plan) now runs: what's buried and the line pins, then the building,
+  with the cool-season planting alongside; the drive and the kitchen later.
+- **Sources** (pumping and mats):
+  - [Angi, concrete pumping cost](https://www.angi.com/articles/concrete-pumping-cost.htm)
+  - [RhinoTough, ground protection mats for hire](https://rhinotough.co.nz/ground-protection-mats-for-hire.html)
 
 ### Windows and doors
 

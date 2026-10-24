@@ -7,8 +7,10 @@
 Draws site/drives.png over the aerial and prints:
 - clearances from every known trunk and lidar treetop near the drive to its nearest edge;
 - grades along each lane (2017 lidar);
-- areas by surface, and impervious cover now and with the plan (gravel counted, and not);
-- a planning budget, with the same "likely" figure and 80% band as shed_cost.py.
+- areas by surface, and impervious cover now and with the plan (gravel counted, and not).
+
+No budget: the drive comes much later, after the building at site A, and is left out of every cost calculation
+for now (owner, Oct 24 2026). Its last budget is in site/notes.md ("The drive, redesigned from scratch").
 
 Trees: the twin oak's trunks are laser-placed (field data); the lone lawn oak and the bulge oak are placed from
 photos (+/-8 ft); everything else is a lidar treetop (a crown's high point, which can sit several feet off the
@@ -43,19 +45,6 @@ from site_plan import (
 OUT = REPO / "site" / "drives.png"
 NO_DIG = 12.0       # ft around the twin oak's trunks
 TREE_FLAG = 10.0    # ft: a drive edge closer than this to a trunk or treetop gets flagged
-CONTINGENCY, Z80 = 0.10, 1.2816
-
-# (low, high) dollars per unit, Austin area, Oct 2026: planning ranges, not quotes (sources in site/notes.md).
-PRICES = {
-    "demo": ((2, 5), "sq ft", "Take out the old drive and front walk, haul off"),
-    "concrete": ((10, 16), "sq ft", "Concrete street aprons (to 10 ft inside the line), flared"),
-    "permit": ((1000, 4000), "lot", "Travis County driveway permits, two entrances (a culvert if the ditch needs one)"),
-    "gravel": ((8, 14), "sq ft", "Gravel drive: compacted base, geotextile, stabilizer grid, 3/8 in angular gravel"),
-    "curb": ((15, 35), "ft", "Concrete ribbon curb, 8 x 12 in with rebar, along every gravel edge"),
-    "pavers": ((25, 45), "sq ft", "Pavers on a concrete base: under the cover and into the door's recess"),
-    "cover": ((90, 180), "sq ft", "Porte-cochere: stone columns, beams, hipped roof tied into the house, gutters, lights"),
-    "arborist": ((500, 1500), "lot", "Arborist: root-zone plan, and on site for digging near the oaks"),
-}
 
 
 def trees(sf: SurveyFrame, to_m: Frame) -> list[dict]:
@@ -78,15 +67,9 @@ def trees(sf: SurveyFrame, to_m: Frame) -> list[dict]:
     return out
 
 
-def likely(items: list[tuple[float, float]]) -> tuple[float, float, float]:
-    mid = sum((a + b) / 2 for a, b in items) * (1 + CONTINGENCY)
-    sd = math.sqrt(sum((b - a) ** 2 / 12 for a, b in items)) * (1 + CONTINGENCY)
-    return mid, mid - Z80 * sd, mid + Z80 * sd
-
-
 @click.command()
 def main() -> None:
-    """Draw the drive study and print its clearances, grades, areas and budget."""
+    """Draw the drive study and print its clearances, grades and areas."""
     sf, to_m, ground = SurveyFrame(), Frame(), Terrain(TERRAIN)
     gz = lambda s, t: ground(*to_m(site([st(s, t)])[0])) / FT + ground.z0  # noqa: E731
     L = layout([sf.from_site(p) for p in SITE_A])
@@ -260,25 +243,6 @@ def main() -> None:
         r["vs 15%"] = round(0.15 * area_lot - r["sq ft"])
     with pl.Config(**cfg):
         click.echo(pl.DataFrame(imp))
-
-    # --- Budget ---
-    # Building A's ramp (its fill and side walls) and its deck landing are priced with the building (shed_cost.py);
-    # the gravel court in front of the landing is part of the drive's gravel.
-    qty = {"demo": Polygon(EXISTING_DRIVE).area + Polygon(FRONT_WALK).area, "concrete": L["concrete"].area, "permit": 1,
-           "gravel": L["gravel"].area, "curb": curb_len, "pavers": L["paved"].area, "cover": cover.area, "arborist": 1}
-    rows, sums = [], {}
-    for key, ((lo, hi), unit, label) in PRICES.items():
-        q = qty[key]
-        rows.append({"item": label, "qty": f"{q:,.0f} {unit}", "low": int(round(lo * q, -2)), "high": int(round(hi * q, -2))})
-        sums[key] = (lo * q, hi * q)
-    with pl.Config(**cfg):
-        click.echo(pl.DataFrame(rows))
-    k = lambda v: f"${v / 1000:,.0f}k"  # noqa: E731
-    drive_items = [sums[x] for x in PRICES if x != "cover"]
-    for label, items in (("The drive (everything but the cover)", drive_items), ("The porte-cochere", [sums["cover"]]),
-                         ("All of it", list(sums.values()))):
-        m, a, b = likely(items)
-        click.echo(f"{label}, likely with {CONTINGENCY:.0%} contingency: {k(m)} ({k(a)}-{k(b)} 80% band)")
 
 
 if __name__ == "__main__":

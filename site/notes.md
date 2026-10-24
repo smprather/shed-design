@@ -2686,7 +2686,7 @@ the tables below.
   | Walk door upgrade | $1.5k | $3.0k |
   | **Likely, with 10% contingency** | | **$48k** ($44–53k) |
 
-  - Insulation and power were extra. Later the same day they came in: ~$82k all in (see "Power and
+  - Insulation and power were extra. Later the same day they came in: ~$79k all in (see "Power and
     insulation in the budget").
   - Against the pier-and-beam plan's $85k, it saves ~$37k. Against building up, ~$36k.
 - **Prices:**
@@ -2756,8 +2756,8 @@ the tables below.
   | The building on its slab | $48k ($43–53k) |
   | Power: breaker at the pole, feeder, panel, wiring | $13k ($11–15k) |
   | Insulation: foam and its barrier | $15k ($13–17k) |
-  | The house's line rerouted round the building (if it runs under it) | $5k ($3–7k) |
-  | **All of it** | **$82k** ($76–88k) |
+  | The house's line detoured round the building (if it runs under it) | $2k ($1–3k) |
+  | **All of it** | **$79k** ($73–84k) |
 
   - **Options, not in it:**
     - insulated sectional doors, $3–6k;
@@ -2770,9 +2770,21 @@ the tables below.
     - the pole's breaker or meter-main: $0.5–3k;
     - the panel: $1.2–2.5k;
     - the wiring: $5–9k;
-    - the reroute: $2.5–7k.
+    - the reroute: $1–2.5k (corrected the same day, below).
   - The reroute had been left out of the budget. A straight run passes under the building,
     so it's in now; if the locate finds the line clear of the building, it comes out.
+  - **Corrected the same day** (owner: "$5k to reroute the electric run to the house?
+    really?").
+    - The first $2.5–7k priced re-running the whole ~150 ft line from the pole to the house.
+      A detour is all it takes.
+    - Cut the old line on each side of the building and splice in ~60 ft of new cable in
+      conduit round it. Listed direct-burial splices need no box (NEC 300.5(E)).
+    - It goes in the trench the building's feeder needs anyway, dug by the slab's excavator.
+    - Cable ~$200–250, conduit ~$150, eight splices ~$300–600, and half a day to a day of
+      the electrician's time ~$400–1,200: **$1–2.5k**.
+    - Only if the old cable turns out to be in poor shape when it's uncovered would a full
+      re-run make sense. That would be the house's repair, not the building's.
+    - The total came to **$79k** ($73–84k).
 - **Sources:**
   - [ThePricer, metal building insulation cost](https://www.thepricer.org/how-much-does-metal-building-insulation-cost/)
   - [HomeGnome, spray foam insulation cost](https://homegnome.com/blog/cost/spray-foam-insulation-price/)

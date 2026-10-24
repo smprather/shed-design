@@ -25,8 +25,9 @@ weathered limestone, with rock at the surface in places. Cut below `--soil` ft i
 Power and insulation are in the total (owner, Oct 24 2026):
 - power: the meter and the house's disconnect are on a pole at the NW fence corner, ~40 ft from the building, so it
   gets its own 100 A breaker there and a short feeder, in the same trench as the house's buried line where that has
-  to be rerouted round the building (priced too, since a straight run passes under it); a 100 A panel inside, and a
-  woodshop's wiring;
+  to be rerouted round the building (priced too, since a straight run passes under it: a detour of new cable in
+  conduit spliced into the old line with listed direct-burial splices, not a new line all the way to the house); a
+  100 A panel inside, and a woodshop's wiring;
 - insulation, the high-grade kind for a steel shop: closed-cell spray foam on the walls and under the roof, with a
   thermal barrier over it. Dealer-installed fiberglass blanket is the cheaper way, printed for comparison.
 
@@ -89,7 +90,7 @@ PRICES = {
     "foam_roof": ((4.0, 7.0), "sq ft of roof", "Insulation: closed-cell spray foam, 3 in (~R-20), under the roof"),
     "barrier": ((1.25, 2.25), "sq ft", "Thermal barrier over the foam: intumescent coating (IRC R316.4; it's a woodshop)"),
     # power
-    "reroute": ((2500, 7000), "lot", "Reroute the house's buried line round the building, if it runs under it: conduit, wire, splices"),
+    "reroute": ((1000, 2500), "lot", "Detour the house's buried line round the building, if under it: ~60 ft in conduit, spliced in"),
     "pole": ((500, 3000), "lot", "At the meter pole: a 100 A breaker for the building (or a meter-main with spaces; PEC pulls the meter)"),
     "feeder": ((20, 40), "ft", "100 A feeder in PVC, and a spare conduit for data, in the trench shared with the house's line"),
     "panel": ((1200, 2500), "lot", "100 A main-breaker panel in the building, two ground rods"),

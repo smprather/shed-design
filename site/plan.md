@@ -5,13 +5,13 @@ sources, corrections and dates. This file says what we're doing, in what order, 
 still undecided. Update it when a decision changes; record the facts behind the change in
 `notes.md`.
 
-Last updated: Oct 24 2026 (building A on a slab dug into its high side, with power and closed-cell foam insulation: ~$82k all in, $48k of it the building on its slab; it comes first, and the drive much later).
+Last updated: Oct 24 2026 (building A on a slab dug into its high side, with power and closed-cell foam insulation: ~$79k all in, $48k of it the building on its slab; it comes first, and the drive much later).
 
 ## The four projects
 
 | Project | What it is now | Status | Blocked on |
 |---|---|---|---|
-| **1. The building, at site A** (first: owner, Oct 24 2026) | A common 30 × 30 × 11 tube-frame kit on a concrete slab dug into its high side (owner, Oct 24 2026), on the north strip between the well and the septic pipe. Site B is dropped (owner, Oct 18 2026) | Modeled and priced: ~$82k likely all in, with power and closed-cell foam insulation ($48k of it the building on its slab); the doors on the south side at grade, with short concrete aprons | The buried service line; the septic layout (the drainfield may be under it) |
+| **1. The building, at site A** (first: owner, Oct 24 2026) | A common 30 × 30 × 11 tube-frame kit on a concrete slab dug into its high side (owner, Oct 24 2026), on the north strip between the well and the septic pipe. Site B is dropped (owner, Oct 18 2026) | Modeled and priced: ~$79k likely all in, with power and closed-cell foam insulation ($48k of it the building on its slab); the doors on the south side at grade, with short concrete aprons | The buried service line; the septic layout (the drainfield may be under it) |
 | **2. Screening** (noise and views) | US-290 side: the 8 ft fence, building B, maybe a taller wall. Back line: 21 new trees in the gaps | Back-line planting ready to buy; US-290 side needs re-modeling | Fence gaps and ownership; septic layout |
 | **3. Garage → kitchen** | Join the 21 × 21 ft attached garage, the hall beside it and the old kitchen into one ~680 sq ft kitchen. Its own repo: `smprather/kitchen-garage-renovation` | Idea stage (~90% likely); layout mocked up | Parking must move first; septic capacity question; structure (see its repo) |
 | **4. The drive + porte-cochère** | Redesigned from scratch: loop D, a forecourt with a porte-cochère (2 cars nose to tail) and a passing lane, the service drive and north court, the shop lane to building A. Estate gravel, concrete-curbed | Designed, drawn in the renders; not priced: it comes much later (owner, Oct 24 2026) | Trunk tapes; buried lines; the septic layout; county permits |
@@ -173,11 +173,13 @@ Tube frame, dealer-installed (owner, Oct 18 2026: red-iron is out).
   - The building gets its own 100 A breaker there. If the disconnect has no spare spaces, it
     becomes a meter-main with spaces, and Pedernales Electric pulls and resets the meter for
     the swap.
-  - The line to the house is the house's feeder, sized and protected for the house. Splicing
-    the building into it in the yard isn't allowed.
+  - The line to the house is the house's feeder, sized and protected for the house. Tapping
+    the building off it in the yard isn't allowed.
 - **The trench is shared.** The house's line has to be rerouted round the building anyway.
-  - Its new conduit, the building's 100 A feeder (~53 ft) and a spare conduit for data go in
-    one trench.
+  - It's detoured, not replaced: ~60 ft of new cable in conduit round the building, spliced
+    into the old line at each end with direct-burial splice kits (NEC 300.5(E)). ~$1–2.5k.
+  - Its conduit, the building's 100 A feeder (~53 ft) and a spare conduit for data go in one
+    trench, dug while the slab's excavator is there.
 - **Inside:**
   - a 100 A main-breaker panel, with two ground rods;
   - EMT on the frame;
@@ -196,15 +198,15 @@ Tube frame, dealer-installed (owner, Oct 18 2026: red-iron is out).
   It's less airtight, and a tear lets condensation in.
 - **The roll-up doors stay uninsulated.** Insulated sectional doors are an option (~$4.5k).
 
-**Where the $82k goes** (likely, with the 10% contingency):
+**Where the $79k goes** (likely, with the 10% contingency):
 
 | Part | Likely (80% band) |
 |---|---|
 | The building on its slab: the kit, the walk door, the slab, the dig, the aprons, prep, permits, access | $48k ($43–53k) |
 | Power: the breaker at the pole, the feeder, the panel, the wiring | $13k ($11–15k) |
 | Insulation: closed-cell foam and its thermal barrier | $15k ($13–17k) |
-| The house's line rerouted round the building, if the locate puts it under it | $5k ($3–7k) |
-| **All of it** | **$82k** ($76–88k) |
+| The house's line detoured round the building, if the locate puts it under it | $2k ($1–3k) |
+| **All of it** | **$79k** ($73–84k) |
 
 - Options, not in it: insulated doors and a ductless mini-split, ~$11k together.
 

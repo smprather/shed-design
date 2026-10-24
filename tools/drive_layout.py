@@ -15,8 +15,8 @@ How it's laid out:
   no deeper than the old one: those roots have lived beside it for 35 years) to the north court, the old garage
   apron. The court is the septic truck's stop, a turnaround and two guest spaces.
 - The shop lane runs west from the court, between the house and the twin oak (outside its 12 ft no-dig), along
-  the strip to the concrete ramp up to building A's doors (since Oct 24, when A went on a pier-and-beam floor; it
-  replaced a 12 ft apron and a raised gravel court).
+  the strip to a gravel court in front of building A's aprons, at grade (A sits on a slab dug into its high side,
+  Oct 24 2026).
 
 Survey-local (s, t) feet: s back from the front line, t from the south line toward US-290 (site_plan.st).
 No heavy imports, so drive_plan.py and plan3d.py can both use it.
@@ -37,53 +37,34 @@ LANE = 12.0        # ft: loop D's legs
 SERVICE = 10.0     # ft: the service drive and the shop lane, which carry a pickup, a trailer and a septic truck now and then
 CURB = 0.67        # ft: concrete ribbon curb, 8 in wide (and ~12 in deep, with rebar)
 APRON_TO = 10.0    # ft: the street aprons are concrete from the asphalt to this far inside the front line
-# Building A's approach (Oct 24 2026): it stands on a pier-and-beam floor, so its south door sills are 3.6-4.4 ft above
-# the ground there. A concrete ramp on compacted fill, between concrete side walls, runs from the sills down to the
-# ground APPROACH_FOOT ft out (~1:5.4), a foot past the doors at the west end; the shop lane joins its east side.
-APPROACH_FOOT = 25.0   # ft out from the south wall to the ramp's foot
+# Building A on a concrete slab dug into its high side (owner, Oct 24 2026; it was on pier and beam that morning). The
+# ground under the 30 x 30 rises ~3 ft to the NE corner, but its door (south) side is within ~0.6 ft of level, so
+# the slab's top sits SLAB_OVER_LOW over the SW corner's ground: the doors are at grade and the NE corner is cut
+# ~1.9 ft (2.6 ft to the bottom of the base). Round the north, east and west sides a SWALE ft strip runs SWALE_DROP under the slab and drains round to
+# the low SW side; past it the cut is graded back at CUT_SLOPE:1 to the natural ground, except where that would come
+# within 10 ft of the septic pipe, where a short block wall holds it.
+SLAB_OVER_LOW = 0.8    # ft: the slab's top over the footprint's lowest (SW) corner, 2017 lidar
+SLAB_SECTION = 0.67    # ft: a 4 in slab on 4 in of crushed base
+SWALE = 2.0            # ft: the strip round the cut sides
+SWALE_DROP = 0.5       # ft below the slab's top
+CUT_SLOPE = 2.0        # run per rise of the graded cut
+# Its aprons, concrete, falling away from the doors to the lawn (owner, Oct 24 2026): a short one at the west
+# roll-up, which the mower (and, for a later owner, a boat trailer) drives straight up; and a 10 ft work apron in
+# front of the walk door and the east roll-up, where the deck landing was to be, at floor level all the same.
+APRON_WEST = (1.0, 13.0, 8.0)    # ft: x from, x to along the south wall; out from it
+APRON_EAST = (13.0, None, 10.0)  # to the SE corner
+APPROACH_FOOT = 25.0             # ft out from the south wall: the gravel court in front of the aprons, with the drive
 
 
-# Building A's cut (owner, Oct 24 2026): the high NE side is dug down so the floor and the door sills sit ~2 ft lower,
-# inside a low segmental-block retaining wall CUT_OFFSET ft off the north, east and west walls. The cut falls
-# CUT_FALL toward the south, so water runs out the low side; the south side is already below the cut.
-CUT_OFFSET = 2.0       # ft from the building to the retaining wall
-CUT_FALL = 0.02        # the cut's fall toward the south
-
-
-def cut_zone_a(L: float, W: float) -> list[tuple[float, float]]:
-    """The dug-down area inside building A's retaining wall, in its own frame (ft): the footprint plus CUT_OFFSET on
-    the north, east and west, open to the south."""
-    return [(-CUT_OFFSET, -1.0), (L + CUT_OFFSET, -1.0), (L + CUT_OFFSET, W + CUT_OFFSET), (-CUT_OFFSET, W + CUT_OFFSET)]
-
-
-# Building A's south side (owner, Oct 24 2026). The 25 ft concrete ramp serves only the west roll-up: no trailers now,
-# but boat storage stays possible for a later owner, who'd back a boat trailer up it. The walk door and the east roll-up
-# open onto a pressure-treated pier-and-beam landing at floor level, LANDING_DEEP out, with steps down in front of the
-# east roll-up. The rest of the old approach is a gravel court at grade, where the shop lane arrives.
-RAMP_TO = 13.0          # ft east of the SW corner: the ramp's east edge (the west roll-up is 2-12 ft)
-LANDING_DEEP = 10.0     # ft out from the south wall
-STEPS = (18.0, 28.0)    # ft along the wall: the steps, as wide as the east roll-up
-STEPS_DEEP = 3.5        # ft: four treads
-
-
-def ramp_a(L: float) -> list[tuple[float, float]]:
-    """The west roll-up's ramp, in building A's frame (ft)."""
-    return [(-1.0, 0.0), (RAMP_TO, 0.0), (RAMP_TO, -APPROACH_FOOT), (-1.0, -APPROACH_FOOT)]
-
-
-def landing_a(L: float) -> list[tuple[float, float]]:
-    """The landing in front of the walk door and the east roll-up, in building A's frame (ft)."""
-    return [(RAMP_TO, 0.0), (L, 0.0), (L, -LANDING_DEEP), (RAMP_TO, -LANDING_DEEP)]
-
-
-def steps_a() -> list[tuple[float, float]]:
-    """The landing's steps down to the court, in building A's frame (ft)."""
-    return [(STEPS[0], -LANDING_DEEP), (STEPS[1], -LANDING_DEEP), (STEPS[1], -LANDING_DEEP - STEPS_DEEP), (STEPS[0], -LANDING_DEEP - STEPS_DEEP)]
+def aprons_a(L: float) -> list[list[tuple[float, float]]]:
+    """Building A's two aprons, in its own frame (x east from its SW corner, y north, ft), for a building L ft long."""
+    (w0, w1, wd), (e0, _, ed) = APRON_WEST, APRON_EAST
+    return [[(w0, 0.0), (w1, 0.0), (w1, -wd), (w0, -wd)], [(e0, 0.0), (L, 0.0), (L, -ed), (e0, -ed)]]
 
 
 def approach_a(L: float) -> list[tuple[float, float]]:
-    """The whole area in front of building A's doors, in its own frame (x east from its SW corner, y north, ft), for a
-    building L ft long: the ramp, the landing and its steps, and the gravel court around them.
+    """The whole area in front of building A's doors, in its own frame (ft), for a building L ft long: the aprons and,
+    with the drive, the gravel court around them.
 
     Its SE corner is cut back on a diagonal for an oak, and a stub on its east side takes the shop lane.
     """
@@ -113,10 +94,10 @@ SERVICE_DRIVE = [(9, 93.0), (20, 97.0), (31, 101.5), (39, 105.5), (47, 108.0), (
 # The north court, on the old garage apron: it stops 12 ft from the twin oak's trunks, and 4 ft off the kitchen's
 # north wall (the old garage door, which becomes a glass slider), leaving a planted strip under the glass.
 NORTH_COURT = [(58.5, 94.5), (80.0, 94.5), (80.0, 106.0), (76.0, 110.0), (58.5, 110.0)]
-# The shop lane: the north court to building A's approach ramp, past the house's north wall (4-7 ft off it) and the twin
+# The shop lane: the north court to building A's court, past the house's north wall (4-7 ft off it) and the twin
 # oak (12 ft off its trunks), then along the strip north of the back-lawn oaks.
 SHOP_LANE = [(78, 98.5), (91, 99.0), (101, 100.0), (113, 102.0), (126, 104.5), (140, 107.0), (153, 109.0), (163, 108.0),
-             (171, 104.0), (178, 98.0), (185, 93.0)]   # ends in the shop court, in front of the landing
+             (171, 104.0), (178, 98.0), (185, 93.0)]   # ends in the shop court, in front of the east apron
 
 
 def a_frame(sw, se, nw):
@@ -153,9 +134,8 @@ def layout(a_corners) -> dict:
     A = a_frame(sw, se, nw)
     building = Polygon([sw, se, ne, nw])
     a_len = math.dist(sw, se)
-    ramp = Polygon([A(x, y) for x, y in ramp_a(a_len)])
-    landing = Polygon([A(x, y) for x, y in landing_a(a_len)]).union(Polygon([A(x, y) for x, y in steps_a()]))
-    approach = ramp.union(landing)   # building A's own front, priced with it
+    # building A's aprons, priced with it; welded where they meet, so the shapes built round them stay valid
+    approach = unary_union([Polygon([A(x, y) for x, y in q]) for q in aprons_a(a_len)]).buffer(0.01, join_style=2).buffer(-0.01, join_style=2)
     court = Polygon([A(x, y) for x, y in approach_a(a_len)]).difference(approach)
     house = Polygon(HOUSE_ST).union(Polygon(PORCH_ST))
     parts = {
@@ -175,6 +155,6 @@ def layout(a_corners) -> dict:
     edge_free = unary_union([house.buffer(0.7), approach.buffer(0.7), building.buffer(0.7), concrete.buffer(0.3)])
     curbs = gravel.boundary.difference(edge_free)
     return {"parts": parts, "drive": drive.union(paved), "concrete": concrete, "paved": paved, "gravel": gravel,
-            "curbs": curbs, "approach": approach, "ramp": ramp, "landing": landing, "building": building, "house": house,
+            "curbs": curbs, "approach": approach, "building": building, "house": house,
             "A": A, "a_len": a_len,
             "cover": box(COVER[0], COVER[2], COVER[1], COVER[3])}

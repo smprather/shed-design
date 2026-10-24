@@ -2322,6 +2322,9 @@ the tables below.
 
 ### Building A on pier and beam, 30 × 30 × 11 (owner, Oct 24 2026)
 
+- **Superseded later the same day:** the building went back to a concrete slab, dug into its
+  high side (see "Back to a slab, dug into the high side"). Kept for the record.
+
 - **The owner's call:**
   - Change the building to 30 × 30 × 11 ft, a common kit size.
   - Put it on a pier-and-beam foundation.
@@ -2413,6 +2416,9 @@ the tables below.
   - [The Building Code Forum, joist clearance](https://www.thebuildingcodeforum.com/forum/threads/floor-joist-to-rat-slab-clearance.8044/)
 
 ### Building A: the high side dug down 2 ft, inside a block wall (owner, Oct 24 2026)
+
+- **Superseded later the same day:** the building went back to a concrete slab, dug into its
+  high side (see "Back to a slab, dug into the high side"). Kept for the record.
 
 - **Why:** moving the building south barely helps.
   - Each 2 ft south lowers the door sills only ~0.1 ft. At 10 ft south, they'd still be
@@ -2506,6 +2512,9 @@ the tables below.
 
 ### Building A: a ramp to the west roll-up only, and a deck landing for the rest (owner, Oct 24 2026)
 
+- **Superseded later the same day:** the building went back to a concrete slab, dug into its
+  high side (see "Back to a slab, dug into the high side"). Kept for the record.
+
 - **The owner's call:**
   - No trailer storage is planned. But the building should stay marketable to a later owner
     as boat storage, so the west roll-up keeps the 25 ft ramp.
@@ -2577,6 +2586,8 @@ the tables below.
       for a few dollars each a day.
 - **The building's budget** (`shed_cost.py`): **$85k** likely ($78–91k) on pier and beam, up
   from $82k for the access line; $57k on a slab.
+  - **Later the same day:** back to a slab dug into the high side, **$48k** (see "Back to a
+    slab"). The access line stays; the landing became a concrete work apron.
   - The landing is ~$10k of that (likely, with contingency). It stands on its own piers, so
     it can come later; the walk door would need a small stoop meanwhile.
 - **`drive_plan.py`** no longer prints a budget. It still draws the map and prints the
@@ -2586,6 +2597,110 @@ the tables below.
 - **Sources** (pumping and mats):
   - [Angi, concrete pumping cost](https://www.angi.com/articles/concrete-pumping-cost.htm)
   - [RhinoTough, ground protection mats for hire](https://rhinotough.co.nz/ground-protection-mats-for-hire.html)
+
+### Back to a slab, dug into the high side (owner, Oct 24 2026)
+
+- **The owner's call:** "I thought pier-and-beam was going to cut costs, not increase them.
+  Let's go back to concrete. Figure out some kind of way to get costs down. What's cheaper,
+  digging out the back side, or building up the low side and dealing with a huge ramp? You can
+  use some wiggle room in placement."
+- **Why pier and beam cost more here:**
+  - The piers and the framed floor (~$21k) cost more than a slab (~$7k).
+  - A raised floor puts the door sills feet over the ground, so it needed a ramp and the
+    landing.
+  - It only saves money where a slab would need a lot of fill: on a steep lot, or where you
+    can't dig. Here, neither applies.
+- **The ground decides it.** The 2017 lidar under the 30 × 30 (±0.5 ft):
+
+  | Corner | Over the SW corner |
+  |---|---|
+  | SW | 0 |
+  | SE | +0.7 ft |
+  | NW | +1.2 ft |
+  | NE | +2.7 ft |
+
+  - The rise is toward the back (NE), not across the door side, which is within ~0.7 ft of
+    level.
+  - So a slab dug in at the door side's grade needs no ramp at all. Building up to the high
+    corner needs ~80 cu yd of fill, stem walls and 35–40 ft ramps.
+- **Every slab level, priced** (`shed_cost.py`; a sweep of levels and placements):
+
+  | Slab top over the SW corner | Dig | Fill | At the doors | Site work and slab | Turnkey, likely |
+  |---|---|---|---|---|---|
+  | **0.8 ft: dug into the high side** | 43 cu yd | 0 | aprons 8–10 ft | $16k | **$48k** ($44–53k) |
+  | 1.5 ft: balanced (the Oct 18 slab) | 17 cu yd | 6 cu yd | ramps 15–19 ft | $19k | $51k ($46–56k) |
+  | 3.1 ft: built up to the high corner | 0 | 79 cu yd | ramps 37–42 ft | $52k | $84k ($76–91k) |
+
+  - Site work is cheapest from ~0.6 to ~1.0 ft; 0.8 keeps the SE corner just above its
+    ground, with the aprons falling away.
+  - Below ~0.6 the east door's sill would sit at or under the ground there.
+- **The soil:** USDA's soil survey maps the site as Brackett-Rock outcrop complex, 1–12%
+  slopes (map unit BlD).
+  - Brackett: 10–20 in of soil over soft, weathered (paralithic) limestone that an excavator
+    can usually rip.
+  - About a fifth of the map unit is rock at the surface.
+  - Only the NE corner's cut reaches rock: ~2 cu yd with 1.5 ft of soil, ~20 with 4 in.
+    Priced as rock ($40–90/cu yd against $20–40 for soil), that moves the total by ~$0.5k at
+    most.
+  - A ledge of hard limestone would need a hammer. Probe the NE corner before bidding.
+- **Placement:** moved 3 ft west and 5 ft south of the old site A.
+  - The north side now has 10 ft to the surveyed line, room for the cut to be graded back
+    at 2:1 instead of walled.
+  - It's 13.4 ft from the septic pipe (was 10.3) and 12.3 ft from the well (was 15.3).
+  - The shift changes the cost little (~$0.5k). The septic margin is the reason.
+  - The canopy over the footprint is the same as before: a few small trees, 16–19 ft (2017
+    lidar).
+  - The old sheds on the aerial there are gone (see Status).
+- **The design** (`drive_layout.py`, `plan3d.py`):
+  - **Slab:** 4 in with rebar, thickened edges at the kit's anchors, a vapor barrier, on 4 in
+    of crushed base. A garage-grade slab carries a pickup or a boat trailer.
+  - **Level:** its top 0.8 ft over the SW corner's ground. The door sills are 0.3–0.7 ft up;
+    the NE corner is cut 1.9 ft (2.6 ft to the bottom of the base).
+  - **Cut:** a 2 ft swale 6 in under the slab round the north, east and west, then graded back
+    at 2:1 to the natural ground.
+    - Where the slope would come within 10 ft of the septic pipe, a short segmental-block wall
+      holds it instead: ~12 ft long, up to ~2 ft (the model gives 1.8–2.5 ft).
+    - If the tank turns out to be clear of it, the slope runs there too and the wall goes.
+  - **Drainage:**
+    - a French drain in the swale carries water round the west side to daylight on the low SW
+      side, away from the drainfield;
+    - gutters on both eaves, piped away;
+    - the aprons fall away from the doors.
+  - **Aprons**, concrete at grade:
+    - the west roll-up's, 12 × 8 ft, falling ~11% to the lawn: the mower drives straight in,
+      and a later owner's boat trailer would too;
+    - a 17 × 10 ft work apron in front of the walk door and the east roll-up, falling ~7%,
+      where the deck landing was to be.
+  - **Spoil:** ~40 cu yd of soil, spread on the lot (not on the drainfield or the oak roots).
+    A low berm along the US-290 fence is one place for it.
+- **The budget** (`shed_cost.py`, likely before the 10% contingency):
+
+  | Item | Low | High |
+  |---|---|---|
+  | Prep, locating the line, permits, access with no drive yet | $4.8k | $12.1k |
+  | Dig (soil and rock), the 2:1 slope, the short wall | $1.6k | $3.3k |
+  | Swale, French drain, gutters piped away | $1.5k | $3.0k |
+  | Slab, 4 in | $5.4k | $9.0k |
+  | Aprons, 272 sq ft | $2.2k | $3.5k |
+  | The kit, installed | $13.5k | $23.4k |
+  | Walk door upgrade | $1.5k | $3.0k |
+  | **Likely, with 10% contingency** | | **$48k** ($44–53k) |
+
+  - Insulation and power are extra, ~$11k.
+  - Against the pier-and-beam plan's $85k, it saves ~$37k. Against building up, ~$36k.
+- **Prices:**
+  - a 4 in shop slab with rebar runs ~$6–10/sq ft in the Austin area. The 6 in slab priced
+    before ($9–15) was more than a mower, a pickup or a boat trailer needs;
+  - rock: ~$40–100/cu yd, against $20–40 for soil.
+- **Sources:**
+  - [USDA Soil Data Access](https://sdmdataaccess.sc.egov.usda.gov/) (map unit BlD at the
+    site: Brackett 68%, paralithic bedrock at 25–50 cm; rock outcrop 20%)
+  - [Angi, concrete slab cost in Austin](https://www.angi.com/articles/concrete-slab-cost/tx/austin)
+  - [Buildermuse, concrete slab cost per square foot](https://buildermuse.com/residential/concrete-slab-cost-per-square-foot/)
+  - [HomeStars, concrete slab cost](https://www.homestars.com/flooring-tiles/price-guides/concrete-slab-cost)
+  - [Angi, excavation costs](https://www.angi.com/articles/excavation-costs.htm)
+  - [Austin construction cost guide](https://www.costtobuildhouse.com/austin-tx) (shallow
+    limestone in west Austin)
 
 ### Windows and doors
 

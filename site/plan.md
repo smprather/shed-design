@@ -5,21 +5,21 @@ sources, corrections and dates. This file says what we're doing, in what order, 
 still undecided. Update it when a decision changes; record the facts behind the change in
 `notes.md`.
 
-Last updated: Oct 24 2026 (the building at site A comes first, with its ramp for the mower; the drive comes much later and is out of every budget for now).
+Last updated: Oct 24 2026 (building A back on a concrete slab, dug into its high side so the doors are at grade: ~$48k; it comes first, and the drive much later).
 
 ## The four projects
 
 | Project | What it is now | Status | Blocked on |
 |---|---|---|---|
-| **1. The building, at site A** (first: owner, Oct 24 2026) | A common 30 × 30 × 11 tube-frame kit on a pressure-treated pier-and-beam floor (owner, Oct 24 2026), on the north strip between the well and the septic pipe. Site B is dropped (owner, Oct 18 2026) | Modeled and priced (~$85k turnkey, likely; $57k on a slab); high side dug down 2 ft inside a block wall; doors on the south side, a ramp to the west roll-up (boats, for a later owner) and a deck landing for the rest; use open | The buried service line; the septic layout (the drainfield may be under it) |
+| **1. The building, at site A** (first: owner, Oct 24 2026) | A common 30 × 30 × 11 tube-frame kit on a concrete slab dug into its high side (owner, Oct 24 2026), on the north strip between the well and the septic pipe. Site B is dropped (owner, Oct 18 2026) | Modeled and priced (~$48k turnkey, likely); the doors on the south side at grade, with short concrete aprons; use open | The buried service line; the septic layout (the drainfield may be under it) |
 | **2. Screening** (noise and views) | US-290 side: the 8 ft fence, building B, maybe a taller wall. Back line: 21 new trees in the gaps | Back-line planting ready to buy; US-290 side needs re-modeling | Fence gaps and ownership; septic layout |
 | **3. Garage → kitchen** | Join the 21 × 21 ft attached garage, the hall beside it and the old kitchen into one ~680 sq ft kitchen. Its own repo: `smprather/kitchen-garage-renovation` | Idea stage (~90% likely); layout mocked up | Parking must move first; septic capacity question; structure (see its repo) |
 | **4. The drive + porte-cochère** | Redesigned from scratch: loop D, a forecourt with a porte-cochère (2 cars nose to tail) and a passing lane, the service drive and north court, the shop lane to building A. Estate gravel, concrete-curbed | Designed, drawn in the renders; not priced: it comes much later (owner, Oct 24 2026) | Trunk tapes; buried lines; the septic layout; county permits |
 
 ## Order of work
 
-**The building at site A comes first** (owner, Oct 24 2026): the shed, and a ramp to drive the
-mower up. The drive comes much later and is out of every budget for now. The building sits
+**The building at site A comes first** (owner, Oct 24 2026): the shed, with a way to drive the
+mower in. Its slab is dug in so the doors are at grade. The drive comes much later and is out of every budget for now. The building sits
 between the well, the septic pipe and the buried service line, so a few cheap checks come
 before its first dig.
 
@@ -28,8 +28,8 @@ before its first dig.
 1. **Find the septic tank and drainfield.** Get the septic permit file from Travis County's
    on-site sewage facility (OSSF) office for this address. It usually has a drawing of the
    tank and drainfield.
-   - The building's NE piers come within 10.3 ft of the septic access pipe, and the block
-     wall's east run within 8 ft. Nothing gets dug, poured or driven over the tank.
+   - The slab comes within 13.4 ft of the septic access pipe, and the short block wall by
+     it stands on the 10 ft keep-out's edge. Nothing gets dug, poured or driven over the tank.
    - The county's building permit wants a site plan showing the septic system anyway.
    - The US-290 wall footing, the north end of the back-line trees and the septic truck's
      route wait on it too.
@@ -49,8 +49,8 @@ before its first dig.
      - Clues: which way the conduit sweeps into the ground at the pole and at the house, and
        a settled or off-color stripe in the grass.
    - Have the locator give the depth too.
-   - **No piers, wall footing or cut over the line as it is** (see notes, "A slab over the
-     buried line"). Reroute it in new conduit around the building, in the same trench as the
+   - **No slab or cut over the line as it is** (see notes, "A slab over the buried
+     line"). Reroute it in new conduit around the building, in the same trench as the
      building's own power.
    - Call 811 (Texas811) as well before any digging, for the utility-owned lines.
 3. **Stake the US-290 line.** A surveyor sets pins on it. The building sits 5 ft inside the
@@ -67,21 +67,20 @@ before its first dig.
      45 ft building line;
    - Travis County's accessory-building permit, and whether OSSF reviews a new building (or,
      later, a garage conversion) on a septic lot;
-   - the kit dealer's drawings stamped for the county's wind load, and the engineer's pier
-     layout.
+   - the kit dealer's drawings stamped for the county's wind load, and the slab's design for
+     its anchors.
 
 ### Step 1: the building at site A (first)
 
 See project 1. In order:
 1. Clear the site and lay it out from the pins.
-2. Dig the high side down 2 ft. Build the block wall round the north, east and west, with
-   its drain.
-3. Pour the piers, from a line pump on the old drive.
-4. Frame the pressure-treated beams, joists and floor.
-5. The dealer sets the kit on the floor and ties it down.
-6. Build the ramp to the west roll-up: fill, side walls, the slab (pumped again). The mower
-   can use it about a week after the pour.
-7. Build the landing and its steps, now or later: it stands on its own piers.
+2. Dig the high side: the slab's pad, and the swale and graded slope round the north, east
+   and west. The short block wall by the septic pipe, if the tank's location still calls
+   for it. The French drain to daylight on the low side.
+3. Form and pour the slab, from a line pump on the old drive, with the kit's anchors set in
+   its thickened edges.
+4. The dealer sets the kit on the slab and bolts it down.
+5. Pour the aprons (pumped again). The mower drives in about a week after.
 
 Mat the lawn and the twin oak's root zone for the whole job. No loaded trucks drive past the
 oak.
@@ -103,103 +102,96 @@ stops being a garage.
    the old drive still serves the north side.
 2. **The north leg, the service drive and the north court,** in the old drive's footprint.
    The rest of the old drive and the walk come out.
-3. **The shop lane and the court** in front of building A's landing.
+3. **The shop lane and the court** in front of building A's aprons.
 4. **The kitchen.**
 5. **Arborist and paperwork for it:** the lone oak in the front lawn (trunk size and root
    zone), and Travis County's driveway permit for the second curb cut.
 
 ## Project 1: The building (site A; site B dropped Oct 18 2026)
 
-**Now at site A, on pier and beam** (owner, Oct 24 2026): a common 30 × 30 × 11 ft tube-frame kit,
-30 ft wide across the strip and 30 ft along the line. It keeps site A's east end, 10.3 ft from the
-septic pipe, and is now 15 ft from the well. The ridge runs along the line.
+**At site A, on a concrete slab dug into its high side** (owner, Oct 24 2026): a common
+30 × 30 × 11 ft tube-frame kit, 30 ft wide across the strip and 30 ft along the line. The
+ridge runs along the line. That morning it was on pier and beam, at ~$85k; the owner sent it
+back to concrete to cut the cost.
 
 **All the doors face south** (owner, Oct 18 2026), well away from the septic pipe:
 - two 10 × 9 ft roll-ups, about the largest 11 ft legs take;
 - a commercial walk door centered between them: hollow metal in a welded frame, a continuous
   hinge, Grade 1 hardware and a closer, so it won't sag or stick (notes, "The walk door").
 
-**The floor is pressure-treated pier and beam,** low on the high side:
-- 20 concrete piers;
-- four lines of triple 2×12 beams;
-- 2×12 joists flush between them at 16 in;
-- a 1-1/8 in floor.
+**Dig in, don't build up.** The ground under it rises ~2.7 ft to the NE corner, but the door
+(south) side is within ~0.7 ft of level (2017 lidar, ±0.5 ft).
+- So the slab's top sits 0.8 ft over the SW corner's ground, and the doors are at grade.
+- The NE corner is cut ~1.9 ft (2.6 ft to the bottom of the base).
+- Building the low side up instead means ~80 cu yd of fill, stem walls and 35–40 ft ramps:
+  ~$84k.
 
-**The high side is dug down 2 ft** (owner, Oct 24 2026):
-- The cut runs inside a low segmental-block wall, 2 ft off the north, east and west walls:
-  71 ft long, up to 2.1 ft tall.
-- It falls 2% to the south, and a drain behind the wall carries water round.
-- Ground-contact PT lets the beams sit 4 in over the cut ground.
-- The floor stands 1.4 ft up at the north corners and 2.4 ft at the SW.
-- It's built for storage, a workshop and the mower. Parking vehicles on it needs an engineer.
+| Slab | Dig | Fill | Ramps or aprons at the doors | Turnkey, likely (80% band) |
+|---|---|---|---|---|
+| **Dug into the high side** (the plan) | 43 cu yd | 0 | aprons 8–10 ft | **$48k** ($44–53k) |
+| Balanced cut and fill (the Oct 18 slab) | 17 cu yd | 6 cu yd | ramps 15–19 ft | $51k ($46–56k) |
+| Built up, level with the high corner | 0 | 79 cu yd | ramps 37–42 ft | $84k ($76–91k) |
+| Pier and beam, high side cut 2 ft (dropped) | | | a 25 ft ramp, a deck landing | $85k ($78–91k) |
 
-The doors face the low side, but the cut keeps their sills at ~2 ft (~4 ft without it).
-- **The west roll-up gets the ramp** (owner, Oct 24 2026): concrete on fill, 14 ft wide, down
-  to the ground 25 ft out at ~12% (1:8.5).
-  - It's there to keep the building marketable as boat storage; the owner won't store
-    trailers.
-  - The 9 ft door limits a boat's height on its trailer to ~8.5 ft.
-  - Back-in geometry gets tuned later.
-- **The walk door and the east roll-up open onto a landing** (owner, Oct 24 2026):
-  - a pressure-treated pier-and-beam deck at floor level, 17 × 10 ft;
-  - steps 10 ft wide, 4 risers, down to the lawn (later, a gravel court where the shop lane
-    ends: project 4);
-  - room to work outside, e.g. woodworking. A roof over it for shade is to be discussed.
-  - Only the mower, carts and hand trucks use the east door.
+- **The slab:** 4 in with rebar and thickened edges at the kit's anchors, on 4 in of base.
+  It carries a pickup or a boat trailer.
+- **The cut** is graded back at 2:1 from a 2 ft swale round the north, east and west.
+  - Only where the slope would come within 10 ft of the septic pipe does a short block wall
+    hold it: ~12 ft long, up to ~2 ft.
+  - A French drain carries water round to daylight on the low SW side. Gutters are piped
+    away.
+- **The soil** is Brackett (USDA soil survey): 10–20 in of soil over soft, weathered
+  limestone, with rock showing in places. Little of the cut reaches rock. With only 4 in of
+  soil, it would cost ~$0.5k more.
+- **The aprons** are concrete at grade, falling away from the doors to the lawn.
+  - The west roll-up's is 12 × 8 ft (~11%). The mower drives straight in, and so would a boat
+    trailer for a later owner.
+  - The walk door and the east roll-up open onto a 17 × 10 ft work apron (~7%), where the
+    deck landing was to be, at floor level all the same. A roof over it for shade is to be
+    discussed.
+- **Moved 3 ft west and 5 ft south** of the old site A, so the north cut can be a slope
+  rather than a wall. It's now 10 ft from the surveyed line, 13.4 ft from the septic pipe
+  (was 10.3) and 12.3 ft from the well.
 
-The 3D plan draws the cut, the wall, the piers, beams, joists, floor, the ramp, the landing
-and its steps, and the S130 inside.
+The 3D plan draws the slab, the graded cut, the wall, the aprons and the S130 inside.
 
 Tube frame, dealer-installed (owner, Oct 18 2026: red-iron is out).
 
-| 30 × 30 × 11 | Turnkey, likely (80% band) | Per sq ft | Foundation, ramp and landing, or apron | + insulation and power |
-|---|---|---|---|---|
-| **Pier and beam, 2 ft cut and wall** (the plan) | **$85k** ($78–91k) | $94 | $53k ($48–57k) | $11k ($9–13k) |
-| Slab, cut and filled (for comparison) | $57k ($52–62k) | $64 | $25k ($23–28k) | $11k ($9–13k) |
+**Where the $48k goes** (likely, before the 10% contingency):
+- the building, installed, and the walk door upgrade, ~$21k;
+- the slab, ~$7k;
+- the aprons, ~$3k;
+- digging, the slope, the short wall and drainage, ~$5k;
+- prep, locating the line, permits and access with no drive yet, ~$8.5k.
+- Insulation and power are extra: ~$11k.
 
-- **The pier and beam itself** costs about what the slab does. The difference is the ramp
-  and landing and, with the cut, the wall and drainage.
-- **The landing** ($6–10k, steps $0.6–1.5k) costs ~$2k more than the full-width ramp it
-  replaces.
-- **Access, with no drive yet** ($1.5–4k): the shop lane isn't there to drive on, so the
-  concrete is pumped in from the old drive for each pour (the piers, then the ramp), and the
-  lawn and the twin oak's root zone are matted for the crews.
-- **Nothing in these figures is the drive's.** The ramp and the steps come down to the lawn;
-  the mower drives across the grass to the ramp.
-- **Option, for boats:** the west bay's floor framed for a boat on its trailer, $1.5–4k.
-- **Cheaper:**
-  - build the landing later, ~$10k likely: it stands on its own piers, so it bolts on any
-    time. Until then the walk door needs a small stoop and steps;
-  - shorten the ramp to 15 ft at ~1:6, but no trailers;
-  - a mower-only timber ramp at the west roll-up saves more, but no boats either;
-  - or a slab, if vehicles go in.
-- Before Oct 24 it was a slab, 1.5 ft below the high corner: 30 × 35 was $64k, 30 × 30 $56k.
-
+- **Cheaper still:**
+  - gravel aprons instead of concrete, ~$1.5k less;
+  - owner work: clearing the site, seeding the slope;
+  - the kit's own walk door instead of the commercial one, ~$2k less. But sticky doors are
+    the owner's pet peeve.
 - For comparison, ~800 sq ft of portable wood sheds on blocks is ~$25–41k (notes, "For
   comparison: ~800 sq ft of portable sheds").
-
-- Planning ranges from `tools/shed_cost.py`, not quotes. Notes, "What the building at site A
-  costs", has the breakdown, the sources and the owner work that cuts the cost.
-- The slope is what costs: on pier and beam it's the ramp up to the low-side doors; on a slab, the fill, stem wall and drain.
+- Planning ranges from `tools/shed_cost.py`, not quotes. Notes, "Back to a slab" and "What the
+  building at site A costs", have the breakdown, the sources and the owner work that cuts the
+  cost.
 - **Impervious cover: confirm the limit applies before anything else.**
-  - Against 15%, the lot is already at ~16% (5,502 sq ft of 5,065 allowed). The building,
-    its ramp and landing make it ~21%. With the new drive (old drive out), ~20% if gravel isn't
-    counted, ~29% if it is.
+  - Against 15%, the lot is already at ~16% (5,502 sq ft of 5,065 allowed). The building and
+    its aprons make it ~20%. With the new drive (old drive out), ~19% if gravel isn't counted,
+    ~30% if it is.
   - But 15% is the City's SOS number, and the 1992 ordinance exempted single-family
     development on lots that existed by Nov 1, 1991. This one did (recorded plat Vol. 55
     Pg. 69; the April 1991 survey shows the house).
   - Ask Travis County TNR whether any limit applies to an accessory building here.
   - See notes, "Does the 15% even apply?".
 - **Before anything:** trace the buried service line (it likely runs under the site) and
-  find the drainfield and the tank's outline. The ramp is 38 ft from the septic access pipe,
-  but the NE corner's piers come within 10.3 ft of it and the retaining wall's east run within
-  8 ft: nothing gets dug, poured or driven over the tank.
+  find the drainfield and the tank's outline. The slab is 13.4 ft from the septic access
+  pipe, and the short wall stands on the 10 ft keep-out's edge: nothing gets dug, poured or
+  driven over the tank. If the tank is clear of it, the slope runs there too and the wall
+  goes.
 - **Decisions for you:**
-  - the west roll-up's ramp: 25 ft (~1:8.5, boats), 15 ft (~1:6), or mower-only;
-  - the landing now, or later (~$10k; a stoop at the walk door meanwhile);
-  - a roof over the landing, for shade (to be discussed);
-  - the boat-floor option for the west bay;
-  - pier and beam or a slab, if vehicles will go in;
+  - concrete or gravel aprons;
+  - a roof over the work apron, for shade (to be discussed);
   - insulation and power.
 
 The rest of this section is building B's study at site B, kept for the record.
@@ -382,8 +374,7 @@ drive, redesigned from scratch", has the detail, the clearances and the sources.
     - The court is the septic truck's stop, a turnaround and two guest spaces.
     - It stops 12 ft from the twin oak, and 4 ft off the kitchen's new north glass.
   - **The shop lane** (10 ft) runs west past the house and the twin oak (12.2 ft) and along
-    the strip to a gravel court in front of building A, at the foot of its deck landing's
-    steps and beside the ramp up to its west roll-up. Until then the ramp and the steps come
+    the strip to a gravel court in front of building A's aprons. Until then the aprons come
     down to the lawn (project 1).
 - **The surfaces:**
   - 3/8 in angular gravel locked in a stabilizer grid, on compacted base;
@@ -396,7 +387,7 @@ drive, redesigned from scratch", has the detail, the clearances and the sources.
   stop.
 - **Cost:** out of every budget until the drive comes back into the planning. The last
   figures, and the unit prices, are in notes ("The drive, redesigned from scratch").
-- **Impervious cover with building A, its ramp and landing:** 19.3% if gravel doesn't count, 29.4% if it does. That
+- **Impervious cover with building A and its aprons:** 18.6% if gravel doesn't count, 29.7% if it does. That
   waits on the county's answer, as for the building.
 - **Before staking:**
   - **Tape the trunks** near the lanes: the bulge oak and its leaning crown over the north

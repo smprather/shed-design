@@ -41,9 +41,11 @@ def setback_point(x: float) -> tuple[float, float]:
     return (RN[0] + t * ALONG[0] + SETBACK * INWARD[0], RN[1] + t * ALONG[1] + SETBACK * INWARD[1])
 
 
-def line_rect(x0: float, length: float, depth: float):
-    """Footprint along the setback line: NW corner on it at x0, length along it, depth inward."""
+def line_rect(x0: float, length: float, depth: float, inset: float = 0.0):
+    """Footprint along the setback line: NW corner at x0, `inset` ft inside the setback line, length along it, depth
+    inward."""
     nw = setback_point(x0)
+    nw = (nw[0] + inset * INWARD[0], nw[1] + inset * INWARD[1])
     ne = (nw[0] + length * ALONG[0], nw[1] + length * ALONG[1])
     return [nw, ne, (ne[0] + depth * INWARD[0], ne[1] + depth * INWARD[1]),
             (nw[0] + depth * INWARD[0], nw[1] + depth * INWARD[1])]
@@ -53,7 +55,10 @@ def line_rect(x0: float, length: float, depth: float):
 # 30 ft deep since Oct 18 (owner: past 1,000 sq ft; was 27). 30 ft along the line since Oct 24, for a common
 # 30 x 30 x 11 kit (owner). It keeps the east end, 10.3 ft from the septic pipe, and gives up 5 ft at the west end:
 # the well is now 15 ft off. The 35 ft site it was cut from starts at x 98.6.
-SITE_A = line_rect(98.6 + 5 * ALONG[0], 30, 30)
+# Back on a slab dug into the high side (owner, Oct 24 2026), it moved 3 ft west and 5 ft south: 10 ft off the
+# surveyed line, so the cut on the north can be a graded slope rather than a wall, and 13.4 ft from the septic pipe
+# (was 10.3); the well is 12.3 ft off.
+SITE_A = line_rect(98.6 + 2 * ALONG[0], 30, 30, inset=5.0)
 
 
 def circle(plan: Plan, c, r, **kw):

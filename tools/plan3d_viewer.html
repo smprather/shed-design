@@ -1146,6 +1146,12 @@ details li b { font-weight: 600; }
     if (items.existing_trees) items.existing_trees.node.children.forEach(o => { o.visible = opacity > 0; });
   }
   fadeCanopy(0.2);   // the existing trees start faint, so the buildings read (owner, Oct 18 2026)
+  // Trees draw after every other see-through layer. Faded, they don't write depth, and three.js orders see-through
+  // meshes by their origins (a fence's is the plan's origin), so a fence drawn after them painted over trees standing
+  // in front of it. Drawn last, they're depth-tested against the fences, walls and roofs instead.
+  for (const id of ["trees_back_row", "trees_front_row", "existing_trees"]) {
+    if (items[id]) items[id].node.traverse(o => { if (o.isMesh) o.renderOrder = 1; });
+  }
 
   // Terrain tint by height, recomputed with the theme.
   function tintTerrain() {

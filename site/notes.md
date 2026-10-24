@@ -2407,6 +2407,25 @@ the tables below.
   - [Building Code Trainer, protecting wood from decay (IRC R317.1)](https://buildingcodetrainer.com/protecting-wood-from-decay/)
   - [The Building Code Forum, joist clearance](https://www.thebuildingcodeforum.com/forum/threads/floor-joist-to-rat-slab-clearance.8044/)
 
+### Viewer: it remembers the view (owner's ask, Oct 24 2026)
+
+- **What it keeps:** everything on the view panel:
+  - the camera's position, heading, lens and orbit center;
+  - the move mode and the view button;
+  - every slider: mouse sensitivity, fly speed, height, both tree opacities;
+  - the new trees' size;
+  - each layer's checkbox;
+  - the selected item;
+  - the walking speed.
+- **When:** it saves once a second and when the page is hidden or closed, and puts it all back
+  on the next load.
+- **Where:** the browser's storage for the page.
+  - localStorage keeps it across browser restarts.
+  - If that's blocked, sessionStorage keeps it across reloads.
+  - If both are blocked, the page opens on the overhead view as before.
+- **Resetting:** a view button resets the camera. Layers added in later versions start at their
+  defaults.
+
 ### Windows and doors
 
 - Traffic noise is heavy in low frequencies. Compare windows by **OITC** (made for traffic

@@ -199,6 +199,7 @@ details li b { font-weight: 600; }
         <button class="view" id="v-front" data-view="front" aria-pressed="false">Front yard</button>
         <button class="view" id="v-area" data-view="area" aria-pressed="false">Whole area</button>
       </div>
+      <p style="margin: 6px 0 0; color: var(--muted); font-size: 12px">Everything on this panel (the view, mode, sliders, tree size, layers and selection) is saved as you go and comes back when you reload. A view button resets the camera.</p>
       <div class="drag-mode" role="group" aria-label="How to move">
         <span>Move</span>
         <button class="mode" id="m-orbit" data-mode="orbit" aria-pressed="true">Orbit</button>
@@ -1536,6 +1537,74 @@ details li b { font-weight: 600; }
     compass.setAttribute("transform", `rotate(${ang.toFixed(1)})`);
     requestAnimationFrame(frame);
   }
-  resize(); applyColors(); select(selected); setView("top"); frame();
+  // ---- Remember the view (owner, Oct 24 2026) ----
+  // Everything on the view panel, saved to this browser's storage for the page once a second and when the page is
+  // hidden or closed, and put back on the next load: the camera (position, orientation, lens, orbit center), the move
+  // mode, the view button, every slider (sensitivity, fly speed, height, both tree opacities), the new trees' size,
+  // each layer's checkbox and the selected item, plus the walking speed. localStorage keeps it across browser
+  // restarts; if that's blocked, sessionStorage keeps it across reloads; if both are, nothing is saved and the page
+  // opens on the overhead view as before. Layers added later keep their defaults.
+  const VIEW_KEY = "candelaria-3d-plan:view:v1";
+  const SLIDERS = ["exag", "sens", "tree-op", "canopy-op"];   // restored through their own handlers; fly speed is kept exactly
+  const viewStore = (() => {
+    for (const name of ["localStorage", "sessionStorage"]) {
+      try { const st = window[name]; st.setItem(VIEW_KEY + ":test", "1"); st.removeItem(VIEW_KEY + ":test"); return st; } catch (e) { /* blocked: try the next */ }
+    }
+    return null;
+  })();
+  let savedView = "";
+  function viewState() {
+    const r = (v, d = 1000) => Math.round(v * d) / d;
+    const pressed = document.querySelector("button.view[aria-pressed='true']");
+    return {
+      v: 1, mode, view: pressed ? pressed.dataset.view : null, fov: r(camera.fov, 10), pos: camera.position.toArray().map(v => r(v)),
+      quat: camera.quaternion.toArray().map(v => r(v, 1e6)), target: controls.target.toArray().map(v => r(v)),
+      fly: r(speed.fly), walk: r(speed.walk),
+      sliders: Object.fromEntries(SLIDERS.map(id => [id, document.getElementById(id).value])),
+      stage: [...stagesEl.querySelectorAll("button")].findIndex(btn => btn.getAttribute("aria-pressed") === "true"),
+      layers: Object.fromEntries([...layersEl.querySelectorAll("input[type=checkbox]")].map(c => [c.id.slice("layer-".length), c.checked])),
+      selected,
+    };
+  }
+  function saveView() {
+    if (!viewStore) return;
+    const json = JSON.stringify(viewState());
+    if (json === savedView) return;
+    try { viewStore.setItem(VIEW_KEY, json); savedView = json; } catch (e) { /* storage full or blocked: skip this one */ }
+  }
+  function restoreView() {
+    let s = null;
+    try { s = viewStore && JSON.parse(viewStore.getItem(VIEW_KEY) || "null"); } catch (e) { s = null; }
+    const finite = (a, n) => Array.isArray(a) && a.length === n && a.every(Number.isFinite);
+    if (!s || s.v !== 1 || !HINTS[s.mode] || !finite(s.pos, 3) || !finite(s.quat, 4) || !finite(s.target, 3)) return;
+    const clamp = THREE.MathUtils.clamp;
+    // Layers, sliders and the trees' size first (the height slider rescales the camera, which is set after it).
+    for (const [id, on] of Object.entries(s.layers || {})) {
+      const c = document.getElementById("layer-" + id);
+      if (c && c.checked !== !!on) { c.checked = !!on; c.dispatchEvent(new Event("change")); }
+    }
+    for (const id of SLIDERS) {
+      const el = document.getElementById(id), v = s.sliders && s.sliders[id];
+      if (v === undefined || !Number.isFinite(+v)) continue;
+      el.value = String(clamp(+v, +el.min, +el.max)); el.dispatchEvent(new Event("input"));
+    }
+    const stageBtn = stagesEl.querySelectorAll("button")[s.stage];
+    if (stageBtn && stageBtn.getAttribute("aria-pressed") !== "true") stageBtn.click();
+    speed.fly = clamp(+s.fly || speed.fly, FLY_MIN, FLY_MAX); showFlySpeed();
+    speed.walk = clamp(+s.walk || speed.walk, 0.5, 15);
+    if (items[s.selected]) select(s.selected);
+    // The camera, then the mode: free-look modes take their heading from it; walking settles onto the floor below.
+    camera.position.fromArray(s.pos); controls.target.fromArray(s.target); camera.quaternion.fromArray(s.quat);
+    setMode(s.mode, false);
+    if (Number.isFinite(s.fov)) { camera.fov = clamp(s.fov, 12, 75); camera.updateProjectionMatrix(); }
+    document.querySelectorAll("button.view").forEach(btn => btn.setAttribute("aria-pressed", String(btn.dataset.view === s.view)));
+    updateEye();
+    savedView = JSON.stringify(viewState());
+  }
+  setInterval(saveView, 1000);
+  window.addEventListener("pagehide", saveView);
+  document.addEventListener("visibilitychange", () => { if (document.hidden) saveView(); });
+
+  resize(); applyColors(); select(selected); setView("top"); restoreView(); frame();
 })();
 </script>

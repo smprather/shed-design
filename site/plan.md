@@ -5,13 +5,13 @@ sources, corrections and dates. This file says what we're doing, in what order, 
 still undecided. Update it when a decision changes; record the facts behind the change in
 `notes.md`.
 
-Last updated: Oct 24 2026 (building A back on a concrete slab, dug into its high side so the doors are at grade: ~$48k; it comes first, and the drive much later).
+Last updated: Oct 24 2026 (building A on a slab dug into its high side, with power and closed-cell foam insulation: ~$82k all in, $48k of it the building on its slab; it comes first, and the drive much later).
 
 ## The four projects
 
 | Project | What it is now | Status | Blocked on |
 |---|---|---|---|
-| **1. The building, at site A** (first: owner, Oct 24 2026) | A common 30 × 30 × 11 tube-frame kit on a concrete slab dug into its high side (owner, Oct 24 2026), on the north strip between the well and the septic pipe. Site B is dropped (owner, Oct 18 2026) | Modeled and priced (~$48k turnkey, likely); the doors on the south side at grade, with short concrete aprons; use open | The buried service line; the septic layout (the drainfield may be under it) |
+| **1. The building, at site A** (first: owner, Oct 24 2026) | A common 30 × 30 × 11 tube-frame kit on a concrete slab dug into its high side (owner, Oct 24 2026), on the north strip between the well and the septic pipe. Site B is dropped (owner, Oct 18 2026) | Modeled and priced: ~$82k likely all in, with power and closed-cell foam insulation ($48k of it the building on its slab); the doors on the south side at grade, with short concrete aprons | The buried service line; the septic layout (the drainfield may be under it) |
 | **2. Screening** (noise and views) | US-290 side: the 8 ft fence, building B, maybe a taller wall. Back line: 21 new trees in the gaps | Back-line planting ready to buy; US-290 side needs re-modeling | Fence gaps and ownership; septic layout |
 | **3. Garage → kitchen** | Join the 21 × 21 ft attached garage, the hall beside it and the old kitchen into one ~680 sq ft kitchen. Its own repo: `smprather/kitchen-garage-renovation` | Idea stage (~90% likely); layout mocked up | Parking must move first; septic capacity question; structure (see its repo) |
 | **4. The drive + porte-cochère** | Redesigned from scratch: loop D, a forecourt with a porte-cochère (2 cars nose to tail) and a passing lane, the service drive and north court, the shop lane to building A. Estate gravel, concrete-curbed | Designed, drawn in the renders; not priced: it comes much later (owner, Oct 24 2026) | Trunk tapes; buried lines; the septic layout; county permits |
@@ -37,6 +37,8 @@ before its first dig.
      trenches next time it pumps.
 2. **Locate the buried electric line.** It runs underground from the meter pole at the NW
    fence corner to the house's NW corner (owner, Oct 18 2026). The route between isn't known.
+   - **Look in the pole's disconnect too:** its breaker size and whether it has spare spaces.
+     Building A's power comes from there (project 1).
    - **Straight, it would pass over the well,** so it probably bends around it, and maybe
      around the septic tank.
    - **Straight, it would run ~32 ft under site A.**
@@ -51,7 +53,7 @@ before its first dig.
    - Have the locator give the depth too.
    - **No slab or cut over the line as it is** (see notes, "A slab over the buried
      line"). Reroute it in new conduit around the building, in the same trench as the
-     building's own power.
+     building's own feeder.
    - Call 811 (Texas811) as well before any digging, for the utility-owned lines.
 3. **Stake the US-290 line.** A surveyor sets pins on it. The building sits 5 ft inside the
    surveyed line, and the fence wanders off it. Pin the back line on the same visit, for the
@@ -74,13 +76,18 @@ before its first dig.
 
 See project 1. In order:
 1. Clear the site and lay it out from the pins.
-2. Dig the high side: the slab's pad, and the swale and graded slope round the north, east
+2. Trench from the meter pole: the house's line rerouted round the building, and the
+   building's feeder conduit beside it, stubbed up where its panel will be.
+3. Dig the high side: the slab's pad, and the swale and graded slope round the north, east
    and west. The short block wall by the septic pipe, if the tank's location still calls
    for it. The French drain to daylight on the low side.
-3. Form and pour the slab, from a line pump on the old drive, with the kit's anchors set in
-   its thickened edges.
-4. The dealer sets the kit on the slab and bolts it down.
-5. Pour the aprons (pumped again). The mower drives in about a week after.
+4. Form and pour the slab, from a line pump on the old drive, with the kit's anchors set in
+   its thickened edges and the feeder's conduit coming up through it.
+5. The dealer sets the kit on the slab and bolts it down.
+6. Pour the aprons (pumped again). The mower drives in about a week after.
+7. The electrician's rough-in: the panel, boxes and conduit on the frame.
+8. The spray foam, then its thermal barrier.
+9. The lights and devices; the breaker at the pole; inspection.
 
 Mat the lawn and the twin oak's root zone for the whole job. No loaded trucks drive past the
 oak.
@@ -124,9 +131,11 @@ back to concrete to cut the cost.
 - So the slab's top sits 0.8 ft over the SW corner's ground, and the doors are at grade.
 - The NE corner is cut ~1.9 ft (2.6 ft to the bottom of the base).
 - Building the low side up instead means ~80 cu yd of fill, stem walls and 35–40 ft ramps:
-  ~$84k.
+  ~$84k against $48k, for the building alone.
 
-| Slab | Dig | Fill | Ramps or aprons at the doors | Turnkey, likely (80% band) |
+The building on its slab, without power or insulation (they add the same to each):
+
+| Slab | Dig | Fill | Ramps or aprons at the doors | Likely (80% band) |
 |---|---|---|---|---|
 | **Dug into the high side** (the plan) | 43 cu yd | 0 | aprons 8–10 ft | **$48k** ($44–53k) |
 | Balanced cut and fill (the Oct 18 slab) | 17 cu yd | 6 cu yd | ramps 15–19 ft | $51k ($46–56k) |
@@ -157,15 +166,50 @@ The 3D plan draws the slab, the graded cut, the wall, the aprons and the S130 in
 
 Tube frame, dealer-installed (owner, Oct 18 2026: red-iron is out).
 
-**Where the $48k goes** (likely, before the 10% contingency):
-- the building, installed, and the walk door upgrade, ~$21k;
-- the slab, ~$7k;
-- the aprons, ~$3k;
-- digging, the slope, the short wall and drainage, ~$5k;
-- prep, locating the line, permits and access with no drive yet, ~$8.5k.
-- Insulation and power are extra: ~$11k.
+**Power** (owner, Oct 24 2026):
+- **It comes from the meter pole,** not from the house's line.
+  - The meter and the house's disconnect are on the pole at the NW fence corner, ~40 ft from
+    the building.
+  - The building gets its own 100 A breaker there. If the disconnect has no spare spaces, it
+    becomes a meter-main with spaces, and Pedernales Electric pulls and resets the meter for
+    the swap.
+  - The line to the house is the house's feeder, sized and protected for the house. Splicing
+    the building into it in the yard isn't allowed.
+- **The trench is shared.** The house's line has to be rerouted round the building anyway.
+  - Its new conduit, the building's 100 A feeder (~53 ft) and a spare conduit for data go in
+    one trench.
+- **Inside:**
+  - a 100 A main-breaker panel, with two ground rods;
+  - EMT on the frame;
+  - LED shop lights;
+  - GFCI outlets every ~6 ft at bench height;
+  - three 240 V circuits: a table saw, a dust collector, and a compressor or a mini-split;
+  - lights outside the doors.
+
+**Insulation, the high-grade kind** (owner, Oct 24 2026):
+- **Closed-cell spray foam:** 2 in (~R-13) on the walls and gable ends, 3 in (~R-20) under
+  the roof.
+  - It seals the air and stops condensation on the steel, and nothing nests in it.
+- **A thermal barrier over the foam:** an intumescent coating.
+  - The code wants foam covered (IRC R316.4), and a woodshop has sparks and finishes.
+- **The cheaper way:** the dealer's fiberglass blanket (R-13 walls, R-19 roof), ~$11k less.
+  It's less airtight, and a tear lets condensation in.
+- **The roll-up doors stay uninsulated.** Insulated sectional doors are an option (~$4.5k).
+
+**Where the $82k goes** (likely, with the 10% contingency):
+
+| Part | Likely (80% band) |
+|---|---|
+| The building on its slab: the kit, the walk door, the slab, the dig, the aprons, prep, permits, access | $48k ($43–53k) |
+| Power: the breaker at the pole, the feeder, the panel, the wiring | $13k ($11–15k) |
+| Insulation: closed-cell foam and its thermal barrier | $15k ($13–17k) |
+| The house's line rerouted round the building, if the locate puts it under it | $5k ($3–7k) |
+| **All of it** | **$82k** ($76–88k) |
+
+- Options, not in it: insulated doors and a ductless mini-split, ~$11k together.
 
 - **Cheaper still:**
+  - fiberglass blanket instead of the foam and its barrier, ~$11k less;
   - gravel aprons instead of concrete, ~$1.5k less;
   - owner work: clearing the site, seeding the slope;
   - the kit's own walk door instead of the commercial one, ~$2k less. But sticky doors are
@@ -190,9 +234,10 @@ Tube frame, dealer-installed (owner, Oct 18 2026: red-iron is out).
   driven over the tank. If the tank is clear of it, the slope runs there too and the wall
   goes.
 - **Decisions for you:**
+  - foam and its barrier, or fiberglass blanket (~$11k);
   - concrete or gravel aprons;
-  - a roof over the work apron, for shade (to be discussed);
-  - insulation and power.
+  - insulated doors and a mini-split, now or later;
+  - a roof over the work apron, for shade (to be discussed).
 
 The rest of this section is building B's study at site B, kept for the record.
 

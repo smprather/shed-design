@@ -2686,7 +2686,8 @@ the tables below.
   | Walk door upgrade | $1.5k | $3.0k |
   | **Likely, with 10% contingency** | | **$48k** ($44–53k) |
 
-  - Insulation and power are extra, ~$11k.
+  - Insulation and power were extra. Later the same day they came in: ~$82k all in (see "Power and
+    insulation in the budget").
   - Against the pier-and-beam plan's $85k, it saves ~$37k. Against building up, ~$36k.
 - **Prices:**
   - a 4 in shop slab with rebar runs ~$6–10/sq ft in the Austin area. The 6 in slab priced
@@ -2701,6 +2702,85 @@ the tables below.
   - [Angi, excavation costs](https://www.angi.com/articles/excavation-costs.htm)
   - [Austin construction cost guide](https://www.costtobuildhouse.com/austin-tx) (shallow
     limestone in west Austin)
+
+### Power and insulation in the budget (owner, Oct 24 2026)
+
+- **The owner's call:** add electric to the cost, and insulation, the high-quality kind. "We
+  can hook into the electric line and/or conduit we're re-routing, right?"
+- **The conduit and trench: yes. The line itself: no.**
+  - The meter **and the disconnect** are on the wood pole at the NW fence corner (owner's
+    photo, Oct 13). So the buried line to the house starts after the house's breaker: it's
+    the house's feeder, sized and protected for the house.
+  - Splicing a second building into it in the yard isn't allowed. The building's wire would
+    be protected only by the house's breaker, far too big for it, and NEC 225 wants each
+    building fed through its own breaker and disconnect.
+  - **The building gets its own breaker at the pole.** The pole is ~40 ft from its NW corner
+    (`plan3d.py` geometry), so the feeder is short: ~53 ft with the trench's bends.
+  - If the pole's disconnect is a single breaker with no spare spaces, it's replaced by a
+    meter-main with spaces. Pedernales Electric pulls and resets the meter for the swap.
+  - The electrician does a load calculation for the house and the shop together.
+  - **One trench:** the house's line has to be rerouted round the building anyway (a straight
+    run passes ~32 ft under it). Its new conduit, the building's feeder conduit and a spare
+    conduit for data go in together, the feeder stubbed up through the slab where the panel
+    goes.
+- **Power, as priced:**
+  - a 100 A breaker at the pole;
+  - a 100 A, 4-wire feeder in PVC;
+  - a 100 A main-breaker panel inside the west wall, with two ground rods: the building's own
+    disconnect and grounding (NEC 250.32);
+  - EMT on the frame;
+  - LED shop lights, switched at the walk door;
+  - GFCI outlets every ~6 ft at bench height (NEC 210.8);
+  - three 240 V circuits: a table saw, a dust collector, and a compressor or a future
+    mini-split;
+  - motion lights outside the doors.
+- **Insulation, the high-grade kind for a steel shop:**
+  - **Closed-cell spray foam:** 2 in (~R-13) on the walls and gable ends, 3 in (~R-20)
+    under the roof.
+    - It's an air seal and a vapor retarder in one, so no condensation drips off the steel
+      panels.
+    - It stiffens the panels a little. Nothing nests in it.
+  - **A thermal barrier over it:** an intumescent coating sprayed on.
+    - The code wants foam plastic separated from the inside (IRC R316.4).
+    - A woodshop has sparks and finishes, so it's worth having either way.
+  - **The doors:** the roll-ups stay uninsulated. 180 sq ft of bare steel is the weak spot
+    once the walls are foamed. Insulated sectional doors are an option (~$3–6k for both;
+    the 2 ft over the 9 ft doors leaves room for their track).
+  - **The cheaper way:** the dealer's fiberglass blanket with a vapor-retarder facing (R-13
+    walls, R-19 roof), laid in as the panels go on. ~$11k less. But it's less airtight, and a
+    torn facing lets condensation in.
+- **Cost** (`shed_cost.py`, likely with the 10% contingency):
+
+  | Part | Likely (80% band) |
+  |---|---|
+  | The building on its slab | $48k ($43–53k) |
+  | Power: breaker at the pole, feeder, panel, wiring | $13k ($11–15k) |
+  | Insulation: foam and its barrier | $15k ($13–17k) |
+  | The house's line rerouted round the building (if it runs under it) | $5k ($3–7k) |
+  | **All of it** | **$82k** ($76–88k) |
+
+  - **Options, not in it:**
+    - insulated sectional doors, $3–6k;
+    - a ductless mini-split, 1.5–2 tons, $4–7.5k.
+  - **Unit prices:**
+    - foam: $2.75–5/sq ft on the walls (2 in) and $4–7 under the roof (3 in);
+    - the coating: $1.25–2.25/sq ft;
+    - the blanket: $1.25–2.50/sq ft;
+    - feeder: $20–40/ft;
+    - the pole's breaker or meter-main: $0.5–3k;
+    - the panel: $1.2–2.5k;
+    - the wiring: $5–9k;
+    - the reroute: $2.5–7k.
+  - The reroute had been left out of the budget. A straight run passes under the building,
+    so it's in now; if the locate finds the line clear of the building, it comes out.
+- **Sources:**
+  - [ThePricer, metal building insulation cost](https://www.thepricer.org/how-much-does-metal-building-insulation-cost/)
+  - [HomeGnome, spray foam insulation cost](https://homegnome.com/blog/cost/spray-foam-insulation-price/)
+  - [Fixr, spray foam insulation](https://www.fixr.com/costs/spray-foam-insulation)
+  - [Sawmill Creek, running 240 V to a shop](https://sawmillcreek.org/threads/running-240-to-my-shop.129340/post-1310291)
+  - [TractorByNet, running power to a detached garage](https://www.tractorbynet.com/forums/threads/running-power-to-detached-garage.438478/latest)
+  - The electrical prices are a planning judgment from these and Austin labor rates; the
+    sources are forum posts, so get the electrician's bid.
 
 ### Windows and doors
 

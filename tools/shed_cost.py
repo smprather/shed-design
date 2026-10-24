@@ -22,12 +22,21 @@ held by stem walls, and ramps from the doors down to the lawn at 10%. And the ba
 The soil is Brackett (USDA soil survey, map unit BlD: Brackett-Rock outcrop complex): 10-20 in of soil over soft,
 weathered limestone, with rock at the surface in places. Cut below `--soil` ft is priced as rock.
 
+Power and insulation are in the total (owner, Oct 24 2026):
+- power: the meter and the house's disconnect are on a pole at the NW fence corner, ~40 ft from the building, so it
+  gets its own 100 A breaker there and a short feeder, in the same trench as the house's buried line where that has
+  to be rerouted round the building (priced too, since a straight run passes under it); a 100 A panel inside, and a
+  woodshop's wiring;
+- insulation, the high-grade kind for a steel shop: closed-cell spray foam on the walls and under the roof, with a
+  thermal barrier over it. Dealer-installed fiberglass blanket is the cheaper way, printed for comparison.
+
 The building comes first and the drive much later (owner, Oct 24 2026), so nothing here is the drive's: the aprons
 come down to the lawn, and with no shop lane to drive on, the concrete is pumped in from the old drive and the lawn
 and the twin oak's root zone are matted for the crews.
 
 Prices are low/high planning ranges for the Austin area, Oct 2026: published Texas cost guides and county bid
-tabulations (sources in site/notes.md, "What the building at site A costs" and "Back to a slab"). None is a quote.
+tabulations (sources in site/notes.md, "What the building at site A costs", "Back to a slab" and "Power and
+insulation in the budget"). None is a quote.
 Get three itemized local bids; the building and the slab are most of the money.
 
 The outer range adds every low and every high, which no real job does. The "likely" figure is the sum of the
@@ -53,6 +62,9 @@ EAVE = 11.0
 SOIL = 1.5              # ft of soil over soft rock (Brackett: 10-20 in)
 APPROACH = 0.10         # the steepest fall from a door down to the lawn, for the mower and a boat trailer
 STEM_FROM = 1.0         # ft of fill at a slab edge past which it takes a stem wall, not a thickened edge
+PITCH = 3 / 12          # the kit's roof
+DOORS = 2 * 10 * 9 + 3 * 7   # sq ft of wall the two roll-ups and the walk door take
+POLE_M = (22.6, -1.0)   # plan m: the meter pole at the NW fence corner (electric_meter_pole in property_total_plan.jsonc)
 
 # (low, high) dollars, and the unit.
 PRICES = {
@@ -72,13 +84,28 @@ PRICES = {
     "tube": ((15, 26), "sq ft", "Building, installed: tube frame, 11 ft legs, two 10 x 9 roll-ups, the kit's walk door"),
     "walk_door": ((1500, 3000), "lot", "Walk door upgrade, net of the kit door: 3070 hollow metal, welded frame, continuous hinge, "
                                       "Grade 1 lever and deadbolt, closer, stop, seals"),
-    "insulation": ((1.25, 2.5), "sq ft of wall and roof", "Option: insulation, walls and roof"),
-    "power": ((3500, 8000), "lot", "Option: power: trench, conduit, subpanel, lights and outlets"),
+    # insulation, the high-grade kind
+    "foam_walls": ((2.75, 5.0), "sq ft of wall", "Insulation: closed-cell spray foam, 2 in (~R-13), on the walls and gable ends"),
+    "foam_roof": ((4.0, 7.0), "sq ft of roof", "Insulation: closed-cell spray foam, 3 in (~R-20), under the roof"),
+    "barrier": ((1.25, 2.25), "sq ft", "Thermal barrier over the foam: intumescent coating (IRC R316.4; it's a woodshop)"),
+    # power
+    "reroute": ((2500, 7000), "lot", "Reroute the house's buried line round the building, if it runs under it: conduit, wire, splices"),
+    "pole": ((500, 3000), "lot", "At the meter pole: a 100 A breaker for the building (or a meter-main with spaces; PEC pulls the meter)"),
+    "feeder": ((20, 40), "ft", "100 A feeder in PVC, and a spare conduit for data, in the trench shared with the house's line"),
+    "panel": ((1200, 2500), "lot", "100 A main-breaker panel in the building, two ground rods"),
+    "wiring": ((5000, 9000), "lot", "Wiring in EMT on the frame: LED shop lights, GFCI outlets every ~6 ft, three 240 V circuits, outside lights"),
+    # options, and the cheaper insulation
+    "doors_insulated": ((3000, 6000), "lot", "Option: insulated sectional doors in place of the roll-ups (then the walls' weak spot)"),
+    "minisplit": ((4000, 7500), "lot", "Option: a ductless mini-split, 1.5-2 tons, on one of the 240 V circuits"),
+    "fiberglass": ((1.25, 2.5), "sq ft of wall and roof", "Instead of the foam and its barrier: dealer-installed fiberglass blanket, R-13 walls, R-19 roof"),
 }
 SITE = ("prep", "locate", "permits", "access")
 FOUNDATION = ("soil", "rock", "fill", "slope", "wall", "stem", "drain", "slab", "apron")
 BUILDING = ("tube", "walk_door")
-OPTIONS = ("insulation", "power")
+INSULATION = ("foam_walls", "foam_roof", "barrier")
+POWER = ("pole", "feeder", "panel", "wiring")
+REROUTE = ("reroute",)
+OPTIONS = ("doors_insulated", "minisplit")
 CONTINGENCY = 0.10
 Z80 = 1.2816  # half-width of an 80% band, in standard deviations
 
@@ -158,16 +185,22 @@ def site_quantities(ground: Terrain, to_m: Frame, level: float, soil: float = SO
                 q["stem"] += 2 * 0.5
     q["pipe"] = Polygon(SITE_A).distance(Point(pipe))
     q["well"] = Polygon(SITE_A).distance(Point(well))
+    # The feeder: from the meter pole to the panel inside the building's west wall, a fifth longer than straight for the
+    # trench's bends (round the well), plus the rise at each end.
+    q["pole"] = Polygon(SITE_A).distance(Point(to_m.to_site(POLE_M)))
+    q["feeder"] = round(1.2 * q["pole"] + 6)
     return q
 
 
 def estimate(q: dict) -> tuple[list[dict], dict]:
     area = LENGTH * DEPTH
-    surface = 2 * (LENGTH + DEPTH) * EAVE + area / math.cos(math.atan(3 / 12))
-    qty = {**{k: q[k] for k in FOUNDATION}, "prep": 1, "locate": 1, "permits": 1, "access": 1, "tube": area,
-           "walk_door": 1, "insulation": surface, "power": 1}
+    walls = 2 * (LENGTH + DEPTH) * EAVE + DEPTH * DEPTH / 2 * PITCH - DOORS   # the gable ends' triangles; less the doors
+    roof = area / math.cos(math.atan(PITCH))
+    qty = {**{k: q[k] for k in FOUNDATION}, "prep": 1, "locate": 1, "permits": 1, "access": 1, "tube": area, "walk_door": 1,
+           "foam_walls": walls, "foam_roof": roof, "barrier": walls + roof, "reroute": 1, "pole": 1, "feeder": q["feeder"],
+           "panel": 1, "wiring": 1, "doors_insulated": 1, "minisplit": 1, "fiberglass": walls + roof}
     rows, sums = [], {}
-    for key in (*SITE, *FOUNDATION, *BUILDING, *OPTIONS):
+    for key in (*SITE, *FOUNDATION, *BUILDING, *REROUTE, *POWER, *INSULATION, *OPTIONS, "fiberglass"):
         (lo, hi), unit, label = PRICES[key]
         if round(hi * qty[key], -2) == 0:
             continue
@@ -180,9 +213,11 @@ def estimate(q: dict) -> tuple[list[dict], dict]:
         sd = math.sqrt(sum((b - a) ** 2 / 12 for a, b in its)) * (1 + CONTINGENCY)
         return mid, mid - Z80 * sd, mid + Z80 * sd
 
-    base = (*SITE, *FOUNDATION, *BUILDING)
+    base = (*SITE, *FOUNDATION, *BUILDING, *REROUTE, *POWER, *INSULATION)
     totals = {"range": tuple(sum(sums[k][i] for k in base if k in sums) * (1 + CONTINGENCY) for i in (0, 1)),
-              "likely": likely(base), "foundation": likely(FOUNDATION), "options": likely(OPTIONS)}
+              "likely": likely(base), "shell": likely((*SITE, *FOUNDATION, *BUILDING)), "foundation": likely(FOUNDATION),
+              "insulation": likely(INSULATION), "power": likely(POWER), "reroute": likely(REROUTE), "options": likely(OPTIONS),
+              "fiberglass": likely(("fiberglass",))}
     return rows, totals
 
 
@@ -209,14 +244,20 @@ def main(level: float, soil: float, detail: bool) -> None:
         click.echo(f"Dig {q['soil']:.0f} cu yd of soil and {q['rock']:.0f} of rock (soil {soil:g} ft deep); fill {q['fill']:.0f} cu yd; "
                    f"slope {q['slope']:.0f} ft; wall {q['wall_len']:.0f} ft, up to {q['wall_max']:.1f} ft; stem walls {q['stem']:.0f} ft; "
                    f"aprons {', '.join(f'{r:g}' for r in q['runs'])} ft out, falling {', '.join(f'{100 * f:.0f}%' for f in q['falls'])}.")
-        click.echo(f"{q['pipe']:.1f} ft from the septic pipe, {q['well']:.1f} ft from the well.")
+        click.echo(f"{q['pipe']:.1f} ft from the septic pipe, {q['well']:.1f} ft from the well, {q['pole']:.0f} ft from the meter pole "
+                   f"(a {q['feeder']:.0f} ft feeder).")
         click.echo(f"\nOn a slab dug into the high side, {level:g} ft over the SW corner (the plan)")
         with pl.Config(**cfg):
             click.echo(pl.DataFrame(rows))
-    click.echo(f"\nTurnkey, with {CONTINGENCY:.0%} contingency (site work and access, the slab, cut or fill, aprons or ramps, "
-               f"the building, the walk door): {fmt(totals['likely'])}, ${totals['likely'][0] / (LENGTH * DEPTH):,.0f}/sq ft; "
-               f"all lows to all highs {k(totals['range'][0])}-{k(totals['range'][1])}. "
-               f"+ insulation and power {fmt(totals['options'])}.")
+    click.echo(f"\nTurnkey, with {CONTINGENCY:.0%} contingency: {fmt(totals['likely'])}, ${totals['likely'][0] / (LENGTH * DEPTH):,.0f}/sq ft; "
+               f"all lows to all highs {k(totals['range'][0])}-{k(totals['range'][1])}. Of it:")
+    for label, key in (("the building on its slab: site work and access, the slab, cut, aprons, the kit, the walk door", "shell"),
+                       ("the house's buried line rerouted round it, if it runs under it", "reroute"),
+                       ("power: the breaker at the pole, the feeder, the panel, the wiring", "power"),
+                       ("insulation: closed-cell foam and its thermal barrier", "insulation")):
+        click.echo(f"  {label}: {fmt(totals[key])}")
+    click.echo(f"Fiberglass blanket instead of the foam and barrier: {fmt(totals['fiberglass'])}, saving ~{k(totals['insulation'][0] - totals['fiberglass'][0])}. "
+               f"Options, not in the total: insulated doors and a mini-split, {fmt(totals['options'])}.")
 
     # Dig in, or build up? The same building with its slab at other levels.
     corners = q["corners"]

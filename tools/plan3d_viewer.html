@@ -321,9 +321,9 @@ details li b { font-weight: 600; }
     house_footprint_survey: { label: "House footprint", group: "Your lot", token: "house",
       status: "surveyed", source: "Walls rebuilt from the 1991 plat; north wall laser-checked at 62.0 ft.", notes: "Footprint only. There's no room model yet." },
     building_A_30x30_eave_11ft_assumed: { label: "Building A, 30 × 30 ft", group: "Your lot", token: "steel", solid: true,
-      status: "planned at site A (site B dropped, owner, Oct 18 2026); a common 30 × 30 × 11 kit on a pier-and-beam floor (owner, Oct 24 2026)",
-      source: "Site A (SITE_A in tools/envelope_plan.py), built like building B; size, eave and foundation per the owner, Oct 24 2026. Prices in tools/shed_cost.py.",
-      notes: "900 sq ft, with the owner's S130 parked inside for scale. B's look: dark grey steel, light grey inside, a 3:12 gable on 11 ft legs. 30 ft wide (the clear span, across the strip) with its ridge along the line. All its doors face south, onto the yard: two 10 × 9 ft roll-ups (drawn rolled up; the most an 11 ft leg takes) and a commercial 3 × 7 ft walk door centered between them (hollow metal in a welded frame, a continuous hinge, Grade 1 lever and deadbolt, a closer). It stands on a pressure-treated pier-and-beam floor: 20 concrete piers on footings, four lines of triple 2×12 beams, 2×12 joists hung flush between them at 16 in, and a 1-1/8 in floor. Ground-contact PT lets the beams sit 4 in over the ground at the high NE corner; the ground falls ~3 ft to the SW, so the floor is 1.4 ft up at the NE corner and 4.4 ft at the SW, and the south sills 3.8–4.2 ft. A concrete ramp runs from the sills down to the ground 25 ft out (~19%, about 1:5.3). 10.3 ft from the septic pipe, 15 ft from the well. The buried service line likely runs under it: have it traced first." },
+      status: "planned at site A (site B dropped, owner, Oct 18 2026); a common 30 × 30 × 11 kit on a pier-and-beam floor, its high side dug down 2 ft (owner, Oct 24 2026)",
+      source: "Site A (SITE_A in tools/envelope_plan.py), built like building B; size, eave, foundation, cut, ramp and landing per the owner, Oct 24 2026. Prices in tools/shed_cost.py.",
+      notes: "900 sq ft, with the owner's S130 parked inside for scale. B's look: dark grey steel, light grey inside, a 3:12 gable on 11 ft legs. 30 ft wide (the clear span, across the strip) with its ridge along the line. All its doors face south, onto the yard: two 10 × 9 ft roll-ups (drawn rolled up; the most an 11 ft leg takes) and a commercial 3 × 7 ft walk door centered between them. It stands on a pressure-treated pier-and-beam floor: 20 concrete piers, four lines of triple 2×12 beams, 2×12 joists flush between them at 16 in, a 1-1/8 in floor. The high NE side is dug down 2 ft inside a low block wall, so the floor sits 1.4 ft over the ground at the north corners and 2.4 ft at the SW, and the door sills ~2 ft. The west roll-up has a concrete ramp down to the ground 25 ft out (~12%, about 1:8.5), so a later owner can back a boat in on a trailer (the west bay's floor would need framing for it). The walk door and the east roll-up open onto a 10 ft PT landing at floor level: its own beam and piers at the outer edge, 2×6 decking, four steps down in front of the east roll-up. 10.3 ft from the septic pipe, 15 ft from the well. The buried service line likely runs under it: have it traced first." },
     building_B_23x43_eave_14ft_assumed: { label: "Building B, 23 × 43 ft (dropped)", group: "Proposed", token: "steel", solid: true, hidden: true,
       status: "dropped: site B is out (owner, Oct 18 2026); hidden at first, tick it in the layer list to compare", source: "Site B footprint (SITE_B in tools/site_plan.py); look per the owner, Oct 18 2026.",
       notes: "Dark grey steel on every surface, with two roll-up doors on the south wall (drawn rolled up) and a solid north wall toward US-290. Drawn with 12 × 12 ft doors at the quarter points, a 3:12 gable and a 14 ft eave. None of those is decided yet. The slab is level with its high NE corner by the oak. The ground falls ~3.8 ft across it, so the west side needs fill or a stem wall rather than a cut toward the oak. The east door is 15 ft from the house's NW corner." },
@@ -368,9 +368,9 @@ details li b { font-weight: 600; }
     proposed_retaining_wall: { label: "Retaining wall round building A's cut", group: "Proposed", token: "block", solid: true,
       status: "proposed, Oct 24 2026 (owner: cut the high side ~2 ft)", source: "drive_layout.py cut_zone_a; plan3d.py",
       notes: "Building A's high NE side is dug down 2 ft so its floor and door sills sit 2 ft lower. A low segmental-block wall, 2 ft off the building's north, east and west sides, holds the ground outside: up to ~2.1 ft tall on the north and east, a course or two on the west. Gravel and a perforated drain behind it carry water round to the low south side; the cut falls 2% south, so nothing ponds under the floor. Gutters on both eaves, piped away. Its east run passes the septic access pipe: find the tank first." },
-    proposed_approach_ramp: { label: "Ramp up to building A's doors", group: "Proposed", token: "concrete",
-      status: "proposed, Oct 24 2026 (pier-and-beam floor)", source: "drive_layout.py approach_a; plan3d.py",
-      notes: "Broom-finished concrete on compacted fill, from the door sills (3.8–4.2 ft over the ground) down to the ground 25 ft out: ~19%, about 1:5.3. Fine for the mower and for driving a pickup in forward; too steep to back a trailer comfortably (1:8 would need ~43 ft). The shop lane joins its east side." },
+    proposed_approach_ramp: { label: "Ramp up to building A's west roll-up", group: "Proposed", token: "concrete",
+      status: "proposed, Oct 24 2026 (owner: the ramp for the west door only; boat storage for a later owner)", source: "drive_layout.py ramp_a; plan3d.py",
+      notes: "Broom-finished concrete on compacted fill, 14 ft wide, from the west roll-up's sill (~2 ft over the ground) down to the ground 25 ft out: ~12%, about 1:8.5, gentle enough to back a boat trailer up. The rest of the front is the landing (walk door and east roll-up) and a gravel court at grade, where the shop lane arrives." },
     proposed_approach_ramp_walls: { label: "Ramp's concrete side walls", group: "Proposed", token: "concrete",
       status: "proposed, Oct 24 2026", source: "plan3d.py", notes: "8 in concrete walls along the ramp's west and south edges where it stands above the ground: up to ~4.4 ft at the SW corner of the building, down to nothing at the foot." },
     proposed_porte_cochere: { label: "Porte-cochère", group: "Proposed", token: "porte",
@@ -699,6 +699,31 @@ details li b { font-weight: 600; }
       }
       box(0, L, 0, W, top, z0, deckMat);
     } else box(-0.35, L + 0.35, -0.35, W + 0.35, -B.drop_ft - 0.3, z0, concrete);   // slab, down to the low ground
+    if (PB && B.landing) {
+      // The landing (owner, Oct 24 2026): a PT deck at floor level in front of the walk door and the east roll-up, on its own
+      // triple 2x10 beam and piers at the outer edge, 2x10 joists at 16 in hung from the building's south beam, 2x6 decking
+      // running along the wall, a fascia; steps down to the court in front of the east roll-up.
+      const Ld = B.landing, x0 = Ld.x0_ft, x1 = Ld.x1_ft, d = Ld.deep_ft;
+      const deckTop = z0 - 0.02, top = deckTop - 0.125, bot = top - 0.77, by = -d + 0.4;
+      for (const px of Ld.piers_x_ft) {
+        const g = groundFt(px, by), h = bot - g + 1.0;
+        const c = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, h, 18), concrete);
+        c.position.copy(Q(px, by, bot - h / 2)); c.userData.id = id; shed.add(c);
+      }
+      box(x0, x1, by - 0.19, by + 0.19, bot, top, ptWood);                                  // beam
+      for (let x = x0 + 0.0625; x < x1; x += 4 / 3) box(x - 0.0625, x + 0.0625, by + 0.19, -0.05, bot, top, ptWood);   // joists
+      box(x1 - 0.125, x1, by - 0.19, -0.05, bot, top, ptWood);
+      for (let y = -d; y < -0.02; y += 0.479) box(x0, x1, y, Math.min(y + 0.458, -0.02), top, deckTop, deckMat);   // 2x6 boards
+      box(x0, x1, -d - 0.06, -d, bot + 0.2, deckTop, ptWood);                               // fascia: the outer edge
+      box(x1, x1 + 0.06, -d, 0, bot + 0.2, deckTop, ptWood);                                // and the east end
+      // Steps: 7 to 7.5 in risers and 11 in treads down to the ground at their foot, as solid PT blocks.
+      const [s0, s1] = Ld.steps_ft, gFoot = groundFt((s0 + s1) / 2, -d - 3);
+      const n = Math.max(2, Math.ceil((deckTop - gFoot) / (7.5 / 12))), rise = (deckTop - gFoot) / n, run = 11 / 12;
+      for (let k = 1; k < n; k++) {
+        const yTop = -d - (k - 1) * run, yBot = -d - k * run;
+        box(s0, s1, yBot, yTop, Math.min(groundFt(s0, yBot), groundFt(s1, yBot)) - 0.2, deckTop - k * rise, deckMat);
+      }
+    }
     // Door aprons slope from the slab down to the ground 10 ft out (2017 lidar, under the apron's far edge).
     if (B.apron_ft) {
       // One apron along the door wall (A): it falls 1.5% away from the doors, on compacted fill held by its concrete edge,

@@ -15,8 +15,10 @@ Two foundations, priced side by side:
 - piers (the plan, owner Oct 24 2026): a pressure-treated pier-and-beam floor (plan3d.py has the framing). The
   ground falls ~3 ft to the SW, where the doors are, so the high NE side is dug down PB_CUT (`--pb-cut`) inside a
   low segmental-block wall 2 ft off the building, falling 2% south (drive_layout.cut_zone_a). That puts the door
-  sills ~2 ft over the ground, and a concrete ramp on fill runs down from them to the ground 25 ft out
-  (drive_layout.approach_a). `--pb-cut 0` prices it without the cut (sills ~4 ft).
+  sills ~2 ft over the ground. A concrete ramp on fill runs from the west roll-up down to the ground 25 ft out
+  (drive_layout.ramp_a; boat storage for a later owner), and the walk door and the east roll-up open onto a PT
+  landing at floor level, 10 ft deep, with steps down (drive_layout.landing_a). The gravel court around them is
+  priced with the drive (drive_plan.py). `--pb-cut 0` prices it without the cut (sills ~4 ft).
 - slab (for comparison, as priced Oct 18): a slab cut and filled CUT ft below the high corner (`--cut`), with a
   12 ft concrete apron along the doors near grade.
 Quantities come from the 2017 lidar.
@@ -39,7 +41,7 @@ import polars as pl
 import rich_click as click
 from shapely.geometry import Point, Polygon
 
-from drive_layout import APPROACH_FOOT, CUT_FALL, approach_a, cut_zone_a
+from drive_layout import APPROACH_FOOT, CUT_FALL, RAMP_TO, cut_zone_a, landing_a, ramp_a
 from envelope_plan import ALONG, line_rect
 from plan3d import FT, PB_BEAMS_Y, PB_CUT, PB_FLOOR, PB_PIERS_X, TERRAIN, Frame, Terrain
 
@@ -64,7 +66,9 @@ PRICES = {
     "framing": ((8, 14), "sq ft", "PT floor: triple 2x12 beams, 2x12 joists at 16 in on hangers, 1-1/8 in T&G floor, labor"),
     "anchors": ((500, 1500), "lot", "Uplift ties: the kit's base rail to the beams, the beams to the piers"),
     "skirting": ((6, 12), "sq ft", "Skirting round the crawl space: PT frame, metal panels, hardware cloth behind"),
-    "ramp": ((10, 16), "sq ft", "Concrete ramp up to the doors, broom finish, on compacted fill"),
+    "ramp": ((10, 16), "sq ft", "Concrete ramp up to the west roll-up, broom finish, on compacted fill"),
+    "landing": ((35, 60), "sq ft", "PT landing at floor level: its own beam and piers, 2x10 joists, 2x6 decking, fascia"),
+    "steps": ((600, 1500), "lot", "PT steps from the landing down to the court, 10 ft wide"),
     "ramp_fill": ((70, 125), "cu yd", "Fill under the ramp: crushed limestone, compacted in lifts"),
     "ramp_walls": ((80, 160), "ft", "The ramp's concrete side walls, with footings"),
     "grade_cut": ((20, 40), "cu yd", "Cut the high NE side down, reused as fill under the ramp"),
@@ -83,9 +87,10 @@ PRICES = {
                                       "Grade 1 lever and deadbolt, closer, stop, seals"),
     "insulation": ((1.25, 2.5), "sq ft of wall and roof", "Option: insulation, walls and roof"),
     "power": ((3500, 8000), "lot", "Option: power: trench, conduit, subpanel, lights and outlets"),
+    "boat_floor": ((1500, 4000), "lot", "Option: the west bay's floor framed for a boat on a trailer: joists at 12 in, a second floor layer, engineered"),
 }
 BASE = {"piers": ("prep", "locate", "permits", "grade_cut", "retaining", "drainage", "piers", "framing", "anchors", "skirting",
-                  "ramp", "ramp_fill", "ramp_walls"),
+                  "ramp", "ramp_fill", "ramp_walls", "landing", "steps"),
         "slab": ("prep", "locate", "permits", "cut", "fill", "wall", "drain", "slab", "aprons")}
 CONTINGENCY = 0.10
 Z80 = 1.2816  # half-width of an 80% band, in standard deviations
@@ -138,8 +143,9 @@ def site_quantities(length: float, ground: Terrain, to_m: Frame, cut: float = CU
     q["skirting"] = sum(math.dist(a, b) / 10 * (floor - gcut(at(*lerp(a, b, (i + .5) / 10)), *lerp(a, b, (i + .5) / 10)))
                         for a, b in edges for i in range(10))
     sill = floor - 0.04
-    k = (sill - gft(at(length / 2, -APPROACH_FOOT))) / APPROACH_FOOT
-    ramp = Polygon(approach_a(length))
+    k = (sill - gft(at((RAMP_TO - 1) / 2, -APPROACH_FOOT))) / APPROACH_FOOT
+    ramp = Polygon(ramp_a(length))
+    q["landing"] = Polygon(landing_a(length)).area
     z = lambda x, y: sill + k * min(y, 0.0)  # noqa: E731
     x0, y0, x1, y1 = ramp.bounds
     cells = [(x0 + i * 0.5 + 0.25, y0 + j * 0.5 + 0.25) for i in range(int((x1 - x0) / 0.5)) for j in range(int((y1 - y0) / 0.5))]
@@ -181,8 +187,8 @@ def estimate(length: float, q: dict, kind: str) -> tuple[list[dict], dict]:
            "piers": q["piers"], "framing": area, "anchors": 1, "skirting": q["skirting"],
            "ramp": q["ramp"], "ramp_fill": q["ramp_fill"], "ramp_walls": q["ramp_walls"], "cut": q["cut"], "fill": q["fill"],
            "wall": q["wall"], "drain": 1 if q["cut"] > 0.5 else 0, "slab": area, "aprons": q["aprons"], "tube": area,
-           "walk_door": 1, "insulation": surface, "power": 1}
-    keys = [*BASE[kind], "tube", "walk_door", "insulation", "power"]
+           "walk_door": 1, "insulation": surface, "power": 1, "landing": q["landing"], "steps": 1, "boat_floor": 1}
+    keys = [*BASE[kind], "tube", "walk_door", "insulation", "power", *(["boat_floor"] if kind == "piers" else [])]
     rows, sums = [], {}
     for key in keys:
         (lo, hi), unit, label = PRICES[key]
@@ -223,8 +229,9 @@ def main(lengths: str, detail: bool, cut: float, pb_cut: float) -> None:
             click.echo(f"\n{DEPTH:g} x {length:g} x {EAVE:g} ft = {area:,.0f} sq ft; the ground falls {q['fall']:.1f} ft to the SW.")
             click.echo(f"Pier and beam, the high side dug down {pb_cut:g} ft: {q['grade_cut']:.0f} cu yd out; a block wall {q['retaining_len']:.0f} ft "
                        f"long, up to {q['retaining_max']:.1f} ft; the floor {q['above_natural_ne']:+.1f} ft against the NE corner's natural ground.")
-            click.echo(f"The floor over the ground at the corners {under} ft{sills}. Ramp {q['ramp']:,.0f} sq ft at "
-                       f"{100 * q['grade']:.0f}% (1:{1 / q['grade']:.1f}), {q['ramp_fill']:.0f} cu yd of fill, side walls {q['ramp_walls']:.0f} ft.")
+            click.echo(f"The floor over the ground at the corners {under} ft{sills}. The west roll-up's ramp {q['ramp']:,.0f} sq ft at "
+                       f"{100 * q['grade']:.0f}% (1:{1 / q['grade']:.1f}), {q['ramp_fill']:.0f} cu yd of fill, side walls {q['ramp_walls']:.0f} ft; "
+                       f"the landing {q['landing']:,.0f} sq ft.")
         for kind in ("piers", "slab"):
             rows, totals = estimate(length, q, kind)
             if detail:
@@ -236,10 +243,10 @@ def main(lengths: str, detail: bool, cut: float, pb_cut: float) -> None:
                     click.echo(pl.DataFrame(rows))
             summary.append({"size": f"{DEPTH:g} x {length:g} x {EAVE:g}", "foundation": "pier and beam" if kind == "piers" else "slab",
                             "turnkey, likely (80% band)": fmt(totals["likely"]), "per sq ft": f"${totals['likely'][0] / area:,.0f}",
-                            "of which the foundation and ramp/apron": fmt(totals["foundation"]),
+                            "of which the foundation and ramp/landing or apron": fmt(totals["foundation"]),
                             "all lows to all highs": f"{k(totals['range'][0])}-{k(totals['range'][1])}",
                             "+ insulation and power": fmt(totals["options"])})
-    click.echo(f"\nTurnkey totals, with {CONTINGENCY:.0%} contingency (site work, foundation, ramp or apron, the building, the walk door):")
+    click.echo(f"\nTurnkey totals, with {CONTINGENCY:.0%} contingency (site work, foundation, ramp and landing or apron, the building, the walk door):")
     with pl.Config(**{**cfg, "fmt_str_lengths": 40}):
         click.echo(pl.DataFrame(summary))
 

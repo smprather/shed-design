@@ -10,8 +10,9 @@ with overlaps counted once. Sources and accuracy:
 - the deck: the county record's 240 sq ft, placed by photo (a wood deck over soil may not count;
   the pergola's metal roof over part of it does);
 - the existing drive and walk: traced from the plat, +/-3 ft on every edge;
-- the building at site A: the 30 x 30 kit (owner, Oct 24 2026), plus the concrete ramp up to its south doors
-  (drive_layout.approach_a; it replaced a 12 ft apron when the building went on pier and beam);
+- the building at site A: the 30 x 30 kit (owner, Oct 24 2026), plus the concrete ramp up to its west roll-up
+  and the deck landing with steps in front of the walk door and east roll-up (drive_layout.ramp_a and
+  landing_a, Oct 24 2026; counted, though a gapped deck over soil may not be);
 - the drive system (tools/drive_layout.py, Oct 18 2026): the old drive and walk come out; the porte-cochere's
   roof, the pavers, the concrete street aprons and the curbs count; its gravel is shown both ways, since rules
   differ on gravel (Travis County's answer decides it).
@@ -70,7 +71,7 @@ def main(limit: float) -> None:
                  "% of lot": round(pct(hard.difference(house_only).area + curbs), 1)})
     rows.append({"item": "New drive: gravel", "sq ft": round(gravel.area), "% of lot": round(pct(gravel.area), 1)})
     click.echo(f"Lot: {area_lot:,.0f} sq ft ({area_lot / 43560:.2f} ac); {limit:g}% allows {allowed:,.0f} sq ft.")
-    with pl.Config(tbl_hide_dataframe_shape=True, tbl_hide_column_data_types=True, fmt_str_lengths=60, tbl_rows=-1,
+    with pl.Config(tbl_hide_dataframe_shape=True, tbl_hide_column_data_types=True, fmt_str_lengths=72, tbl_rows=-1,
                    thousands_separator=","):
         click.echo(pl.DataFrame(rows))
 
@@ -81,9 +82,9 @@ def main(limit: float) -> None:
         for label, base, extra in (("now + building", now.area, 0.0), ("new drive (gravel not counted) + building", drive_hard, 0.0),
                                    ("new drive (gravel counted) + building", drive_hard, gravel.area)):
             total = base + b + extra
-            out.append({"case": f"{label} {DEPTH:g} x {length:g} and its ramp", "sq ft": round(total),
+            out.append({"case": f"{label} {DEPTH:g} x {length:g} with ramp and landing", "sq ft": round(total),
                         "% of lot": round(pct(total), 1), f"vs {limit:g}% (sq ft)": round(allowed - total)})
-    with pl.Config(tbl_hide_dataframe_shape=True, tbl_hide_column_data_types=True, fmt_str_lengths=60, tbl_rows=-1,
+    with pl.Config(tbl_hide_dataframe_shape=True, tbl_hide_column_data_types=True, fmt_str_lengths=72, tbl_rows=-1,
                    thousands_separator=","):
         click.echo(pl.DataFrame(out))
 

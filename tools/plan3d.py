@@ -29,7 +29,10 @@ import rich_click as click
 
 from site_plan import BUILDING_LINE, HOUSE, PARCEL, REPO, SITE_B, WELL, en_to_site, north_line_y, site, st
 from site_b_plan import HOSE, house_north_y
-from drive_layout import APPROACH_FOOT, CURB, CUT_FALL, ROAD, ROAD_LINES, ROAD_T, cut_zone_a, layout as drive_layout
+from drive_layout import (
+    APPROACH_FOOT, CURB, CUT_FALL, LANDING_DEEP, RAMP_TO, ROAD, ROAD_LINES, ROAD_T, STEPS, STEPS_DEEP, cut_zone_a,
+    layout as drive_layout,
+)
 from front_layout import EXISTING_DRIVE, FRONT_WALK, offset
 from house_layout import FF_FT, house_spec, porte_spec
 from envelope_plan import SITE_A
@@ -604,6 +607,11 @@ def main(spec: Path, out: Path) -> None:
                   "foundation": {"kind": "pier_beam", "floor_ft": round(PB_FLOOR, 3), "beam_ft": PB_BEAM, "deck_ft": PB_DECK,
                                  "beams_y_ft": list(PB_BEAMS_Y), "piers_x_ft": list(PB_PIERS_X), "joist_oc_ft": PB_JOIST_OC,
                                  "pier_d_ft": PB_PIER_D},
+                  # The landing in front of the walk door and the east roll-up (owner, Oct 24 2026): a PT pier-and-beam deck
+                  # at floor level, LANDING_DEEP out, on its own beam and piers at the outer edge, joists hung from the
+                  # building's south beam, 2x6 decking; steps down in front of the east roll-up.
+                  "landing": {"x0_ft": RAMP_TO, "x1_ft": round(a_len, 2), "deep_ft": LANDING_DEEP, "piers_x_ft": [13.5, 19.0, 24.5, 29.5],
+                              "steps_ft": [STEPS[0], STEPS[1], STEPS_DEEP]},
                   "mower": {"x_ft": A_DOORS[0], "y_ft": MOWER_IN}}   # west bay, nose to the door
     # Existing drive and front walk, traced from the 1991 plat (front_layout.py, +/-3 ft).
     obj.obj("existing_driveway_1991_plat")
@@ -611,35 +619,26 @@ def main(spec: Path, out: Path) -> None:
     obj.obj("front_walk_1991_plat")
     obj.pad([to_m(p) for p in site(st(*q) for q in FRONT_WALK)], cell=0.25, lift=0.05)
     # The drive system, from scratch (drive_layout.py, owner's brief Oct 18 2026): gravel in a stabilizer grid with
-    # concrete curbs, pavers under the porte-cochere and concrete street aprons. Building A's approach is a concrete
-    # ramp on fill from its door sills down to the ground APPROACH_FOOT out, between concrete side walls; the shop
-    # lane's gravel rises to meet its east side at 8%.
-    from shapely.geometry import Point
+    # concrete curbs, pavers under the porte-cochere and concrete street aprons. Building A's west roll-up has a
+    # concrete ramp on fill from its sill down to the ground APPROACH_FOOT out, between concrete side walls; the walk
+    # door and the east roll-up open onto the deck landing (drawn by the viewer), with the shop court's gravel at grade.
     from shapely.ops import transform
     o_, e_s, e_t = site([st(0, 0)])[0], site([st(1, 0)])[0], site([st(0, 1)])[0]
     to_st = lambda p: tuple(sum((p[k] - o_[k]) * (e[k] - o_[k]) for k in (0, 1)) for e in (e_s, e_t))  # noqa: E731
     sv = lambda s, t: to_m(site([st(s, t)])[0])  # noqa: E731
     plan_m = lambda g: transform(lambda xs, ys, zs=None: tuple(map(list, zip(*[sv(x, y) for x, y in zip(xs, ys)]))), g)  # noqa: E731
     dl = drive_layout([to_st(p) for p in SITE_A])
-    app_m = plan_m(dl["approach"])
-    # The approach's surface: a plane falling from the sills (a little under the floor) to the ground at its foot.
+    app_m = plan_m(dl["ramp"])
+    # The west roll-up's ramp: a plane falling from the sill (a little under the floor) to the ground at its foot.
     a_ux, a_uy = building_a["ux"], building_a["uy"]
     a_y = lambda x, y: ((x - asw[0]) * a_uy[0] + (y - asw[1]) * a_uy[1]) / FT  # noqa: E731   # ft north of the south wall
     sill = a_slab + (PB_FLOOR - 0.04) * FT
-    foot = ground(asw[0] + (a_len / 2 * a_ux[0] - APPROACH_FOOT * a_uy[0]) * FT, asw[1] + (a_len / 2 * a_ux[1] - APPROACH_FOOT * a_uy[1]) * FT)
+    mid = (RAMP_TO - 1) / 2   # ft: the ramp's middle, east of the SW corner
+    foot = ground(asw[0] + (mid * a_ux[0] - APPROACH_FOOT * a_uy[0]) * FT, asw[1] + (mid * a_ux[1] - APPROACH_FOOT * a_uy[1]) * FT)
     app_k = (sill - foot) / (APPROACH_FOOT * FT)   # m per m
     app_z = lambda x, y: sill + app_k * min(a_y(x, y), 0) * FT  # noqa: E731
-
-    def ramp(x: float, y: float) -> float:
-        """Gravel height near the approach: the ground, or up to the approach's edge at 8% where it's higher."""
-        q = Point(x, y)
-        d = app_m.distance(q)
-        if d > 20:
-            return ground(x, y) + 0.03
-        edge = app_m.exterior.interpolate(app_m.exterior.project(q)).coords[0]
-        return max(ground(x, y) + 0.03, app_z(*edge) - 0.08 * d)
     obj.obj("proposed_drive_gravel")
-    obj.area(plan_m(dl["gravel"]), z=lambda x, y: ramp(x, y) + 0.03)
+    obj.area(plan_m(dl["gravel"]), lift=0.06)
     obj.obj("proposed_drive_pavers")
     obj.area(plan_m(dl["paved"]), lift=0.08)
     obj.obj("proposed_drive_concrete_aprons")
@@ -651,7 +650,7 @@ def main(spec: Path, out: Path) -> None:
             continue
         left, right = ([sv(*q) for q in offset(pts, side * CURB / 2)] for side in (1, -1))
         for (l0, l1), (r0, r1) in zip(zip(left, left[1:]), zip(right, right[1:])):
-            obj.face([(x, y, ramp(x, y) + 0.08) for x, y in (l0, r0, r1, l1)])
+            obj.face([(x, y, ground(x, y) + 0.11) for x, y in (l0, r0, r1, l1)])
     obj.obj("proposed_approach_ramp")
     obj.area(app_m, z=lambda x, y: max(app_z(x, y), ground(x, y) + 0.03))
     # Its side walls, where the ramp stands above the ground: 8 in concrete, a few inches proud of the surface.
@@ -739,7 +738,7 @@ def main(spec: Path, out: Path) -> None:
     # Building A's approach ramp vs. the septic access pipe; its floor's height over the ground; the ramp's grade.
     app_ft = [to_m.to_site(q) for q in list(app_m.exterior.coords)[:-1]]
     gap = 0.0 if inside(pipe, app_ft) else poly_dist(pipe, app_ft)
-    check("building A's approach ramp vs septic pipe", f"{gap:.1f} ft", f"{KEEP_OUT:g} ft",
+    check("building A's ramp vs septic pipe", f"{gap:.1f} ft", f"{KEEP_OUT:g} ft",
           "OK" if gap >= KEEP_OUT else "CONFLICT", "the tank is likely under or beside the access pipe: no ramps or traffic over it")
     under = {name: PB_FLOOR + (a_level - ground(*q)) / FT for name, q in zip(("NW", "NE", "SE", "SW"), a_m)}
     check("building A's floor over the ground, corners", ", ".join(f"{k} {v:.1f}" for k, v in under.items()) + " ft", "-", "NOTE",
@@ -752,7 +751,12 @@ def main(spec: Path, out: Path) -> None:
           "OK" if wall_pipe >= KEEP_OUT else "CHECK", "its east run passes the access pipe: find the tank before digging the footing")
     sills = [PB_FLOOR + (a_level - ground(asw[0] + c * a_ux[0] * FT, asw[1] + c * a_ux[1] * FT)) / FT for c in (*A_DOORS, WALK_AT)]
     check("building A's south sills over the ground", f"{min(sills):.1f}-{max(sills):.1f} ft", "-", "NOTE",
-          f"the approach ramp falls {app_k * 100:.0f}% ({1 / app_k:.1f}:1) to the ground {APPROACH_FOOT:g} ft out")
+          f"the west roll-up's ramp falls {app_k * 100:.0f}% ({1 / app_k:.1f}:1) to the ground {APPROACH_FOOT:g} ft out")
+    edge_y = -LANDING_DEEP
+    land_drop = PB_FLOOR + (a_level - ground(asw[0] + (sum(STEPS) / 2 * a_ux[0] + edge_y * a_uy[0]) * FT,
+                                             asw[1] + (sum(STEPS) / 2 * a_ux[1] + edge_y * a_uy[1]) * FT)) / FT
+    check("building A's landing: drop at its steps", f"{land_drop:.1f} ft", "30 in", "OK" if land_drop < 2.5 else "GUARD",
+          f"{math.ceil(land_drop * 12 / 7.5)} risers down to the court; a guard is needed where a deck edge stands over 30 in")
     check("building B ground fall across the slab", f"{fall:.1f} ft", "-", "NOTE",
           "2017 lidar; high at the NE corner by the oak, so level it with fill on the west side, not a cut toward the oak")
     d = poly_dist(pipe, SITE_B)

@@ -131,7 +131,8 @@ def main() -> None:
     shape(L["concrete"], (200, 200, 195), (200, 200, 195, 210))
     for ln in getattr(L["curbs"], "geoms", [L["curbs"]]):
         plan.line(S(list(ln.coords)), (240, 240, 235), width=3)
-    shape(L["approach"], (200, 200, 195), (200, 200, 195, 210))
+    shape(L["ramp"], (200, 200, 195), (200, 200, 195, 210))
+    shape(L["landing"], (150, 115, 75), (180, 150, 110, 225))
     shape(L["building"], (90, 95, 100), (60, 65, 70, 220), width=3)
     shape(L["cover"], (120, 80, 60), (150, 100, 70, 90), width=3)
     for s_, t_ in COVER_COLUMNS:
@@ -167,14 +168,15 @@ def main() -> None:
         ((36, 58), "forecourt", (240, 220, 170), 16), ((47, 35), "porte-cochere\n2 cars nose to tail\n9 ft clear", (255, 210, 180), 15),
         ((14, 62), "loop D's island\n(lawn, lone oak)", (180, 240, 180), 15), ((24, 112), "service drive\n(old curl, rebuilt in place)", (240, 220, 170), 15),
         ((60, 120), "north court\nseptic truck stop,\n2 guest spaces", (240, 220, 170), 15), ((118, 118), "shop lane", (240, 220, 170), 16),
-        ((186, 72), "ramp up to the doors\n(concrete, priced with A)", (230, 230, 225), 15), ((196, 128), "BUILDING A\n30 x 30, on piers", WHITE, 16),
+        ((207, 81), "ramp to the west door\n(concrete, priced with A)", (230, 230, 225), 15),
+        ((186, 92), "landing, deck on piers\n4 steps down", (235, 205, 165), 15), ((196, 128), "BUILDING A\n30 x 30, on piers", WHITE, 16),
         ((150, 140), "septic pipe\n10 ft keep-out", RED, 15), ((86, 132), "twin oak\n12 ft no-dig", GREEN, 15),
         ((210, 150), "well", CYAN, 15), ((-3, 2), "1991 electric (locate)", YELLOW, 14), ((150, 120), "service line (locate)", YELLOW, 14),
     ):
         x, y = site([st(s_, t_)])[0]
         plan.label(x, y, text, fill=col, size=size)
     plan.label(*site([st(225, -10)])[0], "Tan: gravel in a stabilizer grid, concrete-curbed (white).  Brown: pavers under the porte-cochere.  "
-               "Grey: concrete.  Dashed white: the old drive and walk, coming out.  Green: trunks; yellow: canopy (2017 lidar).  Grid 10 ft.", size=15)
+               "Grey: concrete.  Wood brown: A's deck landing.  Dashed white: the old drive and walk, coming out.  Green: trunks; yellow: canopy (2017 lidar).  Grid 10 ft.", size=15)
     plan.scale_bar()
     plan.img.save(OUT)
     click.echo(f"wrote {OUT.relative_to(REPO)} {plan.img.size}")
@@ -251,7 +253,7 @@ def main() -> None:
     plan_all = unary_union([plan_hard, court_and_gravel])
     area_lot = lot.area
     imp = [{"case": "now (house, porch, deck, old drive and walk)", "sq ft": round(now.area)},
-           {"case": "plan, gravel not counted (house, building A and its ramp, cover, pavers, concrete, curbs)", "sq ft": round(plan_hard.area + curb_area)},
+           {"case": "plan, gravel not counted (house, building A, its ramp and landing, cover, pavers, concrete, curbs)", "sq ft": round(plan_hard.area + curb_area)},
            {"case": "plan, gravel counted too", "sq ft": round(plan_all.area + curb_area)}]
     for r in imp:
         r["% of lot"] = round(100 * r["sq ft"] / area_lot, 1)
@@ -260,7 +262,8 @@ def main() -> None:
         click.echo(pl.DataFrame(imp))
 
     # --- Budget ---
-    # Building A's approach ramp, its fill and side walls are priced with the building (shed_cost.py).
+    # Building A's ramp (its fill and side walls) and its deck landing are priced with the building (shed_cost.py);
+    # the gravel court in front of the landing is part of the drive's gravel.
     qty = {"demo": Polygon(EXISTING_DRIVE).area + Polygon(FRONT_WALK).area, "concrete": L["concrete"].area, "permit": 1,
            "gravel": L["gravel"].area, "curb": curb_len, "pavers": L["paved"].area, "cover": cover.area, "arborist": 1}
     rows, sums = [], {}

@@ -2252,6 +2252,9 @@ the tables below.
   - **Oct 24 2026:** the shop court came out of the drive, since building A's ramp took its
     place and is priced with the building. The drive is now **$103k** ($92–114k), and with the
     cover **$183k** ($161–206k).
+  - **Later on Oct 24 2026:** the court came back, at grade, in front of building A's new deck
+    landing (see "A ramp to the west roll-up only"). The drive is **$108k** ($96–119k), and with
+    the cover **$188k** ($165–210k).
 
   - **Unit prices:**
     - gravel in grid on base, $8–14/sq ft;
@@ -2438,6 +2441,8 @@ the tables below.
   - That's 0.6 ft below the NE corner's natural ground, which is why the wall is there.
   - The door sills are ~2 ft up.
   - The 25 ft ramp now falls ~11%, about 1:9. A trailer backs up that.
+  - **Superseded Oct 24 2026:** the ramp now serves only the west roll-up, at ~12%; the walk door
+    and the east roll-up open onto a deck landing (see "A ramp to the west roll-up only").
 - **Water is the catch:**
   - drain rock and a perforated pipe behind the wall, carrying water round to the low side;
   - gutters on both eaves, piped away (the north eave would drip into the cut);
@@ -2496,6 +2501,54 @@ the tables below.
   defaults.
 - **Flying up and down** (owner, Oct 24 2026): flight style now: C or Space climbs, E or Q
   descends. E used to climb and C to descend.
+
+### Building A: a ramp to the west roll-up only, and a deck landing for the rest (owner, Oct 24 2026)
+
+- **The owner's call:**
+  - No trailer storage is planned. But the building should stay marketable to a later owner
+    as boat storage, so the west roll-up keeps the 25 ft ramp.
+  - The walk door and the east roll-up open onto a pier-and-beam landing ~10 ft deep instead,
+    with steps down. It's a place to work, e.g. woodworking out of the sun.
+  - The geometry can be tweaked later so a boat can be backed in.
+  - Later: a roof over the landing for shade.
+- **The ramp** (`drive_layout.ramp_a`):
+  - 14 ft wide, from 1 ft west of the building to 1 ft past the west roll-up (x −1 to 13 in A's
+    frame), 25 ft out;
+  - 350 sq ft of broom-finished concrete on ~14 cu yd of compacted fill, between concrete side
+    walls (33 ft where it stands proud);
+  - it falls ~12%, about 1:8.5. That's a little steeper than the full-width ramp's 11%,
+    because the ground is lowest at the SW corner. Fine for backing a boat trailer.
+- **The landing** (`drive_layout.landing_a`; the 3D plan draws it):
+  - 17 × 10 ft (170 sq ft), from the ramp's east edge to the SE corner, at floor level, just
+    under the walk door's threshold;
+  - pressure-treated: a triple 2×10 beam on four 12 in concrete piers along its outer edge,
+    2×10 joists at 16 in hung from the building's south beam line, 2×6 decking along the wall,
+    a fascia;
+  - steps 10 ft wide down to the court in front of the east roll-up: the drop is ~2.2 ft
+    (`lidar`, ±0.5 ft), so 4 risers of ~6.6 in with 11 in treads;
+  - under 30 in to the ground at its edges, so no guard is required by code. Its west edge
+    stands ~1 ft over the ramp's far end; a rail or a curb there is worth adding.
+  - The east roll-up opens onto the deck: fine for the mower, a hand truck or a cart. Nothing
+    with wheels gets down except by the steps, so a car or trailer can't use that door.
+- **The court:** the gravel in front of the landing and beside the ramp (~280 sq ft) is back in
+  the drive, at grade, where the shop lane ends.
+- **Cost** (`shed_cost.py`):
+  - the building, pier and beam with the 2 ft cut, **$82k** likely ($75–88k), up from $80k:
+    - the landing $6–10k and its steps $0.6–1.5k;
+    - most of that is offset by the smaller ramp, its fill and side walls.
+  - **Option, for boats:** the west bay's floor framed for a boat on its trailer (joists at
+    12 in, a second floor layer, the piers under it checked by the engineer), $1.5–4k.
+  - The drive is **$108k** ($96–119k), up from $103k, with the court back in it. All of it with
+    the porte-cochère: **$188k** ($165–210k).
+- **For a boat, later:**
+  - The 10 × 9 ft roll-up limits the boat's height on its trailer, ~8.5 ft with the door's
+    headroom. Many runabouts and bass boats fit with the windshield and bimini down; a T-top or a
+    tower doesn't.
+  - Backing in: the ramp is straight off the door, and the court and the shop lane give a
+    pickup room to swing round from the east. To be laid out when it's needed.
+- **Impervious cover:** with the ramp and the landing, 20.6% with the old drive; 19.3% with the
+  new drive if gravel doesn't count, 29.4% if it does. The landing is counted, though a gapped
+  deck over soil may not be.
 
 ### Windows and doors
 

@@ -56,8 +56,34 @@ def cut_zone_a(L: float, W: float) -> list[tuple[float, float]]:
     return [(-CUT_OFFSET, -1.0), (L + CUT_OFFSET, -1.0), (L + CUT_OFFSET, W + CUT_OFFSET), (-CUT_OFFSET, W + CUT_OFFSET)]
 
 
+# Building A's south side (owner, Oct 24 2026). The 25 ft concrete ramp serves only the west roll-up: no trailers now,
+# but boat storage stays possible for a later owner, who'd back a boat trailer up it. The walk door and the east roll-up
+# open onto a pressure-treated pier-and-beam landing at floor level, LANDING_DEEP out, with steps down in front of the
+# east roll-up. The rest of the old approach is a gravel court at grade, where the shop lane arrives.
+RAMP_TO = 13.0          # ft east of the SW corner: the ramp's east edge (the west roll-up is 2-12 ft)
+LANDING_DEEP = 10.0     # ft out from the south wall
+STEPS = (18.0, 28.0)    # ft along the wall: the steps, as wide as the east roll-up
+STEPS_DEEP = 3.5        # ft: four treads
+
+
+def ramp_a(L: float) -> list[tuple[float, float]]:
+    """The west roll-up's ramp, in building A's frame (ft)."""
+    return [(-1.0, 0.0), (RAMP_TO, 0.0), (RAMP_TO, -APPROACH_FOOT), (-1.0, -APPROACH_FOOT)]
+
+
+def landing_a(L: float) -> list[tuple[float, float]]:
+    """The landing in front of the walk door and the east roll-up, in building A's frame (ft)."""
+    return [(RAMP_TO, 0.0), (L, 0.0), (L, -LANDING_DEEP), (RAMP_TO, -LANDING_DEEP)]
+
+
+def steps_a() -> list[tuple[float, float]]:
+    """The landing's steps down to the court, in building A's frame (ft)."""
+    return [(STEPS[0], -LANDING_DEEP), (STEPS[1], -LANDING_DEEP), (STEPS[1], -LANDING_DEEP - STEPS_DEEP), (STEPS[0], -LANDING_DEEP - STEPS_DEEP)]
+
+
 def approach_a(L: float) -> list[tuple[float, float]]:
-    """Building A's approach ramp in its own frame (x east from its SW corner, y north, ft), for a building L ft long.
+    """The whole area in front of building A's doors, in its own frame (x east from its SW corner, y north, ft), for a
+    building L ft long: the ramp, the landing and its steps, and the gravel court around them.
 
     Its SE corner is cut back on a diagonal for an oak, and a stub on its east side takes the shop lane.
     """
@@ -90,7 +116,7 @@ NORTH_COURT = [(58.5, 94.5), (80.0, 94.5), (80.0, 106.0), (76.0, 110.0), (58.5, 
 # The shop lane: the north court to building A's approach ramp, past the house's north wall (4-7 ft off it) and the twin
 # oak (12 ft off its trunks), then along the strip north of the back-lawn oaks.
 SHOP_LANE = [(78, 98.5), (91, 99.0), (101, 100.0), (113, 102.0), (126, 104.5), (140, 107.0), (153, 109.0), (163, 108.0),
-             (171, 104.0), (178, 98.0), (185, 93.0)]   # ends on the approach ramp's east stub
+             (171, 104.0), (178, 98.0), (185, 93.0)]   # ends in the shop court, in front of the landing
 
 
 def a_frame(sw, se, nw):
@@ -127,7 +153,10 @@ def layout(a_corners) -> dict:
     A = a_frame(sw, se, nw)
     building = Polygon([sw, se, ne, nw])
     a_len = math.dist(sw, se)
-    approach = Polygon([A(x, y) for x, y in approach_a(a_len)])
+    ramp = Polygon([A(x, y) for x, y in ramp_a(a_len)])
+    landing = Polygon([A(x, y) for x, y in landing_a(a_len)]).union(Polygon([A(x, y) for x, y in steps_a()]))
+    approach = ramp.union(landing)   # building A's own front, priced with it
+    court = Polygon([A(x, y) for x, y in approach_a(a_len)]).difference(approach)
     house = Polygon(HOUSE_ST).union(Polygon(PORCH_ST))
     parts = {
         "south leg": Polygon(lane(SOUTH_LEG, LANE)).union(Polygon(street_flares(SOUTH_LEG, LANE))),
@@ -136,6 +165,7 @@ def layout(a_corners) -> dict:
         "service drive": Polygon(lane(SERVICE_DRIVE, SERVICE)),
         "north court": Polygon(NORTH_COURT),
         "shop lane": Polygon(lane(SHOP_LANE, SERVICE)),
+        "shop court": court,
     }
     parts = {k: g.buffer(0).difference(house).difference(approach).difference(building) for k, g in parts.items()}
     drive = unary_union(list(parts.values())).buffer(0.01).buffer(-0.01)
@@ -145,5 +175,6 @@ def layout(a_corners) -> dict:
     edge_free = unary_union([house.buffer(0.7), approach.buffer(0.7), building.buffer(0.7), concrete.buffer(0.3)])
     curbs = gravel.boundary.difference(edge_free)
     return {"parts": parts, "drive": drive.union(paved), "concrete": concrete, "paved": paved, "gravel": gravel,
-            "curbs": curbs, "approach": approach, "building": building, "house": house, "A": A, "a_len": a_len,
+            "curbs": curbs, "approach": approach, "ramp": ramp, "landing": landing, "building": building, "house": house,
+            "A": A, "a_len": a_len,
             "cover": box(COVER[0], COVER[2], COVER[1], COVER[3])}

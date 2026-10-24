@@ -2,7 +2,7 @@
 
 The owner's brief: no tree removal; keep loop D (the circle through the open path between the lawn oaks); a
 covered porte-cochere on the house front, out to the 45 ft building line, with a lane outside it so a car can
-pass a parked one; building A's doors on its south side behind one apron; and an estate-style drive: gravel
+pass a parked one; building A's doors on its south side; and an estate-style drive: gravel
 held in a stabilizer grid, bounded by concrete curbs so it never ruts, sinks or spreads into the lawn or the
 house. The old drive and the front walk come out.
 
@@ -15,7 +15,8 @@ How it's laid out:
   no deeper than the old one: those roots have lived beside it for 35 years) to the north court, the old garage
   apron. The court is the septic truck's stop, a turnaround and two guest spaces.
 - The shop lane runs west from the court, between the house and the twin oak (outside its 12 ft no-dig), along
-  the strip to the shop court in front of building A's doors.
+  the strip to the concrete ramp up to building A's doors (since Oct 24, when A went on a pier-and-beam floor; it
+  replaced a 12 ft apron and a raised gravel court).
 
 Survey-local (s, t) feet: s back from the front line, t from the south line toward US-290 (site_plan.st).
 No heavy imports, so drive_plan.py and plan3d.py can both use it.
@@ -36,7 +37,18 @@ LANE = 12.0        # ft: loop D's legs
 SERVICE = 10.0     # ft: the service drive and the shop lane, which carry a pickup, a trailer and a septic truck now and then
 CURB = 0.67        # ft: concrete ribbon curb, 8 in wide (and ~12 in deep, with rebar)
 APRON_TO = 10.0    # ft: the street aprons are concrete from the asphalt to this far inside the front line
-APRON_DEEP = 12.0  # ft: building A's concrete apron, out from its south wall, a foot past the outer roll-ups at each end
+# Building A's approach (Oct 24 2026): it stands on a pier-and-beam floor, so its south door sills are 3.6-4.4 ft above
+# the ground there. A concrete ramp on compacted fill, between concrete side walls, runs from the sills down to the
+# ground APPROACH_FOOT ft out (~1:5.4), a foot past the doors at the west end; the shop lane joins its east side.
+APPROACH_FOOT = 25.0   # ft out from the south wall to the ramp's foot
+
+
+def approach_a(L: float) -> list[tuple[float, float]]:
+    """Building A's approach ramp in its own frame (x east from its SW corner, y north, ft), for a building L ft long.
+
+    Its SE corner is cut back on a diagonal for an oak, and a stub on its east side takes the shop lane.
+    """
+    return [(-1.0, 0.0), (L + 1.0, 0.0), (L + 5.0, -14.0), (L + 5.0, -16.0), (L - 4.0, -APPROACH_FOOT), (-1.0, -APPROACH_FOOT)]
 
 # Loop D's legs, centerlines. The south leg comes in from the new curb cut and runs west into the forecourt's south
 # end; the north leg leaves the forecourt's north end through the open path between the lone lawn oak and the bulge
@@ -62,14 +74,10 @@ SERVICE_DRIVE = [(9, 93.0), (20, 97.0), (31, 101.5), (39, 105.5), (47, 108.0), (
 # The north court, on the old garage apron: it stops 12 ft from the twin oak's trunks, and 4 ft off the kitchen's
 # north wall (the old garage door, which becomes a glass slider), leaving a planted strip under the glass.
 NORTH_COURT = [(58.5, 94.5), (80.0, 94.5), (80.0, 106.0), (76.0, 110.0), (58.5, 110.0)]
-# The shop lane: the court to building A, past the house's north wall (4-7 ft off it) and the twin oak (12 ft
-# off its trunks), then along the strip north of the back-lawn oaks.
+# The shop lane: the north court to building A's approach ramp, past the house's north wall (4-7 ft off it) and the twin
+# oak (12 ft off its trunks), then along the strip north of the back-lawn oaks.
 SHOP_LANE = [(78, 98.5), (91, 99.0), (101, 100.0), (113, 102.0), (126, 104.5), (140, 107.0), (153, 109.0), (163, 108.0),
-             (171, 104.0), (178, 98.0), (185, 93.0)]   # ends inside the shop court
-# The shop court in front of building A's doors, beyond its 12 ft apron, in building A's frame (ft: x east from its
-# SW corner along the south wall, y north): 24 ft from the wall to the court's edge, room to swing into either door.
-SHOP_COURT_A = [(-1.0, -12.0), (38.0, -12.0), (40.0, -14.0), (40.0, -16.0), (31.0, -25.0), (-1.0, -25.0)]   # its SE corner cut back for an oak
-SHOP_COURT_FALL = 0.02  # it falls 2% away from the apron's edge, which is 1.5% below the slab
+             (171, 104.0), (178, 98.0), (185, 93.0)]   # ends on the approach ramp's east stub
 
 
 def a_frame(sw, se, nw):
@@ -106,8 +114,7 @@ def layout(a_corners) -> dict:
     A = a_frame(sw, se, nw)
     building = Polygon([sw, se, ne, nw])
     a_len = math.dist(sw, se)
-    apron = Polygon([A(1.5, 0), A(a_len - 1.5, 0), A(a_len - 1.5, -APRON_DEEP), A(1.5, -APRON_DEEP)])
-    court = Polygon([A(x, y) for x, y in SHOP_COURT_A])
+    approach = Polygon([A(x, y) for x, y in approach_a(a_len)])
     house = Polygon(HOUSE_ST).union(Polygon(PORCH_ST))
     parts = {
         "south leg": Polygon(lane(SOUTH_LEG, LANE)).union(Polygon(street_flares(SOUTH_LEG, LANE))),
@@ -116,15 +123,14 @@ def layout(a_corners) -> dict:
         "service drive": Polygon(lane(SERVICE_DRIVE, SERVICE)),
         "north court": Polygon(NORTH_COURT),
         "shop lane": Polygon(lane(SHOP_LANE, SERVICE)),
-        "shop court": court,
     }
-    parts = {k: g.buffer(0).difference(house).difference(apron).difference(building) for k, g in parts.items()}
+    parts = {k: g.buffer(0).difference(house).difference(approach).difference(building) for k, g in parts.items()}
     drive = unary_union(list(parts.values())).buffer(0.01).buffer(-0.01)
     concrete = drive.intersection(box(STREET_S - 10, -100, APRON_TO, 400))
     paved = Polygon(PAVED).buffer(0).difference(house).intersection(drive.union(Polygon(PAVED))).difference(concrete)
     gravel = drive.difference(concrete).difference(paved)
-    edge_free = unary_union([house.buffer(0.7), apron.buffer(0.7), building.buffer(0.7), concrete.buffer(0.3)])
+    edge_free = unary_union([house.buffer(0.7), approach.buffer(0.7), building.buffer(0.7), concrete.buffer(0.3)])
     curbs = gravel.boundary.difference(edge_free)
     return {"parts": parts, "drive": drive.union(paved), "concrete": concrete, "paved": paved, "gravel": gravel,
-            "curbs": curbs, "court": court, "apron": apron, "building": building, "house": house, "A": A, "a_len": a_len,
+            "curbs": curbs, "approach": approach, "building": building, "house": house, "A": A, "a_len": a_len,
             "cover": box(COVER[0], COVER[2], COVER[1], COVER[3])}

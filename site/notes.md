@@ -1746,6 +1746,9 @@ They explained it as "the open path through the trees." It's in the private repo
   | 30 × 30 ft (900 sq ft) | **$56k** ($50–61k) | $62 | $39–72k | $12k ($9–14k) |
   | 30 × 25 ft (750 sq ft) | **$49k** ($44–53k) | $65 | $34–63k | $11k ($9–13k) |
 
+  - **Superseded Oct 24 2026:** the building is now a 30 × 30 × 11 kit on a pressure-treated
+    pier-and-beam floor, with a concrete ramp up to its south doors: **$78k** ($72–84k). On a
+    slab, the same kit would be $54k. See "Building A on pier and beam".
   - **Re-priced the same day for the south doors** (see "Building A's doors move to the south
     side"): two 12 × 12 roll-ups and the commercial walk door in the south wall, one 12 ft
     apron, and a cut-and-fill pad with the slab 1.5 ft below the high corner. Built all on fill
@@ -2072,6 +2075,8 @@ They explained it as "the open path through the trees." It's in the private repo
 
 - **The owner's call:** two roll-ups and a centered walk door, behind one apron, all on the south
   side. It replaces the single east-end roll-up from earlier the same day.
+- **Superseded Oct 24 2026** (see "Building A on pier and beam"): the kit is now 30 × 30 × 11,
+  the roll-ups 10 × 9, and a ramp replaces the apron. The doors stay on the south side.
 - **Layout along the 35 ft south wall** (feet east of the SW corner):
 
   | | From | To |
@@ -2155,6 +2160,9 @@ the tables below.
     - It stands up to ~1.5–2 ft above the falling ground, on 27 cu yd of fill, behind a
       concrete retaining edge.
     - The lane ramps up to it.
+    - **Superseded Oct 24 2026:** with building A on pier and beam, a concrete ramp from its
+      door sills down to the ground takes the apron's and the court's place. The lane joins
+      its east side. It's priced with the building.
 - **The surfaces ("Downton", done so it lasts):**
   - **Gravel drive:**
     - 3/8 in angular crushed stone, buff limestone or granite chips. Angular stone locks; round
@@ -2241,6 +2249,9 @@ the tables below.
 
   - Corrected the same day: the street aprons now run out to the asphalt (see "Candelaria Dr
     and the right-of-way"). It added ~$1k.
+  - **Oct 24 2026:** the shop court came out of the drive, since building A's ramp took its
+    place and is priced with the building. The drive is now **$103k** ($92–114k), and with the
+    cover **$183k** ($161–206k).
 
   - **Unit prices:**
     - gravel in grid on base, $8–14/sq ft;
@@ -2303,6 +2314,98 @@ the tables below.
     (t = -640 ft) to as far north as the aerial shows it (t = 175 ft).
   - The aerial shows only our frontage. The lots to the south line up with it.
   - `drive_layout.py` holds the numbers: ROAD, ROAD_LINES, ROAD_T.
+
+### Building A on pier and beam, 30 × 30 × 11 (owner, Oct 24 2026)
+
+- **The owner's call:**
+  - Change the building to 30 × 30 × 11 ft, a common kit size.
+  - Put it on a pier-and-beam foundation.
+  - Use pressure-treated lumber, so the high side can sit close to the ground.
+- **The kit:** 30 ft wide (the span, across the strip) × 30 ft along the line, on 11 ft legs:
+  900 sq ft.
+  - It keeps site A's east end, 10.3 ft from the septic pipe. It gives up 5 ft at the west
+    end, so the well is now 15 ft off.
+  - `envelope_plan.SITE_A` is now 30 × 30.
+- **Doors** (still all on the south side):
+  - Two 10 × 9 ft roll-ups: about the largest an 11 ft leg takes. 12 × 12 doors want ~14 ft
+    legs.
+  - The commercial walk door, centered between them.
+  - Along the 30 ft wall, from the SW corner:
+
+    | | From | To |
+    |---|---|---|
+    | Wall | 0 | 2 |
+    | Roll-up, 10 × 9 | 2 | 12 |
+    | Walk door, 3 × 7 (frame 13.3–16.7) | 13.5 | 16.5 |
+    | Roll-up, 10 × 9 | 18 | 28 |
+    | Wall | 28 | 30 |
+
+- **The floor** (`plan3d.py` has the numbers; the 3D plan draws it):
+  - **Piers:** 20 concrete piers, 12 in round, on footings dug to rock. They're formed above the
+    ground with tubes and carry galvanized beam seats. There are four lines of five, ~7.3 ft
+    apart.
+  - **Beams:** four lines of triple 2×12s running east-west, at the south edge, 10 ft and 20 ft
+    in, and the north edge.
+  - **Joists:** 2×12s hung flush between the beams at 16 in, spanning 10 ft. Rim joists close
+    the ends.
+  - **Floor:** 1-1/8 in tongue-and-groove plywood.
+  - **Why PT lets it sit low:** the code wants treated or naturally durable wood when girders
+    are within 12 in of the ground, or joists within 18 in (IRC R317.1). Use ground-contact PT:
+    UC4B for the beams, UC4A for the rest. Then the beams can sit 4 in over the ground at the
+    high NE corner.
+  - **Height of the floor's top over the ground:** 1.4 ft at the NE corner, 3.0 at the NW,
+    3.6 at the SE and 4.4 at the SW. The ground falls ~3 ft to the SW.
+  - **Ties:** the kit's base rail ties to the beams, and the beams to the piers, against wind
+    uplift.
+  - **Skirting:** about 370 sq ft round the crawl space, on a PT frame with metal panels and
+    hardware cloth behind, to keep animals out. Leave vents.
+  - **What it carries:** storage, a workshop and the riding mower.
+    - Parking a car or truck on a wood floor needs an engineer to size it: tighter joists and
+      a thicker floor.
+    - For vehicles, a slab is the better floor.
+- **The catch: the doors face the low side.**
+  - The sills stand 3.8–4.2 ft above the ground at the wall.
+  - So a concrete ramp on compacted fill runs from the sills down to the ground 25 ft out:
+    - 832 sq ft at ~19%, about 1:5.3;
+    - 63 cu yd of fill;
+    - 42 ft of concrete side walls, up to ~4.4 ft at the building's SW corner.
+  - It takes the old apron's and shop court's place. The shop lane joins its east side.
+  - **It's fine** for the mower and for driving a pickup in forward.
+  - **It's too steep** to back a trailer comfortably. 1:8 would need ~43 ft, into the oaks.
+  - **It's 28.5 ft** from the septic pipe.
+- **Cost** (`shed_cost.py`, with 10% contingency):
+
+  | 30 × 30 × 11 | Likely (80% band) | Foundation and ramp or apron |
+  |---|---|---|
+  | **Pier and beam** (the plan) | **$78k** ($72–84k) | $49k ($44–54k) |
+  | Slab, cut and filled (for comparison) | $54k ($49–59k) | $25k ($23–28k) |
+
+  - **The pier and beam itself** costs about what the slab does:
+    - piers $5–12k;
+    - the PT floor $7–13k;
+    - ties ~$1k.
+  - **The difference is what goes with it:**
+    - the ramp: concrete $8–13k, fill $4–8k, walls $3–7k;
+    - the skirting: $2–4k.
+  - **Ways to bring it down:**
+    - A mower-only ramp at one roll-up (a PT timber ramp, ~1:4, ~16 ft) and steps to the walk
+      door. About $2–3k instead of ~$20k, but no vehicles.
+    - A slab, if vehicles are going in.
+    - Doors on the high north side can't work: the fence is 5 ft off that wall.
+  - **The building line** is now $15–26/sq ft: 11 ft legs and smaller doors than the 14 ft
+    eave priced before.
+- **Impervious cover** with the new drive: 20.1% if gravel doesn't count, 29.4% if it does.
+- **The 3D plan** draws all of it:
+  - the piers, beams, joists and floor, open underneath;
+  - the ramp and its side walls;
+  - the S130 in the west bay.
+  - The cut-and-fill grading is gone; the ground under the building is as the lidar has it.
+- **Sources:**
+  - [HomeAdvisor, foundation costs](https://www.homeadvisor.com/cost/foundations/install-a-foundation)
+  - [Angi, Houston foundations](https://www.angi.com/articles/how-much-does-concrete-foundation-cost/tx/houston)
+  - [The Pricer, pier and beam](https://www.thepricer.org/pier-and-beam-foundation-cost/)
+  - [Building Code Trainer, protecting wood from decay (IRC R317.1)](https://buildingcodetrainer.com/protecting-wood-from-decay/)
+  - [The Building Code Forum, joist clearance](https://www.thebuildingcodeforum.com/forum/threads/floor-joist-to-rat-slab-clearance.8044/)
 
 ### Windows and doors
 

@@ -5,16 +5,16 @@ sources, corrections and dates. This file says what we're doing, in what order, 
 still undecided. Update it when a decision changes; record the facts behind the change in
 `notes.md`.
 
-Last updated: Oct 18 2026 (building A's doors on its south side; the drive redesigned from scratch, with a porte-cochère).
+Last updated: Oct 24 2026 (building A: a 30 × 30 × 11 kit on a pressure-treated pier-and-beam floor, with a ramp to its doors).
 
 ## The four projects
 
 | Project | What it is now | Status | Blocked on |
 |---|---|---|---|
-| **1. The building, at site A** | A standard tube-frame steel kit, 30 ft wide × 35, 30 or 25 ft, on the north strip between the well and the septic pipe. Site B is dropped (owner, Oct 18 2026) | Sized and priced (~$49–64k turnkey, likely); doors on the south side; size and use open | The buried service line; the septic layout (the drainfield may be under it) |
+| **1. The building, at site A** | A common 30 × 30 × 11 tube-frame kit on a pressure-treated pier-and-beam floor (owner, Oct 24 2026), on the north strip between the well and the septic pipe. Site B is dropped (owner, Oct 18 2026) | Modeled and priced (~$78k turnkey, likely; $54k on a slab); doors on the south side, with a ramp; use open | The buried service line; the septic layout (the drainfield may be under it) |
 | **2. Screening** (noise and views) | US-290 side: the 8 ft fence, building B, maybe a taller wall. Back line: 21 new trees in the gaps | Back-line planting ready to buy; US-290 side needs re-modeling | Fence gaps and ownership; septic layout |
 | **3. Garage → kitchen** | Join the 21 × 21 ft attached garage, the hall beside it and the old kitchen into one ~680 sq ft kitchen. Its own repo: `smprather/kitchen-garage-renovation` | Idea stage (~90% likely); layout mocked up | Parking must move first; septic capacity question; structure (see its repo) |
-| **4. The drive + porte-cochère** | Redesigned from scratch: loop D, a forecourt with a porte-cochère (2 cars nose to tail) and a passing lane, the service drive and north court, the shop lane to building A. Estate gravel, concrete-curbed | Designed and priced (~$201k likely; $121k of it the drive) | Trunk tapes; buried lines; the septic layout; county permits |
+| **4. The drive + porte-cochère** | Redesigned from scratch: loop D, a forecourt with a porte-cochère (2 cars nose to tail) and a passing lane, the service drive and north court, the shop lane to building A. Estate gravel, concrete-curbed | Designed and priced (~$183k likely; $103k of it the drive) | Trunk tapes; buried lines; the septic layout; county permits |
 
 ## Order of work
 
@@ -91,50 +91,70 @@ Parking has to exist out front before the garage stops being a garage.
 
 ## Project 1: The building (site A; site B dropped Oct 18 2026)
 
-**Now at site A** (owner, Oct 18 2026): a standard steel kit, 30 ft wide across the strip,
-35, 30 or 25 ft long along the line. The ridge runs along the line.
+**Now at site A, on pier and beam** (owner, Oct 24 2026): a common 30 × 30 × 11 ft tube-frame kit,
+30 ft wide across the strip and 30 ft along the line. It keeps site A's east end, 10.3 ft from the
+septic pipe, and is now 15 ft from the well. The ridge runs along the line.
 
-**All the doors face south** (owner, Oct 18 2026), behind one 32 × 12 ft concrete apron, well
-away from the septic pipe:
-- two 12 × 12 ft roll-ups;
+**All the doors face south** (owner, Oct 18 2026), well away from the septic pipe:
+- two 10 × 9 ft roll-ups, about the largest 11 ft legs take;
 - a commercial walk door centered between them: hollow metal in a welded frame, a continuous
   hinge, Grade 1 hardware and a closer, so it won't sag or stick (notes, "The walk door").
 
-The south side is the low side, so the pad is cut and filled. The slab sits 1.5 ft below the
-high NE corner, which keeps the apron near grade. The shop lane and shop court reach it
-(project 4). The 3D plan draws 30 × 35 with the S130 inside.
+**The floor is pressure-treated pier and beam,** low on the high side:
+- 20 concrete piers;
+- four lines of triple 2×12 beams;
+- 2×12 joists flush between them at 16 in;
+- a 1-1/8 in floor.
+
+Ground-contact PT lets the beams sit 4 in over the ground at the high NE corner. The ground
+falls ~3 ft to the SW, so the floor stands 1.4 ft up at the NE corner and 4.4 ft at the SW. It's
+built for storage, a workshop and the mower. Parking vehicles on it needs an engineer.
+
+**The catch: the doors are on the low side.** Their sills are 3.8–4.2 ft over the ground.
+- A concrete ramp on fill, between concrete side walls, runs from them down to the ground
+  25 ft out, at ~19% (1:5.3).
+- That's fine for the mower and for a pickup driving in. It's too steep to back a trailer.
+- It replaces the apron and the shop court. The shop lane joins it (project 4).
+- The 3D plan draws the piers, beams, joists, floor, ramp and the S130 inside.
 
 Tube frame, dealer-installed (owner, Oct 18 2026: red-iron is out).
 
-| Size | Turnkey, likely (80% band) | Per sq ft | + insulation and power |
-|---|---|---|---|
-| 30 × 35 ft (1,050 sq ft) | $64k ($58–70k) | $61 | $12k ($10–15k) |
-| 30 × 30 ft (900 sq ft) | $56k ($50–61k) | $62 | $12k ($9–14k) |
-| 30 × 25 ft (750 sq ft) | $49k ($44–53k) | $65 | $11k ($9–13k) |
+| 30 × 30 × 11 | Turnkey, likely (80% band) | Per sq ft | Foundation and ramp or apron | + insulation and power |
+|---|---|---|---|---|
+| **Pier and beam** (the plan) | **$78k** ($72–84k) | $87 | $49k ($44–54k) | $11k ($9–13k) |
+| Slab, cut and filled (for comparison) | $54k ($49–59k) | $60 | $25k ($23–28k) | $11k ($9–13k) |
 
-These include the commercial walk door (+$1.5–3k) and the larger apron. The cut-and-fill pad
-saves ~$10k over building it all up on fill ($74k for 30 × 35).
+- **The pier and beam itself** costs about what the slab does. The ~$24k difference is the
+  ramp ($15–28k with its fill and walls) and the skirting.
+- **Cheaper:**
+  - a mower-only timber ramp at one roll-up and steps to the walk door saves ~$20k, but no
+    vehicles;
+  - or a slab, if vehicles go in.
+- Before Oct 24 it was a slab, 1.5 ft below the high corner: 30 × 35 was $64k, 30 × 30 $56k.
 
 - For comparison, ~800 sq ft of portable wood sheds on blocks is ~$25–41k (notes, "For
   comparison: ~800 sq ft of portable sheds").
 
 - Planning ranges from `tools/shed_cost.py`, not quotes. Notes, "What the building at site A
   costs", has the breakdown, the sources and the owner work that cuts the cost.
-- The slope adds ~$7–14k with the cut-and-fill pad: fill and a stem wall on the low SW side, a drain on the cut side.
+- The slope is what costs: on pier and beam it's the ramp up to the low-side doors; on a slab, the fill, stem wall and drain.
 - **Impervious cover: confirm the limit applies before anything else.**
   - Against 15%, the lot is already at ~16% (5,502 sq ft of 5,065 allowed). The building
-    makes it ~20%. With the new drive (old drive out), ~19% if gravel isn't counted, ~30%
-    if it is.
+    and its ramp make it ~21%. With the new drive (old drive out), ~20% if gravel isn't
+    counted, ~29% if it is.
   - But 15% is the City's SOS number, and the 1992 ordinance exempted single-family
     development on lots that existed by Nov 1, 1991. This one did (recorded plat Vol. 55
     Pg. 69; the April 1991 survey shows the house).
   - Ask Travis County TNR whether any limit applies to an accessory building here.
   - See notes, "Does the 15% even apply?".
 - **Before anything:** trace the buried service line (it likely runs under the site) and
-  find the drainfield and the tank's outline. The apron is 29 ft from the septic access pipe,
-  but the NE corner's cut comes within 10 ft of it: nothing gets dug, poured or driven over the
+  find the drainfield and the tank's outline. The ramp is 28.5 ft from the septic access pipe,
+  but the NE corner's piers come within 10 ft of it: nothing gets dug, poured or driven over the
   tank.
-- **Decisions for you:** the size; insulation; power.
+- **Decisions for you:**
+  - the full ramp, or a mower-only ramp;
+  - pier and beam or a slab, if vehicles will go in;
+  - insulation and power.
 
 The rest of this section is building B's study at site B, kept for the record.
 
@@ -313,8 +333,8 @@ drive, redesigned from scratch", has the detail, the clearances and the sources.
     - The court is the septic truck's stop, a turnaround and two guest spaces.
     - It stops 12 ft from the twin oak, and 4 ft off the kitchen's new north glass.
   - **The shop lane** (10 ft) runs west past the house and the twin oak (12.2 ft) and along
-    the strip to the **shop court** in front of building A's doors. The court is raised on
-    fill, behind a concrete edge.
+    the strip to the concrete ramp up to building A's doors, which is priced with the
+    building (project 1).
 - **The surfaces:**
   - 3/8 in angular gravel locked in a stabilizer grid, on compacted base;
   - concrete ribbon curbs along every gravel edge;
@@ -325,11 +345,11 @@ drive, redesigned from scratch", has the detail, the clearances and the sources.
   it's ~185 ft, too far. From the north court it's ~100 ft with ~18 ft of lift: that's its
   stop.
 - **Cost (likely, 80% band, with contingency):**
-  - the drive $121k ($109–133k);
+  - the drive $103k ($92–114k);
   - the porte-cochère $80k ($60–100k), the softest number;
-  - all of it $201k ($178–224k).
+  - all of it $183k ($161–206k).
   - Pavers to plain concrete under the cover, and fewer curbs, save ~$15k.
-- **Impervious cover with building A:** 19.3% if gravel doesn't count, 30.1% if it does. That
+- **Impervious cover with building A and its ramp:** 20.1% if gravel doesn't count, 29.4% if it does. That
   waits on the county's answer, as for the building.
 - **Before staking:**
   - **Tape the trunks** near the lanes: the bulge oak and its leaning crown over the north
@@ -358,7 +378,7 @@ The kitchen's measurements are listed in its own repo.
 | The rusty casing by the burn barrel: is it the well? Its distance to both fences | Keep-outs for the trees and any wall | Look and tape |
 | Lone front-lawn oak: trunk position and girth. Two tapes from house corners pin it: from the south rooms' front corners (south and north ends) | Loop D's north leg | Tape |
 | Bulge oak, between the drive and the porch's north end (and the stump beside it): trunk position and girth, the same way from the porch's front corners; the height of its lowest limbs over the north leg (~s 32, t 86) | Loop D's north leg, the forecourt, the service drive | Tape; laser or pole |
-| Trunks near the shop lane and shop court: the back-lawn oaks near s 160, t 92 and s 173, t 83 (lidar treetops), from the house's NW corner (A); their lowest limbs over the lane | The shop lane and court | Tape; laser or pole |
+| Trunks near the shop lane and building A's ramp: the back-lawn oaks near s 160, t 92 and s 173, t 83 (lidar treetops), from the house's NW corner (A); their lowest limbs over the lane | The shop lane and the ramp | Tape; laser or pole |
 | The twin oak's limbs over the shop lane, along the house's north wall | Clearance for a pickup, trailer or septic truck | Laser or pole |
 | The AC unit on the house's north wall: its ends and how far it stands out | The shop lane passes 3.4–7 ft off that wall | Tape |
 | The crape myrtle in the south lawn: from the south rooms' front corners | The south leg | Tape |

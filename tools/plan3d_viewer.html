@@ -318,10 +318,10 @@ details li b { font-weight: 600; }
       status: "surveyed", source: "1991 survey bearings and distances.", notes: "0.78 ac. The front is on Candelaria Dr; the north side runs along US-290." },
     house_footprint_survey: { label: "House footprint", group: "Your lot", token: "house",
       status: "surveyed", source: "Walls rebuilt from the 1991 plat; north wall laser-checked at 62.0 ft.", notes: "Footprint only. There's no room model yet." },
-    building_A_30x35_eave_14ft_assumed: { label: "Building A, 30 × 35 ft", group: "Your lot", token: "steel", solid: true,
-      status: "planned at site A (site B dropped, owner, Oct 18 2026); size open: standard 30 × 35, 30 × 30 or 30 × 25 ft (tools/shed_cost.py)",
-      source: "Site A (SITE_A in tools/envelope_plan.py), built like building B (owner, Oct 18 2026), sized as a standard kit.",
-      notes: "1,050 sq ft as drawn, with the owner's S130 parked inside for scale. B's look: dark grey steel, light grey inside, a 3:12 gable and a 14 ft eave. Laid out like a standard kit: 30 ft wide (the clear span, across the strip) with its ridge along the line. All its doors face south, onto the yard (owner, Oct 18 2026): two 12 × 12 ft roll-ups (drawn rolled up) with a commercial 3 × 7 ft walk door centered between them (hollow metal in a welded frame, outswing, a continuous hinge, Grade 1 lever and deadbolt, a closer), behind one 32 × 12 ft concrete apron. The septic access pipe, ~10 ft off the east wall's north half, stays clear of all of it. The ground falls ~3 ft to the SW, so the pad is cut and filled: the slab sits 1.5 ft below the high NE corner, which keeps the apron near grade on the low side. 10.3 ft from both the well and the septic pipe. The buried service line likely runs under it: have it traced first." },
+    building_A_30x30_eave_11ft_assumed: { label: "Building A, 30 × 30 ft", group: "Your lot", token: "steel", solid: true,
+      status: "planned at site A (site B dropped, owner, Oct 18 2026); a common 30 × 30 × 11 kit on a pier-and-beam floor (owner, Oct 24 2026)",
+      source: "Site A (SITE_A in tools/envelope_plan.py), built like building B; size, eave and foundation per the owner, Oct 24 2026. Prices in tools/shed_cost.py.",
+      notes: "900 sq ft, with the owner's S130 parked inside for scale. B's look: dark grey steel, light grey inside, a 3:12 gable on 11 ft legs. 30 ft wide (the clear span, across the strip) with its ridge along the line. All its doors face south, onto the yard: two 10 × 9 ft roll-ups (drawn rolled up; the most an 11 ft leg takes) and a commercial 3 × 7 ft walk door centered between them (hollow metal in a welded frame, a continuous hinge, Grade 1 lever and deadbolt, a closer). It stands on a pressure-treated pier-and-beam floor: 20 concrete piers on footings, four lines of triple 2×12 beams, 2×12 joists hung flush between them at 16 in, and a 1-1/8 in floor. Ground-contact PT lets the beams sit 4 in over the ground at the high NE corner; the ground falls ~3 ft to the SW, so the floor is 1.4 ft up at the NE corner and 4.4 ft at the SW, and the south sills 3.8–4.2 ft. A concrete ramp runs from the sills down to the ground 25 ft out (~19%, about 1:5.3). 10.3 ft from the septic pipe, 15 ft from the well. The buried service line likely runs under it: have it traced first." },
     building_B_23x43_eave_14ft_assumed: { label: "Building B, 23 × 43 ft (dropped)", group: "Proposed", token: "steel", solid: true, hidden: true,
       status: "dropped: site B is out (owner, Oct 18 2026); hidden at first, tick it in the layer list to compare", source: "Site B footprint (SITE_B in tools/site_plan.py); look per the owner, Oct 18 2026.",
       notes: "Dark grey steel on every surface, with two roll-up doors on the south wall (drawn rolled up) and a solid north wall toward US-290. Drawn with 12 × 12 ft doors at the quarter points, a 3:12 gable and a 14 ft eave. None of those is decided yet. The slab is level with its high NE corner by the oak. The ground falls ~3.8 ft across it, so the west side needs fill or a stem wall rather than a cut toward the oak. The east door is 15 ft from the house's NW corner." },
@@ -344,7 +344,7 @@ details li b { font-weight: 600; }
     platted_back_line: { group: "Lines", token: "accent" },
     back_line_utility_easement: { label: "Back-line utility easement", group: "Lines", token: "easement" },
     electric_meter_pole: { label: "Meter pole (service runs underground)", group: "Keep-outs", token: "warn" },
-    site_A_footprint_30x35: { label: "Site A footprint, 30 × 35 ft", group: "Proposed", token: "site-a", solid: true, hidden: true,
+    site_A_footprint_30x30: { label: "Site A footprint, 30 × 30 ft", group: "Proposed", token: "site-a", solid: true, hidden: true,
       status: "the site study's pad; building A now stands on it, so it starts hidden (owner, Oct 18 2026)", source: "Envelope option A (Oct 11 2026; SITE_A in tools/envelope_plan.py): 5 ft inside the north line, between the well and the septic pipe. 30 ft deep since Oct 18 (owner: past 1,000 sq ft), 35 ft long for a standard 30 x 35 kit.",
       notes: "1,050 sq ft. 5.0 ft from the north line, 10.3 ft from both the well and the septic pipe (10 ft keep-outs). The ground falls ~3.1 ft across it, high at the NE corner. Its far (SSW) side is ~3 ft into the strip's tree edge (aerial, +/-5 ft); the lidar shows no tall canopy there. The drainfield may run under it, so find the septic layout first." },
     buried_service_line_assumed: { label: "Buried electric line (owner's endpoints; drawn straight)", group: "Keep-outs", token: "warn",
@@ -363,10 +363,11 @@ details li b { font-weight: 600; }
       status: "proposed, Oct 18 2026", source: "drive_layout.py", notes: "Both entrances are concrete from the street to 10 ft inside the front line, flared at the street (Travis County driveway permits). Keeps gravel off the road." },
     proposed_drive_curbs: { label: "Concrete curbs", group: "Proposed", token: "curb",
       status: "proposed, Oct 18 2026", source: "drive_layout.py CURB", notes: "8 in wide, ~12 in deep, with rebar, along every gravel edge. Near the oaks they're set on grade, not trenched." },
-    proposed_shop_court: { label: "Shop court (in front of building A)", group: "Proposed", token: "gravel",
-      status: "proposed, Oct 18 2026", source: "drive_layout.py SHOP_COURT_A", notes: "Gravel, 13 ft beyond building A's 12 ft concrete apron: room to swing a truck into either roll-up. The ground falls away to the south, so it sits on compacted fill." },
-    proposed_shop_court_walls: { label: "Shop court's concrete edge", group: "Proposed", token: "concrete",
-      status: "proposed, Oct 18 2026", source: "drive_plan.py", notes: "The court's retaining edge, up to ~1.5–2 ft where the ground falls away." },
+    proposed_approach_ramp: { label: "Ramp up to building A's doors", group: "Proposed", token: "concrete",
+      status: "proposed, Oct 24 2026 (pier-and-beam floor)", source: "drive_layout.py approach_a; plan3d.py",
+      notes: "Broom-finished concrete on compacted fill, from the door sills (3.8–4.2 ft over the ground) down to the ground 25 ft out: ~19%, about 1:5.3. Fine for the mower and for driving a pickup in forward; too steep to back a trailer comfortably (1:8 would need ~43 ft). The shop lane joins its east side." },
+    proposed_approach_ramp_walls: { label: "Ramp's concrete side walls", group: "Proposed", token: "concrete",
+      status: "proposed, Oct 24 2026", source: "plan3d.py", notes: "8 in concrete walls along the ramp's west and south edges where it stands above the ground: up to ~4.4 ft at the SW corner of the building, down to nothing at the foot." },
     proposed_porte_cochere: { label: "Porte-cochère", group: "Proposed", token: "porte",
       status: "proposed, Oct 18 2026 (owner: a connected cover out to the 45 ft line)", source: "drive_layout.py COVER; house_layout.py porte_spec",
       notes: "11 × 49 ft, from the house out to the 45 ft building line. Two cars nose to tail, either side of the front door, 9 ft clear under the beams. Stone columns like the porch's (three in front, centered on the front door; four at the back, framing the door's recess), a hipped roof at the house's 5:12 pitch. The forecourt's gravel lane runs outside it, so a car can pass a parked one without backing out." },
@@ -621,7 +622,8 @@ details li b { font-weight: 600; }
   // the exaggeration like everything else.
   for (const B of [BLDG_B, BLDG_A]) {
     if (!B) continue;
-    const L = B.length_ft, W = B.width_ft, E = B.eave_ft, OH = 1, T = 0.15, SLAB = 0.5;
+    const F = B.foundation, PB = !!F && F.kind === "pier_beam";   // A: a pressure-treated pier-and-beam floor
+    const L = B.length_ft, W = B.width_ft, E = B.eave_ft, OH = 1, T = 0.15, SLAB = PB ? F.floor_ft : 0.5;
     const z0 = SLAB, ze = SLAB + E, rise = (W / 2) * B.pitch, zr = ze + rise;
     const Q = (x, y, z) => new THREE.Vector3(x, z, -y);   // B's frame (ft) -> its local three space
     const place = (g) => {
@@ -668,11 +670,31 @@ details li b { font-weight: 600; }
       out.push([a0, span]); return out;
     };
 
-    // Slab (down to the low ground: fill or a stem wall), aprons and the floor inside.
-    box(-0.35, L + 0.35, -0.35, W + 0.35, -B.drop_ft - 0.3, z0, concrete);
-    // Door aprons slope from the slab down to the ground 10 ft out (2017 lidar, under the apron's far edge).
+    // Ground under the building, in feet relative to its base (2017 lidar).
     const groundFt = (lx, ly) => (groundAt(B.origin[0] + 0.3048 * (lx * B.ux[0] + ly * B.uy[0]),
                                            B.origin[1] + 0.3048 * (lx * B.ux[1] + ly * B.uy[1])) - B.slab_m) / 0.3048;
+    const ptWood = new THREE.MeshLambertMaterial({ color: 0x8c8660 });   // pressure-treated pine: greenish tan
+    const deckMat = new THREE.MeshLambertMaterial({ color: 0xb49a6c });
+    if (PB) {
+      // Pier and beam: 12 in concrete piers from footings below the ground up to triple 2x12 beams; 2x12 joists hung
+      // flush between the beams at 16 in, rim joists at the ends, and the 1-1/8 in floor on top. Open underneath.
+      const top = z0 - F.deck_ft, bot = top - F.beam_ft, hb = 0.1875;
+      for (const by of F.beams_y_ft) for (const px of F.piers_x_ft) {
+        const g = groundFt(px, by), h = bot - g + 1.0;
+        const c = new THREE.Mesh(new THREE.CylinderGeometry(F.pier_d_ft / 2, F.pier_d_ft / 2, h, 18), concrete);
+        c.position.copy(Q(px, by, bot - h / 2)); c.userData.id = id; shed.add(c);
+        box(px - 0.3, px + 0.3, by - hb - 0.02, by + hb + 0.02, bot - 0.06, bot, steel);   // galvanized beam seat
+      }
+      for (const by of F.beams_y_ft) box(0, L, by - hb, by + hb, bot, top, ptWood);
+      const ys = F.beams_y_ft;
+      for (let i = 0; i + 1 < ys.length; i++) {
+        const a = ys[i] + hb, b = ys[i + 1] - hb;
+        const xs = []; for (let x = 0.0625; x < L - 0.1; x += F.joist_oc_ft) xs.push(x); xs.push(L - 0.0625);
+        for (const x of xs) box(x - 0.0625, x + 0.0625, a, b, bot, top, ptWood);
+      }
+      box(0, L, 0, W, top, z0, deckMat);
+    } else box(-0.35, L + 0.35, -0.35, W + 0.35, -B.drop_ft - 0.3, z0, concrete);   // slab, down to the low ground
+    // Door aprons slope from the slab down to the ground 10 ft out (2017 lidar, under the apron's far edge).
     if (B.apron_ft) {
       // One apron along the door wall (A): it falls 1.5% away from the doors, on compacted fill held by its concrete edge,
       // which stands proud of the ground where the ground falls away (the south side is the low side).
@@ -800,10 +822,10 @@ details li b { font-weight: 600; }
       wb(-T - 0.3, -T - LT, c[0], c[1], z0 + h - 0.45, z0 + h - 0.12, hw);   // closer, inside
       wb(0, 0.22, a - 0.3, b + 0.3, z0 + h + F, z0 + h + F + 0.05, dframe);   // drip cap
     }
-    box(T, L - T, T, W - T, z0, z0 + 0.01, concrete);
-    shed.traverse(o => { if (o.isMesh && !o.isInstancedMesh) (o.material === concrete ? walkables : solids).push(o); });
+    if (!PB) box(T, L - T, T, W - T, z0, z0 + 0.01, concrete);
+    shed.traverse(o => { if (o.isMesh && !o.isInstancedMesh) (o.material === concrete || o.material === deckMat ? walkables : solids).push(o); });
     items[id] = { node, mats: [{ mat: steel, kind: "mesh" }, { mat: coil, kind: "mesh" }, { mat: concrete, kind: "mesh", fixed: true }, { mat: liner, kind: "mesh", fixed: true },
-                               ...[dframe, dslab, hw].map(mat => ({ mat, kind: "mesh", fixed: true }))],
+                               ...[dframe, dslab, hw, ptWood, deckMat].map(mat => ({ mat, kind: "mesh", fixed: true }))],
                   meta: META[id] || { label: "Shed", group: "Your lot", token: "steel", solid: true } };
 
     // John Deere S130 lawn tractor, low-poly, for scale. Inches; local x forward from the rear axle, y to the
@@ -1130,7 +1152,7 @@ details li b { font-weight: 600; }
 
   // ---- Labels ----
   const LABELS = [
-    [HOUSE ? "house_3d_first_pass" : "house_footprint_survey", "Your house"], ["building_A_30x35_eave_14ft_assumed", "Building A"], ["building_B_23x43_eave_14ft_assumed", "Building B"],
+    [HOUSE ? "house_3d_first_pass" : "house_footprint_survey", "Your house"], ["building_A_30x30_eave_11ft_assumed", "Building A"], ["building_B_23x43_eave_14ft_assumed", "Building B"],
     ["scenic_brook_plaza_building_3", "Retail Bldg 3"], ["retail_east_end_stormwater", "Retail ponds"],
     ["platted_back_line", "Back line"], ["granada_ridge_buildings_7_8", "Apts 7/8 · 639 ft"],
     ["granada_ridge_buildings_1_6", "Apts 1-6"], ["scenic_brook_plaza_buildings_1_2", "Retail 1-2"],

@@ -28,7 +28,7 @@ from shapely.geometry import LineString, Point, Polygon, box
 from shapely.ops import unary_union
 
 from drive_layout import (
-    APRON_DEEP, COLUMN, COVER_COLUMNS, CURB, NORTH_LEG, PARK, SERVICE_DRIVE, SHOP_COURT_FALL, SHOP_LANE, SOUTH_LEG,
+    COLUMN, COVER_COLUMNS, CURB, NORTH_LEG, PARK, SERVICE_DRIVE, SHOP_LANE, SOUTH_LEG,
     layout,
 )
 from envelope_plan import SITE_A
@@ -54,8 +54,6 @@ PRICES = {
     "curb": ((15, 35), "ft", "Concrete ribbon curb, 8 x 12 in with rebar, along every gravel edge"),
     "pavers": ((25, 45), "sq ft", "Pavers on a concrete base: under the cover and into the door's recess"),
     "cover": ((90, 180), "sq ft", "Porte-cochere: stone columns, beams, hipped roof tied into the house, gutters, lights"),
-    "fill": ((70, 125), "cu yd", "Fill under the shop court, crushed limestone, compacted"),
-    "wall": ((60, 120), "ft", "Shop court's retaining edge where it stands above the ground"),
     "arborist": ((500, 1500), "lot", "Arborist: root-zone plan, and on site for digging near the oaks"),
 }
 
@@ -133,7 +131,7 @@ def main() -> None:
     shape(L["concrete"], (200, 200, 195), (200, 200, 195, 210))
     for ln in getattr(L["curbs"], "geoms", [L["curbs"]]):
         plan.line(S(list(ln.coords)), (240, 240, 235), width=3)
-    shape(L["apron"], (200, 200, 195), (200, 200, 195, 210))
+    shape(L["approach"], (200, 200, 195), (200, 200, 195, 210))
     shape(L["building"], (90, 95, 100), (60, 65, 70, 220), width=3)
     shape(L["cover"], (120, 80, 60), (150, 100, 70, 90), width=3)
     for s_, t_ in COVER_COLUMNS:
@@ -143,7 +141,7 @@ def main() -> None:
         plan.poly(S([(46.0, t0), (52.5, t0), (52.5, t1), (46.0, t1)]), WHITE, width=1, dash=True)
     # A's doors, on its south wall
     A = L["A"]
-    for x0, x1 in ((2.5, 14.5), (16.0, 19.0), (20.5, 32.5)):
+    for x0, x1 in ((2.0, 12.0), (13.5, 16.5), (18.0, 28.0)):
         plan.line(S([A(x0, 0), A(x1, 0)]), ORANGE, width=6)
     # trees: known trunks with their keep-outs, treetops as dots
     for t in tr:
@@ -169,7 +167,7 @@ def main() -> None:
         ((36, 58), "forecourt", (240, 220, 170), 16), ((47, 35), "porte-cochere\n2 cars nose to tail\n9 ft clear", (255, 210, 180), 15),
         ((14, 62), "loop D's island\n(lawn, lone oak)", (180, 240, 180), 15), ((24, 112), "service drive\n(old curl, rebuilt in place)", (240, 220, 170), 15),
         ((60, 120), "north court\nseptic truck stop,\n2 guest spaces", (240, 220, 170), 15), ((118, 118), "shop lane", (240, 220, 170), 16),
-        ((186, 72), "shop court\n(raised, walled)", (240, 220, 170), 15), ((196, 128), "BUILDING A\ndoors face south", WHITE, 16),
+        ((186, 72), "ramp up to the doors\n(concrete, priced with A)", (230, 230, 225), 15), ((196, 128), "BUILDING A\n30 x 30, on piers", WHITE, 16),
         ((150, 140), "septic pipe\n10 ft keep-out", RED, 15), ((86, 132), "twin oak\n12 ft no-dig", GREEN, 15),
         ((210, 150), "well", CYAN, 15), ((-3, 2), "1991 electric (locate)", YELLOW, 14), ((150, 120), "service line (locate)", YELLOW, 14),
     ):
@@ -246,14 +244,14 @@ def main() -> None:
                f"({curb_area:,.0f} sq ft); the cover's roof {cover.area:,.0f} sq ft.")
     house_now = unary_union([on(L["house"]), on(deck)])
     now = unary_union([house_now, on(old)])
-    a_bldg = unary_union([on(L["building"]), on(L["apron"])])
+    a_bldg = unary_union([on(L["building"]), on(L["approach"])])
     hard = unary_union([on(L["paved"]), on(L["concrete"]), on(cover)]).difference(house_now)
     court_and_gravel = on(L["gravel"]).difference(house_now)
     plan_hard = unary_union([house_now, a_bldg, hard])
     plan_all = unary_union([plan_hard, court_and_gravel])
     area_lot = lot.area
     imp = [{"case": "now (house, porch, deck, old drive and walk)", "sq ft": round(now.area)},
-           {"case": "plan, gravel not counted (house, building A and apron, cover, pavers, concrete, curbs)", "sq ft": round(plan_hard.area + curb_area)},
+           {"case": "plan, gravel not counted (house, building A and its ramp, cover, pavers, concrete, curbs)", "sq ft": round(plan_hard.area + curb_area)},
            {"case": "plan, gravel counted too", "sq ft": round(plan_all.area + curb_area)}]
     for r in imp:
         r["% of lot"] = round(100 * r["sq ft"] / area_lot, 1)
@@ -262,19 +260,9 @@ def main() -> None:
         click.echo(pl.DataFrame(imp))
 
     # --- Budget ---
-    court = L["court"]
-    lo_court = court.exterior
-    gft = lambda q: gz(*q)  # noqa: E731
-    a_slab = max(gz(*sf.from_site(p)) for p in SITE_A) - 1.5   # shed_cost.CUT
-    top = a_slab - 0.015 * APRON_DEEP
-    xs_, ys_ = court.bounds[0::2], court.bounds[1::2]
-    cells = [(s_, t_) for s_ in np.arange(xs_[0], xs_[1], 1.0) for t_ in np.arange(ys_[0], ys_[1], 1.0) if court.contains(Point(s_, t_))]
-    fill = sum(max(top - SHOP_COURT_FALL * L["apron"].distance(Point(c)) - gft(c), 0) for c in cells) / 27
-    wall = sum(1.0 for k in range(int(lo_court.length)) if (lambda q: top - gft(q) > 0.75 and L["apron"].distance(Point(q)) > 1)(
-        lo_court.interpolate(k + 0.5).coords[0]))
+    # Building A's approach ramp, its fill and side walls are priced with the building (shed_cost.py).
     qty = {"demo": Polygon(EXISTING_DRIVE).area + Polygon(FRONT_WALK).area, "concrete": L["concrete"].area, "permit": 1,
-           "gravel": L["gravel"].area, "curb": curb_len, "pavers": L["paved"].area, "cover": cover.area, "fill": fill, "wall": wall,
-           "arborist": 1}
+           "gravel": L["gravel"].area, "curb": curb_len, "pavers": L["paved"].area, "cover": cover.area, "arborist": 1}
     rows, sums = [], {}
     for key, ((lo, hi), unit, label) in PRICES.items():
         q = qty[key]

@@ -10,8 +10,8 @@ with overlaps counted once. Sources and accuracy:
 - the deck: the county record's 240 sq ft, placed by photo (a wood deck over soil may not count;
   the pergola's metal roof over part of it does);
 - the existing drive and walk: traced from the plat, +/-3 ft on every edge;
-- the building at site A: the standard kit sizes in tools/shed_cost.py, plus its apron along the
-  south wall, 12 ft deep (gravel counts too under most rules, so it's counted either way);
+- the building at site A: the 30 x 30 kit (owner, Oct 24 2026), plus the concrete ramp up to its south doors
+  (drive_layout.approach_a; it replaced a 12 ft apron when the building went on pier and beam);
 - the drive system (tools/drive_layout.py, Oct 18 2026): the old drive and walk come out; the porte-cochere's
   roof, the pavers, the concrete street aprons and the curbs count; its gravel is shown both ways, since rules
   differ on gravel (Travis County's answer decides it).
@@ -26,15 +26,14 @@ import rich_click as click
 from shapely.geometry import Polygon, box
 from shapely.ops import unary_union
 
-from envelope_plan import ALONG, SITE_A, line_rect
+from envelope_plan import SITE_A
 from drive_layout import COVER, CURB, layout
 from front_layout import EXISTING_DRIVE, FRONT_WALK
 from front_plan import SurveyFrame
 from house_layout import DECK
 from site_plan import HOUSE_ST, PARCEL, PORCH_ST
-from shed_cost import DEPTH, FULL, X0, apron_area
+from shed_cost import DEPTH, LENGTH
 
-SIZES = (35.0, 30.0, 25.0)   # building A's length along the line (ft); 30 ft wide
 
 
 def rect(s0: float, s1: float, t0: float, t1: float) -> Polygon:
@@ -76,14 +75,13 @@ def main(limit: float) -> None:
         click.echo(pl.DataFrame(rows))
 
     out = []
-    for length in SIZES:
-        bldg = on_lot(Polygon([sf.from_site(p) for p in line_rect(X0 + max(FULL - length, 0) * ALONG[0], length, DEPTH)]))
-        b = bldg.area + apron_area(length)
+    for length in (LENGTH,):
+        b = unary_union([on_lot(dl["building"]), on_lot(dl["approach"])]).area
         drive_hard = unary_union([house_only, hard]).area + curbs
         for label, base, extra in (("now + building", now.area, 0.0), ("new drive (gravel not counted) + building", drive_hard, 0.0),
                                    ("new drive (gravel counted) + building", drive_hard, gravel.area)):
             total = base + b + extra
-            out.append({"case": f"{label} {DEPTH:g} x {length:g} and apron", "sq ft": round(total),
+            out.append({"case": f"{label} {DEPTH:g} x {length:g} and its ramp", "sq ft": round(total),
                         "% of lot": round(pct(total), 1), f"vs {limit:g}% (sq ft)": round(allowed - total)})
     with pl.Config(tbl_hide_dataframe_shape=True, tbl_hide_column_data_types=True, fmt_str_lengths=60, tbl_rows=-1,
                    thousands_separator=","):

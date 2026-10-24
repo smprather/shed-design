@@ -12,10 +12,11 @@ the strip from the 5 ft setback line, 30 ft along it, on 11 ft legs. It keeps si
 door between them. `--lengths` prices other standard lengths (35, 25) the same way.
 
 Two foundations, priced side by side:
-- piers (the plan, owner Oct 24 2026): a pressure-treated pier-and-beam floor, low at the high NE corner (plan3d.py
-  has the framing). The ground falls ~3 ft to the SW, where the doors are, so the floor stands 3.8-4.2 ft over the
-  ground at the sills, and a concrete ramp on fill runs down from them to the ground 25 ft out, between concrete
-  side walls (drive_layout.approach_a).
+- piers (the plan, owner Oct 24 2026): a pressure-treated pier-and-beam floor (plan3d.py has the framing). The
+  ground falls ~3 ft to the SW, where the doors are, so the high NE side is dug down PB_CUT (`--pb-cut`) inside a
+  low segmental-block wall 2 ft off the building, falling 2% south (drive_layout.cut_zone_a). That puts the door
+  sills ~2 ft over the ground, and a concrete ramp on fill runs down from them to the ground 25 ft out
+  (drive_layout.approach_a). `--pb-cut 0` prices it without the cut (sills ~4 ft).
 - slab (for comparison, as priced Oct 18): a slab cut and filled CUT ft below the high corner (`--cut`), with a
   12 ft concrete apron along the doors near grade.
 Quantities come from the 2017 lidar.
@@ -38,9 +39,9 @@ import polars as pl
 import rich_click as click
 from shapely.geometry import Point, Polygon
 
-from drive_layout import APPROACH_FOOT, approach_a
+from drive_layout import APPROACH_FOOT, CUT_FALL, approach_a, cut_zone_a
 from envelope_plan import ALONG, line_rect
-from plan3d import FT, PB_BEAMS_Y, PB_FLOOR, PB_PIERS_X, TERRAIN, Frame, Terrain
+from plan3d import FT, PB_BEAMS_Y, PB_CUT, PB_FLOOR, PB_PIERS_X, TERRAIN, Frame, Terrain
 
 DEPTH = 30.0         # ft, square off the line: the building's width (clear span)
 FULL = 35.0          # ft along the line: the site A it was cut from (x 98.6 is that site's NW corner)
@@ -65,7 +66,10 @@ PRICES = {
     "skirting": ((6, 12), "sq ft", "Skirting round the crawl space: PT frame, metal panels, hardware cloth behind"),
     "ramp": ((10, 16), "sq ft", "Concrete ramp up to the doors, broom finish, on compacted fill"),
     "ramp_fill": ((70, 125), "cu yd", "Fill under the ramp: crushed limestone, compacted in lifts"),
-    "ramp_walls": ((80, 160), "ft", "The ramp's concrete side walls, up to ~4.4 ft, with footings"),
+    "ramp_walls": ((80, 160), "ft", "The ramp's concrete side walls, with footings"),
+    "grade_cut": ((20, 40), "cu yd", "Cut the high NE side down, reused as fill under the ramp"),
+    "retaining": ((20, 40), "sq ft of face", "Segmental-block retaining wall round the cut, base course and cap"),
+    "drainage": ((1500, 3500), "lot", "Drain rock and pipe behind the wall, gutters piped away, crawl-space vapor barrier"),
     # slab
     "cut": ((20, 40), "cu yd", "Cut on the high side, reused as general fill where it suits, the rest hauled"),
     "fill": ((70, 125), "cu yd", "Fill: crushed limestone base, placed and compacted in lifts (slab and apron)"),
@@ -80,7 +84,8 @@ PRICES = {
     "insulation": ((1.25, 2.5), "sq ft of wall and roof", "Option: insulation, walls and roof"),
     "power": ((3500, 8000), "lot", "Option: power: trench, conduit, subpanel, lights and outlets"),
 }
-BASE = {"piers": ("prep", "locate", "permits", "piers", "framing", "anchors", "skirting", "ramp", "ramp_fill", "ramp_walls"),
+BASE = {"piers": ("prep", "locate", "permits", "grade_cut", "retaining", "drainage", "piers", "framing", "anchors", "skirting",
+                  "ramp", "ramp_fill", "ramp_walls"),
         "slab": ("prep", "locate", "permits", "cut", "fill", "wall", "drain", "slab", "aprons")}
 CONTINGENCY = 0.10
 Z80 = 1.2816  # half-width of an 80% band, in standard deviations
@@ -90,7 +95,7 @@ def footprint(length: float):
     return line_rect(X0 + (FULL - length) * ALONG[0], length, DEPTH)
 
 
-def site_quantities(length: float, ground: Terrain, to_m: Frame, cut: float = CUT) -> dict:
+def site_quantities(length: float, ground: Terrain, to_m: Frame, cut: float = CUT, pb_cut: float = PB_CUT) -> dict:
     """Quantities for both foundations, for a footprint `length` ft along the line, from the lidar."""
     poly = footprint(length)
     gft = lambda p: ground(*to_m(p)) / FT + ground.z0  # noqa: E731
@@ -102,11 +107,36 @@ def site_quantities(length: float, ground: Terrain, to_m: Frame, cut: float = CU
     high = max(gft(p) for p in poly)
     q = {"fall": high - min(gft(p) for p in poly)}
 
-    # Pier and beam: the floor PB_FLOOR over the high corner; the ramp from the sills to the ground APPROACH_FOOT out.
-    floor = high + PB_FLOOR
+    # Pier and beam: the high NE side dug down `pb_cut` inside a block wall (drive_layout.cut_zone_a), falling CUT_FALL to
+    # the south; the floor PB_FLOOR over the cut's top; the ramp from the sills to the ground APPROACH_FOOT out.
+    top_cut = high - pb_cut
+    level = lambda x, y: top_cut - CUT_FALL * (DEPTH - y)  # noqa: E731   # the cut, in the building's frame (ft)
+    zone = Polygon(cut_zone_a(length, DEPTH))
+    zx0, zy0, zx1, zy1 = zone.bounds
+    zcells = [(zx0 + (i + .5) * 0.5, zy0 + (j + .5) * 0.5) for i in range(int((zx1 - zx0) / 0.5)) for j in range(int((zy1 - zy0) / 0.5))]
+    q["grade_cut"] = sum(max(gft(at(x, y)) - level(x, y), 0) for x, y in zcells if zone.contains(Point(x, y))) * 0.25 / 27
+    ring = list(zone.exterior.coords)
+    q["retaining"], q["retaining_max"], q["retaining_len"] = 0.0, 0.0, 0.0
+    for a, b in zip(ring, ring[1:]):
+        if max(a[1], b[1]) < 0:   # the open south edge
+            continue
+        n = max(1, int(math.dist(a, b)))
+        for i in range(n):
+            x, y = lerp(a, b, (i + .5) / n)
+            h = gft(at(x, y)) - level(x, y)
+            if h > 0.25:
+                q["retaining"] += math.dist(a, b) / n * (h + 0.75)   # plus a buried base course and the cap
+                q["retaining_len"] += math.dist(a, b) / n
+                q["retaining_max"] = max(q["retaining_max"], h)
+    gcut = lambda p_site, x, y: min(gft(p_site), level(x, y)) if zone.contains(Point(x, y)) else gft(p_site)  # noqa: E731
+    floor = top_cut + PB_FLOOR
     q["piers"] = len(PB_BEAMS_Y) * len(PB_PIERS_X)
-    q["under"] = {k: floor - gft(p) for k, p in zip(("NW", "NE", "SE", "SW"), poly)}
-    q["skirting"] = sum(math.dist(a, b) * (floor - (gft(a) + gft(b)) / 2) for a, b in zip(poly, poly[1:] + poly[:1]))
+    corners = {"NW": (0.0, DEPTH), "NE": (length, DEPTH), "SE": (length, 0.0), "SW": (0.0, 0.0)}
+    q["under"] = {k: floor - gcut(at(*c), *c) for k, c in corners.items()}
+    q["above_natural_ne"] = floor - gft(at(length, DEPTH))
+    edges = [((0.0, 0.0), (length, 0.0)), ((length, 0.0), (length, DEPTH)), ((length, DEPTH), (0.0, DEPTH)), ((0.0, DEPTH), (0.0, 0.0))]
+    q["skirting"] = sum(math.dist(a, b) / 10 * (floor - gcut(at(*lerp(a, b, (i + .5) / 10)), *lerp(a, b, (i + .5) / 10)))
+                        for a, b in edges for i in range(10))
     sill = floor - 0.04
     k = (sill - gft(at(length / 2, -APPROACH_FOOT))) / APPROACH_FOOT
     ramp = Polygon(approach_a(length))
@@ -147,7 +177,8 @@ def site_quantities(length: float, ground: Terrain, to_m: Frame, cut: float = CU
 def estimate(length: float, q: dict, kind: str) -> tuple[list[dict], dict]:
     area = length * DEPTH
     surface = 2 * (length + DEPTH) * EAVE + area / math.cos(math.atan(3 / 12))
-    qty = {"prep": 1, "locate": 1, "permits": 1, "piers": q["piers"], "framing": area, "anchors": 1, "skirting": q["skirting"],
+    qty = {"prep": 1, "locate": 1, "permits": 1, "grade_cut": q["grade_cut"], "retaining": q["retaining"], "drainage": 1 if q["grade_cut"] > 0.5 else 0,
+           "piers": q["piers"], "framing": area, "anchors": 1, "skirting": q["skirting"],
            "ramp": q["ramp"], "ramp_fill": q["ramp_fill"], "ramp_walls": q["ramp_walls"], "cut": q["cut"], "fill": q["fill"],
            "wall": q["wall"], "drain": 1 if q["cut"] > 0.5 else 0, "slab": area, "aprons": q["aprons"], "tube": area,
            "walk_door": 1, "insulation": surface, "power": 1}
@@ -174,7 +205,8 @@ def estimate(length: float, q: dict, kind: str) -> tuple[list[dict], dict]:
 @click.option("--lengths", default="30", show_default=True, help="Lengths along the line to price (ft), comma-separated.")
 @click.option("--detail/--no-detail", default=True, show_default=True, help="Print the line items.")
 @click.option("--cut", default=CUT, show_default=True, help="Slab option: ft the slab sits below the footprint's high corner (0: all fill).")
-def main(lengths: str, detail: bool, cut: float) -> None:
+@click.option("--pb-cut", default=PB_CUT, show_default=True, help="Pier and beam: ft the high NE side is dug down inside the block wall (0: none).")
+def main(lengths: str, detail: bool, cut: float, pb_cut: float) -> None:
     """Price the building at site A, turnkey, on pier and beam and, for comparison, on a slab."""
     ground, to_m = Terrain(TERRAIN), Frame()
     k = lambda v: f"${v / 1000:,.0f}k"  # noqa: E731
@@ -183,13 +215,15 @@ def main(lengths: str, detail: bool, cut: float) -> None:
                tbl_rows=-1, thousands_separator=",")
     summary = []
     for length in (float(v) for v in lengths.split(",")):
-        q = site_quantities(length, ground, to_m, cut)
+        q = site_quantities(length, ground, to_m, cut, pb_cut)
         area = length * DEPTH
         if detail:
             under = ", ".join(f"{c} {v:.1f}" for c, v in q["under"].items())
             sills = f"; the door sills {min(q['sills']):.1f}-{max(q['sills']):.1f} ft" if q["sills"] else ""
             click.echo(f"\n{DEPTH:g} x {length:g} x {EAVE:g} ft = {area:,.0f} sq ft; the ground falls {q['fall']:.1f} ft to the SW.")
-            click.echo(f"Pier and beam: the floor over the ground at the corners {under} ft{sills}. Ramp {q['ramp']:,.0f} sq ft at "
+            click.echo(f"Pier and beam, the high side dug down {pb_cut:g} ft: {q['grade_cut']:.0f} cu yd out; a block wall {q['retaining_len']:.0f} ft "
+                       f"long, up to {q['retaining_max']:.1f} ft; the floor {q['above_natural_ne']:+.1f} ft against the NE corner's natural ground.")
+            click.echo(f"The floor over the ground at the corners {under} ft{sills}. Ramp {q['ramp']:,.0f} sq ft at "
                        f"{100 * q['grade']:.0f}% (1:{1 / q['grade']:.1f}), {q['ramp_fill']:.0f} cu yd of fill, side walls {q['ramp_walls']:.0f} ft.")
         for kind in ("piers", "slab"):
             rows, totals = estimate(length, q, kind)

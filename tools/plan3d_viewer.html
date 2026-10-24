@@ -33,6 +33,7 @@
   --gravel: #ad9c7c;      /* the drive: estate gravel, buff limestone */
   --asphalt: #2a2b2d;     /* Candelaria Dr */
   --road-line: #e9e7e0;   /* its edge lines */
+  --block: #a39a89;       /* segmental retaining-wall block */
   --pavers: #a98f78;      /* pavers under the porte-cochere */
   --curb: #d4d1ca;        /* concrete curbs */
   --porte: #b9ae9b;       /* the porte-cochere (stone) */
@@ -58,7 +59,7 @@
     --bg: #111714; --panel: #171f1b; --ink: #e2eae5; --muted: #95a59c; --rule: #2a3530;
     --accent: #f0675b; --stage: #0d1310; --terrain-lo: #2f4655; --terrain-hi: #6b6450;
     --house: #8fb0ea; --shed: #f0a93a; --steel: #50555b; --jd: #4f9a3f; --site-a: #f2c14e; --fence: #c09468; --easement: #b48ae0; --septic: #f05cbf;
-    --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --paving: #b9ab98; --gravel: #b8a785; --asphalt: #303134; --road-line: #d9d7d0; --pavers: #ad937c; --curb: #d8d5ce; --porte: #c3baab; --concrete: #8e8a80; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
+    --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --paving: #b9ab98; --gravel: #b8a785; --asphalt: #303134; --road-line: #d9d7d0; --block: #b2a996; --pavers: #ad937c; --curb: #d8d5ce; --porte: #c3baab; --concrete: #8e8a80; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
     --water: #6aa6f5; --apt: #79c174; --apt-bldg: #8fa2d6; --apt-new: #f08a4a; --context: #56625b; --lot: #e2eae5; --ok: #5ccf7c; --warn: #f0b13a; --bad: #f0675b;
     --unknown: #95a59c; color-scheme: dark;
   }
@@ -67,7 +68,7 @@
   --bg: #111714; --panel: #171f1b; --ink: #e2eae5; --muted: #95a59c; --rule: #2a3530;
   --accent: #f0675b; --stage: #0d1310; --terrain-lo: #2f4655; --terrain-hi: #6b6450;
   --house: #8fb0ea; --shed: #f0a93a; --steel: #50555b; --jd: #4f9a3f; --site-a: #f2c14e; --fence: #c09468; --easement: #b48ae0; --septic: #f05cbf;
-  --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --paving: #b9ab98; --gravel: #b8a785; --asphalt: #303134; --road-line: #d9d7d0; --pavers: #ad937c; --curb: #d8d5ce; --porte: #c3baab; --concrete: #8e8a80; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
+  --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --paving: #b9ab98; --gravel: #b8a785; --asphalt: #303134; --road-line: #d9d7d0; --block: #b2a996; --pavers: #ad937c; --curb: #d8d5ce; --porte: #c3baab; --concrete: #8e8a80; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
   --water: #6aa6f5; --apt: #79c174; --apt-bldg: #8fa2d6; --apt-new: #f08a4a; --context: #56625b; --lot: #e2eae5; --ok: #5ccf7c; --warn: #f0b13a; --bad: #f0675b;
   --unknown: #95a59c; color-scheme: dark;
 }
@@ -364,6 +365,9 @@ details li b { font-weight: 600; }
       status: "proposed, Oct 18 2026", source: "drive_layout.py", notes: "Both entrances are concrete from the street to 10 ft inside the front line, flared at the street (Travis County driveway permits). Keeps gravel off the road." },
     proposed_drive_curbs: { label: "Concrete curbs", group: "Proposed", token: "curb",
       status: "proposed, Oct 18 2026", source: "drive_layout.py CURB", notes: "8 in wide, ~12 in deep, with rebar, along every gravel edge. Near the oaks they're set on grade, not trenched." },
+    proposed_retaining_wall: { label: "Retaining wall round building A's cut", group: "Proposed", token: "block", solid: true,
+      status: "proposed, Oct 24 2026 (owner: cut the high side ~2 ft)", source: "drive_layout.py cut_zone_a; plan3d.py",
+      notes: "Building A's high NE side is dug down 2 ft so its floor and door sills sit 2 ft lower. A low segmental-block wall, 2 ft off the building's north, east and west sides, holds the ground outside: up to ~2.1 ft tall on the north and east, a course or two on the west. Gravel and a perforated drain behind it carry water round to the low south side; the cut falls 2% south, so nothing ponds under the floor. Gutters on both eaves, piped away. Its east run passes the septic access pipe: find the tank first." },
     proposed_approach_ramp: { label: "Ramp up to building A's doors", group: "Proposed", token: "concrete",
       status: "proposed, Oct 24 2026 (pier-and-beam floor)", source: "drive_layout.py approach_a; plan3d.py",
       notes: "Broom-finished concrete on compacted fill, from the door sills (3.8–4.2 ft over the ground) down to the ground 25 ft out: ~19%, about 1:5.3. Fine for the mower and for driving a pickup in forward; too steep to back a trailer comfortably (1:8 would need ~43 ft). The shop lane joins its east side." },

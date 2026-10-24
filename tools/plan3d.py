@@ -29,7 +29,7 @@ import rich_click as click
 
 from site_plan import BUILDING_LINE, HOUSE, PARCEL, REPO, SITE_B, WELL, en_to_site, north_line_y, site, st
 from site_b_plan import HOSE, house_north_y
-from drive_layout import APPROACH_FOOT, CURB, ROAD, ROAD_LINES, ROAD_T, layout as drive_layout
+from drive_layout import APPROACH_FOOT, CURB, CUT_FALL, ROAD, ROAD_LINES, ROAD_T, cut_zone_a, layout as drive_layout
 from front_layout import EXISTING_DRIVE, FRONT_WALK, offset
 from house_layout import FF_FT, house_spec, porte_spec
 from envelope_plan import SITE_A
@@ -65,6 +65,7 @@ PB_BEAMS_Y = (0.25, 10.0, 20.0, 29.75)    # ft north of the south wall: four bea
 PB_PIERS_X = (0.5, 7.75, 15.0, 22.25, 29.5)   # ft east of the SW corner: five piers on each line, ~7.3 ft apart
 PB_JOIST_OC = 16 / 12        # ft
 PB_PIER_D = 1.0              # ft: 12 in round concrete piers, formed above the ground with tubes
+PB_CUT = 2.0                 # ft the high NE side is dug down, inside a low block wall (owner, Oct 24 2026; drive_layout.cut_zone_a)
 WALL_FOOTING = 2.0  # ft inside the line for a US-290 wall footing
 TREE_ROWS = (10.0, 22.0)  # ft in from the back line: two staggered rows (notes, back-line trees)
 TREE_SPACING = 10.0  # ft on center along each row (holly screen 8-10 ft)
@@ -123,6 +124,7 @@ class Terrain:
         d = json.loads(path.read_text())
         self.xs, self.ys, self.z0 = d["x_m"], d["y_m"], d["z0_ft"]
         self.z = [[(v - self.z0) * FT for v in row] for row in d["z_ft"]]
+        self.cuts: list[tuple[list[Pt], tuple[float, float, float, float], object]] = []   # graded areas: see cut()
 
     @staticmethod
     def _cell(axis: list[float], v: float) -> tuple[int, float]:
@@ -131,18 +133,25 @@ class Terrain:
         return i, (v - axis[i]) / (axis[i + 1] - axis[i])
 
     def __call__(self, x: float, y: float) -> float:
+        z = self.natural(x, y)
+        for poly, (x0, y0, x1, y1), level in self.cuts:
+            if x0 <= x <= x1 and y0 <= y <= y1 and inside((x, y), poly):
+                z = min(z, level(x, y))
+        return z
+
+    def cut(self, poly: list[Pt], level) -> None:
+        """Dig the ground down to level(x, y) (m) inside poly (plan m). Everything that asks for the ground sees it, and
+        the terrain mesh is drawn finer around it."""
+        self.cuts.append((poly, (min(p[0] for p in poly), min(p[1] for p in poly), max(p[0] for p in poly), max(p[1] for p in poly)), level))
+
+    def natural(self, x: float, y: float) -> float:
+        """The lidar ground, before any cut."""
         i, tx = self._cell(self.xs, x)
         j, ty = self._cell(self.ys, y)
         z = self.z
         return ((1 - tx) * (1 - ty) * z[j][i] + tx * (1 - ty) * z[j][i + 1]
                 + (1 - tx) * ty * z[j + 1][i] + tx * ty * z[j + 1][i + 1])
 
-    def grade(self, poly: list[Pt], level: float, margin: float = 0.0) -> None:
-        """Cut the ground down to `level` (m) inside `poly` (plan m) and `margin` m past it: a pad dug into its high side."""
-        for j, y in enumerate(self.ys):
-            for i, x in enumerate(self.xs):
-                if self.z[j][i] > level and (inside((x, y), poly) or poly_dist((x, y), poly) <= margin):
-                    self.z[j][i] = level
 
 
 class Frame:
@@ -284,13 +293,33 @@ class Obj:
             self.prism([(p[0] - nx, p[1] - ny), (q[0] - nx, q[1] - ny), (q[0] + nx, q[1] + ny), (p[0] + nx, p[1] + ny)],
                        z, z + height)
 
-    def terrain(self) -> None:
+    def terrain(self, fine: float = 0.5) -> None:
+        """The ground: one quad per lidar cell. In the cells a cut touches, ~`fine` m squares, clipped at the cut's
+        outline so the ground steps down there cleanly (a retaining wall stands on that line)."""
+        from shapely.geometry import Polygon as SPolygon, box as sbox
         g = self.ground
+        cuts = [(SPolygon(poly), level, (x0 - 1, y0 - 1, x1 + 1, y1 + 1)) for poly, (x0, y0, x1, y1), level in g.cuts]
         for j in range(len(g.ys) - 1):
             for i in range(len(g.xs) - 1):
-                c = [(g.xs[i], g.ys[j], g.z[j][i]), (g.xs[i + 1], g.ys[j], g.z[j][i + 1]),
-                     (g.xs[i + 1], g.ys[j + 1], g.z[j + 1][i + 1]), (g.xs[i], g.ys[j + 1], g.z[j + 1][i])]
-                self.face(c)
+                x0, x1, y0, y1 = g.xs[i], g.xs[i + 1], g.ys[j], g.ys[j + 1]
+                near = [c for c in cuts if c[2][0] < x1 and c[2][2] > x0 and c[2][1] < y1 and c[2][3] > y0]
+                if not near:
+                    self.face([(x0, y0, g.z[j][i]), (x1, y0, g.z[j][i + 1]), (x1, y1, g.z[j + 1][i + 1]), (x0, y1, g.z[j + 1][i])])
+                    continue
+                nx, ny = math.ceil((x1 - x0) / fine), math.ceil((y1 - y0) / fine)
+                for b in range(ny):
+                    for a in range(nx):
+                        sq = sbox(x0 + (x1 - x0) * a / nx, y0 + (y1 - y0) * b / ny, x0 + (x1 - x0) * (a + 1) / nx, y0 + (y1 - y0) * (b + 1) / ny)
+                        rest = sq
+                        for poly, level, _ in near:
+                            part = sq.intersection(poly)
+                            for piece in getattr(part, "geoms", [part]):
+                                if piece.geom_type == "Polygon" and piece.area > 1e-6:
+                                    self.face([(x, y, min(g.natural(x, y), level(x, y))) for x, y in list(piece.exterior.coords)[:-1]])
+                            rest = rest.difference(poly)
+                        for piece in getattr(rest, "geoms", [rest]):
+                            if piece.geom_type == "Polygon" and piece.area > 1e-6:
+                                self.face([(x, y, g.natural(x, y)) for x, y in list(piece.exterior.coords)[:-1]])
 
     def save(self, path: Path, header: str) -> None:
         path.write_text(header + "\n".join(self.lines) + "\n")
@@ -504,7 +533,20 @@ def main(spec: Path, out: Path) -> None:
         if isinstance(path, str) and path.startswith("site/") and not (REPO / path).exists():
             check(f"source {key}", path, "file", "MISSING")
 
-    a_level = max(ground(*to_m(p)) for p in SITE_A)   # building A's base: the ground at its high (NE) corner
+    # Building A's cut (owner, Oct 24 2026): its high NE side dug down PB_CUT inside a low block wall, falling CUT_FALL to
+    # the south. It's registered before the ground is drawn, so the terrain, the piers and walking all see it.
+    a_m = [to_m(p) for p in SITE_A]
+    anw, ane, ase, asw = a_m
+    a_len, a_wid = math.dist(asw, ase) / FT, math.dist(asw, anw) / FT
+    a_ux = ((ase[0] - asw[0]) / (a_len * FT), (ase[1] - asw[1]) / (a_len * FT))
+    a_uy = ((anw[0] - asw[0]) / (a_wid * FT), (anw[1] - asw[1]) / (a_wid * FT))
+    a_pt = lambda x, y: (asw[0] + (a_ux[0] * x + a_uy[0] * y) * FT, asw[1] + (a_ux[1] * x + a_uy[1] * y) * FT)  # noqa: E731
+    a_yft = lambda x, y: ((x - asw[0]) * a_uy[0] + (y - asw[1]) * a_uy[1]) / FT  # noqa: E731   # ft north of the south wall
+    cut_top = max(ground(*p) for p in a_m) - PB_CUT * FT   # the cut at the north wall line (m)
+    cut_level = lambda x, y: cut_top - CUT_FALL * (a_wid - a_yft(x, y)) * FT  # noqa: E731
+    cut_poly = [a_pt(x, y) for x, y in cut_zone_a(a_len, a_wid)]
+    ground.cut(cut_poly, cut_level)
+    a_level = cut_top   # building A's base: the floor framing sits PB_CLEAR over it
     obj.obj("terrain_lidar_2017")
     obj.terrain()
 
@@ -626,6 +668,33 @@ def main(spec: Path, out: Path) -> None:
             g0, g1 = ground(*p0) - 0.1, ground(*p1) - 0.1
             if min(t0 - g0, t1 - g1) > 0.25:
                 obj.face([(*p0, g0), (*p1, g1), (*p1, t1), (*p0, t0)])
+    # Building A's retaining wall: segmental block, 12 in deep, just outside the cut's north, east and west edges wherever
+    # the ground outside stands more than ~3 in over the cut; its cap course 3 in proud, a buried course below the cut.
+    obj.obj("proposed_retaining_wall")
+    wall_len, wall_max, wall_pts = 0.0, 0.0, []
+    ring = cut_poly + cut_poly[:1]
+    for e0, e1 in zip(ring, ring[1:]):
+        if max(a_yft(*e0), a_yft(*e1)) < 0:   # the open south edge
+            continue
+        seg = math.dist(e0, e1)
+        ex, ey = (e1[0] - e0[0]) / seg, (e1[1] - e0[1]) / seg
+        nx, ny = ey, -ex
+        mid = ((e0[0] + e1[0]) / 2 + nx * 0.5, (e0[1] + e1[1]) / 2 + ny * 0.5)
+        if inside(mid, cut_poly):   # make (nx, ny) point out of the cut
+            nx, ny = -nx, -ny
+        n = max(1, int(seg / 0.3))
+        for k in range(n):
+            p0 = (e0[0] + ex * seg * k / n, e0[1] + ey * seg * k / n)
+            p1 = (e0[0] + ex * seg * (k + 1) / n, e0[1] + ey * seg * (k + 1) / n)
+            q = ((p0[0] + p1[0]) / 2 + nx * 0.1, (p0[1] + p1[1]) / 2 + ny * 0.1)
+            h = ground.natural(*q) - cut_level(*q)
+            if h < 0.08:
+                continue
+            wall_len += seg / n / FT
+            wall_max = max(wall_max, h / FT)
+            wall_pts.append(q)
+            obj.prism([p0, p1, (p1[0] + nx * 0.3, p1[1] + ny * 0.3), (p0[0] + nx * 0.3, p0[1] + ny * 0.3)],
+                      cut_level(*q) - 0.15, ground.natural(*q) + 0.08)   # 12 in deep units
     # Candelaria Dr (drive_layout.ROAD): very dark asphalt and its white edge lines, drawn straight along the front line
     # (the aerial shows only our frontage; the lots south of us line up with it).
     ts = [ROAD_T[0] + (ROAD_T[1] - ROAD_T[0]) * k / 200 for k in range(201)]   # ~4 ft stations
@@ -674,7 +743,13 @@ def main(spec: Path, out: Path) -> None:
           "OK" if gap >= KEEP_OUT else "CONFLICT", "the tank is likely under or beside the access pipe: no ramps or traffic over it")
     under = {name: PB_FLOOR + (a_level - ground(*q)) / FT for name, q in zip(("NW", "NE", "SE", "SW"), a_m)}
     check("building A's floor over the ground, corners", ", ".join(f"{k} {v:.1f}" for k, v in under.items()) + " ft", "-", "NOTE",
-          f"PT pier and beam; the beams sit {PB_CLEAR * 12:.0f} in over the ground at the high NE corner")
+          f"PT pier and beam on the cut; {PB_FLOOR + (a_level - ground.natural(*ane)) / FT:+.1f} ft against the NE corner's natural ground "
+          f"(cut {PB_CUT:g} ft)")
+    wall_pipe = min(math.dist(to_m.to_site(q), pipe) for q in wall_pts) if wall_pts else float("inf")
+    check("building A's retaining wall", f"{wall_len:.0f} ft, up to {wall_max:.1f} ft", "-", "NOTE",
+          "segmental block round the cut's north, east and west sides, a drain behind it; under 4 ft, no engineer as a rule")
+    check("building A's retaining wall vs septic pipe", f"{wall_pipe:.1f} ft", f"{KEEP_OUT:g} ft",
+          "OK" if wall_pipe >= KEEP_OUT else "CHECK", "its east run passes the access pipe: find the tank before digging the footing")
     sills = [PB_FLOOR + (a_level - ground(asw[0] + c * a_ux[0] * FT, asw[1] + c * a_ux[1] * FT)) / FT for c in (*A_DOORS, WALK_AT)]
     check("building A's south sills over the ground", f"{min(sills):.1f}-{max(sills):.1f} ft", "-", "NOTE",
           f"the approach ramp falls {app_k * 100:.0f}% ({1 / app_k:.1f}:1) to the ground {APPROACH_FOOT:g} ft out")

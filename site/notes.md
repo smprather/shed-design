@@ -2407,6 +2407,75 @@ the tables below.
   - [Building Code Trainer, protecting wood from decay (IRC R317.1)](https://buildingcodetrainer.com/protecting-wood-from-decay/)
   - [The Building Code Forum, joist clearance](https://www.thebuildingcodeforum.com/forum/threads/floor-joist-to-rat-slab-clearance.8044/)
 
+### Building A: the high side dug down 2 ft, inside a block wall (owner, Oct 24 2026)
+
+- **Why:** moving the building south barely helps.
+  - Each 2 ft south lowers the door sills only ~0.1 ft. At 10 ft south, they'd still be
+    3.4–3.8 ft (`lidar`, ±0.5 ft).
+  - The floor follows the high NE corner, which falls only a little faster than the ground at
+    the doors.
+- **Cutting the high side lowers the floor foot for foot:**
+
+  | Cut at the NE corner | Door sills | Ramp at 1:6 | Fill under the ramp | Soil out | Wall or slope on the N and E edges |
+  |---|---|---|---|---|---|
+  | 0 | 3.8–4.2 ft | 29.5 ft | 70 cu yd | 0 | none |
+  | 1.0 ft | 2.8–3.2 ft | 22.5 ft | 40 cu yd | 3 cu yd | up to 1.1 ft; a slope fits |
+  | 1.5 ft | 2.3–2.7 ft | 18.5 ft | 27 cu yd | 7 cu yd | up to 1.6 ft |
+  | **2.0 ft (the plan)** | **~2 ft** | 15 ft | 18 cu yd | 16 cu yd | up to 2.1 ft |
+  | 2.5 ft | 1.3–1.7 ft | 11.5 ft | 10 cu yd | 29 cu yd | up to 2.6 ft |
+
+- **The owner's call: dig 2 ft.**
+  - The cut runs 2 ft beyond the north, east and west walls and falls 2% to the south, so
+    water runs out the low side and nothing ponds under the floor.
+  - A low segmental-block wall holds the ground outside: 71 ft long, up to 2.1 ft tall on the
+    north and east, a course or two on the west.
+    - Under 4 ft, it needs no engineer as a rule.
+    - Block lasts 30–50 years against timber's 10–20, for about the same price.
+  - About 24 cu yd comes out. It goes back as fill under the ramp.
+- **What it does:**
+  - The floor is now 1.4 ft over the cut ground at the north corners, 2.0 at the SE and 2.4
+    at the SW.
+  - That's 0.6 ft below the NE corner's natural ground, which is why the wall is there.
+  - The door sills are ~2 ft up.
+  - The 25 ft ramp now falls ~11%, about 1:9. A trailer backs up that.
+- **Water is the catch:**
+  - drain rock and a perforated pipe behind the wall, carrying water round to the low side;
+  - gutters on both eaves, piped away (the north eave would drip into the cut);
+  - a vapor barrier over the ground under the floor;
+  - vents in the skirting;
+  - the steel base 6 in or more over the finished ground outside.
+  - The residential code allows a floor's under-space below the outside grade when water
+    drains away (IRC R408.6).
+  - Keep the discharge away from the drainfield.
+- **The septic pipe:** the wall's east run passes 8.0 ft from the septic access pipe, inside
+  our 10 ft keep-out. Find the tank before digging that footing; the wall can pull in a
+  little on that side if it has to.
+- **Cost** (`shed_cost.py`; `--pb-cut 0` prices it without the cut):
+
+  | 30 × 30 × 11, pier and beam | Likely | Door sills | Ramp |
+  |---|---|---|---|
+  | No cut | $78k | ~4 ft | 25 ft at ~19% |
+  | **2 ft cut, the full 25 ft ramp (as modeled)** | **$80k** ($74–86k) | ~2 ft | 25 ft at ~11% (1:9): trailers fine |
+  | 2 ft cut, ramp shortened to 15 ft | ~$72k | ~2 ft | 15 ft at ~17% (1:6) |
+
+  - The cut, wall and drainage add ~$5–10k:
+    - the wall $3–6k;
+    - drainage $1.5–3.5k;
+    - the dig ~$0.5–1k.
+  - They save on fill (~30 cu yd less) and skirting (~160 sq ft less).
+  - It nets out cheaper only if the ramp gets shorter too. Correcting the earlier estimate
+    the same day: "~$5–10k cheaper" assumed the shorter ramp.
+- **The 3D plan** draws it:
+  - the ground dug down inside the wall line, stepping cleanly at the wall;
+  - the block wall with its cap 3 in over the outside ground;
+  - the piers and floor 2 ft lower.
+  - The terrain mesh is drawn on a 0.5 m grid round the cut and clipped at its outline.
+- **Sources** (retaining walls):
+  - [HomeAdvisor](https://www.homeadvisor.com/cost/landscape/install-a-retaining-wall)
+  - [Fixr](https://www.fixr.com/costs/retaining-wall-building)
+  - [The Pricer, timber](https://thepricer.org/wood-or-timber-retaining-wall-cost)
+  - [HomeYou](https://www.homeyou.com/retaining-walls-cost)
+
 ### Viewer: it remembers the view (owner's ask, Oct 24 2026)
 
 - **What it keeps:** everything on the view panel:

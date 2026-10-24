@@ -43,6 +43,19 @@ APRON_TO = 10.0    # ft: the street aprons are concrete from the asphalt to this
 APPROACH_FOOT = 25.0   # ft out from the south wall to the ramp's foot
 
 
+# Building A's cut (owner, Oct 24 2026): the high NE side is dug down so the floor and the door sills sit ~2 ft lower,
+# inside a low segmental-block retaining wall CUT_OFFSET ft off the north, east and west walls. The cut falls
+# CUT_FALL toward the south, so water runs out the low side; the south side is already below the cut.
+CUT_OFFSET = 2.0       # ft from the building to the retaining wall
+CUT_FALL = 0.02        # the cut's fall toward the south
+
+
+def cut_zone_a(L: float, W: float) -> list[tuple[float, float]]:
+    """The dug-down area inside building A's retaining wall, in its own frame (ft): the footprint plus CUT_OFFSET on
+    the north, east and west, open to the south."""
+    return [(-CUT_OFFSET, -1.0), (L + CUT_OFFSET, -1.0), (L + CUT_OFFSET, W + CUT_OFFSET), (-CUT_OFFSET, W + CUT_OFFSET)]
+
+
 def approach_a(L: float) -> list[tuple[float, float]]:
     """Building A's approach ramp in its own frame (x east from its SW corner, y north, ft), for a building L ft long.
 

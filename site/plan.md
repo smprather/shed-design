@@ -11,7 +11,7 @@ Last updated: Oct 24 2026 (building A: a 30 × 30 × 11 kit on a pressure-treate
 
 | Project | What it is now | Status | Blocked on |
 |---|---|---|---|
-| **1. The building, at site A** | A common 30 × 30 × 11 tube-frame kit on a pressure-treated pier-and-beam floor (owner, Oct 24 2026), on the north strip between the well and the septic pipe. Site B is dropped (owner, Oct 18 2026) | Modeled and priced (~$78k turnkey, likely; $54k on a slab); doors on the south side, with a ramp; use open | The buried service line; the septic layout (the drainfield may be under it) |
+| **1. The building, at site A** | A common 30 × 30 × 11 tube-frame kit on a pressure-treated pier-and-beam floor (owner, Oct 24 2026), on the north strip between the well and the septic pipe. Site B is dropped (owner, Oct 18 2026) | Modeled and priced (~$80k turnkey, likely; $54k on a slab); high side dug down 2 ft inside a block wall; doors on the south side, with a ramp; use open | The buried service line; the septic layout (the drainfield may be under it) |
 | **2. Screening** (noise and views) | US-290 side: the 8 ft fence, building B, maybe a taller wall. Back line: 21 new trees in the gaps | Back-line planting ready to buy; US-290 side needs re-modeling | Fence gaps and ownership; septic layout |
 | **3. Garage → kitchen** | Join the 21 × 21 ft attached garage, the hall beside it and the old kitchen into one ~680 sq ft kitchen. Its own repo: `smprather/kitchen-garage-renovation` | Idea stage (~90% likely); layout mocked up | Parking must move first; septic capacity question; structure (see its repo) |
 | **4. The drive + porte-cochère** | Redesigned from scratch: loop D, a forecourt with a porte-cochère (2 cars nose to tail) and a passing lane, the service drive and north court, the shop lane to building A. Estate gravel, concrete-curbed | Designed and priced (~$183k likely; $103k of it the drive) | Trunk tapes; buried lines; the septic layout; county permits |
@@ -106,29 +106,36 @@ septic pipe, and is now 15 ft from the well. The ridge runs along the line.
 - 2×12 joists flush between them at 16 in;
 - a 1-1/8 in floor.
 
-Ground-contact PT lets the beams sit 4 in over the ground at the high NE corner. The ground
-falls ~3 ft to the SW, so the floor stands 1.4 ft up at the NE corner and 4.4 ft at the SW. It's
-built for storage, a workshop and the mower. Parking vehicles on it needs an engineer.
+**The high side is dug down 2 ft** (owner, Oct 24 2026):
+- The cut runs inside a low segmental-block wall, 2 ft off the north, east and west walls:
+  71 ft long, up to 2.1 ft tall.
+- It falls 2% to the south, and a drain behind the wall carries water round.
+- Ground-contact PT lets the beams sit 4 in over the cut ground.
+- The floor stands 1.4 ft up at the north corners and 2.4 ft at the SW.
+- It's built for storage, a workshop and the mower. Parking vehicles on it needs an engineer.
 
-**The catch: the doors are on the low side.** Their sills are 3.8–4.2 ft over the ground.
-- A concrete ramp on fill, between concrete side walls, runs from them down to the ground
-  25 ft out, at ~19% (1:5.3).
-- That's fine for the mower and for a pickup driving in. It's too steep to back a trailer.
+The doors face the low side, but the cut keeps their sills at ~2 ft (~4 ft without it).
+- A concrete ramp on fill runs from them down to the ground 25 ft out, at ~11% (1:9).
+- That's fine for the mower, a pickup or backing a trailer.
 - It replaces the apron and the shop court. The shop lane joins it (project 4).
-- The 3D plan draws the piers, beams, joists, floor, ramp and the S130 inside.
+
+The 3D plan draws the cut, the wall, the piers, beams, joists, floor, ramp and the S130
+inside.
 
 Tube frame, dealer-installed (owner, Oct 18 2026: red-iron is out).
 
 | 30 × 30 × 11 | Turnkey, likely (80% band) | Per sq ft | Foundation and ramp or apron | + insulation and power |
 |---|---|---|---|---|
-| **Pier and beam** (the plan) | **$78k** ($72–84k) | $87 | $49k ($44–54k) | $11k ($9–13k) |
+| **Pier and beam, 2 ft cut and wall** (the plan) | **$80k** ($74–86k) | $89 | $51k ($47–56k) | $11k ($9–13k) |
 | Slab, cut and filled (for comparison) | $54k ($49–59k) | $60 | $25k ($23–28k) | $11k ($9–13k) |
 
-- **The pier and beam itself** costs about what the slab does. The ~$24k difference is the
-  ramp ($15–28k with its fill and walls) and the skirting.
+- **The pier and beam itself** costs about what the slab does. The difference is the ramp
+  and, with the cut, the wall and drainage.
+- **The cut costs ~$2k net** with the full 25 ft ramp, which it turns from ~19% to ~11%.
 - **Cheaper:**
+  - shorten the ramp to 15 ft at ~1:6: ~$72k, but no trailers;
   - a mower-only timber ramp at one roll-up and steps to the walk door saves ~$20k, but no
-    vehicles;
+    vehicles at all;
   - or a slab, if vehicles go in.
 - Before Oct 24 it was a slab, 1.5 ft below the high corner: 30 × 35 was $64k, 30 × 30 $56k.
 
@@ -149,10 +156,10 @@ Tube frame, dealer-installed (owner, Oct 18 2026: red-iron is out).
   - See notes, "Does the 15% even apply?".
 - **Before anything:** trace the buried service line (it likely runs under the site) and
   find the drainfield and the tank's outline. The ramp is 28.5 ft from the septic access pipe,
-  but the NE corner's piers come within 10 ft of it: nothing gets dug, poured or driven over the
-  tank.
+  but the NE corner's piers come within 10.3 ft of it and the retaining wall's east run within
+  8 ft: nothing gets dug, poured or driven over the tank.
 - **Decisions for you:**
-  - the full ramp, or a mower-only ramp;
+  - the full 25 ft ramp (~1:9), a 15 ft one (~1:6), or a mower-only ramp;
   - pier and beam or a slab, if vehicles will go in;
   - insulation and power.
 

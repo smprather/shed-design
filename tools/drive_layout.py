@@ -51,8 +51,8 @@ CUT_SLOPE = 2.0        # run per rise of the graded cut
 # Its aprons, concrete, falling away from the doors to the lawn (owner, Oct 24 2026): a short one at the west
 # roll-up, which the mower (and, for a later owner, a boat trailer) drives straight up; and a 10 ft work apron in
 # front of the walk door and the east roll-up, where the deck landing was to be, at floor level all the same.
-APRON_WEST = (1.0, 13.0, 8.0)    # ft: x from, x to along the south wall; out from it
-APRON_EAST = (13.0, None, 10.0)  # to the SE corner
+APRON_WEST = (0.5, 14.5, 8.0)    # ft: x from, x to along the south wall; out from it (the 12 ft boat door is 1.5-13.5)
+APRON_EAST = (14.5, None, 10.0)  # to the SE corner
 APPROACH_FOOT = 25.0             # ft out from the south wall: the gravel court in front of the aprons, with the drive
 
 

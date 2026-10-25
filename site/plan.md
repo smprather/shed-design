@@ -5,13 +5,13 @@ sources, corrections and dates. This file says what we're doing, in what order, 
 still undecided. Update it when a decision changes; record the facts behind the change in
 `notes.md`.
 
-Last updated: Oct 24 2026 (building A on a slab dug into its high side, with power and closed-cell foam insulation: ~$79k all in, $48k of it the building on its slab; it comes first, and the drive much later).
+Last updated: Oct 25 2026 (building A on 14 ft legs with a 12 × 12 door, for boat storage; on a slab dug into its high side, with power and closed-cell foam insulation: ~$83k all in, $51k of it the building on its slab; it comes first, and the drive much later).
 
 ## The four projects
 
 | Project | What it is now | Status | Blocked on |
 |---|---|---|---|
-| **1. The building, at site A** (first: owner, Oct 24 2026) | A common 30 × 30 × 11 tube-frame kit on a concrete slab dug into its high side (owner, Oct 24 2026), on the north strip between the well and the septic pipe. Site B is dropped (owner, Oct 18 2026) | Modeled and priced: ~$79k likely all in, with power and closed-cell foam insulation ($48k of it the building on its slab); the doors on the south side at grade, with short concrete aprons | The buried service line; the septic layout (the drainfield may be under it) |
+| **1. The building, at site A** (first: owner, Oct 24 2026) | A common 30 × 30 tube-frame kit on 14 ft legs, with a 12 × 12 door for a boat (owner, Oct 25 2026), on a concrete slab dug into its high side (owner, Oct 24), on the north strip between the well and the septic pipe. Site B is dropped (owner, Oct 18 2026) | Modeled and priced: ~$83k likely all in, with power and closed-cell foam insulation ($51k of it the building on its slab); the doors on the south side at grade, with short concrete aprons | The buried service line; the septic layout (the drainfield may be under it) |
 | **2. Screening** (noise and views) | US-290 side: the 8 ft fence, building B, maybe a taller wall. Back line: 21 new trees in the gaps | Back-line planting ready to buy; US-290 side needs re-modeling | Fence gaps and ownership; septic layout |
 | **3. Garage → kitchen** | Join the 21 × 21 ft attached garage, the hall beside it and the old kitchen into one ~680 sq ft kitchen. Its own repo: `smprather/kitchen-garage-renovation` | Idea stage (~90% likely); layout mocked up | Parking must move first; septic capacity question; structure (see its repo) |
 | **4. The drive + porte-cochère** | Redesigned from scratch: loop D, a forecourt with a porte-cochère (2 cars nose to tail) and a passing lane, the service drive and north court, the shop lane to building A. Estate gravel, concrete-curbed | Designed, drawn in the renders; not priced: it comes much later (owner, Oct 24 2026) | Trunk tapes; buried lines; the septic layout; county permits |
@@ -65,7 +65,8 @@ before its first dig.
    - the Ashe junipers at the NW corner: which are male (pollen). That check is best in
      December–January.
 5. **Paperwork:**
-   - the title commitment's deed restrictions: outbuildings, materials, walls, fences, the
+   - the title commitment's deed restrictions: outbuildings (and their height: the ridge is
+     ~17.75 ft), boats and trailers, materials, walls, fences, the
      45 ft building line;
    - Travis County's accessory-building permit, and whether OSSF reviews a new building (or,
      later, a garage conversion) on a septic lot;
@@ -117,29 +118,50 @@ stops being a garage.
 ## Project 1: The building (site A; site B dropped Oct 18 2026)
 
 **At site A, on a concrete slab dug into its high side** (owner, Oct 24 2026): a common
-30 × 30 × 11 ft tube-frame kit, 30 ft wide across the strip and 30 ft along the line. The
-ridge runs along the line. That morning it was on pier and beam, at ~$85k; the owner sent it
-back to concrete to cut the cost.
+30 × 30 ft tube-frame kit, 30 ft wide across the strip and 30 ft along the line. The ridge
+runs along the line. That morning it was on pier and beam, at ~$85k; the owner sent it back
+to concrete to cut the cost.
+
+**Built to store a boat** (owner, Oct 25 2026): boat storage adds to a house near Lake Travis,
+so the building is ready for one.
+- **14 ft legs,** so a 12 ft roll-up fits under the eave with ~2 ft for its coil. The ridge
+  is ~17.75 ft up.
+- **A 12 × 12 ft door** clears most wake boats with the tower folded, pontoons with the
+  bimini down and center consoles without a T-top.
+  - A 10 ft door is tight for many of them.
+  - Towers up and T-tops often stand over 12 ft. Check a boat's height on its trailer.
+- **12 ft wide** leaves room to back in an 8.5 ft boat, the widest towed without a permit.
+- **30 ft deep** takes a boat to ~24 ft on its trailer. The trailer adds ~4–5 ft past the
+  bow; a swing-away tongue buys ~2 ft.
+- The 3D plan has a 22 ft wake boat on its trailer in the west bay, for scale.
+- **The boat needs a way in.** A pickup and trailer shouldn't cross the lawn: the way
+  passes the twin oak's root zone, and the lawn ruts when it's wet. The shop lane
+  (project 4) is the boat's road. Until it's built, the boat bay is a selling point more
+  than a working one.
 
 **All the doors face south** (owner, Oct 18 2026), well away from the septic pipe:
-- two 10 × 9 ft roll-ups, about the largest 11 ft legs take;
-- a commercial walk door centered between them: hollow metal in a welded frame, a continuous
+- a 12 × 12 ft roll-up at the west end, for a boat;
+- a 10 × 12 ft roll-up at the east end. The mower parks in that bay;
+- a commercial walk door between them: hollow metal in a welded frame, a continuous
   hinge, Grade 1 hardware and a closer, so it won't sag or stick (notes, "The walk door").
+- There's 1 ft of wall between each roll-up and the walk door, and 1.5 ft at each corner.
+  The dealer confirms the framing. If it needs more, the walk door can move to the east
+  wall.
 
 **Dig in, don't build up.** The ground under it rises ~2.7 ft to the NE corner, but the door
 (south) side is within ~0.7 ft of level (2017 lidar, ±0.5 ft).
 - So the slab's top sits 0.8 ft over the SW corner's ground, and the doors are at grade.
 - The NE corner is cut ~1.9 ft (2.6 ft to the bottom of the base).
 - Building the low side up instead means ~80 cu yd of fill, stem walls and 35–40 ft ramps:
-  ~$84k against $48k, for the building alone.
+  ~$86k against $51k, for the building alone.
 
 The building on its slab, without power or insulation (they add the same to each):
 
 | Slab | Dig | Fill | Ramps or aprons at the doors | Likely (80% band) |
 |---|---|---|---|---|
-| **Dug into the high side** (the plan) | 43 cu yd | 0 | aprons 8–10 ft | **$48k** ($44–53k) |
-| Balanced cut and fill (the Oct 18 slab) | 17 cu yd | 6 cu yd | ramps 15–19 ft | $51k ($46–56k) |
-| Built up, level with the high corner | 0 | 79 cu yd | ramps 37–42 ft | $84k ($76–91k) |
+| **Dug into the high side** (the plan) | 43 cu yd | 0 | aprons 8–10 ft | **$51k** ($46–56k) |
+| Balanced cut and fill (the Oct 18 slab) | 17 cu yd | 6 cu yd | ramps 15–19 ft | $53k ($48–59k) |
+| Built up, level with the high corner | 0 | 79 cu yd | ramps 36–42 ft | $86k ($79–94k) |
 | Pier and beam, high side cut 2 ft (dropped) | | | a 25 ft ramp, a deck landing | $85k ($78–91k) |
 
 - **The slab:** 4 in with rebar and thickened edges at the kit's anchors, on 4 in of base.
@@ -153,8 +175,7 @@ The building on its slab, without power or insulation (they add the same to each
   limestone, with rock showing in places. Little of the cut reaches rock. With only 4 in of
   soil, it would cost ~$0.5k more.
 - **The aprons** are concrete at grade, falling away from the doors to the lawn.
-  - The west roll-up's is 12 × 8 ft (~11%). The mower drives straight in, and so would a boat
-    trailer for a later owner.
+  - The boat door's is 14 × 8 ft (~10%). A boat trailer backs straight in.
   - The walk door and the east roll-up open onto a 17 × 10 ft work apron (~7%), where the
     deck landing was to be, at floor level all the same. A roof over it for shade is to be
     discussed.
@@ -196,19 +217,21 @@ Tube frame, dealer-installed (owner, Oct 18 2026: red-iron is out).
   - The code wants foam covered (IRC R316.4), and a woodshop has sparks and finishes.
 - **The cheaper way:** the dealer's fiberglass blanket (R-13 walls, R-19 roof), ~$11k less.
   It's less airtight, and a tear lets condensation in.
-- **The roll-up doors stay uninsulated.** Insulated sectional doors are an option (~$4.5k).
+- **The roll-up doors stay uninsulated.** Insulated sectional doors are an option (~$4–7.5k).
 
-**Where the $79k goes** (likely, with the 10% contingency):
+**Where the $83k goes** (likely, with the 10% contingency):
 
 | Part | Likely (80% band) |
 |---|---|
-| The building on its slab: the kit, the walk door, the slab, the dig, the aprons, prep, permits, access | $48k ($43–53k) |
+| The building on its slab: the kit on 14 ft legs, the walk door, the slab, the dig, the aprons, prep, permits, access | $51k ($46–56k) |
 | Power: the breaker at the pole, the feeder, the panel, the wiring | $13k ($11–15k) |
-| Insulation: closed-cell foam and its thermal barrier | $15k ($13–17k) |
+| Insulation: closed-cell foam and its thermal barrier | $17k ($15–19k) |
 | The house's line detoured round the building, if the locate puts it under it | $2k ($1–3k) |
-| **All of it** | **$79k** ($73–84k) |
+| **All of it** | **$83k** ($77–89k) |
 
-- Options, not in it: insulated doors and a ductless mini-split, ~$11k together.
+- Options, not in it: insulated doors and a ductless mini-split, ~$13k together.
+- The 14 ft legs and the bigger doors cost ~$3k over the 11 ft kit, and the taller walls ~$1.5k
+  more foam.
 
 - **Cheaper still:**
   - fiberglass blanket instead of the foam and its barrier, ~$11k less;
@@ -236,6 +259,7 @@ Tube frame, dealer-installed (owner, Oct 18 2026: red-iron is out).
   driven over the tank. If the tank is clear of it, the slope runs there too and the wall
   goes.
 - **Decisions for you:**
+  - the kit's dealer, from quotes against the spec sheet (notes, "Boat storage");
   - foam and its barrier, or fiberglass blanket (~$11k);
   - concrete or gravel aprons;
   - insulated doors and a mini-split, now or later;

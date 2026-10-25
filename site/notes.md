@@ -2794,6 +2794,100 @@ the tables below.
   - The electrical prices are a planning judgment from these and Austin labor rates; the
     sources are forum posts, so get the electrician's bid.
 
+### Boat storage: 12 ft doors on 14 ft legs (owner, Oct 25 2026)
+
+- **The owner's call:** "The ability to store a boat is a big add-on to a house in 78737.
+  What's the recommended door height, and can you find a shed kit matching those specs?"
+- **Door height: 12 ft.**
+  - Wake boats with the tower folded stand ~8–10 ft on their trailers. A Yamaha 252SE folds
+    to 9'11": a 10 ft door clears it by an inch. Owners on the boat forums say not less than
+    10 ft, and 12 for room.
+  - Pontoons on their trailers: ~9 ft with the bimini down, ~10–12 ft with it up.
+  - Center consoles without a T-top ~5–9 ft. A T-top adds ~4–6 ft, and a tower up can reach
+    ~15 ft with its bimini: those need more than 12.
+  - A door installer's guide: bass and ski boats on trailers need ~10 ft tall and 12–14 ft
+    wide, plus margin for antennas and bunks.
+  - So 12 ft covers most boats a buyer here would bring, towers folded and tops down.
+- **Door width: 12 ft.** 8.5 ft is the widest boat towed without a permit. 12 ft leaves room
+  to back one in.
+- **Depth:** the trailer adds ~4–5 ft past the bow, and a 21 ft wake boat needed ~26 ft (a
+  Nautique owner). The 30 ft bay takes a boat to ~24 ft; a swing-away tongue buys ~2 ft.
+- **Leg height: 14 ft.** A roll-up wants ~18–24 in over its opening for the coil: Clopay's
+  400M chart gives 22 in for doors 10–14 ft tall. So a 12 ft roll-up takes 14 ft legs. The
+  ridge is then ~17.75 ft up (3:12 over a 30 ft span).
+- **The south wall now:**
+
+  | Opening | Size | Along the wall (from the SW corner) |
+  |---|---|---|
+  | Roll-up, the boat bay | 12 × 12 ft | 1.5–13.5 ft |
+  | Walk door (commercial) | 3 × 7 ft | 14.5–17.5 ft |
+  | Roll-up, the east bay (the mower) | 10 × 12 ft | 18.5–28.5 ft |
+
+  - That leaves 1 ft of wall between each roll-up and the walk door, and 1.5 ft at each
+    corner. The dealer confirms the framing; if it wants more, the walk door can move to the
+    east wall.
+  - The boat door's apron widens to 14 ft (8 ft out, ~10%).
+  - The 3D plan has a 22 ft wake boat on a tandem-axle trailer, backed into the west bay:
+    27 ft from the swim platform to the coupler.
+- **Cost** (`shed_cost.py`, likely with the 10% contingency):
+  - **$83k** ($77–89k) all in, up from $79k.
+  - The building on its slab is $51k, up ~$3k: the taller kit and bigger doors ($17–29/sq ft
+    installed, from $15–26).
+  - The insulation is $17k, up ~$1.5k for the taller walls.
+  - Insulated sectional doors in place of the roll-ups: an option, $4–7.5k.
+- **How the price moves with height** (dealer listings, Oct 25 2026):
+  - Keen's Buildings: 30 × 30 × 12 at $12,415.50, 30 × 30 × 14 at $13,297.50, both
+    installed and on sale. That's +$882, or 7%, for 2 ft.
+  - A kit-pricing guide puts 12 ft to 14 ft eaves at 6–9% of the kit's price.
+- **Kits close to the spec** (listings, Oct 25 2026; none has this exact door set, and all
+  build custom from a configurator):
+
+  | Dealer | Listing | Price | Notes |
+  |---|---|---|---|
+  | Keen's Buildings | 30 × 30 × 14, installed | $13,297.50 (sale; $14,775 list) | One 8 × 8 roll-up, a walk door, a window; 12 × 12 roll-up offered; certified to 150 mph. **Installs only in FL, GA, AL, SC, NC and TN**: a price benchmark |
+  | Skyline Metal Structures | 30 × 30 × 14 (a 22 × 30 × 14 with an 8 ft lean-to) | $14,604 (sale; $16,200 list), delivery and install included | A 10 × 12 roll-up; 14-ga frame standard, 12-ga available; service area not stated |
+  | Alan's Factory Outlet | 30 × 30 × 14 | from $15,500 (search listing) | Couldn't open its page to check the doors or Texas installs |
+  | American Metal Buildings | 30 × 30 × 14 with a lean-to | $23,387.50 | Prices vary by location |
+  | garagebuildings.com | Texas metal garages | 30 × 40: $9,000–14,000 installed | Installs across Texas; 4–8 weeks; certified to 150 mph |
+
+  - Before concrete, 30 × 30 × 14 listings run ~$13–17k with one door. Two big roll-ups and
+    the walk door add ~$2–4k, then Texas delivery and the wind certification.
+  - The budget's $15–26k for the kit installed is on the conservative side of that.
+- **The spec sheet for quotes:**
+  - 30 ft wide × 30 ft long × 14 ft legs, vertical roof at 3:12, ridge along the length.
+  - Certified drawings for Travis County's wind; ask for 140 mph or better. 12-ga frame.
+  - Fully enclosed, vertical siding, gutters on both eaves.
+  - Side entry, all on one 30 ft wall:
+    - a 12 W × 12 H roll-up 1.5 ft in from one corner;
+    - a 10 W × 12 H roll-up 1.5 ft in from the other;
+    - a framed 36 in walk-door opening between them, 1 ft from each (the commercial door and
+      frame come from a door supplier; or the kit's door, priced for comparison).
+  - Anchored to our slab: 4 in with thickened edges, to their anchor layout.
+  - Insulation by others (spray foam). Ask the price of their fiberglass blanket for
+    comparison.
+  - Ask for the price with 12 ft legs and 10 ft doors too, as a fallback.
+- **Before ordering:**
+  - **The deed restrictions** (title commitment) may limit an outbuilding's height (the
+    ridge is ~17.75 ft) and may say where boats and trailers can be kept. That limit is what
+    makes an enclosed boat bay worth having.
+  - **The boat's way in** is the shop lane (the deferred drive). A pickup and trailer
+    shouldn't cross the lawn past the twin oak's root zone.
+- **Sources:**
+  - [Jetboaters, garage door height for a 252SE](https://jetboaters.net/threads/garage-door-height-for-252se.46570/latest)
+  - [PlanetNautique, garage dimensions for a wakeboard boat](https://www.planetnautique.com/vb5/forum/nautique-topics/general-nautique-discussion/10136-building-garage-dimensions-for-wakeboard-set)
+  - [Affordable Door Co, garage doors for RV and boat storage](https://affordabledoorco.com/blog/garage-door-for-rv-boat-storage/)
+  - [Neighbor, how tall is a boat on a trailer](https://www.neighbor.com/storage-blog/?p=11155)
+  - [Bennington owners' club, a 22SLX's overall height](https://club.benningtonmarine.com/threads/22slx-overall-height.1133/latest)
+  - [Clopay rolling door brochure (headroom)](https://literature.clopay.com/pdf_files/REID-ROLLUPBR-18.pdf)
+  - [AA Metal Buildings, door heights](https://www.aametalbuildings.com/blog/metal-garage-door-heights-8-14-what-fits-how-to-future-proof-your-build)
+  - [Keen's 30 × 30 × 14](https://keensbuildings.com/metal-garages/30x30x14-metal-garage-workshop-installed/),
+    [Keen's 30 × 30 × 12](https://keensbuildings.com/metal-garages/30x30x12-metal-garage-workshop-installed/)
+  - [Skyline 30 × 30 × 14](https://skylinemetalstructures.com/product/30x30x14-metal-garage/)
+  - [Alan's Factory Outlet, 30 × 30](https://alansfactoryoutlet.com/30-x-30-metal-building/)
+  - [American Metal Buildings, garage prices](https://www.americanmetalbuildings.com/metal-garage-prices/)
+  - [garagebuildings.com, Texas](https://garagebuildings.com/metal-buildings-texas-tx)
+  - [steelbuildingkit.com, 30 × 30 × 14](https://steelbuildingkit.com/metal-building-sizes/30x30x14-metal-building/)
+
 ### Windows and doors
 
 - Traffic noise is heavy in low frequencies. Compare windows by **OITC** (made for traffic

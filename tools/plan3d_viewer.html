@@ -20,6 +20,7 @@
   --steel: #3b3e42;  /* building B: dark grey steel */
   --site-a: #c99312;
   --jd: #367c2b;
+  --boat: #8aa6c4;
   --fence: #7a5a3a;
   --easement: #7b4fa6;
   --septic: #c2268f;
@@ -58,7 +59,7 @@
   :root:not([data-theme="light"]) {
     --bg: #111714; --panel: #171f1b; --ink: #e2eae5; --muted: #95a59c; --rule: #2a3530;
     --accent: #f0675b; --stage: #0d1310; --terrain-lo: #2f4655; --terrain-hi: #6b6450;
-    --house: #8fb0ea; --shed: #f0a93a; --steel: #50555b; --jd: #4f9a3f; --site-a: #f2c14e; --fence: #c09468; --easement: #b48ae0; --septic: #f05cbf;
+    --house: #8fb0ea; --shed: #f0a93a; --steel: #50555b; --jd: #4f9a3f; --boat: #a9c3de; --site-a: #f2c14e; --fence: #c09468; --easement: #b48ae0; --septic: #f05cbf;
     --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --paving: #b9ab98; --gravel: #b8a785; --asphalt: #303134; --road-line: #d9d7d0; --block: #b2a996; --pavers: #ad937c; --curb: #d8d5ce; --porte: #c3baab; --concrete: #8e8a80; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
     --water: #6aa6f5; --apt: #79c174; --apt-bldg: #8fa2d6; --apt-new: #f08a4a; --context: #56625b; --lot: #e2eae5; --ok: #5ccf7c; --warn: #f0b13a; --bad: #f0675b;
     --unknown: #95a59c; color-scheme: dark;
@@ -67,7 +68,7 @@
 :root[data-theme="dark"] {
   --bg: #111714; --panel: #171f1b; --ink: #e2eae5; --muted: #95a59c; --rule: #2a3530;
   --accent: #f0675b; --stage: #0d1310; --terrain-lo: #2f4655; --terrain-hi: #6b6450;
-  --house: #8fb0ea; --shed: #f0a93a; --steel: #50555b; --jd: #4f9a3f; --site-a: #f2c14e; --fence: #c09468; --easement: #b48ae0; --septic: #f05cbf;
+  --house: #8fb0ea; --shed: #f0a93a; --steel: #50555b; --jd: #4f9a3f; --boat: #a9c3de; --site-a: #f2c14e; --fence: #c09468; --easement: #b48ae0; --septic: #f05cbf;
   --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --paving: #b9ab98; --gravel: #b8a785; --asphalt: #303134; --road-line: #d9d7d0; --block: #b2a996; --pavers: #ad937c; --curb: #d8d5ce; --porte: #c3baab; --concrete: #8e8a80; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
   --water: #6aa6f5; --apt: #79c174; --apt-bldg: #8fa2d6; --apt-new: #f08a4a; --context: #56625b; --lot: #e2eae5; --ok: #5ccf7c; --warn: #f0b13a; --bad: #f0675b;
   --unknown: #95a59c; color-scheme: dark;
@@ -320,10 +321,10 @@ details li b { font-weight: 600; }
       status: "surveyed", source: "1991 survey bearings and distances.", notes: "0.78 ac. The front is on Candelaria Dr; the north side runs along US-290." },
     house_footprint_survey: { label: "House footprint", group: "Your lot", token: "house",
       status: "surveyed", source: "Walls rebuilt from the 1991 plat; north wall laser-checked at 62.0 ft.", notes: "Footprint only. There's no room model yet." },
-    building_A_30x30_eave_11ft_assumed: { label: "Building A, 30 × 30 ft", group: "Your lot", token: "steel", solid: true,
-      status: "planned at site A (site B dropped, owner, Oct 18 2026); a common 30 × 30 × 11 kit on a concrete slab dug into the high side (owner, Oct 24 2026)",
+    building_A_30x30_eave_14ft_assumed: { label: "Building A, 30 × 30 ft", group: "Your lot", token: "steel", solid: true,
+      status: "planned at site A (site B dropped, owner, Oct 18 2026); a common 30 × 30 kit on a concrete slab dug into the high side (owner, Oct 24 2026), on 14 ft legs for boat storage (owner, Oct 25)",
       source: "Site A (SITE_A in tools/envelope_plan.py), built like building B; size and eave per the owner, Oct 24 2026; the slab's level and cut in tools/drive_layout.py. Prices in tools/shed_cost.py.",
-      notes: "900 sq ft, with the owner's S130 parked inside for scale. B's look: dark grey steel, light grey inside, a 3:12 gable on 11 ft legs. 30 ft wide (the clear span, across the strip) with its ridge along the line. All its doors face south, onto the yard: two 10 × 9 ft roll-ups (drawn rolled up; the most an 11 ft leg takes) and a commercial 3 × 7 ft walk door centered between them. The ground under it rises ~2.7 ft to the NE corner but the door side is nearly level, so it sits on a 4 in slab whose top is 0.8 ft over the SW corner's ground: the door sills are 0.3–0.7 ft up, the doors are at grade, and the NE corner is cut ~1.9 ft (2.6 ft to the bottom of the base). The cut is graded back at 2:1 from a 2 ft swale on the north, east and west, with a short block wall by the septic pipe. Moved 3 ft west and 5 ft south of the old site A for the slope's room: 10 ft from the surveyed line, 13.4 ft from the septic pipe, 12.3 ft from the well. The buried service line likely runs under it: have it traced first." },
+      notes: "900 sq ft, with the owner's S130 parked inside for scale. B's look: dark grey steel, light grey inside, a 3:12 gable on 14 ft legs, the ridge ~17.75 ft up. 30 ft wide (the clear span, across the strip) with its ridge along the line. All its doors face south, onto the yard (drawn rolled up): a 12 × 12 ft roll-up at the west end for a boat on its trailer (12 ft clears most wake boats with the tower folded and pontoons with the bimini down; 30 ft deep takes a ~22–24 ft boat with its trailer), a 10 × 12 ft roll-up at the east end, and a commercial 3 × 7 ft walk door between them. The S130 is parked in the east bay. The ground under it rises ~2.7 ft to the NE corner but the door side is nearly level, so it sits on a 4 in slab whose top is 0.8 ft over the SW corner's ground: the door sills are 0.3–0.7 ft up, the doors are at grade, and the NE corner is cut ~1.9 ft (2.6 ft to the bottom of the base). The cut is graded back at 2:1 from a 2 ft swale on the north, east and west, with a short block wall by the septic pipe. Moved 3 ft west and 5 ft south of the old site A for the slope's room: 10 ft from the surveyed line, 13.4 ft from the septic pipe, 12.3 ft from the well. The buried service line likely runs under it: have it traced first." },
     building_B_23x43_eave_14ft_assumed: { label: "Building B, 23 × 43 ft (dropped)", group: "Proposed", token: "steel", solid: true, hidden: true,
       status: "dropped: site B is out (owner, Oct 18 2026); hidden at first, tick it in the layer list to compare", source: "Site B footprint (SITE_B in tools/site_plan.py); look per the owner, Oct 18 2026.",
       notes: "Dark grey steel on every surface, with two roll-up doors on the south wall (drawn rolled up) and a solid north wall toward US-290. Drawn with 12 × 12 ft doors at the quarter points, a 3:12 gable and a 14 ft eave. None of those is decided yet. The slab is level with its high NE corner by the oak. The ground falls ~3.8 ft across it, so the west side needs fill or a stem wall rather than a cut toward the oak. The east door is 15 ft from the house's NW corner." },
@@ -332,7 +333,10 @@ details li b { font-weight: 600; }
       notes: "Stone first story, vertical siding above. The two-story part runs along the north wall from just west of the garage through the NW wing (~873 sq ft; the county says 882). The porch and garage share one roof rising west to the two-story eave. Guesses: the floor level (1,055.5 ft), the roof pitches (5:12), the wall heights, the roof over the entry and kitchen, the deck's position, the chimney, and every window on a wall not yet photographed." },
     mower_john_deere_s130: { label: "Riding mower (John Deere S130), for scale", group: "Your lot", token: "jd", solid: true,
       status: "for scale", source: "TractorData: 73.3 in long, 45.5 in tall; dealer: 48.9 in wheelbase. The width with the deck and chute (~54 in) is an estimate.",
-      notes: "Low-poly model of the owner's S130, parked in building A's south bay, nose to the door." },
+      notes: "Low-poly model of the owner's S130, parked in building A's east bay, nose to the door." },
+    boat_on_trailer_22ft: { label: "Wake boat on its trailer, 22 ft, for scale", group: "Your lot", token: "boat", solid: true,
+      status: "for scale: boat storage for a later owner (owner, Oct 25 2026)", source: "A typical 22 ft wake boat: 8.5 ft beam (the widest towed without a permit), its tower folded; a tandem-axle bunk trailer with its tongue ~5 ft past the bow.",
+      notes: "Backed into building A's west bay through the 12 × 12 roll-up: 27 ft from the swim platform to the coupler, so the 30 ft bay takes it with ~1 ft behind and ~2 ft inside the door. Boats to ~24 ft fit on a swing-away tongue. The folded tower stands ~8.8 ft; most towers up stand 10–12 ft and some more, so check a boat's height on its trailer against the 12 ft door." },
     rear_fence: { group: "Your lot", token: "fence", solid: true },
     north_line_fence: { label: "8 ft fence, north line (proposed)", group: "Your lot", token: "fence", solid: true },
     septic_pipe_keepout_10ft: { label: "Septic pipe, 10 ft keep-out", group: "Keep-outs", token: "septic",
@@ -892,6 +896,44 @@ details li b { font-weight: 600; }
       mower.traverse(o => { if (o.isMesh) solids.push(o); });
       items[mid] = { node: mnode, mats: Object.values(jd).map(mat => ({ mat, kind: "mesh", fixed: true })), meta: META[mid] };
     }
+    if (B.boat) {
+      // A 22 ft wake boat on a tandem-axle bunk trailer, backed in: stern to the back wall, the tongue toward the door.
+      const bt = B.boat, bid = "boat_on_trailer_22ft", bnode = new THREE.Group(); bnode.userData.id = bid; root.add(bnode);
+      const bfr = new THREE.Group(); place(bfr); bnode.add(bfr);
+      const bf = new THREE.Group(); bf.position.y = SLAB; bfr.add(bf);   // heights below are over the slab's top
+      const bm = { hull: new THREE.MeshLambertMaterial({ color: 0xeef0f2 }), bottom: new THREE.MeshLambertMaterial({ color: 0x24324a }),
+                   deck: new THREE.MeshLambertMaterial({ color: 0xc9c2b4 }), glass: new THREE.MeshLambertMaterial({ color: 0x223038 }),
+                   steel: new THREE.MeshLambertMaterial({ color: 0x9aa0a6 }), black: new THREE.MeshLambertMaterial({ color: 0x1c1d1c }) };
+      const bk = make(bf, bid), xc = bt.x_ft, ys = bt.transom_y_ft, yb = ys - bt.hull_ft, hw = bt.beam_ft / 2;
+      // The hull: its plan (full beam aft, a fine bow) extruded upward, a narrower V below the chine.
+      const hull = (scale, z0, z1, mat) => {
+        const sh = new THREE.Shape(), pts = [[-1, 0], [1, 0], [1, 0.55], [0.82, 0.78], [0.45, 0.93], [0, 1], [-0.45, 0.93], [-0.82, 0.78], [-1, 0.55]];
+        pts.forEach(([u, v], i) => { const x = xc + u * hw * scale, y = ys - v * bt.hull_ft; i ? sh.lineTo(x, y) : sh.moveTo(x, y); });
+        const g = new THREE.ExtrudeGeometry(sh, { depth: z1 - z0, bevelEnabled: false }); g.rotateX(-Math.PI / 2); g.translate(0, z0, 0);
+        const m = new THREE.Mesh(g, mat); m.userData.id = bid; bf.add(m); return m;
+      };
+      const zk = 1.85, zc = 3.0, zg = 5.4;   // keel, chine and gunwale, ft over the slab
+      hull(0.62, zk, zc, bm.bottom); hull(1.0, zc, zg, bm.hull);
+      bk.box(xc - hw + 0.5, xc + hw - 0.5, yb + 5.5, ys - 0.5, zg - 0.02, zg + 0.02, bm.deck);                 // the cockpit floor's outline
+      bk.box(xc - hw + 0.2, xc + hw - 0.2, ys, ys + bt.platform_ft, 2.5, 2.75, bm.deck);                        // swim platform
+      bk.box(xc - hw + 0.6, xc + hw - 0.6, yb + 7.4, yb + 7.8, zg, zg + 1.2, bm.glass);                        // windshield
+      for (const s of [-1, 1]) bk.bar([xc + s * (hw - 0.3), yb + 8.5, zg], [xc + s * (hw - 1.0), ys - 5.5, 8.6], 0.25, 0.25, bm.steel);   // tower, folded
+      bk.box(xc - hw + 1.0, xc + hw - 1.0, ys - 5.7, ys - 5.3, 8.4, 8.8, bm.steel);
+      // The trailer: two rails on bunks, a tandem axle under the hull's widest part, the tongue to the coupler.
+      const yc = yb - bt.tongue_ft;
+      for (const s of [-1, 1]) {
+        bk.box(xc + s * 2.9 - 0.15, xc + s * 2.9 + 0.15, yb + 2.0, ys + 0.3, 1.05, 1.45, bm.steel);              // rail
+        bk.box(xc + s * 1.6 - 0.2, xc + s * 1.6 + 0.2, yb + 3.0, ys, 1.45, zk, bm.black);                       // bunk
+        bk.bar([xc + s * 2.9, yb + 2.0, 1.25], [xc, yc + 1.0, 1.25], 0.3, 0.4, bm.steel);                       // tongue
+        for (const ya of [ys - 8.0, ys - 10.6]) {
+          const w = new THREE.Mesh(new THREE.CylinderGeometry(1.1, 1.1, 0.7, 16), bm.black);
+          w.rotation.z = Math.PI / 2; w.position.copy(Q(xc + s * 3.4, ya, 1.1)); w.userData.id = bid; bf.add(w);
+        }
+      }
+      bk.box(xc - 0.25, xc + 0.25, yc, yc + 1.0, 1.0, 1.5, bm.steel);                                         // coupler
+      bf.traverse(o => { if (o.isMesh) solids.push(o); });
+      items[bid] = { node: bnode, mats: Object.values(bm).map(mat => ({ mat, kind: "mesh", fixed: true })), meta: META[bid] };
+    }
   }
 
   // Proposed back-line planting (plan3d.py): cones for the hollies; a trunk and a drum crown for the
@@ -1186,7 +1228,7 @@ details li b { font-weight: 600; }
 
   // ---- Labels ----
   const LABELS = [
-    [HOUSE ? "house_3d_first_pass" : "house_footprint_survey", "Your house"], ["building_A_30x30_eave_11ft_assumed", "Building A"], ["building_B_23x43_eave_14ft_assumed", "Building B"],
+    [HOUSE ? "house_3d_first_pass" : "house_footprint_survey", "Your house"], ["building_A_30x30_eave_14ft_assumed", "Building A"], ["building_B_23x43_eave_14ft_assumed", "Building B"],
     ["scenic_brook_plaza_building_3", "Retail Bldg 3"], ["retail_east_end_stormwater", "Retail ponds"],
     ["platted_back_line", "Back line"], ["granada_ridge_buildings_7_8", "Apts 7/8 · 639 ft"],
     ["granada_ridge_buildings_1_6", "Apts 1-6"], ["scenic_brook_plaza_buildings_1_2", "Retail 1-2"],

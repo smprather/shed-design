@@ -6,9 +6,10 @@
 
 Tube frame only: the owner ruled out red-iron (Oct 18 2026; see site/notes.md, "Tube frame or red-iron").
 
-The building is a common 30 x 30 x 11 kit (owner, Oct 24 2026): 30 ft wide, the most common shop span, across
-the strip, 30 ft along it, on 11 ft legs. Its doors are all in the south wall (owner, Oct 18 2026): two 10 x 9
-roll-ups and the walk door between them.
+The building is a common 30 x 30 kit (owner, Oct 24 2026): 30 ft wide, the most common shop span, across the strip,
+30 ft along it, on 14 ft legs so it can store a boat (owner, Oct 25 2026). Its doors are all in the south wall (owner,
+Oct 18 2026): a 12 x 12 roll-up for a boat on its trailer, a 10 x 12 roll-up, and the walk door between them. Dealer
+listings put 14 ft legs ~6-9% over 12 ft ones on a kit's price; the bigger roll-ups add ~$1-2k.
 
 It stands on a concrete slab dug into its high side (owner, Oct 24 2026: back to concrete, the costs down; it was
 on pier and beam that morning, at ~$85k). The ground under it rises ~2.7 ft to the NE corner, but its door (south)
@@ -59,12 +60,12 @@ from envelope_plan import FN, RN, SITE_A
 from plan3d import FT, KEEP_OUT, TERRAIN, Frame, Terrain, field_features
 
 LENGTH = DEPTH = 30.0   # ft: the 30 x 30 kit
-EAVE = 11.0
+EAVE = 14.0
 SOIL = 1.5              # ft of soil over soft rock (Brackett: 10-20 in)
 APPROACH = 0.10         # the steepest fall from a door down to the lawn, for the mower and a boat trailer
 STEM_FROM = 1.0         # ft of fill at a slab edge past which it takes a stem wall, not a thickened edge
 PITCH = 3 / 12          # the kit's roof
-DOORS = 2 * 10 * 9 + 3 * 7   # sq ft of wall the two roll-ups and the walk door take
+DOORS = 12 * 12 + 10 * 12 + 3 * 7   # sq ft of wall the two roll-ups and the walk door take
 POLE_M = (22.6, -1.0)   # plan m: the meter pole at the NW fence corner (electric_meter_pole in property_total_plan.jsonc)
 
 # (low, high) dollars, and the unit.
@@ -82,7 +83,7 @@ PRICES = {
     "drain": ((1500, 3000), "lot", "Swale round the cut sides, a French drain to daylight on the low side, gutters piped away"),
     "slab": ((6, 10), "sq ft", "Slab: 4 in, rebar, thickened edges at the kit's anchors, vapor barrier"),
     "apron": ((8, 13), "sq ft", "Concrete aprons and ramps at the doors, on base, falling to the lawn"),
-    "tube": ((15, 26), "sq ft", "Building, installed: tube frame, 11 ft legs, two 10 x 9 roll-ups, the kit's walk door"),
+    "tube": ((17, 29), "sq ft", "Building, installed: tube frame, 14 ft legs, roll-ups 12 x 12 and 10 x 12, the kit's walk door"),
     "walk_door": ((1500, 3000), "lot", "Walk door upgrade, net of the kit door: 3070 hollow metal, welded frame, continuous hinge, "
                                       "Grade 1 lever and deadbolt, closer, stop, seals"),
     # insulation, the high-grade kind
@@ -96,7 +97,7 @@ PRICES = {
     "panel": ((1200, 2500), "lot", "100 A main-breaker panel in the building, two ground rods"),
     "wiring": ((5000, 9000), "lot", "Wiring in EMT on the frame: LED shop lights, GFCI outlets every ~6 ft, three 240 V circuits, outside lights"),
     # options, and the cheaper insulation
-    "doors_insulated": ((3000, 6000), "lot", "Option: insulated sectional doors in place of the roll-ups (then the walls' weak spot)"),
+    "doors_insulated": ((4000, 7500), "lot", "Option: insulated sectional doors, 12 x 12 and 10 x 12, in place of the roll-ups"),
     "minisplit": ((4000, 7500), "lot", "Option: a ductless mini-split, 1.5-2 tons, on one of the 240 V circuits"),
     "fiberglass": ((1.25, 2.5), "sq ft of wall and roof", "Instead of the foam and its barrier: dealer-installed fiberglass blanket, R-13 walls, R-19 roof"),
 }

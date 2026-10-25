@@ -50,12 +50,13 @@ B_EAVE = 14.0  # ft; undecided, the noise model's case
 B_PITCH = 3 / 12  # building B's gable roof, ridge along the long side; undecided
 B_DOORS = (12.0, 12.0)  # ft, width x height: two roll-up doors on the south wall at the quarter points (owner, Oct 18 2026); size undecided
 MOWER_IN = 8.0  # ft in from the door wall to the rear axle: the owner's John Deere S130, parked in building A, for scale
-# Building A: a common 30 x 30 x 11 kit (owner, Oct 24 2026). Its doors are all on its south wall (owner, Oct 18):
-# two roll-ups and the walk door centered between them. Feet east of the SW corner (the wall is 30 ft long).
-A_EAVE = 11.0           # ft: the kit's leg height
-A_DOOR = (10.0, 9.0)    # ft, width x height: the roll-ups an 11 ft leg takes
-A_DOORS = (7.0, 23.0)   # roll-up centers: 2 ft of wall at each corner, 1.3 ft between each roll-up and the walk door's frame
-WALK_AT = 15.0          # the walk door's center
+# Building A: a common 30 x 30 kit (owner, Oct 24 2026) on 14 ft legs, for boat storage (owner, Oct 25: a 12 ft door
+# clears most wake boats with the tower folded and pontoons with the bimini down, and a roll-up wants ~2 ft over it).
+# Its doors are all on its south wall (owner, Oct 18): a 12 x 12 roll-up for a boat at the west end, a 10 x 12 at the
+# east end, and the walk door between them. Feet east of the SW corner (the wall is 30 ft long).
+A_EAVE = 14.0           # ft: the kit's leg height
+A_DOORS = ((7.5, 12.0, 12.0), (23.5, 10.0, 12.0))   # roll-ups: center, width, height; 1.5 ft of wall at each corner
+WALK_AT = 16.0          # the walk door's center, 1 ft from each roll-up's opening
 # It stands on a concrete slab dug into its high side (owner, Oct 24 2026): drive_layout has the levels and the cut.
 A_CUT_RUN = SWALE + CUT_SLOPE * 3.5   # ft out from the walls that the graded cut can reach (the NE corner is cut ~3 ft)
 WALL_FOOTING = 2.0  # ft inside the line for a US-290 wall footing
@@ -604,12 +605,15 @@ def main(spec: Path, out: Path) -> None:
                   "door_wall": "side",
                   # Two roll-ups and a commercial walk door between them, all in the south wall (owner, Oct 18 2026).
                   # Away from the septic access pipe, which is ~10 ft off the east wall's north half.
-                  "doors": [{"center_ft": c, "width_ft": A_DOOR[0], "height_ft": A_DOOR[1]} for c in A_DOORS],
+                  "doors": [{"center_ft": c, "width_ft": w, "height_ft": h} for c, w, h in A_DOORS],
                   # The walk door: 3070 hollow metal in a welded frame, outswing, hinged on its west edge so the latch
                   # is on the side you come from (the drive arrives from the east).
                   "walk_doors": [{"center_ft": WALK_AT, "width_ft": 3.0, "height_ft": 7.0, "hinge": "west"}],
                   "own_aprons": True,   # drawn below, from drive_layout.aprons_a
-                  "mower": {"x_ft": A_DOORS[0], "y_ft": MOWER_IN}}   # west bay, nose to the door
+                  "mower": {"x_ft": A_DOORS[1][0], "y_ft": MOWER_IN},   # east bay, nose to the door: the west bay is the boat's
+                  # For scale: a 22 ft wake boat on its trailer, backed into the west bay (owner, Oct 25 2026: boat storage).
+                  "boat": {"x_ft": A_DOORS[0][0], "transom_y_ft": 27.5, "hull_ft": 20.5, "platform_ft": 1.5, "beam_ft": 8.5,
+                           "tongue_ft": 5.0}}
     # Existing drive and front walk, traced from the 1991 plat (front_layout.py, +/-3 ft).
     obj.obj("existing_driveway_1991_plat")
     obj.pad([to_m(p) for p in site(st(*q) for q in EXISTING_DRIVE)], lift=0.05)
@@ -723,7 +727,7 @@ def main(spec: Path, out: Path) -> None:
     check("building A's slab over the natural ground, corners", ", ".join(f"{k} {v:+.1f}" for k, v in over.items()) + " ft", "-", "NOTE",
           f"a slab dug into the high side: its top {SLAB_OVER_LOW:g} ft over the SW corner, the NE corner cut {-over['NE']:.1f} ft "
           f"(plus the slab and its base)")
-    sills = [(a_top - ground.natural(*a_pt(c, 0.0))) / FT for c in (*A_DOORS, WALK_AT)]
+    sills = [(a_top - ground.natural(*a_pt(c, 0.0))) / FT for c in (*(d[0] for d in A_DOORS), WALK_AT)]
     check("building A's door sills over the ground", f"{min(sills):.1f}-{max(sills):.1f} ft", "-", "NOTE",
           "the doors are at grade: the aprons fall " + " and ".join(f"{100 * k:.0f}%" for _, k in aprons) + " to the lawn")
     gap = min(poly_dist(pipe, [to_m.to_site(q) for q in list(poly.exterior.coords)[:-1]]) for poly, _ in aprons)

@@ -40,7 +40,7 @@ APRON_TO = 10.0    # ft: the street aprons are concrete from the asphalt to this
 # Building A on a concrete slab dug into its high side (owner, Oct 24 2026; it was on pier and beam that morning). The
 # ground under the 30 x 30 rises ~3 ft to the NE corner, but its door (south) side is within ~0.6 ft of level, so
 # the slab's top sits SLAB_OVER_LOW over the SW corner's ground: the doors are at grade and the NE corner is cut
-# ~1.9 ft (2.6 ft to the bottom of the base). Round the north, east and west sides a SWALE ft strip runs SWALE_DROP under the slab and drains round to
+# ~2.1 ft (2.7 ft to the bottom of the base; the 1 m lidar). Round the north, east and west sides a SWALE ft strip runs SWALE_DROP under the slab and drains round to
 # the low SW side; past it the cut is graded back at CUT_SLOPE:1 to the natural ground, except where that would come
 # within 10 ft of the septic pipe, where a short block wall holds it.
 SLAB_OVER_LOW = 0.8    # ft: the slab's top over the footprint's lowest (SW) corner, 2017 lidar

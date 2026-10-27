@@ -324,7 +324,7 @@ details li b { font-weight: 600; }
     building_A_30x30_eave_14ft_assumed: { label: "Building A, 30 × 30 ft", group: "Your lot", token: "steel", solid: true,
       status: "planned at site A (site B dropped, owner, Oct 18 2026); a common 30 × 30 kit on a concrete slab dug into the high side (owner, Oct 24 2026), on 14 ft legs for boat storage (owner, Oct 25)",
       source: "Site A (SITE_A in tools/envelope_plan.py), built like building B; size and eave per the owner, Oct 24 2026; the slab's level and cut in tools/drive_layout.py. Prices in tools/shed_cost.py.",
-      notes: "900 sq ft, with the owner's S130 parked inside for scale. B's look: dark grey steel, light grey inside, a 3:12 gable on 14 ft legs, the ridge ~17.75 ft up. 30 ft wide (the clear span, across the strip) with its ridge along the line. All its doors face south, onto the yard (drawn rolled up): a 12 × 12 ft roll-up at the west end for a boat on its trailer (12 ft clears most wake boats with the tower folded and pontoons with the bimini down; 30 ft deep takes a ~22–24 ft boat with its trailer), a 10 × 12 ft roll-up at the east end, and a commercial 3 × 7 ft walk door between them. The S130 is parked in the east bay. The ground under it rises ~2.7 ft to the NE corner but the door side is nearly level, so it sits on a 4 in slab whose top is 0.8 ft over the SW corner's ground: the door sills are 0.3–0.7 ft up, the doors are at grade, and the NE corner is cut ~1.9 ft (2.6 ft to the bottom of the base). The cut is graded back at 2:1 from a 2 ft swale on the north, east and west, with a short block wall by the septic pipe. Moved 3 ft west and 5 ft south of the old site A for the slope's room: 10 ft from the surveyed line, 13.4 ft from the septic pipe, 12.3 ft from the well. The buried service line likely runs under it: have it traced first." },
+      notes: "900 sq ft, with the owner's S130 parked inside for scale. B's look: dark grey steel, light grey inside, a 3:12 gable on 14 ft legs, the ridge ~17.75 ft up. 30 ft wide (the clear span, across the strip) with its ridge along the line. All its doors face south, onto the yard (drawn rolled up): a 12 × 12 ft roll-up at the west end for a boat on its trailer (12 ft clears most wake boats with the tower folded and pontoons with the bimini down; 30 ft deep takes a boat to ~24 ft with its trailer), a 10 × 12 ft roll-up at the east end, and a commercial 3 × 7 ft walk door between them. The S130 is parked in the east bay. The ground under it rises ~2.9 ft to the NE corner but the door side is nearly level (2017 lidar, 1 m), so it sits on a 4 in slab whose top is 0.8 ft over the SW corner's ground: the door sills are 0.4–0.7 ft up, the doors are at grade, and the NE corner is cut ~2.1 ft (2.7 ft to the bottom of the base). The cut is graded back at 2:1 from a 2 ft swale on the north, east and west, with a short block wall by the septic pipe. Moved 3 ft west and 5 ft south of the old site A for the slope's room: 10 ft from the surveyed line, 13.4 ft from the septic pipe, 12.3 ft from the well. The buried service line likely runs under it: have it traced first." },
     building_B_23x43_eave_14ft_assumed: { label: "Building B, 23 × 43 ft (dropped)", group: "Proposed", token: "steel", solid: true, hidden: true,
       status: "dropped: site B is out (owner, Oct 18 2026); hidden at first, tick it in the layer list to compare", source: "Site B footprint (SITE_B in tools/site_plan.py); look per the owner, Oct 18 2026.",
       notes: "Dark grey steel on every surface, with two roll-up doors on the south wall (drawn rolled up) and a solid north wall toward US-290. Drawn with 12 × 12 ft doors at the quarter points, a 3:12 gable and a 14 ft eave. None of those is decided yet. The slab is level with its high NE corner by the oak. The ground falls ~3.8 ft across it, so the west side needs fill or a stem wall rather than a cut toward the oak. The east door is 15 ft from the house's NW corner." },
@@ -425,6 +425,9 @@ details li b { font-weight: 600; }
   const Z0_FT = /*Z0_FT*/;
   const BLDG_B = /*BUILDING_B*/;   // building B's frame, doors and mower (plan3d.py); drawn in detail below
   const BLDG_A = /*BUILDING_A*/;   // building A on site A, the same way (no mower)
+  // The close-up page (plan3d.py --focus): building A and the ground round it, with its own views, labels and stored
+  // view; null on the whole-site page.
+  const FOCUS = /*FOCUS*/;
   const HOUSE = /*HOUSE*/;   // the house, a first pass (plan3d.py, tools/house_layout.py)
   const solids = [], walkables = [];   // for walking: what stops you, and what you can stand on
   const POLES = /*POLES*/;   // range poles straight back from the back-yard eye (plan3d.py)
@@ -1177,7 +1180,7 @@ details li b { font-weight: 600; }
     items.existing_trees = { node, mats, meta: { label: "Existing trees (2017 lidar)", group: "Existing trees",
       token: "canopy", solid: true, status: "2017 heights; still standing in Oct 2026",
       source: CANOPY.source + `. Off our lot, drawn per ${CANOPY.cell} m block with a trunk at each treetop. On our lot and ${CANOPY.lot ? CANOPY.lot.margin : 0} m past its lines, from the 1 m cells: a clump of foliage per 2 m, a trunk per tree with limbs out to its crown, and the twin oak on its two surveyed trunks (field data). Limbs follow the crown, not the real branches.`,
-      notes: "Mostly live oak. On our lot the canopy is 17-28 ft for the middle half of it, with a few crowns to 35-42 ft (the twin oak ~37 ft). The woods on the retail lot's south arm and in the apartment lot's undisturbed half still stand; the retail strip and most of the apartment site are cleared. Heights are from 2017, so live oaks have grown a little since, and single trees may have been removed: check against photos." } };
+      notes: "Mostly live oak. On our lot the canopy is 17-28 ft for the middle half of it, with a few crowns to 35-42 ft (the twin oak ~37 ft). The woods on the retail lot's south arm and in the apartment lot's undisturbed half still stand; the retail strip and most of the apartment site are cleared. Heights are from 2017, so live oaks have grown a little since, and single trees may have been removed: check against photos. The trees standing where building A's cut, slab and aprons go are taken out: they're cleared to build it." } };
   }
   function fadeCanopy(opacity) {
     for (const m of canopyMats) {
@@ -1241,7 +1244,7 @@ details li b { font-weight: 600; }
     const c = box.getCenter(new THREE.Vector3());
     return { id, el, local: new THREE.Vector3(c.x, box.max.y + 0.6, c.z) };
   });
-  const extraTags = [["toward US-290 →", [36, -8, 6]], ["Candelaria Dr", [-6, -84, 6]]].map(([text, p]) => {
+  const extraTags = (FOCUS ? FOCUS.tags : [["toward US-290 →", [36, -8, 6]], ["Candelaria Dr", [-6, -84, 6]]]).map(([text, p]) => {
     const el = document.createElement("div"); el.className = "tag"; el.textContent = text; el.style.setProperty("--tag", "var(--muted)");
     labelLayer.appendChild(el); return { id: null, el, local: P(p) };
   });
@@ -1310,7 +1313,7 @@ details li b { font-weight: 600; }
   // The house's middle (survey s 91.5, t 56.4 ft) on the ground, in plan meters.
   const houseMid = HOUSE ? [0, 1].map(i => HOUSE.origin[i] + (HOUSE.ex[i] * -91.5 + HOUSE.ey[i] * 56.4) * 0.3048) : [0, -38];
   houseMid.push(groundAt(houseMid[0], houseMid[1]));
-  const VIEWS = {
+  const VIEWS = FOCUS ? Object.fromEntries(FOCUS.views.map(v => [v.id, v])) : {
     // Straight down on the house from ~100 ft, US-290 (NNE) at the top and the street to the right, like the site maps.
     // It opens in fly mode (owner, Oct 18 2026): a click on the view captures the mouse to look.
     top:     { eye: [houseMid[0] - 0.05, houseMid[1], houseMid[2] + 100 * 0.3048], at: houseMid, exag: 1, mode: "fly" },
@@ -1343,6 +1346,7 @@ details li b { font-weight: 600; }
   const freeLook = () => mode === "look" || mode === "fly" || mode === "walk";
   const EYE = 1.6, CLIMB = 3.0, RADIUS = 0.35;  // m: eye height (5.25 ft), how high a walking surface you step up onto, body radius
   const speed = { fly: 18, walk: 4.2 };           // m/s; Shift: x3 flying, x2.5 walking (a run). Owner, Oct 18 2026: fly 2x (was 9), walk 3x (was 1.4)
+  if (FOCUS) speed.fly = FOCUS.fly_m_s;           // the close-up is ~30 m across
   const FLY_MIN = 1, FLY_MAX = 120, FLY_BOOST = 3;   // m/s range of the fly-speed slider (log scale); Shift's multiplier
   let feet = 0, vy = 0;                           // walking: world height of your feet, and vertical speed (falls)
   const GRAVITY = 9.8;                           // m/s²: stepping off a ledge
@@ -1463,6 +1467,13 @@ details li b { font-weight: 600; }
     if (!turn) return;
     e.preventDefault(); look.yaw += turn[0]; look.pitch += turn[1]; applyLook();
   });
+  if (FOCUS) {   // the close-up's own view buttons in place of the whole site's
+    const row = document.querySelector("button.view").parentElement;
+    row.replaceChildren(...FOCUS.views.map((v, k) => {
+      const b = document.createElement("button"); b.className = "view"; b.id = "v-" + v.id; b.dataset.view = v.id;
+      b.setAttribute("aria-pressed", String(k === 0)); b.textContent = v.label; return b;
+    }));
+  }
   document.querySelectorAll("button.view").forEach(b => b.addEventListener("click", () => setView(b.dataset.view)));
   const exagIn = document.getElementById("exag"), exagOut = document.getElementById("exag-out");
   function setExag(value) {
@@ -1619,7 +1630,7 @@ details li b { font-weight: 600; }
   // each layer's checkbox and the selected item, plus the walking speed. localStorage keeps it across browser
   // restarts; if that's blocked, sessionStorage keeps it across reloads; if both are, nothing is saved and the page
   // opens on the overhead view as before. Layers added later keep their defaults.
-  const VIEW_KEY = "candelaria-3d-plan:view:v1";
+  const VIEW_KEY = FOCUS ? FOCUS.key : "candelaria-3d-plan:view:v1";
   const SLIDERS = ["exag", "sens", "tree-op", "canopy-op"];   // restored through their own handlers; fly speed is kept exactly
   const viewStore = (() => {
     for (const name of ["localStorage", "sessionStorage"]) {

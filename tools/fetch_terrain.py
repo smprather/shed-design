@@ -13,6 +13,8 @@ it bilinearly at every grid node and writes site/terrain-lidar.json (feet, NAVD8
 The DEM here is from Feb 2017, before the retail and apartment sites were graded.
 
 Run: uv run tools/fetch_terrain.py
+The 1 m patch round building A (blended into this grid by plan3d.Terrain):
+     uv run tools/fetch_terrain.py --x -7 29 --y -36 4 --spacing 1 --out site/terrain-lidar-shed.json
 """
 
 import io
@@ -75,7 +77,9 @@ def lonlat_to_plan(lon, lat):
 @click.option("--x", "xr", nargs=2, type=float, default=(-590.0, 70.0), show_default=True, help="x range (m).")
 @click.option("--y", "yr", nargs=2, type=float, default=(-110.0, 370.0), show_default=True, help="y range (m).")
 @click.option("--spacing", default=5.0, show_default=True, help="Grid spacing (m).")
-def main(xr: tuple[float, float], yr: tuple[float, float], spacing: float) -> None:
+@click.option("--out", "out", type=click.Path(path_type=Path), default=OUT, show_default=True,
+              help="Where to write the grid (a finer patch: site/terrain-lidar-shed.json).")
+def main(xr: tuple[float, float], yr: tuple[float, float], spacing: float, out: Path) -> None:
     """Download the DEM and write the plan-frame terrain grid."""
     to_utm = Transformer.from_crs("EPSG:4326", "EPSG:32614", always_xy=True)
     corners = [to_utm.transform(*plan_to_lonlat(x, y)) for x in xr for y in yr]
@@ -123,8 +127,8 @@ def main(xr: tuple[float, float], yr: tuple[float, float], spacing: float) -> No
     lines += [f'  "x_m": {json.dumps(xs)},', f'  "y_m": {json.dumps(ys)},', '  "z_ft": [']
     lines.append(",\n".join(f"    {json.dumps(row)}" for row in grid))
     lines += ["  ]", "}"]
-    OUT.write_text("\n".join(lines) + "\n")
-    click.echo(f"wrote {OUT.relative_to(REPO)}: {len(xs)} x {len(ys)} nodes at {spacing:g} m; "
+    out.write_text("\n".join(lines) + "\n")
+    click.echo(f"wrote {out.resolve().relative_to(REPO)}: {len(xs)} x {len(ys)} nodes at {spacing:g} m; "
                f"ground {min(map(min, grid)):.0f}-{max(map(max, grid)):.0f} ft")
 
 

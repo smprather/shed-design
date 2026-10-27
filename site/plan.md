@@ -148,20 +148,20 @@ so the building is ready for one.
   The dealer confirms the framing. If it needs more, the walk door can move to the east
   wall.
 
-**Dig in, don't build up.** The ground under it rises ~2.7 ft to the NE corner, but the door
-(south) side is within ~0.7 ft of level (2017 lidar, ±0.5 ft).
+**Dig in, don't build up.** The ground under it rises ~2.9 ft to the NE corner, but the door
+(south) side is within ~0.6 ft of level (2017 lidar at 1 m, ±0.5 ft).
 - So the slab's top sits 0.8 ft over the SW corner's ground, and the doors are at grade.
-- The NE corner is cut ~1.9 ft (2.6 ft to the bottom of the base).
-- Building the low side up instead means ~80 cu yd of fill, stem walls and 35–40 ft ramps:
-  ~$86k against $51k, for the building alone.
+- The NE corner is cut ~2.1 ft (2.7 ft to the bottom of the base).
+- Building the low side up instead means ~90 cu yd of fill, stem walls and ~40 ft ramps:
+  ~$89k against $51k, for the building alone.
 
 The building on its slab, without power or insulation (they add the same to each):
 
 | Slab | Dig | Fill | Ramps or aprons at the doors | Likely (80% band) |
 |---|---|---|---|---|
-| **Dug into the high side** (the plan) | 43 cu yd | 0 | aprons 8–10 ft | **$51k** ($46–56k) |
-| Balanced cut and fill (the Oct 18 slab) | 17 cu yd | 6 cu yd | ramps 15–19 ft | $53k ($48–59k) |
-| Built up, level with the high corner | 0 | 79 cu yd | ramps 36–42 ft | $86k ($79–94k) |
+| **Dug into the high side** (the plan) | 40 cu yd | 0 | aprons 8–10 ft | **$51k** ($45–56k) |
+| Balanced cut and fill (the Oct 18 slab) | 15 cu yd | 8 cu yd | ramps 14–18 ft | $54k ($49–59k) |
+| Built up, level with the high corner | 0 | 90 cu yd | ramps 38–42 ft | $89k ($81–97k) |
 | Pier and beam, high side cut 2 ft (dropped) | | | a 25 ft ramp, a deck landing | $85k ($78–91k) |
 
 - **The slab:** 4 in with rebar and thickened edges at the kit's anchors, on 4 in of base.
@@ -183,7 +183,9 @@ The building on its slab, without power or insulation (they add the same to each
   rather than a wall. It's now 10 ft from the surveyed line, 13.4 ft from the septic pipe
   (was 10.3) and 12.3 ft from the well.
 
-The 3D plan draws the slab, the graded cut, the wall, the aprons and the S130 inside.
+The 3D plan draws the slab, the graded cut, the wall, the aprons, the S130 and a boat inside.
+**A close-up page** (Oct 27 2026) has just the building and the ground ~30 ft round it, on the
+1 m lidar: https://claude.ai/artifact/8JBtwHwc9gbG8wbeGaT5kJ
 
 Tube frame, dealer-installed (owner, Oct 18 2026: red-iron is out).
 

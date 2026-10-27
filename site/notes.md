@@ -2888,6 +2888,50 @@ the tables below.
   - [garagebuildings.com, Texas](https://garagebuildings.com/metal-buildings-texas-tx)
   - [steelbuildingkit.com, 30 × 30 × 14](https://steelbuildingkit.com/metal-building-sizes/30x30x14-metal-building/)
 
+### The shed close up, on 1 m ground (owner's ask, Oct 27 2026)
+
+- **The owner's ask:** with the shed's placement and levels converging, a separate 3D model
+  of just the shed and the ground round it: ~30 ft out from each wall, less on the north
+  (the fence side).
+- **The close-up page:** https://claude.ai/artifact/8JBtwHwc9gbG8wbeGaT5kJ
+  (`uv run tools/plan3d.py --focus` writes `site/shed3d.obj` and `site/shed3d.html`).
+  - **The box:** 30 ft out from the south and east walls, and 40 ft on the west so the
+    meter pole is in. On the north it runs 15 ft, to 5 ft past the surveyed line. It's cut
+    off 0.5 m past the back line.
+  - Everything else is cropped to it: the terrain, the fences, the keep-outs, the drive's
+    future court, the planted trees and the existing canopy.
+  - **Its views:** overhead, from the SE, at the doors (eye level), the cut from the east,
+    and from the well.
+  - **Its labels:** the meter pole (the power), the well, the septic access pipe, US-290.
+  - It flies slower (13 ft/s) and keeps its own saved view.
+- **Finer ground round the shed.** The 3D plan's terrain was a 5 m grid.
+  - `fetch_terrain.py --out` now writes a 1 m patch round building A
+    (`site/terrain-lidar-shed.json`, USGS 3DEP 1 m DEM, 2017).
+  - `plan3d.Terrain` blends it into the 5 m grid over its last 3 m, so the two meet without
+    a seam.
+  - Every tool that asks for the ground sees it: the whole-site viewer, the close-up and
+    `shed_cost.py`.
+- **What moved, on the 1 m ground** (±0.5 ft):
+
+  | | 5 m grid | 1 m patch |
+  |---|---|---|
+  | NW / NE / SE corners over the SW corner | +1.2 / +2.7 / +0.7 ft | +1.0 / +2.9 / +0.6 ft |
+  | The NE corner's cut (to the base's bottom) | 1.9 ft (2.6) | 2.1 ft (2.7) |
+  | Door sills over the ground | 0.3–0.6 ft | 0.4–0.7 ft |
+  | Dig | 43 cu yd | 40 cu yd |
+  | The building on its slab, likely | $51k | $51k |
+  | All in, likely | $83k | $83k ($77–88k) |
+  | Built up to the high corner instead (the building alone) | $86k | $89k (90 cu yd of fill) |
+
+  The plan holds. The slab stays 0.8 ft over the SW corner.
+- **The trees where the building goes come out.**
+  - The 2017 lidar shows small trees (16–19 ft) on the site.
+  - In both models, the canopy is cleared inside the cut, the slab and the aprons, and 2 m
+    beyond for the crowns that would hang into the building.
+  - None of them is an oak we've marked. Check what they are when the site is cleared.
+- The trees now draw last among the see-through layers, so a fence never paints over them
+  (Oct 25).
+
 ### Windows and doors
 
 - Traffic noise is heavy in low frequencies. Compare windows by **OITC** (made for traffic

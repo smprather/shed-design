@@ -19,6 +19,7 @@ Run: uv run tools/plan3d.py
 
 import base64
 import bisect
+import copy
 import json
 import math
 from pathlib import Path
@@ -39,6 +40,12 @@ from envelope_plan import SITE_A
 
 SPEC = REPO / "property_total_plan.jsonc"
 TERRAIN = REPO / "site" / "terrain-lidar.json"
+TERRAIN_FINE = REPO / "site" / "terrain-lidar-shed.json"   # fetch_terrain.py: the 1 m DEM round building A; optional
+FEATHER = 3.0  # m: the fine patch blends into the 5 m grid over this much of its edge, so the two meet without a seam
+SHED_OUT = REPO / "site" / "shed3d.obj"   # --focus: building A close up
+# --focus: the box drawn round building A, in its frame (ft): 30 ft out from the west, south and east walls (40 on the
+# west, to take in the meter pole), and 15 ft north, 5 ft past the surveyed line; cut off 0.5 m past the back line.
+SHED_BOX = (-40.0, -30.0, 30.0, 15.0)   # ft past the west wall, south wall, east wall, north wall
 CANOPY = REPO / "site" / "canopy-lidar.json"  # tools/fetch_canopy.py; optional
 OUT = REPO / "site" / "plan3d.obj"
 VIEWER = REPO / "tools" / "plan3d_viewer.html"  # template; site/plan3d.html is built from it
@@ -111,12 +118,17 @@ def read_jsonc(path: Path) -> dict:
 
 
 class Terrain:
-    """Bilinear ground height (m above the origin's ground) from the lidar grid; clamped at its edges."""
+    """Bilinear ground height (m above the origin's ground) from the lidar grid; clamped at its edges. Where the finer
+    patch covers it (TERRAIN_FINE: 1 m round building A), the patch, blended in over FEATHER m from its edges."""
 
-    def __init__(self, path: Path) -> None:
+    def __init__(self, path: Path, fine: Path | None = TERRAIN_FINE) -> None:
         d = json.loads(path.read_text())
         self.xs, self.ys, self.z0 = d["x_m"], d["y_m"], d["z0_ft"]
         self.z = [[(v - self.z0) * FT for v in row] for row in d["z_ft"]]
+        self.fine = None
+        if fine is not None and fine.exists():
+            f = json.loads(fine.read_text())
+            self.fine = (f["x_m"], f["y_m"], [[(v - self.z0) * FT for v in row] for row in f["z_ft"]])
         self.cuts: list[tuple[list[Pt], tuple[float, float, float, float], object]] = []   # graded areas: see cut()
 
     @staticmethod
@@ -137,13 +149,26 @@ class Terrain:
         the terrain mesh is drawn finer around it."""
         self.cuts.append((poly, (min(p[0] for p in poly), min(p[1] for p in poly), max(p[0] for p in poly), max(p[1] for p in poly)), level))
 
-    def natural(self, x: float, y: float) -> float:
-        """The lidar ground, before any cut."""
-        i, tx = self._cell(self.xs, x)
-        j, ty = self._cell(self.ys, y)
-        z = self.z
+    @classmethod
+    def _bilinear(cls, xs: list[float], ys: list[float], z: list[list[float]], x: float, y: float) -> float:
+        i, tx = cls._cell(xs, x)
+        j, ty = cls._cell(ys, y)
         return ((1 - tx) * (1 - ty) * z[j][i] + tx * (1 - ty) * z[j][i + 1]
                 + (1 - tx) * ty * z[j + 1][i] + tx * ty * z[j + 1][i + 1])
+
+    def natural(self, x: float, y: float) -> float:
+        """The lidar ground, before any cut."""
+        z = self._bilinear(self.xs, self.ys, self.z, x, y)
+        if self.fine:
+            fx, fy, fz = self.fine
+            edge = min(x - fx[0], fx[-1] - x, y - fy[0], fy[-1] - y)
+            if edge > 0:
+                z += min(edge / FEATHER, 1.0) * (self._bilinear(fx, fy, fz, x, y) - z)
+        return z
+
+    def fine_box(self) -> tuple[float, float, float, float] | None:
+        """The fine patch's extent (x0, y0, x1, y1, plan m), if there is one."""
+        return (self.fine[0][0], self.fine[1][0], self.fine[0][-1], self.fine[1][-1]) if self.fine else None
 
 
 
@@ -176,6 +201,7 @@ class Obj:
         self.ground = ground
         self.lines: list[str] = []
         self.nv = 0
+        self.clip: list[Pt] | None = None   # --focus: only what falls inside this plan polygon is written
 
     def obj(self, name: str) -> None:
         self.lines.append(f"o {name}")
@@ -187,9 +213,23 @@ class Obj:
         return list(range(self.nv - len(pts) + 1, self.nv + 1))
 
     def face(self, pts) -> None:
+        if self.clip and not inside((sum(p[0] for p in pts) / len(pts), sum(p[1] for p in pts) / len(pts)), self.clip):
+            return
         self.lines.append("f " + " ".join(map(str, self._v(pts))))
 
     def polyline(self, pts, closed: bool = False) -> None:
+        if self.clip:
+            ring = list(pts) + list(pts[:1]) if closed else list(pts)
+            run: list = []
+            for p in ring + [None]:   # the runs of points inside the clip, each its own polyline
+                if p is not None and inside(p[:2], self.clip):
+                    run.append(p)
+                    continue
+                if len(run) > 1:
+                    idx = self._v(run)
+                    self.lines.append("l " + " ".join(map(str, idx)))
+                run = []
+            return
         idx = self._v(pts)
         self.lines.append("l " + " ".join(map(str, idx + idx[:1] if closed else idx)))
 
@@ -287,22 +327,32 @@ class Obj:
                        z, z + height)
 
     def terrain(self, fine: float = 0.5) -> None:
-        """The ground: one quad per lidar cell. In the cells a cut touches, ~`fine` m squares, clipped at the cut's
-        outline so the ground steps down there cleanly (a retaining wall stands on that line)."""
+        """The ground: one quad per lidar cell. In the cells a cut or the fine patch touches, ~`fine` m squares, clipped
+        at the cut's outline so the ground steps down there cleanly (a retaining wall stands on that line); and with a
+        clip, cut off at its outline."""
         from shapely.geometry import Polygon as SPolygon, box as sbox
         g = self.ground
         cuts = [(SPolygon(poly), level, (x0 - 1, y0 - 1, x1 + 1, y1 + 1)) for poly, (x0, y0, x1, y1), level in g.cuts]
+        fb, clip = g.fine_box(), SPolygon(self.clip) if self.clip else None
         for j in range(len(g.ys) - 1):
             for i in range(len(g.xs) - 1):
                 x0, x1, y0, y1 = g.xs[i], g.xs[i + 1], g.ys[j], g.ys[j + 1]
+                if clip is not None and not clip.intersects(sbox(x0, y0, x1, y1)):
+                    continue
                 near = [c for c in cuts if c[2][0] < x1 and c[2][2] > x0 and c[2][1] < y1 and c[2][3] > y0]
-                if not near:
+                in_fine = fb is not None and fb[0] < x1 and fb[2] > x0 and fb[1] < y1 and fb[3] > y0
+                edge = clip is not None and not clip.contains(sbox(x0, y0, x1, y1))
+                if not (near or in_fine or edge):
                     self.face([(x0, y0, g.z[j][i]), (x1, y0, g.z[j][i + 1]), (x1, y1, g.z[j + 1][i + 1]), (x0, y1, g.z[j + 1][i])])
                     continue
                 nx, ny = math.ceil((x1 - x0) / fine), math.ceil((y1 - y0) / fine)
                 for b in range(ny):
                     for a in range(nx):
                         sq = sbox(x0 + (x1 - x0) * a / nx, y0 + (y1 - y0) * b / ny, x0 + (x1 - x0) * (a + 1) / nx, y0 + (y1 - y0) * (b + 1) / ny)
+                        if clip is not None:
+                            sq = sq.intersection(clip)
+                            if sq.is_empty:
+                                continue
                         rest = sq
                         for poly, level, _ in near:
                             part = sq.intersection(poly)
@@ -315,7 +365,17 @@ class Obj:
                                 self.face([(x, y, g.natural(x, y)) for x, y in list(piece.exterior.coords)[:-1]])
 
     def save(self, path: Path, header: str) -> None:
-        path.write_text(header + "\n".join(self.lines) + "\n")
+        """Write the OBJ, leaving out objects with nothing in them (a clip can empty them)."""
+        out, pending = [], None
+        for line in self.lines:
+            if line.startswith("o "):
+                pending = line
+                continue
+            if pending and line[0] in "fl":
+                out.append(pending)
+                pending = None
+            out.append(line)
+        path.write_text(header + "\n".join(out) + "\n")
 
 
 def ccw(poly: list[Pt]) -> list[Pt]:
@@ -358,6 +418,21 @@ class Canopy:
         grid = lambda key: np.frombuffer(base64.b64decode(d[key]), np.uint8).reshape(self.ny, self.nx)
         self.h = np.where(grid("standing") > 0, grid("h") * d["h_step_m"], 0.0)
         self.source = f"{d['lidar']}; standing per Sentinel-2 {d['sentinel_scene']} (NDVI >= {d['ndvi_standing']})"
+
+    def crop(self, x0: float, y0: float, x1: float, y1: float) -> "Canopy":
+        """The canopy inside a plan box (m), whole 1 m cells."""
+        c0, c1 = max(int(math.floor(x0 - self.x0)), 0), min(int(math.ceil(x1 - self.x0)), self.nx)
+        r0, r1 = max(int(math.floor(y0 - self.y0)), 0), min(int(math.ceil(y1 - self.y0)), self.ny)
+        out = copy.copy(self)
+        out.x0, out.y0, out.nx, out.ny, out.h = self.x0 + c0, self.y0 + r0, c1 - c0, r1 - r0, self.h[r0:r1, c0:c1]
+        return out
+
+    def clear(self, poly: list[Pt], outside: bool = False) -> None:
+        """Take out the trees inside a plan polygon (cleared to build), or with `outside`, everywhere but inside it."""
+        import shapely
+        xx, yy = np.meshgrid(self.x0 + 0.5 + np.arange(self.nx), self.y0 + 0.5 + np.arange(self.ny))
+        hit = shapely.contains_xy(shapely.Polygon(poly), xx, yy)
+        self.h = np.where(hit != outside, 0.0, self.h)
 
     def at(self, x: float, y: float, r: float = 1.0) -> float:
         """Tallest standing canopy within r m of a plan point; 0 off the grid."""
@@ -474,10 +549,11 @@ def backyard(ground: Terrain, to_m: Frame) -> tuple[dict, list[dict]]:
 
 
 def write_viewer(path: Path, obj_text: str, plan: dict, checks: list[dict], backyard: dict,
-                 poles: list[dict], trees: dict, canopy: dict | None, z0_ft: float, building_b: dict,
-                 house: dict, building_a: dict) -> None:
+                 poles: list[dict], trees: dict, canopy: dict | None, z0_ft: float, building_b: dict | None,
+                 house: dict | None, building_a: dict, focus: dict | None = None) -> None:
     """Fill the viewer template with the model, the plan's entity notes, the checks, the back-yard view, the poles,
-    the trees, buildings B's and A's placement and the house (the viewer draws them in detail)."""
+    the trees, buildings B's and A's placement and the house (the viewer draws them in detail). `focus` makes it the
+    close-up page: its title, views, labels and stored-view key."""
     spec = {"entities": [{k: e.get(k) for k in ("entity_id", "status", "source", "notes", "facade_toward_us")}
                          for e in plan["spatial_entities"]],
             "removed": plan.get("removed_claims", [])}
@@ -492,7 +568,13 @@ def write_viewer(path: Path, obj_text: str, plan: dict, checks: list[dict], back
             .replace("/*Z0_FT*/", json.dumps(z0_ft))
             .replace("/*BUILDING_B*/", json.dumps(building_b))
             .replace("/*BUILDING_A*/", json.dumps(building_a))
-            .replace("/*HOUSE*/", json.dumps(house)))
+            .replace("/*HOUSE*/", json.dumps(house))
+            .replace("/*FOCUS*/", json.dumps(focus)))
+    if focus:
+        head = head.replace("<title>Candelaria 3D Plan</title>", f"<title>{focus['title']}</title>")
+        body = body.replace("<h1>Candelaria 3D Plan</h1>", f"<h1>{focus['title']}</h1>").replace(
+            '<p class="sub">8400 Candelaria Dr, building B, and the retail and apartment lots behind it.</p>',
+            f'<p class="sub">{focus["sub"]}</p>')
     path.write_text('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
                     '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
                     f"{head}</head>\n<body>\n{body}</body>\n</html>\n")
@@ -509,9 +591,11 @@ def footprints(geom: dict) -> list[tuple[list[Pt], bool]]:
 
 @click.command()
 @click.option("--spec", type=click.Path(exists=True, path_type=Path), default=SPEC, show_default=True)
-@click.option("--out", type=click.Path(path_type=Path), default=OUT, show_default=True)
-def main(spec: Path, out: Path) -> None:
+@click.option("--out", type=click.Path(path_type=Path), default=None, help=f"[default: {OUT.relative_to(REPO)}, or {SHED_OUT.relative_to(REPO)} with --focus]")
+@click.option("--focus", is_flag=True, help="Building A close up: it and the ground ~30 ft round it, on its own page.")
+def main(spec: Path, out: Path | None, focus: bool) -> None:
     """Build the 3D plan on the lidar terrain and run the septic checks."""
+    out = out or (SHED_OUT if focus else OUT)
     plan = read_jsonc(spec)
     ground = Terrain(TERRAIN)
     pipe, oak, well = field_features()
@@ -548,6 +632,7 @@ def main(spec: Path, out: Path) -> None:
         return a_top - SWALE_DROP * FT + max(d - SWALE, 0.0) / CUT_SLOPE * FT
 
     from shapely.geometry import Point as SPoint, Polygon as SPolygon
+    from shapely.ops import unary_union
     R = A_CUT_RUN
     zone = SPolygon([(-R, -2.0), (0.0, -2.0), (0.0, 0.0), (a_len, 0.0), (a_len, -2.0), (a_len + R, -2.0),
                      (a_len + R, a_wid + R), (-R, a_wid + R)])   # open in front of the doors, where the aprons are
@@ -555,6 +640,15 @@ def main(spec: Path, out: Path) -> None:
     zone = zone.difference(SPoint(pipe_a).buffer(KEEP_OUT, 48))
     cut_poly = [a_pt(x, y) for x, y in list(zone.exterior.coords)[:-1]]
     ground.cut(cut_poly, cut_level)
+    # What's cleared to build it: the cut and its slopes, the slab and the aprons. The trees standing there come out.
+    cleared = zone.union(unary_union([SPolygon(q) for q in aprons_a(a_len)])).buffer(0.5)
+    cleared = [a_pt(x, y) for x, y in list(cleared.exterior.coords)[:-1]]
+    # --focus: everything from here on is cut off at the box round building A (SHED_BOX), and 0.5 m past the back line.
+    bw, bs, be, bn = SHED_BOX
+    crop = SPolygon([a_pt(x, y) for x, y in ((bw, bs), (a_len + be, bs), (a_len + be, a_wid + bn), (bw, a_wid + bn))])
+    crop = list(crop.intersection(SPolygon([(-1e4, -1e4), (1e4, -1e4), (1e4, 0.5), (-1e4, 0.5)])).exterior.coords)[:-1]
+    if focus:
+        obj.clip = crop
     obj.obj("terrain_lidar_2017")
     obj.terrain()
 
@@ -760,6 +854,8 @@ def main(spec: Path, out: Path) -> None:
               f"{name} is {to_line:.1f} ft from the surveyed line; footing assumed {WALL_FOOTING:g} ft wide")
 
     canopy = Canopy() if CANOPY.exists() else None
+    if canopy:   # ...and 2 m more, for the crowns that would hang into the building
+        canopy.clear(list(SPolygon(cleared).buffer(2.0).exterior.coords)[:-1])
     trees, dropped = planting(canopy)
     well_in = seg_dist(well, PARCEL[2], PARCEL[3])
     gap = min(math.dist(tr["site"], well) for tr in trees)
@@ -809,12 +905,19 @@ def main(spec: Path, out: Path) -> None:
                      "at": [round(fx, 1), round(fy, 1), round(ground(fx, fy), 1)]}
     tree_view = {"plants": PLANTS, "stages": ["Planted", "~8 years", "Mature"], "dropped": dropped,
                  "rows_ft": TREE_ROWS, "spacing_ft": TREE_SPACING,
-                 "trees": [{"xy": [round(c, 2) for c in to_m(tr["site"])], "plant": tr["plant"]} for tr in trees]}
+                 "trees": [{"xy": [round(c, 2) for c in to_m(tr["site"])], "plant": tr["plant"]} for tr in trees
+                           if not focus or inside(to_m(tr["site"]), crop)]}
     # The twin oak's trunks (field data): the near one is 24 in across (6.3 ft around); the second isn't measured yet.
     fp = json.loads((REPO / "site" / "field-points.json").read_text())
     oak_trunks = [(*to_m(tuple(fp[key]["solutions"][0]["site"])), 0.61)
                   for key in ("big_oak", "big_oak_2") if fp.get(key, {}).get("solutions")]
-    existing = canopy.for_viewer(ground, lot=[to_m(p) for p in PARCEL], trunks=oak_trunks) if canopy else None
+    if focus and canopy:
+        cx, cy = [p[0] for p in crop], [p[1] for p in crop]
+        canopy = canopy.crop(min(cx) - 3, min(cy) - 3, max(cx) + 3, max(cy) + 3)
+        canopy.clear(crop, outside=True)
+        existing = canopy.for_viewer(ground, lot=crop, trunks=[t for t in oak_trunks if inside(t[:2], crop)])
+    else:
+        existing = canopy.for_viewer(ground, lot=[to_m(p) for p in PARCEL], trunks=oak_trunks) if canopy else None
     # The house, a first pass (house_layout.py), in its own frame: x = -s (east), y = t (north), z up from the floor.
     sv = lambda s, t: to_m(site([st(s, t)])[0])  # noqa: E731
     o, e, n = sv(0, 0), sv(-1, 0), sv(0, 1)
@@ -822,7 +925,29 @@ def main(spec: Path, out: Path) -> None:
     house["porte"] = porte_spec(lambda s, t: (ground(*sv(s, t)) / FT + ground.z0) - FF_FT)
     house.update({"origin": [round(c, 4) for c in o], "ex": [round((e[i] - o[i]) / FT, 6) for i in (0, 1)],
                   "ey": [round((n[i] - o[i]) / FT, 6) for i in (0, 1)], "ff_m": round((FF_FT - ground.z0) * FT, 3)})
-    write_viewer(html, out.read_text(), plan, checks, view, poles, tree_view, existing, ground.z0, building_b, house, building_a)
+    shed = None
+    if focus:
+        # The close-up page's views (plan m, from points in building A's frame, ft) and labels; the house, building B
+        # and the back-yard poles are outside the box.
+        at = lambda x, y, h: [round(c, 2) for c in (*a_pt(x, y), ground(*a_pt(x, y)) + h * FT)]  # noqa: E731
+        mid = at(a_len / 2, a_wid / 2, 0)
+        tag = lambda p, h=7.0: [round(c, 2) for c in (*p, ground(*p) + h * FT)]  # noqa: E731
+        shed = {"title": "Building A close up",
+                "sub": "The shed at site A on its dug-in slab, and the ground ~30 ft round it (2017 lidar, 1 m).",
+                "key": "candelaria-shed-3d:view:v1", "fly_m_s": 4.0,
+                "views": [
+                    {"id": "top", "label": "Overhead", "eye": [mid[0] - 0.05, mid[1], mid[2] + 130 * FT], "at": mid, "exag": 1, "mode": "fly"},
+                    {"id": "oblique", "label": "From the SE", "eye": at(a_len + 40, -45, 60), "at": at(a_len / 2, a_wid / 2, 2), "mode": "orbit"},
+                    {"id": "doors", "label": "At the doors", "eye": at(a_len / 2, -28, 5.5), "at": at(a_len / 2, a_wid, 5.5), "exag": 1, "mode": "look"},
+                    {"id": "cut", "label": "The cut, from the east", "eye": at(a_len + 24, 2, 9), "at": at(a_len, a_wid - 4, 0), "mode": "orbit"},
+                    {"id": "west", "label": "From the well", "eye": at(-30, a_wid + 12, 18), "at": at(a_len / 2, a_wid / 3, 0), "mode": "orbit"},
+                ],
+                "tags": [["Meter pole: the power", tag((22.6, -1.0), 22.0)],   # electric_meter_pole in the spec
+                         ["Well", tag(to_m(well))], ["Septic access pipe (tank?)", tag(to_m(pipe))],
+                         ["US-290 →", tag(a_pt(a_len / 2, a_wid + 13), 12.0)]]}
+        house = building_b = None
+        poles = []
+    write_viewer(html, out.read_text(), plan, checks, view, poles, tree_view, existing, ground.z0, building_b, house, building_a, shed)
     click.echo(f"wrote {out.relative_to(REPO)} ({obj.nv} vertices) and {html.relative_to(REPO)}; "
                f"building B slab at z = {slab:.2f} m")
     with pl.Config(tbl_rows=-1, tbl_hide_dataframe_shape=True, tbl_hide_column_data_types=True,

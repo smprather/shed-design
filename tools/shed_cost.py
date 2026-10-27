@@ -12,7 +12,7 @@ Oct 18 2026): a 12 x 12 roll-up for a boat on its trailer, a 10 x 12 roll-up, an
 listings put 14 ft legs ~6-9% over 12 ft ones on a kit's price; the bigger roll-ups add ~$1-2k.
 
 It stands on a concrete slab dug into its high side (owner, Oct 24 2026: back to concrete, the costs down; it was
-on pier and beam that morning, at ~$85k). The ground under it rises ~2.7 ft to the NE corner, but its door (south)
+on pier and beam that morning, at ~$85k). The ground under it rises ~2.9 ft to the NE corner, but its door (south)
 side is nearly level, so the slab's top sits SLAB_OVER_LOW over the SW corner's ground (`--level`) and the doors are
 at grade: short concrete aprons, no ramp. The high side is cut and graded back at 2:1 from a swale, with a block
 wall only where the slope would come within 10 ft of the septic pipe (drive_layout.py has the levels and shapes).

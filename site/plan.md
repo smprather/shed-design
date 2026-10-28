@@ -180,6 +180,12 @@ The building on its slab, without power or insulation (they add the same to each
     hold it: ~12 ft long, up to ~2 ft.
   - A French drain carries water round to daylight on the low SW side. Gutters are piped
     away.
+  - **2:1 is too steep to mow.** It's for rock or groundcover. The S130 is rated to 13°, so
+    feather the cut to the lawn at 5:1 where it mows: the east side's south ~20 ft and the
+    west end.
+  - **Behind the north wall, no slope the S130 can mow fits** in the 10 ft to the line. The
+    strip is a dead end, too. Rock it or terrace it (below; notes, "The strip behind the
+    building").
 - **The soil** is Brackett (USDA soil survey): 10–20 in of soil over soft, weathered
   limestone, with rock showing in places. Little of the cut reaches rock. With only 4 in of
   soil, it would cost ~$0.5k more.
@@ -276,6 +282,8 @@ Tube frame, dealer-installed (owner, Oct 18 2026: red-iron is out).
   - the roof's color;
   - foam and its barrier, or fiberglass blanket (~$11k);
   - concrete or gravel aprons;
+  - the strip behind the north wall: rock it (recommended, ~$1–2k placed, vs. ~$0.2k of
+    seed in the budget), or terrace it behind a low limestone boulder wall (~$3–5k more);
   - insulated doors and a mini-split, now or later;
   - a roof over the work apron, for shade (to be discussed).
 

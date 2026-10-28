@@ -2982,6 +2982,123 @@ the tables below.
     a 12-ga frame, as in the spec sheet ("Boat storage").
 - **Source:** [Schooley Mitchell, featured client WolfSteel Buildings](https://www.schooleymitchell.com/news/krowell/featured-client-wolfsteel-buildings/)
 
+### The strip behind the building: slopes, mowing and rock (owner's question, Oct 28 2026)
+
+- **The question:** how steep the cut's slopes can be, and how to keep the ground between the
+  building and the US-290 fence, mowed or in rock.
+- **Slope limits:**
+
+  | Slope | Angle | Good for |
+  |---|---|---|
+  | 5:1 (20%) | 11° | Mowing with the S130, with some margin |
+  | 4:1 (25%) | 14° | Over the S130's rating: 13°, ~4.3:1 (dealer spec listings) |
+  | 3:1 (33%) | 18° | A push mower or a string trimmer; the usual limit for mowed grass |
+  | 2:1 (50%) | 27° | Rock, or groundcover that's never mowed (the plan's cut). Steeper than 3:1 needs an erosion blanket until it grows in |
+  | 1.5:1 (67%) | 34° | Rock slides past this (a TxDOT study); OSHA's slope for a trench in loose soil, a temporary one |
+  | Steeper | | A wall |
+
+  - On a riding mower, drive up and down a slope, not across it.
+- **The ground behind the north wall keeps rising toward the line,** ~8–10%. Over the slab's
+  top, from the 1 m lidar (±0.3 ft):
+
+  | Along the wall, from the NW corner | At the wall | 4 ft out | 8 ft out | At the line (10 ft) |
+  |---|---|---|---|---|
+  | 0 ft | +0.2 | +0.5 | +0.8 | +1.0 |
+  | 10 ft | +0.6 | +0.9 | +1.3 | +1.5 |
+  | 20 ft | +1.3 | +1.7 | +2.1 | +2.4 |
+  | 30 ft (NE) | +2.1 | +2.5 | +2.8 | +2.9 |
+
+- **Where each slope meets the ground,** in ft from the wall, starting from the swale (2 ft
+  wide, 0.5 ft under the slab's top). The room to the line is 10 ft.
+
+  | Along the wall | Cut at the swale | 2:1 | 3:1 | 4:1 | 5:1 |
+  |---|---|---|---|---|---|
+  | 0 ft (NW) | 0.9 | 4.1 | 5.4 | 7.0 | 9.1 |
+  | 10 ft | 1.3 | 5.1 | 7.3 | 10.2 | 13.4 |
+  | 20 ft | 2.0 | 7.1 | 10.9 | 14.3 | 17.9 |
+  | 30 ft (NE) | 2.8 | 8.7 | 12.1 | 15.4 | 18.8 |
+
+  - **2:1 fits all along,** reaching 8.7 ft out at the NE corner, 1.3 ft short of the line.
+  - **3:1 fits only the west half;** 4:1 and 5:1 only the first few feet. No regrading makes
+    the strip a slope the S130 can mow.
+  - **The strip is a dead end.** At the NE corner the line is 10 ft north and the septic
+    pipe's keep-out is on the east (the pipe is 13.3 ft east of the east wall, 2 ft north of
+    the north wall's line). The only way in is past the NW corner, which is 12.3 ft from the
+    well.
+- **The east side:** the cut fades to nothing at the SE corner. From the swale, 5:1 meets the
+  ground 7.9 ft out at 10 ft from the SE corner, 10.7 ft at 15 and 13.7 ft at 20. That stays
+  clear of the pipe's keep-out to ~20 ft from the SE corner. North of that, the cut stays at
+  2:1, with the short block wall by the pipe.
+- **The fence:** the planned 8 ft fence is on the surveyed line, 10 ft from the wall. The old
+  fence stands up to ~7 ft beyond the line in places, and the ground between is TxDOT's.
+  Don't grade it.
+- **Options for the north strip** (rough, not quotes):
+  1. **Rock (recommended):**
+     - the 2 ft swale in washed gravel over the French drain;
+     - the 2:1 slope armored with 4–8 in limestone over fabric (the dig turns up little rock,
+       so buy it);
+     - the ground above it, to the line, in gravel too.
+
+     Nothing to mow. Weeds get a pre-emergent twice a year and a spot spray. About 6 cu yd of
+     rock and fabric, ~$1–2k placed, against ~$0.2k for the blanket and seed in the budget.
+  2. **A terrace behind a low limestone wall:**
+     - the strip dug flat to ~7 ft out, falling to the swale;
+     - a dry-stacked boulder wall at its back, 1.0 ft high at the NW rising to 3.0 ft at the
+       NE, wrapping round the NE corner to the short wall by the pipe;
+     - ~3 ft of natural ground left to the line, for the fence's posts.
+
+     That gives a flat 7 ft strip to walk, push-mow or gravel. Boulder walls in Austin run
+     ~$26–44 per sq ft of face, so ~$3–5k more. The wall stays under 4 ft; ask Travis County
+     whether it needs a permit.
+  3. **Groundcover on the 2:1** (the budget's seeded slope): horseherb or frogfruit, Austin
+     natives that take part shade, with a string trimmer along the fence.
+     - The cheapest.
+     - Slow to fill in, though: the north gable shades the strip in winter, and there's only
+       10–20 in of soil over rock. Weeds come through until it does.
+- **Elsewhere round the building:**
+  - **Feather to the lawn at 5:1** wherever the S130 mows: the east side's south ~20 ft and
+    the west end. Use 3:1 where it's push-mowed or trimmed.
+  - **Keep soil and mulch off the steel.** Finished grade should be at least 6 in under the
+    wall panels' bottom edge. The swale, 0.5 ft under the slab's top, does that.
+  - **Line the swales with rock,** so mowing and feet don't smooth them out.
+  - **The east eave drips into the east swale** (the roof sheds east and west). Pipe a gutter
+    away (it's in the budget's drain line), or lay a rock drip strip under the eave.
+- **What others did** (no photos of exactly this job; these come closest):
+  - A 40 × 40 × 16 steel shop on a hillside pad (Garage Journal build log, with photos):
+    - the cut benched;
+    - the rest held by a dry-stacked segmental block wall, with gravel and a perforated pipe
+      behind it;
+    - ~$4,500 and seven weekends, DIY.
+  - Garage Journal, a garage on a hill: a 6–8 ft "moat" round the building, then the hill
+    tapered back. In another thread the slope ran toward the building and the drainage went
+    wrong.
+  - TractorByNet, a pole building cut into a hillside: the ground cut back ~10 ft past the
+    barn and sloped away ~1 ft in that 10 ft. Shallow swales get smoothed out by mowing.
+  - TractorByNet: a 2:1 cut 6 ft behind a shed, with a 4 ft wall. Another puts a swale 4–8 ft
+    from the foundation.
+  - Texas limestone walls: galleries from Austin landscape and block firms, and Fine
+    Homebuilding's Canyon Lake terrace carved into its slope.
+- **Sources:**
+  - [allmachines: S130 vs. S100 (slope limit 13°)](https://www.allmachines.com/mowers/compare-models/john-deere-s100-vs-john-deere-s130)
+  - [Hutson: Deere 100 Series](https://www.hutsoninc.com/lawn-garden/lawn-tractors/100-series/)
+  - [TxDOT riprap study](https://rosap.ntl.bts.gov/view/dot/83531/dot_83531_DS1.pdf)
+  - [EPA riprap BMP](https://www.epa.gov/system/files/documents/2021-11/bmp-riprap.pdf)
+  - [Eng-Tips on slopes over 3:1](https://www.eng-tips.com/viewthread.cfm?qid=172542)
+  - [DIY Retaining Wall: a cut wall](https://diyretainingwall.com/cut-wall-a-retaining-wall-built-into-a-hill/)
+  - [HomeBlue: Austin retaining wall cost](https://www.homeblue.com/retaining-wall/austin-tx-retaining-wall-cost.htm)
+  - [Angi: Austin retaining wall cost](https://www.angi.com/articles/how-much-does-it-cost-build-retaining-wall/tx/austin)
+  - [Garage Journal: agbill garage workshop](https://www.garagejournal.com/forum/threads/agbill-garage-workshop.7277/)
+  - [Garage Journal: fill or cut?](https://www.garagejournal.com/forum/threads/building-a-garage-on-a-hill-fill-or-cut.132533/)
+  - [Garage Journal: building into slope](https://www.garagejournal.com/forum/threads/building-into-slope.173586/)
+  - [TractorByNet: pole building into hillside](https://www.tractorbynet.com/forums/threads/pole-building-into-hillside.289242/post-3437487)
+  - [TractorByNet: B7610 backhoe](https://www.tractorbynet.com/forums/threads/b7610-backhoe-information.56401/post-636323)
+  - [TractorByNet: backfilling basement walls](https://www.tractorbynet.com/forums/threads/backfilling-basement-retaining-walls.203533/post-2346226)
+  - [Herriman: typical swales](https://herriman.gov/uploads/files/956/TypicalSwales.pdf)
+  - [Eden Garden Design (Houzz)](https://www.houzz.com/photos/custom-steel-and-limestone-boulder-retaining-walls-contemporary-landscape-austin-phvw-vp~151667750)
+  - [Thrive Landscape](https://thrivelandscapedesign.com/services/hardscaping/retaining-walls/)
+  - [Austin Block Company gallery](https://austinblockcompany.com/gallery/)
+  - [Fine Homebuilding: Hillside Haven](https://www.finehomebuilding.com/2026/07/21/hillside-haven)
+
 ### Windows and doors
 
 - Traffic noise is heavy in low frequencies. Compare windows by **OITC** (made for traffic

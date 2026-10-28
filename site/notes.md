@@ -2932,6 +2932,56 @@ the tables below.
 - The trees now draw last among the see-through layers, so a fence never paints over them
   (Oct 25).
 
+### The front face: the doors in the south gable end (owner, Oct 28 2026)
+
+- **The owner's design, a work in progress:** the front wall in Wolf Steel Buildings'
+  online configurator (a screenshot). Read off it, at ~41 px to the foot (±2 in):
+
+  | | Width × height | Along the wall, from the west (left) corner |
+  |---|---|---|
+  | Roll-up (the boat bay) | 12 × 12 ft | 1'6"–13'6" |
+  | Walk door | ~3 ft × ~6'8"–7' | ~1'1" past the roll-up |
+  | Roll-up (the east bay) | 10 × 8 ft | 18'9"–28'9" (1'3" from the east corner) |
+
+  - **The wall is a gable end.** The ridge runs back from the doors.
+  - **Eave ~14 ft,** peak ~17.9 ft: 14 ft legs at 3:12.
+  - **Paint:** burgundy walls, black trim and corners, a black wainscot ~2.4 ft high, light
+    doors. The roof's color isn't shown.
+  - The configurator draws the two 1'1" gaps at the walk door in red.
+- **What changed in the model:**
+  - **The ridge now runs north–south,** square to the line, with the doors in the south
+    gable end. It ran along the line, with the doors in an eave wall.
+  - **The east door is 10 × 8** (was 10 × 12).
+  - **The paint** is in the 3D plan and the close-up (`A_COLORS`; the roof charcoal,
+    assumed). The boat and the mower turned with the building.
+  - Costs: unchanged at **$83k** likely. The smaller door saves a few hundred dollars, within
+    the kit's range, and the taller gable walls add a little foam.
+- **What the gable-end doors do:**
+  - **The roof sheds east and west,** not onto the doors and the aprons, so there's no
+    curtain of water over the doorways in a storm.
+  - **The north end is a gable too,** so no eave drips into the north swale.
+  - **The east eave's gutter** is piped away from the septic, and the west one's away from
+    the well.
+  - **More room over the boat door:** the gable wall rises from 14 ft at the corners to
+    ~17.75 at the peak, so the 12 ft door's coil has 2 ft and more over it.
+  - **The gable faces the yard.** From the yard you see the peak and the doors; from US-290,
+    the north gable.
+- **The 10 × 8 east door:**
+  - It takes the mower, carts, a pickup (most stand ~6.5–7 ft) and a utility trailer.
+  - A second boat, a lifted truck or a ladder rack needs more. A 10 × 10 costs a little more
+    if that matters to a buyer.
+  - It leaves ~4 ft more wall over it for shelving inside.
+- **To settle with the dealer:**
+  - Whether the 1'1" gaps between the roll-ups and the walk door frame up. If not, the walk
+    door moves to the east wall.
+  - The walk door. The configurator's is the kit's door; the plan is a commercial
+    hollow-metal door in a welded frame (Oct 18). Ask for a framed opening or their
+    commercial option.
+  - **Wolf Steel Buildings** is a Fort Worth company (a client profile). Confirm it installs
+    in Travis County, and ask for wind certification for the county (140 mph or better) and
+    a 12-ga frame, as in the spec sheet ("Boat storage").
+- **Source:** [Schooley Mitchell, featured client WolfSteel Buildings](https://www.schooleymitchell.com/news/krowell/featured-client-wolfsteel-buildings/)
+
 ### Windows and doors
 
 - Traffic noise is heavy in low frequencies. Compare windows by **OITC** (made for traffic

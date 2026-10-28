@@ -5,7 +5,7 @@ sources, corrections and dates. This file says what we're doing, in what order, 
 still undecided. Update it when a decision changes; record the facts behind the change in
 `notes.md`.
 
-Last updated: Oct 25 2026 (building A on 14 ft legs with a 12 × 12 door, for boat storage; on a slab dug into its high side, with power and closed-cell foam insulation: ~$83k all in, $51k of it the building on its slab; it comes first, and the drive much later).
+Last updated: Oct 28 2026 (building A's front face: the doors in the south gable end, a 12 × 12 for a boat and a 10 × 8, burgundy with black trim; on 14 ft legs and a slab dug into its high side, with power and closed-cell foam insulation: ~$83k all in, $51k of it the building on its slab; it comes first, and the drive much later).
 
 ## The four projects
 
@@ -118,14 +118,15 @@ stops being a garage.
 ## Project 1: The building (site A; site B dropped Oct 18 2026)
 
 **At site A, on a concrete slab dug into its high side** (owner, Oct 24 2026): a common
-30 × 30 ft tube-frame kit, 30 ft wide across the strip and 30 ft along the line. The ridge
-runs along the line. That morning it was on pier and beam, at ~$85k; the owner sent it back
-to concrete to cut the cost.
+30 × 30 ft tube-frame kit, 30 ft wide across the strip and 30 ft along the line. Its ridge
+runs north–south, square to the line, so its doors are in the south gable end (owner,
+Oct 28 2026). That morning (Oct 24) it was on pier and beam, at ~$85k; the owner sent it
+back to concrete to cut the cost.
 
 **Built to store a boat** (owner, Oct 25 2026): boat storage adds to a house near Lake Travis,
 so the building is ready for one.
-- **14 ft legs,** so a 12 ft roll-up fits under the eave with ~2 ft for its coil. The ridge
-  is ~17.75 ft up.
+- **14 ft legs,** so a 12 ft roll-up fits with ~2 ft or more for its coil (the gable end
+  rises toward its peak). The ridge is ~17.75 ft up.
 - **A 12 × 12 ft door** clears most wake boats with the tower folded, pontoons with the
   bimini down and center consoles without a T-top.
   - A 10 ft door is tight for many of them.
@@ -139,14 +140,22 @@ so the building is ready for one.
   (project 4) is the boat's road. Until it's built, the boat bay is a selling point more
   than a working one.
 
-**All the doors face south** (owner, Oct 18 2026), well away from the septic pipe:
-- a 12 × 12 ft roll-up at the west end, for a boat;
-- a 10 × 12 ft roll-up at the east end. The mower parks in that bay;
-- a commercial walk door between them: hollow metal in a welded frame, a continuous
-  hinge, Grade 1 hardware and a closer, so it won't sag or stick (notes, "The walk door").
-- There's 1 ft of wall between each roll-up and the walk door, and 1.5 ft at each corner.
-  The dealer confirms the framing. If it needs more, the walk door can move to the east
-  wall.
+**All the doors face south, in the gable end** (owner, Oct 18 and 28 2026), well away from
+the septic pipe. As in the owner's front face (Wolf Steel's configurator, Oct 28):
+- a 12 × 12 ft roll-up at the west end, for a boat, 1'6" from the corner;
+- a 10 × 8 ft roll-up at the east end, 1'3" from the corner. The mower parks in that bay.
+  It takes a pickup or a utility trailer, not a second boat. A 10 × 10 would take a ladder
+  rack or a camper shell, for a little more;
+- a commercial walk door between them, ~1'1" from each roll-up: hollow metal in a welded
+  frame, a continuous hinge, Grade 1 hardware and a closer, so it won't sag or stick (notes,
+  "The walk door"). The configurator's own door is the kit's; ask for a framed opening or
+  their commercial door.
+  - The configurator marks those 1'1" gaps in red. Ask the dealer whether the framing fits;
+    if not, the walk door can move to the east wall.
+- **The roof sheds east and west,** not onto the doors and aprons. Gutters on both eaves:
+  the east one's downspouts away from the septic, the west one's away from the well.
+- **The paint:** burgundy walls, black trim and a black wainscot ~2.5 ft high, light doors
+  (the roof's color isn't in the screenshot). The 3D plan and the close-up draw it.
 
 **Dig in, don't build up.** The ground under it rises ~2.9 ft to the NE corner, but the door
 (south) side is within ~0.6 ft of level (2017 lidar at 1 m, ±0.5 ft).
@@ -261,7 +270,10 @@ Tube frame, dealer-installed (owner, Oct 18 2026: red-iron is out).
   driven over the tank. If the tank is clear of it, the slope runs there too and the wall
   goes.
 - **Decisions for you:**
-  - the kit's dealer, from quotes against the spec sheet (notes, "Boat storage");
+  - the kit's dealer, from quotes against the spec sheet (notes, "Boat storage"); Wolf Steel
+    Buildings is the one the front face was drawn in;
+  - the east door: 10 × 8 (as drawn) or 10 × 10;
+  - the roof's color;
   - foam and its barrier, or fiberglass blanket (~$11k);
   - concrete or gravel aprons;
   - insulated doors and a mini-split, now or later;

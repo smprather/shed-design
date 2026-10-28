@@ -124,7 +124,7 @@ def main() -> None:
         plan.poly(S([(46.0, t0), (52.5, t0), (52.5, t1), (46.0, t1)]), WHITE, width=1, dash=True)
     # A's doors, on its south wall
     A = L["A"]
-    for x0, x1 in ((1.5, 13.5), (14.5, 17.5), (18.5, 28.5)):
+    for x0, x1 in ((1.5, 13.5), (14.625, 17.625), (18.75, 28.75)):
         plan.line(S([A(x0, 0), A(x1, 0)]), ORANGE, width=6)
     # trees: known trunks with their keep-outs, treetops as dots
     for t in tr:

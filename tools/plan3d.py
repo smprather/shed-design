@@ -59,11 +59,15 @@ B_DOORS = (12.0, 12.0)  # ft, width x height: two roll-up doors on the south wal
 MOWER_IN = 8.0  # ft in from the door wall to the rear axle: the owner's John Deere S130, parked in building A, for scale
 # Building A: a common 30 x 30 kit (owner, Oct 24 2026) on 14 ft legs, for boat storage (owner, Oct 25: a 12 ft door
 # clears most wake boats with the tower folded and pontoons with the bimini down, and a roll-up wants ~2 ft over it).
-# Its doors are all on its south wall (owner, Oct 18): a 12 x 12 roll-up for a boat at the west end, a 10 x 12 at the
-# east end, and the walk door between them. Feet east of the SW corner (the wall is 30 ft long).
+# Its doors are all in its south wall, now a gable end (owner, Oct 28: the front face in the dealer's configurator), so
+# the ridge runs north-south, square to the line: a 12 x 12 roll-up for a boat at the west end, a 10 x 8 at the east
+# end, and the walk door between them, ~1'1" from each. Feet east of the SW corner (the wall is 30 ft wide).
 A_EAVE = 14.0           # ft: the kit's leg height
-A_DOORS = ((7.5, 12.0, 12.0), (23.5, 10.0, 12.0))   # roll-ups: center, width, height; 1.5 ft of wall at each corner
-WALK_AT = 16.0          # the walk door's center, 1 ft from each roll-up's opening
+A_DOORS = ((7.5, 12.0, 12.0), (23.75, 10.0, 8.0))   # roll-ups: center, width, height; 1'6" and 1'3" of wall at the corners
+WALK_AT = 16.125        # the walk door's center
+# Its paint, from the owner's configurator (Oct 28 2026): burgundy walls, black trim and a black wainscot ~2.5 ft high,
+# light doors. The roof's color isn't shown there: charcoal, assumed.
+A_COLORS = {"wall": "#5b2226", "roof": "#3a3c40", "trim": "#1d1d1f", "wainscot": "#1d1d1f", "wainscot_ft": 2.5, "door": "#d9d6c1"}
 # It stands on a concrete slab dug into its high side (owner, Oct 24 2026): drive_layout has the levels and the cut.
 A_CUT_RUN = SWALE + CUT_SLOPE * 3.5   # ft out from the walls that the graded cut can reach (the NE corner is cut ~3 ft)
 WALL_FOOTING = 2.0  # ft inside the line for a US-290 wall footing
@@ -683,28 +687,30 @@ def main(spec: Path, out: Path | None, focus: bool) -> None:
     obj.obj(f"site_A_footprint_{a_dims}")
     obj.pad(a_m, cell=0.5, lift=0.07)
     obj.drape(a_m, closed=True, lift=0.12)
-    # Building A on it, in B's look, laid out like a standard kit: 30 ft wide (the clear span, across the strip) and
-    # its ridge along the line like B's. Its doors face south, the yard side (owner, Oct 18 2026). It stands on a slab
-    # dug into the high side (owner, Oct 24): the ground rises ~3 ft to the NE corner, but the door side is nearly level.
+    # Building A on it, laid out like a standard kit: 30 x 30, its doors in the south gable end (owner, Oct 28 2026), so
+    # its ridge runs north-south, square to the line. It stands on a slab dug into the high side (owner, Oct 24): the
+    # ground rises ~3 ft to the NE corner, but the door side is nearly level.
     a_ground = [ground.natural(*p) for p in a_m]
     a_slab = a_top - 0.5 * FT   # the viewer draws a slab's top 0.5 ft over this
     a_id = f"building_A_{a_dims}_eave_{A_EAVE:g}ft_assumed"
     obj.obj(a_id)
-    obj.gable(asw, ase, ane, anw, a_top, a_top + A_EAVE * FT, a_wid / 2 * B_PITCH * FT)
-    building_a = {"id": a_id, "origin": [round(c, 3) for c in asw],
-                  "ux": [round((ase[i] - asw[i]) / (a_len * FT), 6) for i in (0, 1)],
-                  "uy": [round((anw[i] - asw[i]) / (a_wid * FT), 6) for i in (0, 1)],
+    obj.gable(anw, asw, ase, ane, a_top, a_top + A_EAVE * FT, a_len / 2 * B_PITCH * FT)   # the ridge north-south
+    # The viewer's frame for it: x south from the north wall (along the ridge), y east from the west wall; the doors are
+    # in the end wall at x = length.
+    building_a = {"id": a_id, "origin": [round(c, 3) for c in anw],
+                  "ux": [round((asw[i] - anw[i]) / (a_wid * FT), 6) for i in (0, 1)],
+                  "uy": [round((ane[i] - anw[i]) / (a_len * FT), 6) for i in (0, 1)],
                   "slab_m": round(a_slab, 3), "drop_ft": round((a_slab - min(a_ground)) / FT, 2),
-                  "length_ft": round(a_len, 2), "width_ft": round(a_wid, 2), "eave_ft": A_EAVE, "pitch": B_PITCH,
-                  "door_wall": "side",
-                  # Two roll-ups and a commercial walk door between them, all in the south wall (owner, Oct 18 2026).
-                  # Away from the septic access pipe, which is ~10 ft off the east wall's north half.
+                  "length_ft": round(a_wid, 2), "width_ft": round(a_len, 2), "eave_ft": A_EAVE, "pitch": B_PITCH,
+                  "door_wall": "end", "colors": A_COLORS,
+                  # Two roll-ups and a commercial walk door between them, all in the south gable end (owner, Oct 28
+                  # 2026), feet east of the west wall. Away from the septic access pipe, off the east wall's north half.
                   "doors": [{"center_ft": c, "width_ft": w, "height_ft": h} for c, w, h in A_DOORS],
                   # The walk door: 3070 hollow metal in a welded frame, outswing, hinged on its west edge so the latch
                   # is on the side you come from (the drive arrives from the east).
                   "walk_doors": [{"center_ft": WALK_AT, "width_ft": 3.0, "height_ft": 7.0, "hinge": "west"}],
                   "own_aprons": True,   # drawn below, from drive_layout.aprons_a
-                  "mower": {"x_ft": A_DOORS[1][0], "y_ft": MOWER_IN},   # east bay, nose to the door: the west bay is the boat's
+                  "mower": {"x_ft": a_wid - MOWER_IN, "y_ft": A_DOORS[1][0]},   # east bay, nose to the door: the west bay is the boat's
                   # For scale: a 22 ft wake boat on its trailer, backed into the west bay (owner, Oct 25 2026: boat storage).
                   "boat": {"x_ft": A_DOORS[0][0], "transom_y_ft": 27.5, "hull_ft": 20.5, "platform_ft": 1.5, "beam_ft": 8.5,
                            "tongue_ft": 5.0}}

@@ -3064,11 +3064,21 @@ the tables below.
   - **The east eave drips into the east swale** (the roof sheds east and west). Pipe a gutter
     away (it's in the budget's drain line), or lay a rock drip strip under the eave.
 - **What others did** (no photos of exactly this job; these come closest):
-  - A 40 × 40 × 16 steel shop on a hillside pad (Garage Journal build log, with photos):
+  - A 40 × 40 × 16 steel shop on a hillside pad (Garage Journal build log, 2007):
     - the cut benched;
     - the rest held by a dry-stacked segmental block wall, with gravel and a perforated pipe
       behind it;
     - ~$4,500 and seven weekends, DIY.
+    - Its photos are gone: they were on Photobucket, which stopped serving them to other
+      sites. The Wayback Machine was offline when checked (Oct 28).
+  - **The best photos found:** a TractorByNet thread (2005) on a segmental block wall that
+    holds a cut into a hillside beside a garage. It shows:
+    - the dig and the gravel base;
+    - the sock drain and gravel backfill behind the wall;
+    - the finished wall stepping down as the cut fades into the slope;
+    - a tractor on the flat ground below it.
+
+    A contractor built it. The owner priced doing it himself at under $500 less.
   - Garage Journal, a garage on a hill: a 6–8 ft "moat" round the building, then the hill
     tapered back. In another thread the slope ran toward the building and the drainage went
     wrong.
@@ -3092,6 +3102,7 @@ the tables below.
   - [Garage Journal: building into slope](https://www.garagejournal.com/forum/threads/building-into-slope.173586/)
   - [TractorByNet: pole building into hillside](https://www.tractorbynet.com/forums/threads/pole-building-into-hillside.289242/post-3437487)
   - [TractorByNet: B7610 backhoe](https://www.tractorbynet.com/forums/threads/b7610-backhoe-information.56401/post-636323)
+  - [TractorByNet: Allan Block retaining wall (photos)](https://www.tractorbynet.com/forums/threads/allan-block-retaining-wall.66526/)
   - [TractorByNet: backfilling basement walls](https://www.tractorbynet.com/forums/threads/backfilling-basement-retaining-walls.203533/post-2346226)
   - [Herriman: typical swales](https://herriman.gov/uploads/files/956/TypicalSwales.pdf)
   - [Eden Garden Design (Houzz)](https://www.houzz.com/photos/custom-steel-and-limestone-boulder-retaining-walls-contemporary-landscape-austin-phvw-vp~151667750)

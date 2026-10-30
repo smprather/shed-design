@@ -5,7 +5,7 @@ sources, corrections and dates. This file says what we're doing, in what order, 
 still undecided. Update it when a decision changes; record the facts behind the change in
 `notes.md`.
 
-Last updated: Oct 30 2026 (towing a boat in and out of building A: the back-in fits; a sweeping exit needs the building turned 10° clockwise and 2.5 ft off the fence, at the same cost. Oct 28: the doors in the south gable end, a 12 × 12 for a boat and a 10 × 8, burgundy with black trim; on 14 ft legs and a slab dug into its high side, with power and closed-cell foam insulation: ~$83k all in, $51k of it the building on its slab; it comes first, and the drive much later).
+Last updated: Oct 30 2026 (towing a boat in and out of building A: the back-in fits; driving out in one move needs the building turned 22.5° counter-clockwise and 4.8 ft off the fence, ~$1k less. Oct 28: the doors in the south gable end, a 12 × 12 for a boat and a 10 × 8, burgundy with black trim; on 14 ft legs and a slab dug into its high side, with power and closed-cell foam insulation: ~$83k all in, $51k of it the building on its slab; it comes first, and the drive much later).
 
 ## The four projects
 
@@ -146,20 +146,25 @@ so the building is ready for one.
     line and pulls on until the boat hangs straight, with the truck's bumper ~94 ft out from
     the door. Then it backs ~76 ft straight in.
   - **Out doesn't, as one sweeping left.** The back-lawn oaks stand inside the circle it
-    needs. The only all-forward way onto the shop lane is a ~330 ft figure-eight, with
-    1.5 ft to spare.
-  - **Turned 10° clockwise and 2.5 ft further off the fence** (the doors toward the SW and
-    the open lawn), the way out is one sweep. It goes a touch right, then a long left loop
-    round the lawn, up past the oaks onto the lane. That's 196 ft, with 3.5 ft to spare, and
-    the back-in still fits.
-    - The cost is the same, within ~$1k.
-    - It ends 14.6 ft from the well and 13.1 ft from the septic pipe.
-    - Turning the doors toward the SE, or a full 45° either way, makes it worse.
+    needs. Every way out the search finds runs the boat ~19 ft in under their crowns,
+    except a three-point turn that passes ~1–2 ft off the building's SE corner.
+  - **Turned 22.5° counter-clockwise and 4.8 ft further off the fence** (the doors toward
+    the SSE; the owner's guess), the way out is one forward move: 184 ft, 3.5 ft off the
+    trunks and lot lines.
+    - Pull out, hold the wheel right for one big loop round the open west lawn, then come
+      straight east across the front of the building onto the shop lane.
+    - The boat only brushes the crowns' edges (~40 sq ft, ≤5 ft in).
+    - The back-in still fits: the bumper ~85 ft out, then 67 ft back.
+    - ~$1k less ($81.7k vs. $82.8k): 19.4 ft from the septic pipe, the short block wall
+      there mostly goes. The well stays 12.4 ft away.
+    - The window is narrow, 20–24°. 10° either way doesn't fit, and neither does 45°.
+    - (A 10° clockwise turn recommended earlier the same day doesn't hold: that search let
+      the boat under the crowns' middles. Notes, "Towing the boat in and out".)
   - **Either way the boat needs:**
     - the back-lawn oaks' limbs raised to ~11 ft over its path (July–January);
     - their trunks taped;
-    - ~3,800 sq ft of lawn that takes the turns, worth grass pavers or gravel if it's used
-      often.
+    - ~3,200 sq ft of lawn that takes the turns (turned 22.5°), worth grass pavers or
+      gravel if it's used often.
 
 **All the doors face south, in the gable end** (owner, Oct 18 and 28 2026), well away from
 the septic pipe. As in the owner's front face (Wolf Steel's configurator, Oct 28):
@@ -303,8 +308,8 @@ Tube frame, dealer-installed (owner, Oct 18 2026: red-iron is out).
   - the roof's color;
   - foam and its barrier, or fiberglass blanket (~$11k);
   - concrete or gravel aprons;
-  - the building's angle: as planned, or turned 10° clockwise and 2.5 ft south, so a boat can
-    sweep out (above; the owner is checking with the family);
+  - the building's angle: as planned, or turned 22.5° counter-clockwise and 4.8 ft south, so a
+    boat can drive out in one move (above; the owner is checking with the family);
   - the strip behind the north wall: rock it (recommended, ~$1–2k placed, vs. ~$0.2k of
     seed in the budget), or terrace it behind a low limestone boulder wall (~$3–5k more);
   - insulated doors and a mini-split, now or later;

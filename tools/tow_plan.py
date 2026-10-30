@@ -27,14 +27,15 @@ The driver is reasonably good, not a computer. So:
   doesn't count on it.);
 - the hitch angle stays well short of the angle where the boat's bow or the tongue meets the truck's tailgate;
 - the way out (EXITS, search_exit) keeps a margin off the trunks and the lot lines, and the more the better: 1.5 ft
-  is a computer's line, 3.5 ft a person's.
+  is a computer's line, 3.5 ft a person's. The boat may pass under the back-lawn oaks' outer CROWN_EDGE ft (limbs an
+  arborist can raise), not deeper; the drive may run under them, as drawn.
 
 What it found (Oct 30 2026): the back-in fits as asked. The way out doesn't, as one left sweep from the door: the
-back-lawn oaks stand inside the circle it needs. With building A as planned, the only all-forward way onto the shop
-lane is a 330 ft figure-eight with 1.5 ft to spare. Turned 10 degrees clockwise (the doors toward the SW and the open
-lawn; --turn -10) and moved 2.5 ft off the line, it's one sweep: a touch right, a long left loop round the lawn and
-up past the oaks onto the lane, 196 ft, with 3.5 ft to spare. Turning the doors toward the SE, or a full 45 degrees
-either way, makes it worse.
+back-lawn oaks stand inside the circle it needs. With building A as planned, or turned 10 degrees either way, the
+only forward ways out run the boat up to ~19 ft in under those crowns. Turned 22.5 degrees counter-clockwise (the
+doors toward the SSE; --turn 22.5) and moved 4.6 ft off the line, it's one forward sweep: out, a big right loop round
+the open west lawn, then east along the front of the building onto the lane, 184 ft, 3.5 ft off the trunks and lot
+lines and only brushing the crowns' edges. 17.5, 21.25 and 25 degrees don't fit; 45 either way doesn't.
 
 Draws site/tow-paths.png (the whole way from the street) and site/tow-backyard.png (the back yard close up; with
 --turn, site/tow-*-turnN.png), and prints the space each move takes and what it comes near: the building, the house,
@@ -273,18 +274,20 @@ class Phase:
 
 
 # The way out. A left sweep straight from the door can't reach the shop lane: the back-lawn oaks stand inside the
-# circle it needs. What fits is the sweep a driver makes by swinging wide: a touch right toward the back fence, one long
-# left loop round the open lawn, up past the oaks' west side onto the shop court, and right onto the lane. search_exit()
-# finds it: A* over this rig's moves at R_PLAN, forward only, the hitch under 55 degrees, keeping `margin` off the
-# trunks and lot lines and 1.5 ft off the building. Found paths are kept here by building A's turn (degrees, rot_study)
-# as (margin, program); a program is (direction, ft, wheel) moves, the wheel from -1 (right, at R_PLAN) to +1 (left),
-# replayed in REPLAY_STEP steps. --search finds them again (minutes).
+# circle it needs. search_exit() looks for any forward way: A* over this rig's moves at R_PLAN, the hitch under 55
+# degrees, keeping `margin` off the trunks and lot lines, 1.5 ft off the building, and the boat out of the back-lawn
+# oaks' crowns deeper than CROWN_EDGE (but the drive). It may arrive on the lane bent a little (SEARCH_FINISH) and
+# straighten on it. Results are kept here by building A's turn in degrees: (margin, program, or None if none was found
+# at that margin); a program is (direction, ft, wheel) moves, the wheel from -1 (right, at R_PLAN) to +1 (left),
+# replayed in REPLAY_STEP steps. --search finds them again (a minute or a few).
 EXITS = {
-    0.0: (1.5, [(1, 4, 0.5), (1, 8, 1), (1, 4, 0.5), (1, 8, -1), (1, 8, 0), (1, 8, 1), (1, 4, 0.5), (1, 20, 1), (1, 4, 0), (1, 4, 1), (1, 4, 0.5), (1, 8, 1), (1, 4, 0), (1, 40, 1), (1, 4, 0.5), (1, 20, 1), (1, 8, 0.5), (1, 4, 1), (1, 4, 0), (1, 4, 1), (1, 8, -1), (1, 4, -0.5), (1, 56, -1), (1, 4, -0.5), (1, 20, -1), (1, 16, 0), (1, 4, 0.5), (1, 4, 1), (1, 4, 0.5), (1, 4, 1), (1, 4, 0.5), (1, 4, 1), (1, 4, -0.5), (1, 12, -1), (1, 4, -0.5), (1, 4, 0.5)]),
-    -10.0: (3.5, [(1, 4, -1), (1, 4, 0), (1, 4, -0.5), (1, 4, 0.5), (1, 12, 1), (1, 4, 0.5), (1, 28, 1), (1, 4, 0.5), (1, 8, 1), (1, 4, 0.5), (1, 4, 1), (1, 4, 0.5), (1, 24, 1), (1, 4, 0.5), (1, 4, 1), (1, 4, -0.5), (1, 12, -1), (1, 4, 0.5), (1, 8, -0.5), (1, 4, 0.5), (1, 4, -0.5), (1, 32, -1), (1, 4, -0.5), (1, 4, 0.5), (1, 4, 1)]),
+    0.0: (1.5, None),
+    22.5: (3.5, [(1, 56, -1), (1, 4, -0.5), (1, 20, -1), (1, 4, -0.5), (1, 20, -1), (1, 4, -0.5), (1, 8, -1), (1, 12, 0), (1, 4, 1), (1, 4, 0), (1, 12, 1), (1, 4, -0.5), (1, 4, 0), (1, 4, 0.5), (1, 4, -1), (1, 4, 1), (1, 4, -0.5), (1, 8, -1), (1, 4, -0.5)]),
 }
 REPLAY_STEP = 1.0       # ft: the search's own step, so its paths replay exactly
 SEARCH_GOAL = (148.0, 108.4)   # (s, t): on the shop lane east of the shop court, past the building's SE corner
+SEARCH_FINISH = (4.0, 20.0, 25.0)   # ft off the goal, degrees off the lane's line, degrees of bend: then straighten on it
+CROWN_EDGE = 6.0        # ft: how far in under the back-lawn oaks' crowns (lidar tops of 12 ft or more) the boat may go
 
 
 def replay(p: Pose, tr: Truck, k_max: float, program) -> list[Pose]:
@@ -302,8 +305,9 @@ def outline_pts(poly: Polygon, every: float = 1.0) -> np.ndarray:
     return np.array([ring.interpolate(d).coords[0] for d in np.arange(0, ring.length, every)])
 
 
-def search_exit(start: Pose, tr: Truck, k_max: float, walls, trunks, lot: Polygon, margin: float, cap: int = 300000):
-    """The shortest forward way from start onto the shop lane at SEARCH_GOAL, as a program, or None."""
+def search_exit(start: Pose, tr: Truck, k_max: float, walls, trunks, lot: Polygon, crowns, margin: float, cap: int = 400000):
+    """The shortest forward way from start onto the shop lane at SEARCH_GOAL, as a program, or None. crowns: where
+    the boat may not go under the trees."""
     import heapq
 
     import shapely
@@ -312,7 +316,7 @@ def search_exit(start: Pose, tr: Truck, k_max: float, walls, trunks, lot: Polygo
     ss, tt = np.meshgrid(s0 + (np.arange(ns) + 0.5) * res, t0 + (np.arange(nt) + 0.5) * res)
     others = unary_union([Point(q).buffer(2.0) for q in trunks]).buffer(margin)
     grid = (shapely.contains_xy(walls.buffer(0.3 + 1.5), ss.ravel(), tt.ravel()) | shapely.contains_xy(others, ss.ravel(), tt.ravel())
-            | ~shapely.contains_xy(lot.buffer(-margin), ss.ravel(), tt.ravel())).reshape(nt, ns)
+            | shapely.contains_xy(crowns, ss.ravel(), tt.ravel()) | ~shapely.contains_xy(lot.buffer(-margin), ss.ravel(), tt.ravel())).reshape(nt, ns)
     tp_, bp_ = outline_pts(truck_shape(tr)), outline_pts(boat_shape())
 
     def hits(p: Pose) -> bool:
@@ -338,7 +342,8 @@ def search_exit(start: Pose, tr: Truck, k_max: float, walls, trunks, lot: Polygo
         _, g, i = heapq.heappop(openq)
         p = nodes[i][0]
         n_exp += 1
-        if math.hypot(p.x - gx, p.y - gy) < 3.0 and abs(wrap(p.th - g_head)) < math.radians(12) and hitch_deg(p) < 12:
+        if (math.hypot(p.x - gx, p.y - gy) < SEARCH_FINISH[0] and abs(wrap(p.th - g_head)) < math.radians(SEARCH_FINISH[1])
+                and hitch_deg(p) < SEARCH_FINISH[2]):
             prog, j = [], i
             while nodes[j][1] is not None:
                 q, parent, wheel = nodes[j]
@@ -428,7 +433,7 @@ def moves(tr: Truck, k_max: float, A, exit_program) -> list[Phase]:
     lead = [to_st((q.x + k * math.cos(q.th), q.y + k * math.sin(q.th))) for k in (0.0, 6.0)]
     lane_out = ([p for p in SHOP_LANE[::-1][:-1] if p[0] < lead[-1][0] - 8.0] + court[::-1] + SERVICE_DRIVE[4:0:-1]
                 + [(9.0, 94.0), (-3.0, 95.5), (-17.0, 96.5), (-29.0, 101.0), (-33.8, 114.0), (-33.8, 178.0)])
-    lanes_out = drive(q, tr, densify(lead + lane_out, 8), k_max)
+    lanes_out = drive(q, tr, densify(lead + lane_out, 8), k_max) if exit_program else [q]
     return [Phase("in: the street to the shop court", lanes_in, "in"),
             Phase("in: the left turn, lined up on the door", turn, "in"),
             Phase("in: straight back into the bay", back, "back", REVERSE_MARGIN),
@@ -558,21 +563,24 @@ def main(truck: str, radius: float, turn: float, search: bool, margin: float | N
     for t in tr_list:
         if not t["known"]:
             t["name"] = t["name"].replace("lidar treetop", "treetop") + " (trunk?)"
+    can = Canopy(CANOPY)
+    # The back-lawn oaks' crowns, deeper in than CROWN_EDGE, off the drive: where the boat can't go.
+    crowns = unary_union([box(s_ - 1.64, t_ - 1.64, s_ + 1.64, t_ + 1.64) for s_, t_, h, r, c in canopy_in_st(can, to_m, sf)
+                          if h >= 12 and s_ > 135 and t_ < 112]).buffer(0.5).buffer(-0.5)
+    no_go = crowns.buffer(-CROWN_EDGE).difference(unary_union([L["drive"], L["approach"]]).buffer(2.0))
     stored = EXITS.get(turn) if truck == "half" and radius == R_PLAN else None
     if search or stored is None:
-        margin = margin if margin is not None else (stored[0] if stored else 2.5)
-        click.echo(f"Searching for the way out, {margin:g} ft off the trees and lot lines (a few minutes)...")
+        margin = margin if margin is not None else (stored[0] if stored else 3.5)
+        click.echo(f"Searching for the way out, {margin:g} ft off the trees and lot lines (a minute or a few)...")
         probe = moves(tr, k_max, A, [])
         back_trunks = [t["st"] for t in tr_list if 100 < t["st"][0] < 260 and -10 < t["st"][1] < 165]
-        program = search_exit(probe[3].poses[-1], tr, k_max, walls, back_trunks, lot, margin)
-        if program:
-            click.echo("found: " + repr([(d, round(ft), w) for d, ft, w in program]))
+        program = search_exit(probe[3].poses[-1], tr, k_max, walls, back_trunks, lot, no_go, margin)
+        click.echo("found: " + repr([(d, round(ft), w) for d, ft, w in program]) if program else "none found")
     else:
         margin, program = stored
     phases = moves(tr, k_max, A, program)
     for ph in phases:
         ph.swept(tr)
-    can = Canopy(CANOPY)
     cells = [(Point(s_, t_), h) for s_, t_, h, r, c in canopy_in_st(can, to_m, sf) if -45 < s_ < 260 and -10 < t_ < 170]
     gz = lambda s_, t_: ground.natural(*to_m(site([st(s_, t_)])[0])) / FT  # noqa: E731
     cfg = dict(tbl_hide_dataframe_shape=True, tbl_hide_column_data_types=True, tbl_rows=-1, fmt_str_lengths=60, tbl_width_chars=230)
@@ -598,9 +606,9 @@ def main(truck: str, radius: float, turn: float, search: bool, margin: float | N
                           "nearest tree (ft)": f"{near[0]:.1f}: {near[1]}", "septic pipe": round(ph.rig.distance(Point(pipe)), 1),
                           "well": round(ph.rig.distance(Point(well)), 1),
                           "lot line": round(ph.rig.distance(lot.exterior), 1) if lot.contains(ph.rig) else "the street"})
-        crowns = [h for pt, h in cells if ph.boat.contains(pt)]
+        tops = [h for pt, h in cells if ph.boat.contains(pt)]
         room_rows.append({"move": ph.name,
-                          "crowns over the boat": f"{len(crowns) * 10.76:.0f} sq ft, tops {min(crowns):.0f}-{max(crowns):.0f} ft" if crowns else "none",
+                          "crowns over the boat": f"{len(tops) * 10.76:.0f} sq ft, tops {min(tops):.0f}-{max(tops):.0f} ft" if tops else "none",
                           "rig off the planned paving (sq ft)": round(ph.rig.difference(paved).intersection(lot).area),
                           "with the margin (sq ft)": round(ph.slop.difference(paved).intersection(lot).area)})
     click.echo("\nThe moves:")
@@ -636,10 +644,15 @@ def main(truck: str, radius: float, turn: float, search: bool, margin: float | N
     if program:
         lane_line = LineString(catmull_rom(SHOP_LANE))
         q = way.poses[-1]
+        under = way.boat.intersection(crowns).difference(unary_union([L["drive"], L["approach"]]).buffer(2.0))
+        deep = max((crowns.boundary.distance(Point(x, y)) for x in np.arange(under.bounds[0], under.bounds[2], 1.0)
+                    for y in np.arange(under.bounds[1], under.bounds[3], 1.0) if under.contains(Point(x, y))), default=0.0) if not under.is_empty else 0.0
         click.echo(f"Out: the sweep is {sum(ft for _, ft, _ in program):.0f} ft, forward all the way, found keeping {margin:g} ft off the "
-                   f"trunks and lot lines; it ends {lane_line.distance(Point(to_st((q.x, q.y)))):.1f} ft off the shop lane's middle.")
+                   f"trunks and lot lines; it ends {lane_line.distance(Point(to_st((q.x, q.y)))):.1f} ft off the shop lane's middle. "
+                   f"Off the drive, the boat passes under {under.area:.0f} sq ft of the back-lawn oaks' crowns, up to {deep:.0f} ft in from their edge.")
     else:
-        click.echo("Out: no forward sweep onto the shop lane found at that margin.")
+        click.echo(f"Out: no forward way onto the shop lane found {margin:g} ft off the trunks and lot lines, the boat no more than "
+                   f"{CROWN_EDGE:g} ft in under the back-lawn oaks' crowns.")
     lawn_in = unary_union([phases[1].slop, phases[2].slop]).difference(paved).intersection(lot)
     lawn_out = way.slop.difference(paved).intersection(lot)
     click.echo(f"The lawn the moves cross, margins included: {lawn_in.area:,.0f} sq ft in, {lawn_out.area:,.0f} sq ft out, "

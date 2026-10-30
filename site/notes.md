@@ -3144,51 +3144,67 @@ the tables below.
 - **Out, as asked, doesn't fit.**
   - One left sweep from the door can't reach the shop lane: the back-lawn oaks (lidar
     treetops at s 160, t 92 and s 173, t 83) stand inside the circle it needs.
-  - The only all-forward way a search found (A* over the rig's moves) is a ~330 ft
-    figure-eight with 1.5 ft to spare. With 2.5 ft, none.
-  - A three-point turn fits, but only ~1–2 ft off the building's SE corner, where the boat's
-    stern swings as it turns onto the lane.
+  - A search (A* over the rig's moves, forward and back) found ways out, but every one
+    runs the boat deep under those oaks' crowns, up to ~19 ft in from their edge. The only
+    other kind is a three-point turn that passes ~1–2 ft off the building's SE corner.
+- **How the search was set up, after two corrections (Oct 30):**
+  - At first it had to arrive on the lane within 12° and almost straight. That ruled out
+    ways a driver would take, arriving bent and straightening on the lane. It now finishes
+    within 4 ft and 20° of the lane, the trailer within 25°.
+  - With only the trunks as obstacles, it then drove under the middle of the oak crowns,
+    where the lidar marks no trunk but low limbs and more trunks are likely. Now the boat
+    may go only the outer 6 ft in under a crown, limbs an arborist can raise. The drive
+    runs under them as drawn.
+  - The 10° clockwise turn recommended earlier the same day came from the first setup. It
+    doesn't hold.
 - **Turning the building** (each turned about its middle, then moved straight off the line
-  until 10 ft clear of it, the well and the septic pipe):
+  until 10 ft clear of it, the well and the septic pipe). A forward way out, with the boat
+  no more than 6 ft in under the oaks' crowns:
 
   | Turn | Off the line | Well | Septic pipe | In | Out, forward |
   |---|---|---|---|---|---|
-  | 45° clockwise (doors SW) | +6.2 ft | 17.9 ft | 21.4 ft | runs off the lot | blocked: the pull-out crosses the back line |
-  | 30° clockwise | +5.5 | 17.9 | 18.6 | runs off the lot | one sweep, 160 ft |
-  | 20° clockwise | +4.2 | 16.6 | 15.2 | runs off the lot | one sweep, 176 ft |
-  | **10° clockwise** | **+2.5** | **14.6** | **13.1** | **fits: bumper ~100 ft out, 4.5 ft off the back line** | **one sweep, 196 ft, 3.5 ft margin** |
-  | As planned | 0 | 12.3 | 13.4 | fits: ~94 ft | figure-eight, 1.5 ft margin only |
-  | 10° counter-clockwise (doors toward SE) | +2.5 | 10.5 | 16.2 | fits: ~88 ft | none |
-  | 20° counter-clockwise | +4.2 | 11.6 | 18.8 | fits: ~86 ft | none |
-  | 30° counter-clockwise | +5.5 | 14.7 | 20.7 | runs off the lot | none |
-  | 45° counter-clockwise (doors SE) | +6.2 | 17.9 | 21.4 | runs into a back-lawn oak | one sweep, 188 ft |
+  | 10° clockwise (doors toward SW) | +2.5 ft | 14.6 ft | 13.1 ft | fits | none, even 1.5 ft off trunks and lot lines |
+  | As planned | 0 | 12.3 | 13.4 | fits: bumper ~94 ft out | none at 1.5 ft |
+  | 10° counter-clockwise | +2.5 | 10.5 | 16.2 | fits | none at 1.5 ft |
+  | 15–17.5° counter-clockwise | | | | | none at 2.5 ft |
+  | 20° counter-clockwise | +4.2 | 11.6 | 18.8 | fits | 2.5 ft margin, not 3 |
+  | 21.25° counter-clockwise | | | | | none at 3 ft |
+  | **22.5° counter-clockwise (doors toward SSE)** | **+4.8** | **12.4** | **19.4** | **fits: bumper ~85 ft out** | **184 ft, 3.5 ft margin, not 4** |
+  | 23.75° counter-clockwise | | | | | 3 ft margin |
+  | 25° counter-clockwise | | | | | none at 2.5 ft |
+  | 30° and 45° counter-clockwise | +5.5, +6.2 | | | | blocked: the pull-out runs into the crowns |
 
-  - The sweeps at 20°, 30° and 45° were found at the 1.5 ft margin; 10° clockwise holds at
-    2.5 and 3.5 ft too.
+  - Without the crown limit, every angle from 10° clockwise to 10° counter-clockwise
+    finds a forward way with 7.5 ft to spare, by driving under the crowns' middles. Those
+    paths are 350–420 ft of loops, not a driver's line.
   - The fence line binds at every angle, not the well.
-  - The cost hardly moves: $81.5–82.8k all in (`shed_cost.py` on each footprint, the slab at
-    its cheapest level). The turned ones sit a little lower and dig a little less.
-- **So turn it 10° clockwise** (the doors toward the SW and the open lawn) and move it
-  2.5 ft off the fence, if that looks right to the family.
-  - **In:** as before, with the bumper ~100 ft out, then 82 ft back.
-  - **Out, 196 ft, all forward:**
-    - pull out ~31 ft until the stern clears the door by 3.5 ft;
-    - steer a touch right, toward the back fence;
-    - hold a long left loop round the open lawn;
-    - come up past the back-lawn oaks' west side (~7 ft from the nearer treetop) onto the
-      shop court, and right onto the lane.
+- **So turn it 22.5° counter-clockwise** (the doors toward the SSE) and move it 4.8 ft off
+  the fence, if that looks right to the family. The owner's own guess was
+  counter-clockwise.
+  - **The cost** is ~$1k less ($81.7k vs. $82.8k, each slab at its cheapest level). At
+    19.4 ft from the septic pipe, the short block wall there mostly goes.
+  - **In:** across the court, a left onto the door's line, and the bumper ~85 ft out when
+    the boat hangs straight. Then 67 ft straight back.
+  - **Out, 184 ft, all forward, 3.5 ft off the trunks and lot lines:**
+    - pull straight out;
+    - hold the wheel right for one big clockwise loop round the open west lawn, past the
+      old shed spot and round the trampoline in the aerial;
+    - come straight back east across the front of the building onto the shop lane.
 
-    The trailer bends at most 53°.
-  - `uv run tools/tow_plan.py --turn -10` draws it (`site/tow-backyard-turn-10.png`).
+    Off the drive, the boat passes under only ~40 sq ft of crown, ≤5 ft in from the edge,
+    against ~340–460 sq ft and up to ~19 ft in at the other angles.
+  - `uv run tools/tow_plan.py --turn 22.5` draws it (`site/tow-backyard-turn+22.5.png`).
+  - **The window is narrow:** 20–24°. Tape the back-lawn oaks' trunks and crown edges
+    before the slab is staked, then rerun with `--search`.
 - **Either way:**
-  - **Limbs:** the boat stands ~9.5 ft with its tower folded. It passes under the back-lawn
-    oaks' west edge (~670 sq ft of crown, lidar tops 8–26 ft) and the crowns over the shop
-    lane. Raise them to ~11 ft over the paths, July–January only (oak wilt).
+  - **Limbs:** the boat stands ~9.5 ft with its tower folded. It passes under the crowns
+    over the shop lane and the court, and the back-lawn oaks' outer edges. Raise them to
+    ~11 ft over the paths, July–January only (oak wilt).
   - **Trunks:** tape the back-lawn oaks' trunks. The lidar gives treetops, which can sit
     several feet off a leaning trunk.
-  - **The lawn:** the moves cross ~3,800 sq ft with their margins (~5,300 as planned). Grass
-    takes an occasional trip in dry weather and ruts when it's wet. Grass pavers or gravel
-    where it's used often.
+  - **The lawn:** turned 22.5°, the moves cross ~3,200 sq ft with their margins. Grass takes
+    an occasional trip in dry weather and ruts when it's wet. Grass pavers or gravel where
+    it's used often.
   - **The aerial is old:** the trampoline in it sits on the sweep. If it's still there, it
     moves.
   - **The ground** is ~7% at most under the paths (2017 lidar).

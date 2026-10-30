@@ -1399,14 +1399,28 @@ details li b { font-weight: 600; }
       }
       if (m !== "look" && retarget) canvas.focus({ preventScroll: true });   // not on page load: no focus ring before a click
     } else {
-      if (mode !== "orbit" && retarget) controls.target.copy(camera.position).addScaledVector(dir, 60);  // orbit what you were facing
+      if (FOCUS) orbitCenter();   // the close-up turns round the building's middle, from wherever you were
+      else if (mode !== "orbit" && retarget) controls.target.copy(camera.position).addScaledVector(dir, 60);  // orbit what you were facing
       camera.fov = 42; camera.near = 0.5; camera.updateProjectionMatrix();
       controls.enabled = true; controls.update();
     }
     mode = m; hint.textContent = HINTS[m];
     if (m === "fly" || m === "walk") { vy = 0; if (retarget) lockMouse(); } else if (document.pointerLockElement === canvas) document.exitPointerLock();
-    showLock();
+    showLock(); updateEye();
     document.querySelectorAll("button.mode").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.mode === m)));
+  }
+  // The close-up's orbit center: the building's middle, halfway up its walls (owner, Oct 30 2026). From closer in
+  // than ORBIT_MIN (inside it, say), step back from the way you were facing, and up, so the building is in view.
+  const ORBIT_MIN = 14;   // m: the whole building in the frame (half its diagonal is ~6.5 m)
+  function orbitCenter() {
+    const c = worldOf(FOCUS.center), off = camera.position.clone().sub(c);
+    if (off.length() < ORBIT_MIN) {
+      camera.getWorldDirection(off).negate(); off.y = 0;
+      if (off.lengthSq() < 1e-6) off.set(0, 0, 1);
+      off.setLength(ORBIT_MIN * 0.92); off.y = ORBIT_MIN * 0.4;
+      camera.position.copy(c).add(off);
+    }
+    controls.target.copy(c);
   }
   function applyLook() {
     look.pitch = THREE.MathUtils.clamp(look.pitch, -1.48, 1.48);
@@ -1701,7 +1715,7 @@ details li b { font-weight: 600; }
     if (items[s.selected]) select(s.selected);
     // The camera, then the mode: free-look modes take their heading from it; walking settles onto the floor below.
     camera.position.fromArray(s.pos); controls.target.fromArray(s.target); camera.quaternion.fromArray(s.quat);
-    setMode(s.mode, false);
+    setMode(s.mode, false);   // the close-up's orbit goes back round the building's middle (orbitCenter)
     if (Number.isFinite(s.fov)) { camera.fov = clamp(s.fov, 12, 75); camera.updateProjectionMatrix(); }
     document.querySelectorAll("button.view").forEach(btn => btn.setAttribute("aria-pressed", String(btn.dataset.view === s.view)));
     updateEye();

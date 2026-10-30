@@ -937,16 +937,18 @@ def main(spec: Path, out: Path | None, focus: bool) -> None:
         # and the back-yard poles are outside the box.
         at = lambda x, y, h: [round(c, 2) for c in (*a_pt(x, y), ground(*a_pt(x, y)) + h * FT)]  # noqa: E731
         mid = at(a_len / 2, a_wid / 2, 0)
+        # Orbiting always turns round the middle of the building, halfway up its walls (owner, Oct 30 2026).
+        center = [round(c, 2) for c in (*a_pt(a_len / 2, a_wid / 2), a_top + A_EAVE / 2 * FT)]
         tag = lambda p, h=7.0: [round(c, 2) for c in (*p, ground(*p) + h * FT)]  # noqa: E731
         shed = {"title": "Building A close up",
                 "sub": "The shed at site A on its dug-in slab, and the ground ~30 ft round it (2017 lidar, 1 m).",
-                "key": "candelaria-shed-3d:view:v1", "fly_m_s": 4.0,
+                "key": "candelaria-shed-3d:view:v1", "fly_m_s": 4.0, "center": center,
                 "views": [
                     {"id": "top", "label": "Overhead", "eye": [mid[0] - 0.05, mid[1], mid[2] + 130 * FT], "at": mid, "exag": 1, "mode": "fly"},
-                    {"id": "oblique", "label": "From the SE", "eye": at(a_len + 40, -45, 60), "at": at(a_len / 2, a_wid / 2, 2), "mode": "orbit"},
+                    {"id": "oblique", "label": "From the SE", "eye": at(a_len + 40, -45, 60), "at": center, "mode": "orbit"},
                     {"id": "doors", "label": "At the doors", "eye": at(a_len / 2, -28, 5.5), "at": at(a_len / 2, a_wid, 5.5), "exag": 1, "mode": "look"},
-                    {"id": "cut", "label": "The cut, from the east", "eye": at(a_len + 24, 2, 9), "at": at(a_len, a_wid - 4, 0), "mode": "orbit"},
-                    {"id": "west", "label": "From the well", "eye": at(-30, a_wid + 12, 18), "at": at(a_len / 2, a_wid / 3, 0), "mode": "orbit"},
+                    {"id": "cut", "label": "The cut, from the east", "eye": at(a_len + 36, a_wid + 14, 24), "at": center, "mode": "orbit"},
+                    {"id": "west", "label": "From the well", "eye": at(-30, a_wid + 12, 18), "at": center, "mode": "orbit"},
                 ],
                 "tags": [["Meter pole: the power", tag((22.6, -1.0), 22.0)],   # electric_meter_pole in the spec
                          ["Well", tag(to_m(well))], ["Septic access pipe (tank?)", tag(to_m(pipe))],

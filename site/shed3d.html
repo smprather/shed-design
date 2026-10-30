@@ -24590,7 +24590,7 @@ l 19414 19415 19416 19417 19418 19419 19420
   const BLDG_A = {"id": "building_A_30x30_eave_14ft_assumed", "origin": [18.534, -12.341], "ux": [-0.987044, 0.160449], "uy": [-0.160449, -0.987044], "slab_m": 0.532, "drop_ft": 0.3, "length_ft": 30.0, "width_ft": 30.0, "eave_ft": 14.0, "pitch": 0.25, "door_wall": "end", "colors": {"wall": "#5b2226", "roof": "#3a3c40", "trim": "#1d1d1f", "wainscot": "#1d1d1f", "wainscot_ft": 2.5, "door": "#d9d6c1"}, "doors": [{"center_ft": 7.5, "width_ft": 12.0, "height_ft": 12.0}, {"center_ft": 23.75, "width_ft": 10.0, "height_ft": 8.0}], "walk_doors": [{"center_ft": 16.125, "width_ft": 3.0, "height_ft": 7.0, "hinge": "west"}], "own_aprons": true, "mower": {"x_ft": 21.999999999999993, "y_ft": 23.75}, "boat": {"x_ft": 7.5, "transom_y_ft": 27.5, "hull_ft": 20.5, "platform_ft": 1.5, "beam_ft": 8.5, "tongue_ft": 5.0}};   // building A on site A, the same way (no mower)
   // The close-up page (plan3d.py --focus): building A and the ground round it, with its own views, labels and stored
   // view; null on the whole-site page.
-  const FOCUS = {"title": "Building A close up", "sub": "The shed at site A on its dug-in slab, and the ground ~30 ft round it (2017 lidar, 1 m).", "key": "candelaria-shed-3d:view:v1", "fly_m_s": 4.0, "views": [{"id": "top", "label": "Overhead", "eye": [13.239999999999998, -16.12, 40.104], "at": [13.29, -16.12, 0.48], "exag": 1, "mode": "fly"}, {"id": "oblique", "label": "From the SE", "eye": [-7.45, -29.73, 18.71], "at": [13.29, -16.12, 1.09], "mode": "orbit"}, {"id": "doors", "label": "At the doors", "eye": [0.35, -14.02, 1.96], "at": [17.8, -16.85, 2.21], "exag": 1, "mode": "look"}, {"id": "cut", "label": "The cut, from the east", "eye": [7.47, -27.22, 3.62], "at": [15.86, -21.17, 0.53], "mode": "orbit"}, {"id": "west", "label": "From the well", "eye": [23.61, -3.9, 6.15], "at": [11.78, -15.88, 0.48], "mode": "orbit"}], "tags": [["Meter pole: the power", [22.6, -1.0, 7.27]], ["Well", [18.54, -8.53, 2.78]], ["Septic access pipe (tank?)", [17.02, -25.45, 3.64]], ["US-290 \u2192", [21.71, -17.49, 4.99]]]};
+  const FOCUS = {"title": "Building A close up", "sub": "The shed at site A on its dug-in slab, and the ground ~30 ft round it (2017 lidar, 1 m).", "key": "candelaria-shed-3d:view:v1", "fly_m_s": 4.0, "center": [13.29, -16.12, 2.82], "views": [{"id": "top", "label": "Overhead", "eye": [13.239999999999998, -16.12, 40.104], "at": [13.29, -16.12, 0.48], "exag": 1, "mode": "fly"}, {"id": "oblique", "label": "From the SE", "eye": [-7.45, -29.73, 18.71], "at": [13.29, -16.12, 2.82], "mode": "orbit"}, {"id": "doors", "label": "At the doors", "eye": [0.35, -14.02, 1.96], "at": [17.8, -16.85, 2.21], "exag": 1, "mode": "look"}, {"id": "cut", "label": "The cut, from the east", "eye": [19.52, -32.88, 9.32], "at": [13.29, -16.12, 2.82], "mode": "orbit"}, {"id": "west", "label": "From the well", "eye": [23.61, -3.9, 6.15], "at": [13.29, -16.12, 2.82], "mode": "orbit"}], "tags": [["Meter pole: the power", [22.6, -1.0, 7.27]], ["Well", [18.54, -8.53, 2.78]], ["Septic access pipe (tank?)", [17.02, -25.45, 3.64]], ["US-290 \u2192", [21.71, -17.49, 4.99]]]};
   const HOUSE = null;   // the house, a first pass (plan3d.py, tools/house_layout.py)
   const solids = [], walkables = [];   // for walking: what stops you, and what you can stand on
   const POLES = [];   // range poles straight back from the back-yard eye (plan3d.py)
@@ -25561,14 +25561,28 @@ l 19414 19415 19416 19417 19418 19419 19420
       }
       if (m !== "look" && retarget) canvas.focus({ preventScroll: true });   // not on page load: no focus ring before a click
     } else {
-      if (mode !== "orbit" && retarget) controls.target.copy(camera.position).addScaledVector(dir, 60);  // orbit what you were facing
+      if (FOCUS) orbitCenter();   // the close-up turns round the building's middle, from wherever you were
+      else if (mode !== "orbit" && retarget) controls.target.copy(camera.position).addScaledVector(dir, 60);  // orbit what you were facing
       camera.fov = 42; camera.near = 0.5; camera.updateProjectionMatrix();
       controls.enabled = true; controls.update();
     }
     mode = m; hint.textContent = HINTS[m];
     if (m === "fly" || m === "walk") { vy = 0; if (retarget) lockMouse(); } else if (document.pointerLockElement === canvas) document.exitPointerLock();
-    showLock();
+    showLock(); updateEye();
     document.querySelectorAll("button.mode").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.mode === m)));
+  }
+  // The close-up's orbit center: the building's middle, halfway up its walls (owner, Oct 30 2026). From closer in
+  // than ORBIT_MIN (inside it, say), step back from the way you were facing, and up, so the building is in view.
+  const ORBIT_MIN = 14;   // m: the whole building in the frame (half its diagonal is ~6.5 m)
+  function orbitCenter() {
+    const c = worldOf(FOCUS.center), off = camera.position.clone().sub(c);
+    if (off.length() < ORBIT_MIN) {
+      camera.getWorldDirection(off).negate(); off.y = 0;
+      if (off.lengthSq() < 1e-6) off.set(0, 0, 1);
+      off.setLength(ORBIT_MIN * 0.92); off.y = ORBIT_MIN * 0.4;
+      camera.position.copy(c).add(off);
+    }
+    controls.target.copy(c);
   }
   function applyLook() {
     look.pitch = THREE.MathUtils.clamp(look.pitch, -1.48, 1.48);
@@ -25863,7 +25877,7 @@ l 19414 19415 19416 19417 19418 19419 19420
     if (items[s.selected]) select(s.selected);
     // The camera, then the mode: free-look modes take their heading from it; walking settles onto the floor below.
     camera.position.fromArray(s.pos); controls.target.fromArray(s.target); camera.quaternion.fromArray(s.quat);
-    setMode(s.mode, false);
+    setMode(s.mode, false);   // the close-up's orbit goes back round the building's middle (orbitCenter)
     if (Number.isFinite(s.fov)) { camera.fov = clamp(s.fov, 12, 75); camera.updateProjectionMatrix(); }
     document.querySelectorAll("button.view").forEach(btn => btn.setAttribute("aria-pressed", String(btn.dataset.view === s.view)));
     updateEye();

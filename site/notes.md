@@ -3110,6 +3110,117 @@ the tables below.
   - [Austin Block Company gallery](https://austinblockcompany.com/gallery/)
   - [Fine Homebuilding: Hillside Haven](https://www.finehomebuilding.com/2026/07/21/hillside-haven)
 
+### Towing the boat in and out (owner's question, Oct 30 2026; `tools/tow_plan.py`)
+
+- **The ask:**
+  - In: from the street into the back yard, a left turn (no jackknife) that lines the boat up
+    on the garage door, then straight back in.
+  - Out: a sweeping left turn out to the street.
+  - Assume a reasonably good driver, not a computer: leave human margin.
+- **The rig (assumed; the truck isn't known):**
+  - A half-ton crew cab with a 5.5 ft bed: an F-150 SuperCrew, 145 in wheelbase, 47.8 ft
+    curb-to-curb turning circle, the ball 4.6 ft behind the rear axle.
+  - The 3D plan's 22 ft wake boat on its tandem trailer: 8.5 ft beam, 27 ft from the coupler
+    to the swim platform, the axles' middle 16.2 ft behind the coupler.
+  - 47 ft from bumper to stern.
+  - At full lock the rear axle turns on a ~17.4 ft radius; the moves are planned at 22 ft
+    (~3/4 lock).
+  - The boat's bow meets the tailgate at ~74° between truck and trailer.
+- **The human margin in the model:**
+  - the wheel winds on and off over 8 ft of travel;
+  - the driver steers by eye down a path, so the rig cuts and drifts;
+  - 2 ft of slop each side going forward, 1.5 ft backing;
+  - "lined up" means within 3° and 0.75 ft of the door's line, with the trailer within 6° of
+    the truck; then 5 ft more before stopping;
+  - the way out keeps a margin off trunks and lot lines: 1.5 ft is a computer's line,
+    3.5 ft a person's.
+- **In, as planned: it works.**
+  - The rig leaves the shop lane's end across the shop court and turns ~45° left onto the
+    boat door's line.
+  - It pulls on until the boat hangs straight: the truck's bumper ~94 ft out from the door,
+    near the south trees.
+  - Then it backs 76 ft straight in. The 12 ft door leaves 1.75 ft each side of the boat.
+  - The trailer bends at most 29°.
+- **Out, as asked, doesn't fit.**
+  - One left sweep from the door can't reach the shop lane: the back-lawn oaks (lidar
+    treetops at s 160, t 92 and s 173, t 83) stand inside the circle it needs.
+  - The only all-forward way a search found (A* over the rig's moves) is a ~330 ft
+    figure-eight with 1.5 ft to spare. With 2.5 ft, none.
+  - A three-point turn fits, but only ~1–2 ft off the building's SE corner, where the boat's
+    stern swings as it turns onto the lane.
+- **Turning the building** (each turned about its middle, then moved straight off the line
+  until 10 ft clear of it, the well and the septic pipe):
+
+  | Turn | Off the line | Well | Septic pipe | In | Out, forward |
+  |---|---|---|---|---|---|
+  | 45° clockwise (doors SW) | +6.2 ft | 17.9 ft | 21.4 ft | runs off the lot | blocked: the pull-out crosses the back line |
+  | 30° clockwise | +5.5 | 17.9 | 18.6 | runs off the lot | one sweep, 160 ft |
+  | 20° clockwise | +4.2 | 16.6 | 15.2 | runs off the lot | one sweep, 176 ft |
+  | **10° clockwise** | **+2.5** | **14.6** | **13.1** | **fits: bumper ~100 ft out, 4.5 ft off the back line** | **one sweep, 196 ft, 3.5 ft margin** |
+  | As planned | 0 | 12.3 | 13.4 | fits: ~94 ft | figure-eight, 1.5 ft margin only |
+  | 10° counter-clockwise (doors toward SE) | +2.5 | 10.5 | 16.2 | fits: ~88 ft | none |
+  | 20° counter-clockwise | +4.2 | 11.6 | 18.8 | fits: ~86 ft | none |
+  | 30° counter-clockwise | +5.5 | 14.7 | 20.7 | runs off the lot | none |
+  | 45° counter-clockwise (doors SE) | +6.2 | 17.9 | 21.4 | runs into a back-lawn oak | one sweep, 188 ft |
+
+  - The sweeps at 20°, 30° and 45° were found at the 1.5 ft margin; 10° clockwise holds at
+    2.5 and 3.5 ft too.
+  - The fence line binds at every angle, not the well.
+  - The cost hardly moves: $81.5–82.8k all in (`shed_cost.py` on each footprint, the slab at
+    its cheapest level). The turned ones sit a little lower and dig a little less.
+- **So turn it 10° clockwise** (the doors toward the SW and the open lawn) and move it
+  2.5 ft off the fence, if that looks right to the family.
+  - **In:** as before, with the bumper ~100 ft out, then 82 ft back.
+  - **Out, 196 ft, all forward:**
+    - pull out ~31 ft until the stern clears the door by 3.5 ft;
+    - steer a touch right, toward the back fence;
+    - hold a long left loop round the open lawn;
+    - come up past the back-lawn oaks' west side (~7 ft from the nearer treetop) onto the
+      shop court, and right onto the lane.
+
+    The trailer bends at most 53°.
+  - `uv run tools/tow_plan.py --turn -10` draws it (`site/tow-backyard-turn-10.png`).
+- **Either way:**
+  - **Limbs:** the boat stands ~9.5 ft with its tower folded. It passes under the back-lawn
+    oaks' west edge (~670 sq ft of crown, lidar tops 8–26 ft) and the crowns over the shop
+    lane. Raise them to ~11 ft over the paths, July–January only (oak wilt).
+  - **Trunks:** tape the back-lawn oaks' trunks. The lidar gives treetops, which can sit
+    several feet off a leaning trunk.
+  - **The lawn:** the moves cross ~3,800 sq ft with their margins (~5,300 as planned). Grass
+    takes an occasional trip in dry weather and ruts when it's wet. Grass pavers or gravel
+    where it's used often.
+  - **The aerial is old:** the trampoline in it sits on the sweep. If it's still there, it
+    moves.
+  - **The ground** is ~7% at most under the paths (2017 lidar).
+- **The front of the drive** (deferred; for when it's built):
+  - The rig fits the drive as drawn, with small run-offs at the curves: 15–55 sq ft patches
+    at the north entrance, the service drive's curl and the shop lane's west curve.
+  - Turning north onto Candelaria, the truck's nose reaches past the far edge of the asphalt
+    (~170 sq ft).
+  - For a boat, give the curves ~1–2 ft more width and the north entrance a bigger flare.
+- **The well and digging near it:**
+  - Texas's distances (16 TAC §76.100) are for siting new wells: 50 ft from watertight sewage
+    facilities, 100 ft from an absorption field, and 50 ft from a property line, with
+    exceptions.
+  - The septic rules (30 TAC §285.91) keep a tank 50 ft and a drainfield 100 ft from a well.
+  - Nothing statewide limits digging near an existing well. Our 10 ft ring is our own. In it:
+    - keep the excavator off the casing;
+    - don't pile fill against it;
+    - grade away from it;
+    - keep a way in for a pump truck if it's in use.
+  - If it's the old, unused well (the rusty casing), Texas makes the landowner plug it.
+    TDLR's rules apply: a licensed driller or pump installer does it, or the owner after
+    notice, with a plugging report. Once it's plugged, the ring goes.
+  - Ask the local groundwater district too.
+- **Sources:**
+  - [Ford F-150 XL SuperCrew 5.5 ft box specs (145 in wheelbase, 47.8 ft turning diameter)](https://autoblog.com/buy/2022-Ford-F_150-XL__4x4_SuperCrew_Cab_5.5_ft._box_145_in._WB/specs/)
+  - [iSeeCars: 2025 F-150 specs](https://www.iseecars.com/car/2025-ford-f__150-specs)
+  - [16 TAC §76.100 (vLex)](https://regulations.vlex.com/vid/16-tex-admin-code-956221277)
+  - [City of Austin: TDLR well rules](https://austintexas.gov/node/18579)
+  - [InspectAPedia: Texas septic clearances](https://inspectapedia.com/septic/Texas-Septic-Clearance-Distances-Codes.php)
+  - [TDLR: abandoned wells](https://www.tdlr.texas.gov/wwd/abandonedwells.htm)
+  - [TCEQ RG-347: a landowner's guide to plugging abandoned wells](https://www.tceq.texas.gov/downloads/publications/rg/landowners-guide-to-plugging-abandoned-water-wells-rg-347.pdf)
+
 ### Windows and doors
 
 - Traffic noise is heavy in low frequencies. Compare windows by **OITC** (made for traffic

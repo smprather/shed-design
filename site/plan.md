@@ -5,7 +5,7 @@ sources, corrections and dates. This file says what we're doing, in what order, 
 still undecided. Update it when a decision changes; record the facts behind the change in
 `notes.md`.
 
-Last updated: Oct 28 2026 (building A's front face: the doors in the south gable end, a 12 × 12 for a boat and a 10 × 8, burgundy with black trim; on 14 ft legs and a slab dug into its high side, with power and closed-cell foam insulation: ~$83k all in, $51k of it the building on its slab; it comes first, and the drive much later).
+Last updated: Oct 30 2026 (towing a boat in and out of building A: the back-in fits; a sweeping exit needs the building turned 10° clockwise and 2.5 ft off the fence, at the same cost. Oct 28: the doors in the south gable end, a 12 × 12 for a boat and a 10 × 8, burgundy with black trim; on 14 ft legs and a slab dug into its high side, with power and closed-cell foam insulation: ~$83k all in, $51k of it the building on its slab; it comes first, and the drive much later).
 
 ## The four projects
 
@@ -139,6 +139,27 @@ so the building is ready for one.
   passes the twin oak's root zone, and the lawn ruts when it's wet. The shop lane
   (project 4) is the boat's road. Until it's built, the boat bay is a selling point more
   than a working one.
+- **Towing it in and out** (Oct 30 2026; `tow-backyard.png`, `tools/tow_plan.py`). The model
+  assumes a half-ton crew cab and the 22 ft boat, 47 ft bumper to stern, driven by a
+  reasonably good driver, with margins for that:
+  - **In works as planned.** The rig crosses the shop court, turns left onto the boat door's
+    line and pulls on until the boat hangs straight, with the truck's bumper ~94 ft out from
+    the door. Then it backs ~76 ft straight in.
+  - **Out doesn't, as one sweeping left.** The back-lawn oaks stand inside the circle it
+    needs. The only all-forward way onto the shop lane is a ~330 ft figure-eight, with
+    1.5 ft to spare.
+  - **Turned 10° clockwise and 2.5 ft further off the fence** (the doors toward the SW and
+    the open lawn), the way out is one sweep. It goes a touch right, then a long left loop
+    round the lawn, up past the oaks onto the lane. That's 196 ft, with 3.5 ft to spare, and
+    the back-in still fits.
+    - The cost is the same, within ~$1k.
+    - It ends 14.6 ft from the well and 13.1 ft from the septic pipe.
+    - Turning the doors toward the SE, or a full 45° either way, makes it worse.
+  - **Either way the boat needs:**
+    - the back-lawn oaks' limbs raised to ~11 ft over its path (July–January);
+    - their trunks taped;
+    - ~3,800 sq ft of lawn that takes the turns, worth grass pavers or gravel if it's used
+      often.
 
 **All the doors face south, in the gable end** (owner, Oct 18 and 28 2026), well away from
 the septic pipe. As in the owner's front face (Wolf Steel's configurator, Oct 28):
@@ -282,6 +303,8 @@ Tube frame, dealer-installed (owner, Oct 18 2026: red-iron is out).
   - the roof's color;
   - foam and its barrier, or fiberglass blanket (~$11k);
   - concrete or gravel aprons;
+  - the building's angle: as planned, or turned 10° clockwise and 2.5 ft south, so a boat can
+    sweep out (above; the owner is checking with the family);
   - the strip behind the north wall: rock it (recommended, ~$1–2k placed, vs. ~$0.2k of
     seed in the budget), or terrace it behind a low limestone boulder wall (~$3–5k more);
   - insulated doors and a mini-split, now or later;

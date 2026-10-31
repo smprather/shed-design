@@ -14,7 +14,7 @@ The DEM here is from Feb 2017, before the retail and apartment sites were graded
 
 Run: uv run tools/fetch_terrain.py
 The 1 m patch round building A (blended into this grid by plan3d.Terrain):
-     uv run tools/fetch_terrain.py --x -7 29 --y -36 4 --spacing 1 --out site/terrain-lidar-shed.json
+     uv run tools/fetch_terrain.py --x -16 32 --y -46 8 --spacing 1 --out site/terrain-lidar-shed.json
 """
 
 import io

@@ -2897,7 +2897,8 @@ the tables below.
   (`uv run tools/plan3d.py --focus` writes `site/shed3d.obj` and `site/shed3d.html`).
   - **The box:** 30 ft out from the south and east walls, and 40 ft on the west so the
     meter pole is in. On the north it runs 15 ft, to 5 ft past the surveyed line. It's cut
-    off 0.5 m past the back line.
+    off 0.5 m past the back line. (Widened Oct 31 to take in the lot's NW corner; see
+    "The close-up out to the NW corner".)
   - Everything else is cropped to it: the terrain, the fences, the keep-outs, the drive's
     future court, the planted trees and the existing canopy.
   - **Its views:** overhead, from the SE, at the doors (eye level), the cut from the east,
@@ -3323,6 +3324,24 @@ the tables below.
     highly skilled driver.
   - But the 30 ft bay and 12 ft door take only camper vans and short Class Cs (≤ ~28 ft,
     ≤ ~11.5 ft tall). A Class A or a fifth wheel needs ~40–45 ft and a 14 ft door.
+
+### The close-up out to the NW corner (owner's ask, Oct 31 2026)
+
+- **The owner's ask:** see the lot's NW corner, where the US-290 fence and the back fence
+  meet, and more grid lines on the ground so its shape reads.
+- **The box** (`FOCUS_BOX` in `plan3d.py`) is now square to the back line: ~40 ft round the
+  building on the south and east, and out to ~14 ft past the NW corner along US-290 and
+  ~16 ft past the back line (131 × 154 ft).
+  - The 1 m lidar patch was refetched to cover it (`site/terrain-lidar-shed.json`, now
+    49 × 55 nodes). Where the old and new patches overlap they agree within 0.1 ft, so the
+    costs, the tow maps and the building's levels don't change.
+  - The ground is drawn on 0.2 m squares round the cut and 0.5 m elsewhere.
+- **The ground's shape:**
+  - a grid every 2 ft, heavier every 10 ft (it was 5 ft);
+  - contours every 1 ft, darker every 5 ft, cut included and left off under the slab
+    (layers "Contours, every 1 ft" and "every 5 ft"; 2017 lidar, ±0.5 ft).
+- **New view "The NW corner":** at eye height inside the lot, looking along both fences to
+  where they meet.
 
 ### Windows and doors
 

@@ -1,6 +1,6 @@
 # /// script
 # requires-python = ">=3.11"
-# dependencies = ["rich-click", "polars", "pillow", "numpy", "shapely"]
+# dependencies = ["rich-click", "polars", "pillow", "numpy", "shapely", "contourpy"]
 # ///
 """3D model of property_total_plan.jsonc on the surveyed lot and the lidar terrain, plus septic checks.
 
@@ -44,10 +44,13 @@ TERRAIN_FINE = REPO / "site" / "terrain-lidar-shed.json"   # fetch_terrain.py: t
 FEATHER = 3.0  # m: the fine patch blends into the 5 m grid over this much of its edge, so the two meet without a seam
 DUG = 0.03     # m: ground cut deeper than this below the lidar's is drawn as the excavation
 FOCUS_MESH = 0.2   # m: the close-up's ground squares round the cut (the whole site's are 0.5 m)
+FOCUS_MESH_FAR = 0.5   # m: the close-up's ground squares elsewhere
+CONTOUR_FT = 1.0   # ft: the close-up's ground contours, every 5th drawn heavier
 SHED_OUT = REPO / "site" / "shed3d.obj"   # --focus: building A close up
 # --focus: the box drawn round building A, in its frame (ft): 30 ft out from the west, south and east walls (40 on the
 # west, to take in the meter pole), and 15 ft north, 5 ft past the surveyed line; cut off 0.5 m past the back line.
-SHED_BOX = (-40.0, -30.0, 30.0, 15.0)   # ft past the west wall, south wall, east wall, north wall
+FOCUS_BOX = (-12.0, -42.0, 28.0, 5.0)   # plan m (x0, y0, x1, y1): the close-up, from ~40 ft round building A to past the
+                                        # lot's NW corner (23.6, 0) and ~16 ft past the back line, inside the 1 m lidar patch
 CANOPY = REPO / "site" / "canopy-lidar.json"  # tools/fetch_canopy.py; optional
 OUT = REPO / "site" / "plan3d.obj"
 VIEWER = REPO / "tools" / "plan3d_viewer.html"  # template; site/plan3d.html is built from it
@@ -332,8 +335,9 @@ class Obj:
             self.prism([(p[0] - nx, p[1] - ny), (q[0] - nx, q[1] - ny), (q[0] + nx, q[1] + ny), (p[0] + nx, p[1] + ny)],
                        z, z + height)
 
-    def terrain(self, fine: float = 0.5) -> None:
-        """The ground: one quad per lidar cell. In the cells a cut or the fine patch touches, ~`fine` m squares, clipped
+    def terrain(self, fine: float = 0.5, far: float | None = None) -> None:
+        """The ground: one quad per lidar cell. In the cells a cut touches, ~`fine` m squares (`far` m in the others the
+        fine patch touches, if given), clipped
         at the cut's outline so the ground steps down there cleanly (a retaining wall stands on that line); and with a
         clip, cut off at its outline. The dug ground (more than DUG m below the lidar's) goes in its own object after it,
         terrain_excavation, so the viewer can show the cut."""
@@ -353,7 +357,8 @@ class Obj:
                 if not (near or in_fine or edge):
                     self.face([(x0, y0, g.z[j][i]), (x1, y0, g.z[j][i + 1]), (x1, y1, g.z[j + 1][i + 1]), (x0, y1, g.z[j + 1][i])])
                     continue
-                nx, ny = math.ceil((x1 - x0) / fine), math.ceil((y1 - y0) / fine)
+                res = fine if near or far is None else far
+                nx, ny = math.ceil((x1 - x0) / res), math.ceil((y1 - y0) / res)
                 for b in range(ny):
                     for a in range(nx):
                         sq = sbox(x0 + (x1 - x0) * a / nx, y0 + (y1 - y0) * b / ny, x0 + (x1 - x0) * (a + 1) / nx, y0 + (y1 - y0) * (b + 1) / ny)
@@ -402,6 +407,29 @@ class Obj:
                 pending = None
             out.append(line)
         path.write_text(header + "\n".join(out) + "\n")
+
+
+def contours(obj: "Obj", ground: Terrain, box: list[Pt], skip: list[Pt], step: float = 0.25) -> None:
+    """The ground's contours every CONTOUR_FT ft of elevation (every fifth in its own, heavier object), cuts included,
+    sampled every `step` m over the box (plan m) and left out under `skip` (the slab)."""
+    import contourpy
+    from shapely import contains_xy
+    from shapely.geometry import Polygon as SPolygon
+    xs = np.arange(min(p[0] for p in box), max(p[0] for p in box) + step / 2, step)
+    ys = np.arange(min(p[1] for p in box), max(p[1] for p in box) + step / 2, step)
+    gx, gy = np.meshgrid(xs, ys)
+    z = np.array([[ground(x, y) / FT + ground.z0 for x in xs] for y in ys])   # elevation, ft
+    z = np.ma.masked_where(contains_xy(SPolygon(skip), gx, gy), z)
+    gen = contourpy.contour_generator(xs, ys, z)
+    lo, hi = math.ceil(float(z.min()) / CONTOUR_FT), math.floor(float(z.max()) / CONTOUR_FT)
+    for name, keep in (("ground_contours_1ft", lambda k: k % 5), ("ground_contours_5ft", lambda k: not k % 5)):
+        obj.obj(name)
+        for k in range(lo, hi + 1):
+            if not keep(k):
+                continue
+            level = k * CONTOUR_FT
+            for line in gen.lines(level):
+                obj.polyline([(float(x), float(y), (level - ground.z0) * FT) for x, y in line])
 
 
 def ccw(poly: list[Pt]) -> list[Pt]:
@@ -669,14 +697,17 @@ def main(spec: Path, out: Path | None, focus: bool) -> None:
     # What's cleared to build it: the cut and its slopes, the slab and the aprons. The trees standing there come out.
     cleared = zone.union(unary_union([SPolygon(q) for q in aprons_a(a_len)])).buffer(0.5)
     cleared = [a_pt(x, y) for x, y in list(cleared.exterior.coords)[:-1]]
-    # --focus: everything from here on is cut off at the box round building A (SHED_BOX), and 0.5 m past the back line.
-    bw, bs, be, bn = SHED_BOX
-    crop = SPolygon([a_pt(x, y) for x, y in ((bw, bs), (a_len + be, bs), (a_len + be, a_wid + bn), (bw, a_wid + bn))])
-    crop = list(crop.intersection(SPolygon([(-1e4, -1e4), (1e4, -1e4), (1e4, 0.5), (-1e4, 0.5)])).exterior.coords)[:-1]
+    # --focus: everything from here on is cut off at FOCUS_BOX, square to the back line.
+    fx0, fy0, fx1, fy1 = FOCUS_BOX
+    crop = [(fx0, fy0), (fx1, fy0), (fx1, fy1), (fx0, fy1)]
     if focus:
         obj.clip = crop
     obj.obj("terrain_lidar_2017")
-    obj.terrain(FOCUS_MESH if focus else 0.5)
+    if focus:
+        obj.terrain(FOCUS_MESH, FOCUS_MESH_FAR)
+        contours(obj, ground, crop, [a_pt(0, 0), a_pt(a_len, 0), a_pt(a_len, a_wid), a_pt(0, a_wid)])
+    else:
+        obj.terrain(0.5)
 
     # --- Our side, from the survey and the field data ---
     obj.obj("our_parcel_1991_survey")
@@ -959,23 +990,29 @@ def main(spec: Path, out: Path | None, focus: bool) -> None:
         # and the back-yard poles are outside the box.
         at = lambda x, y, h: [round(c, 2) for c in (*a_pt(x, y), ground(*a_pt(x, y)) + h * FT)]  # noqa: E731
         mid = at(a_len / 2, a_wid / 2, 0)
+        bmx, bmy = (FOCUS_BOX[0] + FOCUS_BOX[2]) / 2, (FOCUS_BOX[1] + FOCUS_BOX[3]) / 2
+        box_mid = [round(bmx, 2), round(bmy, 2), round(ground(bmx, bmy), 2)]
+        nw_lot = to_m(PARCEL[2])   # the lot's NW corner: the back line meets the US-290 line
         # Orbiting always turns round the middle of the building, halfway up its walls (owner, Oct 30 2026).
         center = [round(c, 2) for c in (*a_pt(a_len / 2, a_wid / 2), a_top + A_EAVE / 2 * FT)]
         tag = lambda p, h=7.0: [round(c, 2) for c in (*p, ground(*p) + h * FT)]  # noqa: E731
         shed = {"title": "Building A close up",
-                "sub": "The shed at site A on its dug-in slab, and the ground ~30 ft round it (2017 lidar, 1 m).",
+                "sub": "The shed at site A on its dug-in slab, and the ground round it out to the lot's NW corner (2017 lidar, 1 m; 1 ft contours).",
                 "key": "candelaria-shed-3d:view:v1", "fly_m_s": 4.0, "center": center,
                 "views": [
-                    {"id": "top", "label": "Overhead", "eye": [mid[0] - 0.05, mid[1], mid[2] + 130 * FT], "at": mid, "exag": 1, "mode": "fly"},
+                    {"id": "top", "label": "Overhead", "eye": [box_mid[0] - 0.05, box_mid[1], box_mid[2] + 190 * FT], "at": box_mid, "exag": 1, "mode": "fly"},
                     {"id": "oblique", "label": "From the SE", "eye": at(a_len + 40, -45, 60), "at": center, "mode": "orbit"},
                     {"id": "doors", "label": "At the doors", "eye": at(a_len / 2, -28, 5.5), "at": at(a_len / 2, a_wid, 5.5), "exag": 1, "mode": "look"},
                     {"id": "cut", "label": "The cut, from the east", "eye": at(a_len + 36, a_wid + 14, 24), "at": center, "mode": "orbit"},
                     {"id": "north", "label": "Along the north cut", "eye": at(-10, a_wid + 7, 9), "at": at(a_len + 2, a_wid + 2, 0), "exag": 1, "mode": "look"},
                     {"id": "west", "label": "From the SW", "eye": at(-16, -14, 15), "at": center, "mode": "orbit"},
+                    # down the north strip from inside the fence, east of the building, to where the fences meet
+                    {"id": "corner", "label": "The NW corner", "eye": [nw_lot[0] - 6.1, nw_lot[1] - 33.0, ground(nw_lot[0] - 6.1, nw_lot[1] - 33.0) + 3.5],
+                     "at": [nw_lot[0], nw_lot[1], ground(*nw_lot) + 1.0], "exag": 1, "mode": "look"},
                 ],
                 "tags": [["Meter pole: the power", tag((22.6, -1.0), 22.0)],   # electric_meter_pole in the spec
                          ["Well", tag(to_m(well))], ["Septic access pipe (tank?)", tag(to_m(pipe))],
-                         ["US-290 →", tag(a_pt(a_len / 2, a_wid + 13), 12.0)]]}
+                         ["US-290 →", tag((nw_lot[0] + 1.5, nw_lot[1] - 28.0), 12.0)], ["NW corner of the lot", tag(nw_lot, 10.0)]]}
         house = building_b = None
         poles = []
     write_viewer(html, out.read_text(), plan, checks, view, poles, tree_view, existing, ground.z0, building_b, house, building_a, shed)

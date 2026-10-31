@@ -3342,6 +3342,11 @@ the tables below.
     (layers "Contours, every 1 ft" and "every 5 ft"; 2017 lidar, ±0.5 ft).
 - **New view "The NW corner":** at eye height inside the lot, looking along both fences to
   where they meet.
+- **The whole-site viewer has the same ground** (owner's ask, Oct 31): building A turned
+  22.5° on its dug-in slab, the ground on 0.2 m squares round the cut, and 1 ft and 5 ft
+  contours over our lot and ~20 ft past its lines (on the 5 m lidar grid away from the
+  building, so they're smoother there). A new view, "Building A", looks at it from the SE
+  with the house and the back-lawn oaks round it. Its grid stays at 5 ft.
 
 ### Windows and doors
 

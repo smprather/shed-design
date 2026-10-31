@@ -203,6 +203,7 @@ details li b { font-weight: 600; }
         <button class="view" id="v-oblique" data-view="oblique" aria-pressed="false">Oblique</button>
         <button class="view" id="v-house" data-view="house" aria-pressed="false">From the back yard</button>
         <button class="view" id="v-front" data-view="front" aria-pressed="false">Front yard</button>
+        <button class="view" id="v-shed" data-view="shed" aria-pressed="false">Building A</button>
         <button class="view" id="v-area" data-view="area" aria-pressed="false">Whole area</button>
       </div>
       <p style="margin: 6px 0 0; color: var(--muted); font-size: 12px">Everything on this panel (the view, mode, sliders, tree size, layers and selection) is saved as you go and comes back when you reload. A view button resets the camera.</p>
@@ -319,16 +320,16 @@ details li b { font-weight: 600; }
   const ent = Object.fromEntries(spec.entities.map(e => [e.entity_id, e]));
   const META = {
     terrain_lidar_2017: { label: "Ground (lidar)", group: "Ground", token: "terrain", solid: true,
-      status: "2017 lidar, ±2 ft", source: "USGS 3DEP 1 m lidar (Feb 2017), sampled on a 10 m grid.",
+      status: "2017 lidar, ±2 ft", source: "USGS 3DEP 1 m lidar (Feb 2017), sampled on a 5 m grid, and on a 1 m grid round building A.",
       notes: "Your yard falls toward the back line; just past it is a natural low (the blue-grey dip) where the retail's stormwater area sits. Beyond the back line this is pre-construction ground." },
     terrain_excavation: { label: "Excavation (building A's cut)", group: "Ground", token: "cut", solid: true,
       status: "planned with building A (owner, Oct 24 2026)", source: "tools/plan3d.py: the lidar ground cut to the slab's subgrade under building A, then a 2 ft swale and a 2:1 slope back up to the natural ground (drive_layout.py's levels).",
-      notes: "Everything dug below the 2017 lidar ground, drawn in caliche: under the slab, the swale round the cut sides, and the slope graded back from it. The close-up draws it on ~8 in squares so the edges read." },
+      notes: "Everything dug below the 2017 lidar ground, drawn in caliche: under the slab, the swale round the cut sides, and the slope graded back from it. It's drawn on ~8 in squares so the edges read." },
     ground_contours_1ft: { label: "Contours, every 1 ft", group: "Ground", token: "contour",
-      status: "2017 lidar (1 m), with building A's cut", source: "tools/plan3d.py (contours): the ground, cut included, sampled every 0.25 m.",
+      status: "2017 lidar (1 m round building A, a 5 m grid elsewhere), with building A's cut", source: "tools/plan3d.py (contours): the ground, cut included, sampled every 0.25 m; on the whole site, over our lot and ~20 ft past its lines.",
       notes: "Lines of equal height every foot of elevation; where they bunch, the ground is steep. Left out under the slab." },
     ground_contours_5ft: { label: "Contours, every 5 ft", group: "Ground", token: "contour-5",
-      status: "2017 lidar (1 m), with building A's cut", source: "tools/plan3d.py (contours).",
+      status: "2017 lidar, with building A's cut", source: "tools/plan3d.py (contours).",
       notes: "Every fifth foot of elevation (1,045, 1,050, 1,055 ft…), drawn darker." },
     our_parcel_1991_survey: { label: "Your lot (Lot 176)", group: "Your lot", token: "lot",
       status: "surveyed", source: "1991 survey bearings and distances.", notes: "0.78 ac. The front is on Candelaria Dr; the north side runs along US-290." },
@@ -1362,6 +1363,7 @@ details li b { font-weight: 600; }
     oblique: { eye: [230, -330, 250], at: [-160, 90, 0] },
     house:   { ...BACKYARD, exag: 1, mode: "look" },   // the photo spot (plan3d.py)
     front:   { ...BACKYARD.front },   // from above the street, over the front lawn (plan3d.py)
+    shed:    { ...BACKYARD.shed },    // building A from the SE, in the yard (plan3d.py)
     area:    { eye: [-250, 129, 760], at: [-250, 130, 0] },
   };
   const worldOf = (p) => { const v = P(p); v.y *= exag; return v; };

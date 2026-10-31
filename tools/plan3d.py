@@ -43,9 +43,10 @@ TERRAIN = REPO / "site" / "terrain-lidar.json"
 TERRAIN_FINE = REPO / "site" / "terrain-lidar-shed.json"   # fetch_terrain.py: the 1 m DEM round building A; optional
 FEATHER = 3.0  # m: the fine patch blends into the 5 m grid over this much of its edge, so the two meet without a seam
 DUG = 0.03     # m: ground cut deeper than this below the lidar's is drawn as the excavation
-FOCUS_MESH = 0.2   # m: the close-up's ground squares round the cut (the whole site's are 0.5 m)
-FOCUS_MESH_FAR = 0.5   # m: the close-up's ground squares elsewhere
-CONTOUR_FT = 1.0   # ft: the close-up's ground contours, every 5th drawn heavier
+FOCUS_MESH = 0.2   # m: the ground's squares round building A's cut (both pages)
+FOCUS_MESH_FAR = 0.5   # m: the ground's squares elsewhere on the 1 m patch
+CONTOUR_FT = 1.0   # ft: the ground's contours, every 5th drawn heavier
+CONTOUR_PAD = 6.0   # m: the whole site's contours run this far past the lot's corners
 SHED_OUT = REPO / "site" / "shed3d.obj"   # --focus: building A close up
 # --focus: the box drawn round building A, in its frame (ft): 30 ft out from the west, south and east walls (40 on the
 # west, to take in the meter pole), and 15 ft north, 5 ft past the surveyed line; cut off 0.5 m past the back line.
@@ -703,11 +704,13 @@ def main(spec: Path, out: Path | None, focus: bool) -> None:
     if focus:
         obj.clip = crop
     obj.obj("terrain_lidar_2017")
-    if focus:
-        obj.terrain(FOCUS_MESH, FOCUS_MESH_FAR)
-        contours(obj, ground, crop, [a_pt(0, 0), a_pt(a_len, 0), a_pt(a_len, a_wid), a_pt(0, a_wid)])
-    else:
-        obj.terrain(0.5)
+    obj.terrain(FOCUS_MESH, FOCUS_MESH_FAR)
+    # Contours: the close-up's box, or on the whole site our lot and a little past its lines.
+    lot = [to_m(p) for p in PARCEL]
+    lx0, ly0 = min(p[0] for p in lot) - CONTOUR_PAD, min(p[1] for p in lot) - CONTOUR_PAD
+    lx1, ly1 = max(p[0] for p in lot) + CONTOUR_PAD, max(p[1] for p in lot) + CONTOUR_PAD
+    contours(obj, ground, crop if focus else [(lx0, ly0), (lx1, ly0), (lx1, ly1), (lx0, ly1)],
+             [a_pt(0, 0), a_pt(a_len, 0), a_pt(a_len, a_wid), a_pt(0, a_wid)])
 
     # --- Our side, from the survey and the field data ---
     obj.obj("our_parcel_1991_survey")
@@ -962,6 +965,10 @@ def main(spec: Path, out: Path | None, focus: bool) -> None:
     sx, sy = to_m(site([st(-75, 57)])[0])  # 75 ft out past the front line
     view["front"] = {"eye": [round(sx, 1), round(sy, 1), round(ground(fx, fy) + 28.0, 1)],
                      "at": [round(fx, 1), round(fy, 1), round(ground(fx, fy), 1)]}
+    # Building A in the yard: from the SE and above, turning round its middle halfway up the walls (as the close-up's).
+    se_eye = a_pt(a_len + 70, -80)
+    view["shed"] = {"eye": [round(se_eye[0], 2), round(se_eye[1], 2), round(ground(*se_eye) + 75 * FT, 2)],
+                    "at": [round(c, 2) for c in (*a_pt(a_len / 2, a_wid / 2), a_top + A_EAVE / 2 * FT)]}
     tree_view = {"plants": PLANTS, "stages": ["Planted", "~8 years", "Mature"], "dropped": dropped,
                  "rows_ft": TREE_ROWS, "spacing_ft": TREE_SPACING,
                  "trees": [{"xy": [round(c, 2) for c in to_m(tr["site"])], "plant": tr["plant"]} for tr in trees

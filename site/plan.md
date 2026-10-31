@@ -327,7 +327,10 @@ Tube frame, dealer-installed (owner, Oct 18 2026: red-iron is out).
   - concrete or gravel aprons;
   - the building's angle: turned 22.5° counter-clockwise, as drawn now, or back square to the line
     (`A_TURN = 0`). Turned, a boat can drive out in one move (above). The owner is checking with
-    the family;
+    the family. The boat bay is for resale (owner, Oct 31: no boat or RV, and no 30 × 40), so
+    square costs little;
+  - the size, if 30 × 30 feels too big: a 24 × 30 keeps the boat bay (a 12 × 12 and an ~8 × 8
+    door), ~$8k less (rough; notes, "Boat and RV storage is for resale");
   - the strip behind the north wall: rock it (recommended, ~$1–2k placed, vs. ~$0.2k of
     seed in the budget), or terrace it behind a low limestone boulder wall (~$3–5k more);
   - insulated doors and a mini-split, now or later;

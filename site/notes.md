@@ -3290,6 +3290,40 @@ the tables below.
     the oaks between. Turned 22.5°, the boat backs in from the lawn side and loops out
     through it.
 
+### Boat and RV storage is for resale (owner, Oct 31 2026)
+
+- **The owner's words:** "i just don't think i can spare the space for a 30x40ft. wife is
+  already uneasy with 30x30ft. and i don't actually own, or will ever own, an rv or a boat.
+  i'm just trying to add value when the time comes for resale."
+- **So:**
+  - Building A stays 30 × 30 at most. No 30 × 40.
+  - The boat features (14 ft legs, the 12 × 12 door, the 30 ft bay) are for a later buyer.
+    Spend on what a buyer sees, not on what only a working boat owner needs.
+- **What a buyer sees** (cheap, keep):
+  - the 12 × 12 door on 14 ft legs: ~$3k over the 11 ft kit, ~$1.5k more foam;
+  - a 30 ft bay, a slab a pickup or a trailer can use, power, insulation, a permitted
+    building.
+- **What only a boat owner needs** (leave to them):
+  - the shop lane (deferred anyway);
+  - limbs raised over the boat's path;
+  - grass pavers or gravel for the turns.
+- **The 22.5° turn** helps only a buyer who tows a boat in and out often.
+  - Square to the line, a boat still backs in. Getting out takes a tight three-point turn
+    (~1–2 ft off the building's SE corner), or a powered trailer dolly.
+  - If the family prefers it square, it can go back square at little loss to resale.
+- **If 30 × 30 feels too big:** a 24 × 30 keeps the boat bay.
+  - A 12 × 12 door and an ~8 × 8 door in a 24 ft gable end; the walk door moves to a side
+    wall.
+  - ~180 sq ft less, roughly $8k less (rough: kit, slab, foam and barrier scaled; not run
+    through `shed_cost.py`).
+  - It loses the second wide bay.
+- **RVs:**
+  - A motorhome isn't the trouble a trailer is. A medium-skilled driver can back one from
+    the back yard out to the road (owner); backing a trailer that far round bends takes a
+    highly skilled driver.
+  - But the 30 ft bay and 12 ft door take only camper vans and short Class Cs (≤ ~28 ft,
+    ≤ ~11.5 ft tall). A Class A or a fifth wheel needs ~40–45 ft and a 14 ft door.
+
 ### Windows and doors
 
 - Traffic noise is heavy in low frequencies. Compare windows by **OITC** (made for traffic

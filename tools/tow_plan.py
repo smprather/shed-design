@@ -56,7 +56,7 @@ from shapely.geometry import LineString, Point, Polygon, box
 from shapely.ops import unary_union
 
 from drive_layout import ROAD, SERVICE_DRIVE, SHOP_LANE, layout
-from envelope_plan import SITE_A
+from envelope_plan import A_TURN, SITE_A_SQUARE
 from front_layout import EXISTING_DRIVE, FRONT_WALK, catmull_rom
 from front_plan import SurveyFrame, canopy_in_st
 from drive_plan import trees
@@ -510,11 +510,11 @@ KEEP = 10.0   # ft: building A stays this far off the surveyed north line, the w
 
 
 def place_a(sf: SurveyFrame, turn: float, pipe, well):
-    """Building A's corners (NW, NE, SE, SW in (s, t)) turned `turn` degrees about its middle (positive turns it
+    """Building A's corners (NW, NE, SE, SW in (s, t)), square to the line, turned `turn` degrees about its middle (positive turns it
     counter-clockwise seen from above, the doors toward the SE and the oaks; negative, toward the SW and the open
     lawn), then moved straight off the surveyed north line until KEEP clear of it, the well and the septic pipe.
     Returns the corners and how far it moved (ft)."""
-    corners = [sf.from_site(p) for p in SITE_A]
+    corners = [sf.from_site(p) for p in SITE_A_SQUARE]
     if turn == 0:
         return corners, 0.0
     lot = [sf.from_site(p) for p in PARCEL]
@@ -538,8 +538,8 @@ def place_a(sf: SurveyFrame, turn: float, pipe, well):
 @click.command()
 @click.option("--truck", type=click.Choice(sorted(TRUCKS)), default="half", show_default=True, help="The tow vehicle.")
 @click.option("--radius", type=float, default=R_PLAN, show_default=True, help="The rear axle's radius on the tightest planned turn (ft).")
-@click.option("--turn", type=float, default=0.0, show_default=True,
-              help="Turn building A this many degrees about its middle (negative: the doors toward the SW), moved off the line as needed.")
+@click.option("--turn", type=float, default=A_TURN, show_default=True,
+              help="Building A's turn from square to the line, degrees counter-clockwise about its middle (the plan's: envelope_plan.A_TURN), moved off the line as needed.")
 @click.option("--search/--no-search", default=False, help="Search for the way out again instead of using the stored one (minutes).")
 @click.option("--margin", type=float, default=None, help="With --search: ft kept off the trunks and the lot lines (default: the stored one's, or 2.5).")
 def main(truck: str, radius: float, turn: float, search: bool, margin: float | None) -> None:
@@ -665,12 +665,12 @@ def main(truck: str, radius: float, turn: float, search: bool, margin: float | N
                    f"steepest ~{100 * steep:.0f}% (2017 lidar).")
 
     # --- Maps ---
-    tag = "" if turn == 0 else f"-turn{turn:+g}"
+    tag = "" if turn == A_TURN else f"-turn{turn:+g}"
     out_back, out_all = OUT_BACK.with_name(f"tow-backyard{tag}.png"), OUT.with_name(f"tow-paths{tag}.png")
     back_view = (110.0, -8.0, 258.0, 160.0)
     names_in = [p.name for p in phases if p.kind in ("in", "back") and "street" not in p.name]
     names_out = [p.name for p in phases if p.kind == "out" and "street" not in p.name]
-    head = f"building A turned {turn:+g} deg" if turn else "building A as planned"
+    head = f"building A turned {turn:+g} deg" + (" (the plan)" if turn == A_TURN else "") if turn else "building A square to the line"
     a = draw_panel(back_view, L, phases, tr, sf, to_m, tr_list, pipe, well, f"IN ({head}): left turn, line up, back straight in", names_in)
     out_title = (f"OUT: forward to the shop lane, {sum(ft for _, ft, _ in program):.0f} ft, {margin:g} ft off trees and lot lines"
                  if program else "OUT: no forward way to the shop lane found")

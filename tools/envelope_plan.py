@@ -58,7 +58,28 @@ def line_rect(x0: float, length: float, depth: float, inset: float = 0.0):
 # Back on a slab dug into the high side (owner, Oct 24 2026), it moved 3 ft west and 5 ft south: 10 ft off the
 # surveyed line, so the cut on the north can be a graded slope rather than a wall, and 13.4 ft from the septic pipe
 # (was 10.3); the well is 12.3 ft off.
-SITE_A = line_rect(98.6 + 2 * ALONG[0], 30, 30, inset=5.0)
+SITE_A_SQUARE = line_rect(98.6 + 2 * ALONG[0], 30, 30, inset=5.0)
+# Turned 22.5 degrees counter-clockwise about its middle, the doors toward the SSE, and moved straight off the line
+# until 10 ft clear of it, the well and the septic pipe (Oct 31 2026, drawn for the owner to see; tow_plan.py found a
+# boat can then drive out in one move). A_TURN = 0 puts it back square to the line.
+A_TURN = 22.5      # degrees, counter-clockwise seen from above
+A_SHIFT = 4.75     # ft off the line, into the lot (tow_plan.place_a finds it)
+
+
+def turned(corners, turn: float, shift: float):
+    """Corners turned `turn` degrees counter-clockwise (seen from above) about their middle, then moved `shift` ft
+    straight off the line into the lot. Site frame: x ESE, y SSW (y down), so counter-clockwise is the -turn rotation."""
+    cx, cy = sum(p[0] for p in corners) / 4, sum(p[1] for p in corners) / 4
+    a = math.radians(turn)
+    out = []
+    for x, y in corners:
+        dx, dy = x - cx, y - cy
+        out.append((cx + dx * math.cos(a) + dy * math.sin(a) + shift * INWARD[0],
+                    cy - dx * math.sin(a) + dy * math.cos(a) + shift * INWARD[1]))
+    return out
+
+
+SITE_A = turned(SITE_A_SQUARE, A_TURN, A_SHIFT)
 
 
 def circle(plan: Plan, c, r, **kw):

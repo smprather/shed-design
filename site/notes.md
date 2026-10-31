@@ -3237,6 +3237,59 @@ the tables below.
   - [TDLR: abandoned wells](https://www.tdlr.texas.gov/wwd/abandonedwells.htm)
   - [TCEQ RG-347: a landowner's guide to plugging abandoned wells](https://www.tceq.texas.gov/downloads/publications/rg/landowners-guide-to-plugging-abandoned-water-wells-rg-347.pdf)
 
+### Building A turned 22.5°, drawn (owner, Oct 31 2026)
+
+- **The owner's call:** "let's go ahead and see what the rotation looks like." Not settled:
+  the family has a say.
+- **What changed:**
+  - `envelope_plan.py` keeps the square footprint as `SITE_A_SQUARE`. `SITE_A` is now that
+    footprint turned `A_TURN` = 22.5° counter-clockwise about its middle and moved `A_SHIFT`
+    = 4.75 ft straight off the line: the least that keeps it 10 ft from the line, the well
+    and the septic pipe.
+  - Every tool reads it: the maps, the 3D pages, `shed_cost.py`, `impervious_cover.py` and
+    `tow_plan.py` (whose default turn is now `A_TURN`).
+  - `A_TURN = 0` puts it back.
+- **Turned:**
+  - The doors face SSE.
+  - It's 10.2 ft from the surveyed line at its nearest corner, 19.4 ft from the septic pipe
+    (was 13.4) and 12.4 ft from the well (was 12.3).
+  - Over the SW corner's ground, the corners stand: NW +0.1, NE −1.7 (cut), SE −0.1,
+    SW +0.8 ft. The door sills sit 0.2–0.6 ft over the ground, and the aprons fall 9% and 3%.
+  - The cut no longer reaches the septic pipe's 10 ft ring, so the block wall goes.
+- **Cost:** $82k ($76–88k) all in, the building on its slab $49k ($44–54k). Square to the
+  line it was $83k and $51k.
+- **Impervious cover:** 19.7% with the building and its aprons. With the new drive, 18.6%
+  with gravel not counted and 29.4% with it.
+- **The 3D close-up** (republished):
+  - Its ground is drawn on 0.2 m (~8 in) squares round the cut, from 0.5 m.
+  - The dug ground, more than 0.03 m below the 2017 lidar's, is its own layer,
+    "Excavation (building A's cut)", in caliche. Its edge follows the line where the cut
+    meets the ground, not the squares.
+  - New view "Along the north cut", from the NW corner along the swale and slope. "From the
+    SW" replaces "From the well", which the turn left looking through the back-line trees.
+  - The ground data is still the 1 m lidar (the finest USGS DEM); the cut itself is exact.
+- **A 90° turn** (counter-clockwise; the owner asked where it would have to go):
+  - The footprint is square, so it fits where it is now. Its doors would be on the east
+    wall, and the boat door's line runs almost exactly down the shop lane.
+  - **Out:** straight down the lane, the easiest of all.
+  - **In:** the rig comes up the lane nose-first toward the door and has to turn round
+    before it can back straight in.
+    - Forward only, it can't: it's boxed in by the building ahead and the back-lawn oaks'
+      crowns to the south. It can't get round the building into the open west lawn.
+    - With backing allowed, the search found a four-leg turnaround: forward 32 ft, back 48,
+      forward 48, back 44, then the straight back-in. But it uses the old carport spot,
+      which is in the septic strip where the drainfield isn't located yet. And it backs the
+      boat along the house's west wall, under the oaks there (the search's crown limit only
+      covered the back-lawn oaks).
+  - **Grading:** the ground rises 0.5–2 ft in front of an east wall, so its aprons would
+    slope down into the doors and drain into the building. That needs trench drains, or the
+    slab set higher on fill.
+  - Moving it into the open lawn to the SW doesn't help: the doors would face the oaks,
+    which then stand between them and the lane. (Reasoned, not simulated.)
+  - **So no.** The yard's way in is from the east and its turning room is to the west, with
+    the oaks between. Turned 22.5°, the boat backs in from the lawn side and loops out
+    through it.
+
 ### Windows and doors
 
 - Traffic noise is heavy in low frequencies. Compare windows by **OITC** (made for traffic

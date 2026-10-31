@@ -42,6 +42,8 @@ SPEC = REPO / "property_total_plan.jsonc"
 TERRAIN = REPO / "site" / "terrain-lidar.json"
 TERRAIN_FINE = REPO / "site" / "terrain-lidar-shed.json"   # fetch_terrain.py: the 1 m DEM round building A; optional
 FEATHER = 3.0  # m: the fine patch blends into the 5 m grid over this much of its edge, so the two meet without a seam
+DUG = 0.03     # m: ground cut deeper than this below the lidar's is drawn as the excavation
+FOCUS_MESH = 0.2   # m: the close-up's ground squares round the cut (the whole site's are 0.5 m)
 SHED_OUT = REPO / "site" / "shed3d.obj"   # --focus: building A close up
 # --focus: the box drawn round building A, in its frame (ft): 30 ft out from the west, south and east walls (40 on the
 # west, to take in the meter pole), and 15 ft north, 5 ft past the surveyed line; cut off 0.5 m past the back line.
@@ -333,11 +335,13 @@ class Obj:
     def terrain(self, fine: float = 0.5) -> None:
         """The ground: one quad per lidar cell. In the cells a cut or the fine patch touches, ~`fine` m squares, clipped
         at the cut's outline so the ground steps down there cleanly (a retaining wall stands on that line); and with a
-        clip, cut off at its outline."""
+        clip, cut off at its outline. The dug ground (more than DUG m below the lidar's) goes in its own object after it,
+        terrain_excavation, so the viewer can show the cut."""
         from shapely.geometry import Polygon as SPolygon, box as sbox
         g = self.ground
         cuts = [(SPolygon(poly), level, (x0 - 1, y0 - 1, x1 + 1, y1 + 1)) for poly, (x0, y0, x1, y1), level in g.cuts]
         fb, clip = g.fine_box(), SPolygon(self.clip) if self.clip else None
+        dug = []
         for j in range(len(g.ys) - 1):
             for i in range(len(g.xs) - 1):
                 x0, x1, y0, y1 = g.xs[i], g.xs[i + 1], g.ys[j], g.ys[j + 1]
@@ -362,11 +366,29 @@ class Obj:
                             part = sq.intersection(poly)
                             for piece in getattr(part, "geoms", [part]):
                                 if piece.geom_type == "Polygon" and piece.area > 1e-6:
-                                    self.face([(x, y, min(g.natural(x, y), level(x, y))) for x, y in list(piece.exterior.coords)[:-1]])
+                                    # split along the line where the cut meets the ground (depth DUG), so the excavation's
+                                    # edge follows it rather than the squares
+                                    xy = list(piece.exterior.coords)[:-1]
+                                    d = [g.natural(x, y) - level(x, y) - DUG for x, y in xy]
+                                    for keep, sink in ((lambda v: v > 0, dug.append), (lambda v: v <= 0, self.face)):
+                                        ring = []
+                                        for k, (pa, da) in enumerate(zip(xy, d)):
+                                            pb, db = xy[(k + 1) % len(xy)], d[(k + 1) % len(xy)]
+                                            if keep(da):
+                                                ring.append(pa)
+                                            if (da > 0) != (db > 0):
+                                                f = da / (da - db)
+                                                ring.append((pa[0] + f * (pb[0] - pa[0]), pa[1] + f * (pb[1] - pa[1])))
+                                        if len(ring) >= 3:
+                                            sink([(x, y, min(g.natural(x, y), level(x, y))) for x, y in ring])
                             rest = rest.difference(poly)
                         for piece in getattr(rest, "geoms", [rest]):
                             if piece.geom_type == "Polygon" and piece.area > 1e-6:
                                 self.face([(x, y, g.natural(x, y)) for x, y in list(piece.exterior.coords)[:-1]])
+        if dug:
+            self.obj("terrain_excavation")
+            for pts in dug:
+                self.face(pts)
 
     def save(self, path: Path, header: str) -> None:
         """Write the OBJ, leaving out objects with nothing in them (a clip can empty them)."""
@@ -654,7 +676,7 @@ def main(spec: Path, out: Path | None, focus: bool) -> None:
     if focus:
         obj.clip = crop
     obj.obj("terrain_lidar_2017")
-    obj.terrain()
+    obj.terrain(FOCUS_MESH if focus else 0.5)
 
     # --- Our side, from the survey and the field data ---
     obj.obj("our_parcel_1991_survey")
@@ -948,7 +970,8 @@ def main(spec: Path, out: Path | None, focus: bool) -> None:
                     {"id": "oblique", "label": "From the SE", "eye": at(a_len + 40, -45, 60), "at": center, "mode": "orbit"},
                     {"id": "doors", "label": "At the doors", "eye": at(a_len / 2, -28, 5.5), "at": at(a_len / 2, a_wid, 5.5), "exag": 1, "mode": "look"},
                     {"id": "cut", "label": "The cut, from the east", "eye": at(a_len + 36, a_wid + 14, 24), "at": center, "mode": "orbit"},
-                    {"id": "west", "label": "From the well", "eye": at(-30, a_wid + 12, 18), "at": center, "mode": "orbit"},
+                    {"id": "north", "label": "Along the north cut", "eye": at(-10, a_wid + 7, 9), "at": at(a_len + 2, a_wid + 2, 0), "exag": 1, "mode": "look"},
+                    {"id": "west", "label": "From the SW", "eye": at(-16, -14, 15), "at": center, "mode": "orbit"},
                 ],
                 "tags": [["Meter pole: the power", tag((22.6, -1.0), 22.0)],   # electric_meter_pole in the spec
                          ["Well", tag(to_m(well))], ["Septic access pipe (tank?)", tag(to_m(pipe))],

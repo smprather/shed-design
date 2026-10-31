@@ -5,7 +5,7 @@ sources, corrections and dates. This file says what we're doing, in what order, 
 still undecided. Update it when a decision changes; record the facts behind the change in
 `notes.md`.
 
-Last updated: Oct 30 2026 (towing a boat in and out of building A: the back-in fits; driving out in one move needs the building turned 22.5° counter-clockwise and 4.8 ft off the fence, ~$1k less. Oct 28: the doors in the south gable end, a 12 × 12 for a boat and a 10 × 8, burgundy with black trim; on 14 ft legs and a slab dug into its high side, with power and closed-cell foam insulation: ~$83k all in, $51k of it the building on its slab; it comes first, and the drive much later).
+Last updated: Oct 31 2026 (building A drawn turned 22.5° counter-clockwise and 4.75 ft off the fence, so a boat can drive out in one move; $82k all in; not settled. Oct 30: towing a boat in and out. Oct 28: the doors in the south gable end, a 12 × 12 for a boat and a 10 × 8, burgundy with black trim; on 14 ft legs and a slab dug into its high side, with power and closed-cell foam insulation: ~$83k all in, $51k of it the building on its slab; it comes first, and the drive much later).
 
 ## The four projects
 
@@ -118,10 +118,17 @@ stops being a garage.
 ## Project 1: The building (site A; site B dropped Oct 18 2026)
 
 **At site A, on a concrete slab dug into its high side** (owner, Oct 24 2026): a common
-30 × 30 ft tube-frame kit, 30 ft wide across the strip and 30 ft along the line. Its ridge
-runs north–south, square to the line, so its doors are in the south gable end (owner,
-Oct 28 2026). That morning (Oct 24) it was on pier and beam, at ~$85k; the owner sent it
-back to concrete to cut the cost.
+30 × 30 ft tube-frame kit. Its ridge runs back from the doors, which are in its front gable end
+(owner, Oct 28 2026). That morning (Oct 24) it was on pier and beam, at ~$85k; the owner sent
+it back to concrete to cut the cost.
+
+**Turned 22.5° counter-clockwise** (Oct 31 2026; drawn for the owner and the family to see,
+not settled):
+- The doors face SSE, toward the open lawn and the shop court.
+- It moved 4.75 ft further off the line, so its nearest corner is 10.2 ft from it.
+- That's what lets a truck towing a boat drive out in one move (below).
+- The maps, the 3D pages, the costs and the tow study all draw it turned.
+- `A_TURN = 0` in `tools/envelope_plan.py` puts it back square to the line.
 
 **Built to store a boat** (owner, Oct 25 2026): boat storage adds to a house near Lake Travis,
 so the building is ready for one.
@@ -142,24 +149,29 @@ so the building is ready for one.
 - **Towing it in and out** (Oct 30 2026; `tow-backyard.png`, `tools/tow_plan.py`). The model
   assumes a half-ton crew cab and the 22 ft boat, 47 ft bumper to stern, driven by a
   reasonably good driver, with margins for that:
-  - **In works as planned.** The rig crosses the shop court, turns left onto the boat door's
-    line and pulls on until the boat hangs straight, with the truck's bumper ~94 ft out from
-    the door. Then it backs ~76 ft straight in.
-  - **Out doesn't, as one sweeping left.** The back-lawn oaks stand inside the circle it
-    needs. Every way out the search finds runs the boat ~19 ft in under their crowns,
-    except a three-point turn that passes ~1–2 ft off the building's SE corner.
-  - **Turned 22.5° counter-clockwise and 4.8 ft further off the fence** (the doors toward
-    the SSE; the owner's guess), the way out is one forward move: 184 ft, 3.5 ft off the
-    trunks and lot lines.
+  - **Square to the line** (as first planned):
+    - The back-in works: the bumper ~94 ft out, then ~76 ft straight back.
+    - One sweeping left out doesn't: the back-lawn oaks stand inside the circle it needs.
+      Every way out the search finds runs the boat ~19 ft in under their crowns, except a
+      three-point turn that passes ~1–2 ft off the building's SE corner.
+  - **Turned 22.5° counter-clockwise** (as now drawn; the owner's guess), the way out is one
+    forward move: 184 ft, 3.5 ft off the trunks and lot lines.
     - Pull out, hold the wheel right for one big loop round the open west lawn, then come
       straight east across the front of the building onto the shop lane.
     - The boat only brushes the crowns' edges (~40 sq ft, ≤5 ft in).
     - The back-in still fits: the bumper ~85 ft out, then 67 ft back.
-    - ~$1k less ($81.7k vs. $82.8k): 19.4 ft from the septic pipe, the short block wall
-      there mostly goes. The well stays 12.4 ft away.
     - The window is narrow, 20–24°. 10° either way doesn't fit, and neither does 45°.
     - (A 10° clockwise turn recommended earlier the same day doesn't hold: that search let
       the boat under the crowns' middles. Notes, "Towing the boat in and out".)
+  - **Turned 90°** (Oct 31): the square footprint stays where it is, the doors on the east
+    wall looking straight down the shop lane.
+    - Out is easy: straight down the lane.
+    - In is the trouble. The rig arrives nose-first and has to turn round, and the yard won't
+      let it. The only way found backs and fills four times, over the septic strip (the
+      drainfield is still unlocated) and along the house's west side under the oaks.
+    - The ground also rises 0.5–2 ft in front of those doors, so their aprons would drain
+      into the building.
+    - Not worth it (notes, "Building A turned 22.5°, drawn").
   - **Either way the boat needs:**
     - the back-lawn oaks' limbs raised to ~11 ft over its path (July–January);
     - their trunks taped;
@@ -202,8 +214,8 @@ The building on its slab, without power or insulation (they add the same to each
 - **The slab:** 4 in with rebar and thickened edges at the kit's anchors, on 4 in of base.
   It carries a pickup or a boat trailer.
 - **The cut** is graded back at 2:1 from a 2 ft swale round the north, east and west.
-  - Only where the slope would come within 10 ft of the septic pipe does a short block wall
-    hold it: ~12 ft long, up to ~2 ft.
+  - Turned, the cut stays clear of the septic pipe's 10 ft ring, so the short block wall there
+    is gone. (Square to the line, ~12 ft of wall up to ~2 ft high held the slope by the pipe.)
   - A French drain carries water round to daylight on the low SW side. Gutters are piped
     away.
   - **2:1 is too steep to mow.** It's for rock or groundcover. The S130 is rated to 13°, so
@@ -220,9 +232,11 @@ The building on its slab, without power or insulation (they add the same to each
   - The walk door and the east roll-up open onto a 17 × 10 ft work apron (~7%), where the
     deck landing was to be, at floor level all the same. A roof over it for shade is to be
     discussed.
-- **Moved 3 ft west and 5 ft south** of the old site A, so the north cut can be a slope
-  rather than a wall. It's now 10 ft from the surveyed line, 13.4 ft from the septic pipe
-  (was 10.3) and 12.3 ft from the well.
+- **Placement:** first moved 3 ft west and 5 ft south of the old site A, so the north cut could
+  be a slope rather than a wall. Then turned 22.5° and moved another 4.75 ft off the line. It's
+  now 10.2 ft from the surveyed line at its nearest corner, 19.4 ft from the septic pipe and
+  12.4 ft from the well.
+  - Its NE corner is cut ~1.7 ft (was 2.1); the door sills sit 0.2–0.6 ft over the ground.
 
 The 3D plan draws the slab, the graded cut, the wall, the aprons, the S130 and a boat inside.
 **A close-up page** (Oct 27 2026) has just the building and the ground ~30 ft round it, on the
@@ -262,15 +276,18 @@ Tube frame, dealer-installed (owner, Oct 18 2026: red-iron is out).
   It's less airtight, and a tear lets condensation in.
 - **The roll-up doors stay uninsulated.** Insulated sectional doors are an option (~$4–7.5k).
 
-**Where the $83k goes** (likely, with the 10% contingency):
+**Where the $82k goes** (likely, with the 10% contingency; turned 22.5°, Oct 31 2026):
 
 | Part | Likely (80% band) |
 |---|---|
-| The building on its slab: the kit on 14 ft legs, the walk door, the slab, the dig, the aprons, prep, permits, access | $51k ($46–56k) |
+| The building on its slab: the kit on 14 ft legs, the walk door, the slab, the dig, the aprons, prep, permits, access | $49k ($44–54k) |
 | Power: the breaker at the pole, the feeder, the panel, the wiring | $13k ($11–15k) |
 | Insulation: closed-cell foam and its thermal barrier | $17k ($15–19k) |
 | The house's line detoured round the building, if the locate puts it under it | $2k ($1–3k) |
-| **All of it** | **$83k** ($77–89k) |
+| **All of it** | **$82k** ($76–88k) |
+
+- Square to the line it was $83k ($77–89k): turned, the dig is a little shallower and the block
+  wall goes.
 
 - Options, not in it: insulated doors and a ductless mini-split, ~$13k together.
 - The 14 ft legs and the bigger doors cost ~$3k over the 11 ft kit, and the taller walls ~$1.5k
@@ -308,8 +325,9 @@ Tube frame, dealer-installed (owner, Oct 18 2026: red-iron is out).
   - the roof's color;
   - foam and its barrier, or fiberglass blanket (~$11k);
   - concrete or gravel aprons;
-  - the building's angle: as planned, or turned 22.5° counter-clockwise and 4.8 ft south, so a
-    boat can drive out in one move (above; the owner is checking with the family);
+  - the building's angle: turned 22.5° counter-clockwise, as drawn now, or back square to the line
+    (`A_TURN = 0`). Turned, a boat can drive out in one move (above). The owner is checking with
+    the family;
   - the strip behind the north wall: rock it (recommended, ~$1–2k placed, vs. ~$0.2k of
     seed in the budget), or terrace it behind a low limestone boulder wall (~$3–5k more);
   - insulated doors and a mini-split, now or later;

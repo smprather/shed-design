@@ -1708,6 +1708,23 @@ They explained it as "the open path through the trees." It's in the private repo
 ### Site B dropped; the building goes on site A (owner, Oct 18 2026)
 
 - **The owner dropped site B.** The building goes on site A, as a standard kit size.
+- **Why** (from the day's comparison, "Site A, for comparison"; the owner confirmed these as
+  the reasons on Nov 1 2026):
+  - **No slack.** B sat between the septic pipe's 10 ft keep-out and the twin oak's drip line
+    (25.0 ft from the trunk, against a 25.1 ft drip line), its NE corner on the 5 ft
+    setback, while the pipe and the line were each known only to ~±2 ft.
+  - **The twin oak.** It cut ~6% of the oak's root zone and needed its east edge hand-dug
+    or air-spaded.
+  - **Not a standard size.** 23 × 43 meant custom pricing; site A takes a standard 30 ft
+    wide kit.
+  - **More fall.** ~3.8 ft across B's slab, ~2.9 ft at A, so more fill at B.
+  - **Crowding the house.** B stood ~15 ft off the house's north wall, which left the septic
+    truck a ~15 ft lane and a 70–75 ft hose run round the building.
+  - **Little noise benefit.** B's purpose, but the model gave ~3.5 dB at the house's west
+    end, ~7 dB in the yard right behind it, and ≤ 1 dB elsewhere.
+  - Site A: room for a standard kit, ~90 ft from the twin oak, less fall, and the house
+    side and the truck lane left open. Its open risks are the buried service line and the
+    drainfield, which may run under it.
   - In the 3D viewer, building B starts hidden; tick it in the layer list to compare. The
     S130 now sits in building A.
 - **Standard kit sizes** keep it out of full-custom pricing.
@@ -3347,6 +3364,47 @@ the tables below.
   contours over our lot and ~20 ft past its lines (on the 5 m lidar grid away from the
   building, so they're smoother there). A new view, "Building A", looks at it from the SE
   with the house and the back-lawn oaks round it. Its grid stays at 5 ft.
+
+### A 30 × 30 at site B, doors east? (owner's question, Nov 1 2026)
+
+- **The question:** could the 30 × 30 go on site B instead, its doors in the east wall, and
+  could it be dug into its high side as at site A?
+- **The fit** (square to the house like B; north wall on the 5 ft setback at its NE corner;
+  2017 lidar ±0.5 ft, field shots ±2 ft):
+  - It's 7 ft deeper than B (30 vs 23 ft), and the setback holds the north wall, so it
+    grows toward the house.
+  - **East end on the drip line, where B's was (x 162–192):** 8 ft from the house's north
+    wall (B had 15), on part of the septic truck's spot, 22 ft from the septic pipe.
+  - **Slid 10 ft west, so a 10 ft apron stays outside the drip line (x 152–182):** 10 ft
+    from the house's NW corner, clear of the truck spot, 11.5 ft from the pipe.
+  - Either way ~35% of the footprint is under standing canopy (B's was ~24%), and today's
+    fence runs 1.7–8 ft off its north wall, inside the line.
+  - The ground falls ~3–3.5 ft across it, high at the NE corner by the oak.
+- **Dug in like A? No.** At A the doors are on the low side, so digging the high side lets
+  them sit at grade. At B the high side is the door side.
+  - With the slab 0.8 ft over the lowest corner, as at A: the doors sit 1.2–2.3 ft below
+    the ground in front of them. Each needs a cut approach climbing 23–45 ft east at 10%,
+    which ends 8–13 ft from the near trunk, at or inside its 12 ft no-dig ring, and drains
+    into the doors.
+  - The north cut runs right up to the surveyed line: a retaining wall along the north
+    side, under the fence.
+  - Even with the slab set to the door side's grade, the east wall rises 1.4 ft along its
+    length, so the 10 × 8 door still sits ~0.9 ft below the ground.
+- **What works there: build the low side up.** The slab level with the NE corner, ~33–38
+  cu yd of fill and ~33 ft of stem wall on the west and south sides, and the doors 0.4–1.3
+  ft over the ground with short aprons falling east. Slid west, the aprons stay off the
+  oak's roots; on the drip line they'd be fill over them.
+  - ~$90k likely all in ($84–96k), the building on its slab ~$56k, against site A's $82k
+    and $49k (`shed_cost.py`'s model moved to B). Tree removal and the oak's protection
+    aren't in it.
+- **The boat: no.** To back into an east door the rig has to line up east of it, and that
+  line runs through the twin oak's no-dig ring, under its crown. And a rig coming in from
+  the street faces west, with nowhere to turn round. A car or the mower can get in along the
+  old drive between the oak and the house (~13 ft clear outside the no-dig ring, under the
+  crown).
+- **Noise:** its north wall is 30 ft long, against B's 43, and slid west it stands clear of
+  the house, so it shields the house even less than B did (reasoned, not modeled).
+- **So site A stays.** The study's map is from a scratch script, not in `site/`.
 
 ### Windows and doors
 

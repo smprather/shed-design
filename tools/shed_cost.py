@@ -112,10 +112,14 @@ CONTINGENCY = 0.10
 Z80 = 1.2816  # half-width of an 80% band, in standard deviations
 
 
-def site_quantities(ground: Terrain, to_m: Frame, level: float, soil: float = SOIL) -> dict:
-    """Quantities for the slab at site A with its top `level` ft over the SW corner's ground, from the lidar."""
+def site_quantities(ground: Terrain, to_m: Frame, level: float, soil: float = SOIL,
+                    corners: list[tuple[float, float]] | None = None) -> dict:
+    """Quantities for the slab at site A with its top `level` ft over the SW corner's ground, from the lidar.
+
+    `corners` (site ft, NW, NE, SE, SW of the building's own frame: its doors in the SE-SW wall) puts it elsewhere."""
     gft = lambda p: ground.natural(*to_m(p)) / FT  # noqa: E731
-    nw, ne, se, sw = SITE_A
+    corners = corners or SITE_A
+    nw, ne, se, sw = corners
     ux = ((se[0] - sw[0]) / LENGTH, (se[1] - sw[1]) / LENGTH)
     uy = ((nw[0] - sw[0]) / DEPTH, (nw[1] - sw[1]) / DEPTH)
     at = lambda x, y: (sw[0] + ux[0] * x + uy[0] * y, sw[1] + ux[1] * x + uy[1] * y)  # noqa: E731   # A's frame -> site
@@ -185,11 +189,11 @@ def site_quantities(ground: Terrain, to_m: Frame, level: float, soil: float = SO
             q["fill"] += max(dz, 0) * 0.5 * (x1 - x0) / 27
             if dz + SLAB_SECTION > STEM_FROM:
                 q["stem"] += 2 * 0.5
-    q["pipe"] = Polygon(SITE_A).distance(Point(pipe))
-    q["well"] = Polygon(SITE_A).distance(Point(well))
+    q["pipe"] = Polygon(corners).distance(Point(pipe))
+    q["well"] = Polygon(corners).distance(Point(well))
     # The feeder: from the meter pole to the panel inside the building's west wall, a fifth longer than straight for the
     # trench's bends (round the well), plus the rise at each end.
-    q["pole"] = Polygon(SITE_A).distance(Point(to_m.to_site(POLE_M)))
+    q["pole"] = Polygon(corners).distance(Point(to_m.to_site(POLE_M)))
     q["feeder"] = round(1.2 * q["pole"] + 6)
     return q
 

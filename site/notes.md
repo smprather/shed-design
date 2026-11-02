@@ -3037,7 +3037,8 @@ the tables below.
   | 30 ft (NE) | 2.8 | 8.7 | 12.1 | 15.4 | 18.8 |
 
   - **2:1 fits all along,** reaching 8.7 ft out at the NE corner, 1.3 ft short of the line.
-  - **3:1 fits only the west half;** 4:1 and 5:1 only the first few feet. No regrading makes
+  - **3:1 fits only the west half;** 4:1 and 5:1 only the first few feet. (Square to the
+    line. Turned 22.5°, 3:1 fits all along; see "Building A turned 22.5°, drawn".) No regrading makes
     the strip a slope the S130 can mow.
   - **The strip is a dead end.** At the NE corner the line is 10 ft north and the septic
     pipe's keep-out is on the east (the pipe is 13.3 ft east of the east wall, 2 ft north of
@@ -3274,6 +3275,18 @@ the tables below.
   - Over the SW corner's ground, the corners stand: NW +0.1, NE −1.7 (cut), SE −0.1,
     SW +0.8 ft. The door sills sit 0.2–0.6 ft over the ground, and the aprons fall 9% and 3%.
   - The cut no longer reaches the septic pipe's 10 ft ring, so the block wall goes.
+  - **No retaining wall** (checked Oct 31 for the owner). The deepest cut, at the NE corner,
+    is ~2.2 ft from the swale's floor; graded 2:1, its top lands 4.4 ft inside the line and
+    13 ft or more from the pipe. `shed_cost.py`'s "wall 1 ft, up to 0.5 ft" is one foot at
+    the NW corner where the slope's top would land 9.7 ft from the well (our own 10 ft ring,
+    not a state rule) on ~6 in of cut: steepen that corner or stop the swale short.
+  - **3:1 fits too,** for mowing: its top comes 2.3 ft inside the line at the NE corner,
+    with the same ~6 in step by the well, 2 ft long. **4:1 doesn't:** it reaches the line
+    and the pipe's ring and would need ~11 ft of wall. (This replaces "3:1 fits only the
+    west half" in "The strip behind the building", which was for the building square to
+    the line.)
+  - The low side needs no stem wall: the slab stands 0.8 ft over the SW corner's ground,
+    under the 1 ft at which `shed_cost.py` calls for one.
 - **Cost:** $82k ($76–88k) all in, the building on its slab $49k ($44–54k). Square to the
   line it was $83k and $51k.
 - **Impervious cover:** 19.7% with the building and its aprons. With the new drive, 18.6%
@@ -3365,10 +3378,14 @@ the tables below.
   building, so they're smoother there). A new view, "Building A", looks at it from the SE
   with the house and the back-lawn oaks round it. Its grid stays at 5 ft.
 
-### A 30 × 30 at site B, doors east? (owner's question, Nov 1 2026)
+### A 30 × 30 at site B, doors east? (owner's question, Nov 1 2026; `tools/site_b_east.py`)
 
+- **In a nutshell (the owner's words, Nov 2):** it's too close to the oaks, in too narrow a
+  gap, on too sloped a part of the yard, with no cheap or easy way out of the slope.
 - **The question:** could the 30 × 30 go on site B instead, its doors in the east wall, and
   could it be dug into its high side as at site A?
+- **Rerun it:** `uv run tools/site_b_east.py` prints the tables below and draws
+  `site/site-b-east.png` (both placements, the doors, the boat's line-up through the oak).
 - **The fit** (square to the house like B; north wall on the 5 ft setback at its NE corner;
   2017 lidar ±0.5 ft, field shots ±2 ft):
   - It's 7 ft deeper than B (30 vs 23 ft), and the setback holds the north wall, so it
@@ -3386,8 +3403,10 @@ the tables below.
     the ground in front of them. Each needs a cut approach climbing 23–45 ft east at 10%,
     which ends 8–13 ft from the near trunk, at or inside its 12 ft no-dig ring, and drains
     into the doors.
-  - The north cut runs right up to the surveyed line: a retaining wall along the north
-    side, under the fence.
+  - The north side's cut runs up to the surveyed line: 8–10 ft of it walled where the slope
+    can't fit, and the rest cuts through today's fence, 1.7–8 ft off the wall.
+  - In the model the dug-in slab prices a little under the built-up one ($86–87k against
+    $90k), only because the uphill approaches and their drains aren't priced.
   - Even with the slab set to the door side's grade, the east wall rises 1.4 ft along its
     length, so the 10 × 8 door still sits ~0.9 ft below the ground.
 - **What works there: build the low side up.** The slab level with the NE corner, ~33–38
@@ -3404,7 +3423,28 @@ the tables below.
   crown).
 - **Noise:** its north wall is 30 ft long, against B's 43, and slid west it stands clear of
   the house, so it shields the house even less than B did (reasoned, not modeled).
-- **So site A stays.** The study's map is from a scratch script, not in `site/`.
+- **So site A stays.**
+- **The numbers** (`site_b_east.py`):
+
+  | | P1: east wall on the drip line | P2: 10 ft west |
+  |---|---|---|
+  | Walls (site x, y ft) | 162–192, 131–161 | 152–182, 130–160 |
+  | To the house / the septic pipe | 8.2 / 21.5 ft | 10.0 / 11.5 ft |
+  | On the septic truck's spot | 21 sq ft | none |
+  | East wall to the near trunk | 25.1 ft | 35.1 ft |
+  | Today's fence off the north wall | 3.2–7.4 ft | 1.7–7.7 ft |
+  | Ground over the low corner (NW, NE, SE, SW) | +1.3, +2.9, +1.5, 0 ft | +2.1, +3.5, +2.1, 0 ft |
+  | Under standing canopy | 35% | 36% |
+  | The boat's line-up to the near trunk | 9.8 ft | 8.0 ft |
+
+  | Slab | Sills over the ground (12 × 12, 10 × 8) | Dig / fill | Wall / stem | Uphill approaches | Likely, all in |
+  |---|---|---|---|---|---|
+  | P1 built up | +1.1, +0.4 ft | 0 / 33 cu yd | 0 / 32 ft | none | $90k ($84–96k) |
+  | P1 doors' corner at grade | −0.3, −0.9 ft | 22 / 4 | 5 / 1 | 4 and 24 ft, ending 23 and 7 ft from the trunk | $85k |
+  | P1 dug in like A | −1.2, −1.9 ft | 56 / 0 | 8 / 0 | 23 and 35 ft, ending 10 and 12 ft | $86k |
+  | P2 built up | +1.3, +0.5 ft | 1 / 38 | 0 / 33 | none | $90k ($84–96k) |
+  | P2 doors' corner at grade | −0.1, −0.9 ft | 19 / 6 | 8 / 6 | 2 and 28 ft, ending 34 and 11 ft | $85k |
+  | P2 dug in like A | −1.6, −2.3 ft | 76 / 0 | 10 / 0 | 34 and 45 ft, ending 8 and 13 ft | $87k |
 
 ### Windows and doors
 

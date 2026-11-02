@@ -3480,6 +3480,20 @@ the tables below.
 - **Still open:** the angle and size (don't stake until they're settled), the engineer's slab
   detail, the locates, the sprinkler plan, and the corner heights against the lidar.
 
+### The heights' benchmark: the house's foundation at A (owner, Nov 2 2026)
+
+- **The owner will shoot heights with their own line laser** (a cabinet-install kind). The
+  benchmark, z = 0, is the top of the house's foundation at A, the NW corner.
+- **It's permanent and it's there for the pour.** The model's floor height is a guess
+  (1055.5 ft, `house_layout.FF_FT`); a shot of the ground at A ties the mark to the lidar
+  (expected ~1.9 ft below it).
+- **The method and the point list** are in `site/measurements.md`, "Heights with a laser
+  level":
+  - levelled in short hops, since daylight limits a line laser to ~20–30 ft without a
+    detector;
+  - the points found from the existing tape baseline west of A;
+  - the loop closed within ½ in.
+
 ### Windows and doors
 
 - Traffic noise is heavy in low frequencies. Compare windows by **OITC** (made for traffic

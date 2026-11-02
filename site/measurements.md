@@ -74,6 +74,56 @@ baseline and offsets:
 | T11 | North edge of the tree belt (strip side), offset at 25 / 50 / 75 / 100 | — | | ~+21 at 25 |
 | T12–T15 | Back lawn open area corners (NE, NW, SW, SE) at the branch edges | | | ~17 & ~100 / −25 & −62 |
 
+## Heights with a laser level (Nov 2 2026)
+
+For building A's dig and base (`site/building-a-groundwork.md`).
+
+**The mark, z = 0:** the top of the house's foundation at **A**, the NW corner.
+- Paint a small mark on the exact spot and photograph it. Use the slab's edge, not a brick
+  ledge or the siding.
+- Every height is measured from the mark; below it is negative.
+- The model's house floor height is a guess (1055.5 ft, `house_layout.FF_FT`). H1 pins it to
+  the lidar.
+
+**How** (a line laser on a tripod, a helper, and a tape or a marked 2 × 4 held plumb as the
+rod):
+1. **Set up** within the line's visible range of the mark: ~20–30 ft in daylight. It reaches
+   farther at dusk, or with a detector if the laser has a pulse mode.
+2. **Read the mark:** the tape from the mark up to the line (the backsight).
+3. **Read each point:** the tape from the ground up to the line. The point's height is the
+   backsight minus that reading.
+4. **To go farther,** set a turning point: a stake driven flush, or a brick. Read it, move the
+   laser, read it again from the new setup, and carry on.
+5. **Close the loop:** end by reading the mark again, back through the same turning points.
+   It should close within ½ in; if not, redo the hop that's off.
+
+**Find the points** with the tape baseline above:
+- the **station** is the distance west along the north wall's line from A;
+- the **offset** is the distance square off it toward the fence.
+
+±1–2 ft is close enough for heights. The corners are building A turned 22.5° (the plan); if
+the angle changes, they move.
+
+| # | Point | Station | Offset | Estimate (ft from the mark) |
+|---|---|---|---|---|
+| H1 | Ground at A, at the foot of the foundation | 0 | 0 | −1.9 |
+| H2 | Building A's NW corner | 90 | +38 | −4.7 |
+| H3 | NE corner (the high one) | 61 | +45 | −3.0 |
+| H4 | SE corner (door side) | 54 | +15 | −4.5 |
+| H5 | SW corner (door side, the low one) | 83 | +8 | −5.5 |
+| H6 | West side, middle | 87 | +23 | −5.2 |
+| H7 | Back (north) side, middle | 75 | +41 | −4.3 |
+| H8 | East side, middle | 57 | +30 | −3.8 |
+| H9 | Door side, middle | 69 | +12 | −5.1 |
+| H10 | 5 ft out behind the back wall's middle | 77 | +46 | −4.1 |
+| H11 | 5 ft out behind the NE corner | 62 | +49 | −2.7 |
+| H12 | The drain's outlet, ~45 ft past the SW corner | 107 | −31 | −7.5 |
+| H13 | Top of the septic access pipe (and the ground beside it) | 41 | +43 | ground −1.8 |
+| H14 | Top of the well casing (and the ground beside it) | 96 | +48 | ground −4.7 |
+
+The estimates are the 2017 lidar and the floor guess, ±1 ft. The slab's top is drawn ~4.65 ft
+under the floor: 0.8 ft over the SW corner's ground.
+
 ## Also note
 
 - Check your closing papers first, since they may answer some of these outright.

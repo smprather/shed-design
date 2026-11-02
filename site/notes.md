@@ -3446,6 +3446,40 @@ the tables below.
   | P2 doors' corner at grade | −0.1, −0.9 ft | 19 / 6 | 8 / 6 | 2 and 28 ft, ending 34 and 11 ft | $85k |
   | P2 dug in like A | −1.6, −2.3 ft | 76 / 0 | 10 / 0 | 34 and 45 ft, ending 8 and 13 ft | $87k |
 
+### Building A's groundwork: the power line and the slab's base (owner's ask, Nov 2 2026)
+
+- **The owner's ask:** fine-tune the building's site (they wrote "site B", meaning A, the one
+  kept): design the slab's rock base for them to build themselves, with a parts list and
+  steps, preceded by a plan to move the power line. The sprinkler plan and more
+  measurements are coming.
+- **The guide:** `site/building-a-groundwork.md`; the numbers and the map from
+  `tools/a_groundwork.py` (`site/a-groundwork.png`).
+- **The power line:**
+  - Drawn straight between the owner's ends, it's 136 ft, 0.6 ft from the well, and 24 ft
+    under the building.
+  - It's replaced by a new run in conduit. A least-cost search on a 1 ft grid found it,
+    straightened into trenchable legs: 207 ft round the back strip and the door side, with a
+    pull box. It's 10 ft off the dig, 24 ft off the well, 59 ft off the septic pipe and 44 ft
+    off the twin oak, with ~50 ft under canopy.
+  - The north strip is out: the dig, the septic pipe or tank, and the likely drainfield.
+  - The building's feeder and data share its first 35 ft of trench.
+  - The owner trenches and lays the conduit; an electrician pulls and cuts over. Texas
+    exempts work on a home the owner lives in (TDLR, Occupations Code 1305.003(a)(6)), but
+    local rules can override it.
+  - `shed_cost.py`'s line item went from a $1–2.5k spliced detour to $3.5–6k for the new
+    run: **$85k ($79–91k) all in**, up from $82k.
+- **The base:**
+  - The slab's top 0.8 ft over the SW corner's ground, 4 in of slab on at least 4 in of
+    crushed limestone base (TxDOT Item 247).
+  - 4 in of topsoil stripped; the base 4–10 in thick, thickest at the SW corner; 1 ft past
+    the slab's edges.
+  - 38 tons of base in all (31 under the slab, 7 under the aprons); 44 cu yd dug, spoil
+    spread on the lot.
+  - The NE corner is dug ~2.5 ft, into ~0.8 cu yd of soft limestone.
+  - Out of pocket ~$3.5–5k with rentals, for the base and the French drain.
+- **Still open:** the angle and size (don't stake until they're settled), the engineer's slab
+  detail, the locates, the sprinkler plan, and the corner heights against the lidar.
+
 ### Windows and doors
 
 - Traffic noise is heavy in low frequencies. Compare windows by **OITC** (made for traffic

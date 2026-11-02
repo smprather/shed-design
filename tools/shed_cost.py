@@ -91,7 +91,7 @@ PRICES = {
     "foam_roof": ((4.0, 7.0), "sq ft of roof", "Insulation: closed-cell spray foam, 3 in (~R-20), under the roof"),
     "barrier": ((1.25, 2.25), "sq ft", "Thermal barrier over the foam: intumescent coating (IRC R316.4; it's a woodshop)"),
     # power
-    "reroute": ((1000, 2500), "lot", "Detour the house's buried line round the building, if under it: ~60 ft in conduit, spliced in"),
+    "reroute": ((3500, 6000), "lot", "A new run for the house's buried line round the building: ~210 ft of trench, conduit, a pull box, new wire, no splices (a_groundwork.py)"),
     "pole": ((500, 3000), "lot", "At the meter pole: a 100 A breaker for the building (or a meter-main with spaces; PEC pulls the meter)"),
     "feeder": ((20, 40), "ft", "100 A feeder in PVC, and a spare conduit for data, in the trench shared with the house's line"),
     "panel": ((1200, 2500), "lot", "100 A main-breaker panel in the building, two ground rods"),

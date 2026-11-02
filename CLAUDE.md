@@ -24,6 +24,8 @@ limits:
   sections, and correct earlier text when it's superseded.
 - `site/measurements.md` and `site/measurements.csv` hold the field shot list and the tape
   baseline.
+- `site/building-a-groundwork.md` is building A's groundwork, step by step: the house's power line
+  moved round it, and the slab's rock base (parts lists, for the owner to do themselves).
 - The maps in `site/*.png` are rendered by the scripts in `tools/`. Don't edit the maps by
   hand.
 - **The garage-to-kitchen conversion lives in the private repo
@@ -74,6 +76,7 @@ Each script carries its dependencies inline (PEP 723). Run them from the repo ro
 | `import_field.py EXPORT_DIR` | merges exported worksheet shots into `site/field-data.json` |
 | `noise_model.py` | traffic-noise comparison of barrier options (printed table) |
 | `cmu_cost.py` | DIY block-wall material takeoff (printed table) |
+| `a_groundwork.py` | `site/a-groundwork.png` and the numbers in `site/building-a-groundwork.md`: building A's corners tied to the surveyed line, the house's power line in a new run round it (`ROUTE`, a pull box, the building's feeder sharing its first leg; clearances, bends), the slab's crushed-rock base (strip, dig, base tons, aprons; `--base`, `--strip`, `--soil`), and the swale's French drain to daylight |
 | `shed_cost.py` | turnkey budget for the building at site A, the 30 × 30 × 14 kit on a slab dug into its high side, and the same slab balanced or built up for comparison (printed tables; the dig, rock, fill, graded slope, wall, stem walls and aprons from the lidar, construction access with no drive yet, power from the meter pole and the service line's reroute, closed-cell foam insulation; `--level`, `--soil`) |
 | `impervious_cover.py` | impervious cover now, and with the building and the new drive (gravel counted and not), vs. the limit (printed tables) |
 | `fetch_terrain.py` | `site/terrain-lidar.json` (USGS 3DEP 1 m lidar resampled onto the 3D plan's 5 m grid); with `--out site/terrain-lidar-shed.json --spacing 1` (its docstring has the box), the 1 m patch round building A, which `plan3d.Terrain` blends in so every tool sees the finer ground there |

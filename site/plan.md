@@ -5,13 +5,13 @@ sources, corrections and dates. This file says what we're doing, in what order, 
 still undecided. Update it when a decision changes; record the facts behind the change in
 `notes.md`.
 
-Last updated: Oct 31 2026 (building A drawn turned 22.5° counter-clockwise and 4.75 ft off the fence, so a boat can drive out in one move; $82k all in; not settled. Oct 30: towing a boat in and out. Oct 28: the doors in the south gable end, a 12 × 12 for a boat and a 10 × 8, burgundy with black trim; on 14 ft legs and a slab dug into its high side, with power and closed-cell foam insulation: ~$83k all in, $51k of it the building on its slab; it comes first, and the drive much later).
+Last updated: Nov 2 2026 (building A's groundwork: the house's power line moved to a new 207 ft run in conduit round the building, and the slab's crushed-rock base, for the owner to do themselves; `site/building-a-groundwork.md`. $85k all in. Oct 31: building A drawn turned 22.5° counter-clockwise and 4.75 ft off the fence, so a boat can drive out in one move; $82k all in; not settled. Oct 30: towing a boat in and out. Oct 28: the doors in the south gable end, a 12 × 12 for a boat and a 10 × 8, burgundy with black trim; on 14 ft legs and a slab dug into its high side, with power and closed-cell foam insulation: ~$83k all in, $51k of it the building on its slab; it comes first, and the drive much later).
 
 ## The four projects
 
 | Project | What it is now | Status | Blocked on |
 |---|---|---|---|
-| **1. The building, at site A** (first: owner, Oct 24 2026) | A common 30 × 30 tube-frame kit on 14 ft legs, with a 12 × 12 door for a boat (owner, Oct 25 2026), on a concrete slab dug into its high side (owner, Oct 24), on the north strip between the well and the septic pipe. Site B is dropped (owner, Oct 18 2026): it had no slack between the septic pipe and the twin oak, cut into the oak's roots, wasn't a standard kit size, crowded the house and the septic truck's lane, and blocked little noise (notes, "Site B dropped"). A 30 × 30 there with east doors (Nov 1) can't be dug in, since its doors would be on the high side, and a towed boat can't get past the oak: too close to the oaks, in too narrow a gap, on too sloped a part of the yard, with no cheap or easy way out of the slope (owner; `tools/site_b_east.py`) | Modeled and priced: ~$83k likely all in, with power and closed-cell foam insulation ($51k of it the building on its slab); the doors on the south side at grade, with short concrete aprons | The buried service line; the septic layout (the drainfield may be under it) |
+| **1. The building, at site A** (first: owner, Oct 24 2026) | A common 30 × 30 tube-frame kit on 14 ft legs, with a 12 × 12 door for a boat (owner, Oct 25 2026), on a concrete slab dug into its high side (owner, Oct 24), on the north strip between the well and the septic pipe. Site B is dropped (owner, Oct 18 2026): it had no slack between the septic pipe and the twin oak, cut into the oak's roots, wasn't a standard kit size, crowded the house and the septic truck's lane, and blocked little noise (notes, "Site B dropped"). A 30 × 30 there with east doors (Nov 1) can't be dug in, since its doors would be on the high side, and a towed boat can't get past the oak: too close to the oaks, in too narrow a gap, on too sloped a part of the yard, with no cheap or easy way out of the slope (owner; `tools/site_b_east.py`) | Modeled and priced: ~$85k likely all in, with power and closed-cell foam insulation ($49k of it the building on its slab); the doors in its front gable end at grade, with short concrete aprons. The groundwork, step by step: `site/building-a-groundwork.md` (Nov 2) | The buried service line; the septic layout (the drainfield may be under it) |
 | **2. Screening** (noise and views) | US-290 side: the 8 ft fence, building B, maybe a taller wall. Back line: 21 new trees in the gaps | Back-line planting ready to buy; US-290 side needs re-modeling | Fence gaps and ownership; septic layout |
 | **3. Garage → kitchen** | Join the 21 × 21 ft attached garage, the hall beside it and the old kitchen into one ~680 sq ft kitchen. Its own repo: `smprather/kitchen-garage-renovation` | Idea stage (~90% likely); layout mocked up | Parking must move first; septic capacity question; structure (see its repo) |
 | **4. The drive + porte-cochère** | Redesigned from scratch: loop D, a forecourt with a porte-cochère (2 cars nose to tail) and a passing lane, the service drive and north court, the shop lane to building A. Estate gravel, concrete-curbed | Designed, drawn in the renders; not priced: it comes much later (owner, Oct 24 2026) | Trunk tapes; buried lines; the septic layout; county permits |
@@ -76,12 +76,16 @@ before its first dig.
 ### Step 1: the building at site A (first)
 
 See project 1. In order:
-1. Clear the site and lay it out from the pins.
-2. Trench from the meter pole: the house's line rerouted round the building, and the
-   building's feeder conduit beside it, stubbed up where its panel will be.
+1. Locate everything buried (811, and a private locator for our own lines), then move the
+   house's power line: a new 207 ft run in conduit round the building's back and door
+   sides, the building's feeder and a data conduit in its first leg. The owner digs and
+   lays the conduit; an electrician pulls the wire and cuts over. Step by step in
+   `site/building-a-groundwork.md`.
+2. Clear the site and lay it out from the pins.
 3. Dig the high side: the slab's pad, and the swale and graded slope round the north, east
-   and west. The short block wall by the septic pipe, if the tank's location still calls
-   for it. The French drain to daylight on the low side.
+   and west. Lay the crushed-rock base (38 tons; the owner may do it themselves, same
+   guide), with the feeder's conduit stubbed up where the panel goes. The French drain to
+   daylight on the low side, after the slab.
 4. Form and pour the slab, from a line pump on the old drive, with the kit's anchors set in
    its thickened edges and the feeder's conduit coming up through it.
 5. The dealer sets the kit on the slab and bolts it down.
@@ -254,10 +258,12 @@ Tube frame, dealer-installed (owner, Oct 18 2026: red-iron is out).
   - The line to the house is the house's feeder, sized and protected for the house. Tapping
     the building off it in the yard isn't allowed.
 - **The trench is shared.** The house's line has to be rerouted round the building anyway.
-  - It's detoured, not replaced: ~60 ft of new cable in conduit round the building, spliced
-    into the old line at each end with direct-burial splice kits (NEC 300.5(E)). ~$1–2.5k.
-  - Its conduit, the building's 100 A feeder (~53 ft) and a spare conduit for data go in one
-    trench, dug while the slab's excavator is there.
+  - It's replaced, not patched (Nov 2): a new 207 ft run in 2½ in conduit from the pole round
+    the building's back and door sides to the house's NW corner, with a pull box and no
+    splices. ~$3.5–6k turnkey, less with the owner digging (`site/building-a-groundwork.md`,
+    `tools/a_groundwork.py`). It was a ~60 ft spliced detour at $1–2.5k.
+  - The building's 100 A feeder and a data conduit share its first 35 ft of trench, then
+    branch 32 ft to the panel.
 - **Inside:**
   - a 100 A main-breaker panel, with two ground rods;
   - EMT on the frame;
@@ -276,18 +282,18 @@ Tube frame, dealer-installed (owner, Oct 18 2026: red-iron is out).
   It's less airtight, and a tear lets condensation in.
 - **The roll-up doors stay uninsulated.** Insulated sectional doors are an option (~$4–7.5k).
 
-**Where the $82k goes** (likely, with the 10% contingency; turned 22.5°, Oct 31 2026):
+**Where the $85k goes** (likely, with the 10% contingency; turned 22.5°, Oct 31 2026; the line's new run, Nov 2):
 
 | Part | Likely (80% band) |
 |---|---|
 | The building on its slab: the kit on 14 ft legs, the walk door, the slab, the dig, the aprons, prep, permits, access | $49k ($44–54k) |
 | Power: the breaker at the pole, the feeder, the panel, the wiring | $13k ($11–15k) |
 | Insulation: closed-cell foam and its thermal barrier | $17k ($15–19k) |
-| The house's line detoured round the building, if the locate puts it under it | $2k ($1–3k) |
-| **All of it** | **$82k** ($76–88k) |
+| The house's line in a new run round the building | $5k ($4–6k) |
+| **All of it** | **$85k** ($79–91k) |
 
-- Square to the line it was $83k ($77–89k): turned, the dig is a little shallower and the block
-  wall goes.
+- Square to the line it was $83k ($77–89k) with the old detour: turned, the dig is a little
+  shallower and the block wall goes. With the line's new run (Nov 2) it's $85k.
 
 - Options, not in it: insulated doors and a ductless mini-split, ~$13k together.
 - The 14 ft legs and the bigger doors cost ~$3k over the 11 ft kit, and the taller walls ~$1.5k

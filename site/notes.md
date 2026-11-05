@@ -2870,7 +2870,9 @@ the tables below.
   - Before concrete, 30 × 30 × 14 listings run ~$13–17k with one door. Two big roll-ups and
     the walk door add ~$2–4k, then Texas delivery and the wind certification.
   - The budget's $15–26k for the kit installed is on the conservative side of that.
-- **The spec sheet for quotes:**
+- **The spec sheet for quotes** (superseded: the doors moved to the front gable end on Oct 28, and
+  the door sizes changed. The current text for builders is in "First contact with a builder", Nov 5
+  2026):
   - 30 ft wide × 30 ft long × 14 ft legs, vertical roof at 3:12, ridge along the length.
   - Certified drawings for Travis County's wind; ask for 140 mph or better. 12-ga frame.
   - Fully enclosed, vertical siding, gutters on both eaves.
@@ -3493,6 +3495,63 @@ the tables below.
     detector;
   - the points found from the existing tape baseline west of A;
   - the loop closed within ½ in.
+
+### First contact with a builder (owner, Nov 5 2026)
+
+- **The owner is filling in Wolf Steel Buildings' contact form** (wolfsteelbuildings.com/contact;
+  Fort Worth; Texas only, so check that they serve Travis County). They used Wolf's
+  configurator for the front face on Oct 28.
+- **The form asks:**
+  - what the building is for (free text);
+  - which services: tubular or red iron, permitting, site work, demolition, concrete,
+    insulation, masonry;
+  - how soon;
+  - project details (free text).
+- **Services to tick:**
+  - Tubular Building;
+  - Concrete, for a slab quote even if the owner builds the base;
+  - Permitting;
+  - Insulation, for comparison with spray foam;
+  - Site Work, optionally, for comparison.
+- **What it's for:** "Workshop and storage: a woodshop, the riding mower, a pickup or utility
+  trailer, with a 12 x 12 bay sized for a boat on its trailer."
+- **Project details**, the current design. Reuse it for other builders:
+
+  > Tubular steel garage/workshop, 30' wide x 30' long x 14' legs, fully enclosed, vertical
+  > roof (3:12) and vertical siding. Residential lot in unincorporated Travis County (SW
+  > Austin), on septic and a well.
+  >
+  > Doors, all in one 30' gable end (the front), so the ridge runs front to back:
+  > - 12'W x 12'H roll-up, 1'6" from the left corner (the boat/trailer bay)
+  > - 10'W x 8'H roll-up, 1'3" from the right corner
+  > - 36" walk door between them. I'd like a framed opening for a commercial hollow-metal door
+  >   and frame (or your commercial door); please also price your standard door. Your
+  >   configurator flagged the ~1' gaps beside it; if the framing won't allow that, the walk
+  >   door can go on a side wall.
+  >
+  > Colors: burgundy walls, black trim and wainscot (about 2'6"), roof color to be decided.
+  > Gutters and downspouts on both eaves.
+  >
+  > Please include certified drawings for Travis County's wind load (I'd prefer a 12-ga frame;
+  > tell me the rated wind speed), the anchor layout, and your slab requirements.
+  >
+  > Foundation: a 4" slab with thickened edges, cut into the high side of a gentle slope (about
+  > 2.5' of fall across the footprint). I may build the rock base myself. Please quote (1) the
+  > building installed on my slab, and (2) the slab and site prep, if you do concrete.
+  >
+  > Insulation: I'm planning closed-cell spray foam by others. Please quote your insulation for
+  > comparison.
+  >
+  > Please also price two alternates: (a) 24' x 30' x 14' with the 12x12 and an 8x8 roll-up in
+  > the 24' end and the walk door on a side wall; (b) the 30x30 on 12' legs with a 10x10 in
+  > place of the 12x12.
+  >
+  > Access: the site is in the back yard, about 180' from the street, with no drive to it yet,
+  > past a large oak whose roots need protecting. How would you deliver and erect, and what
+  > access do you need?
+  >
+  > Timing: utility locates and moving a buried power line come first. I'd like to build in
+  > [month].
 
 ### Windows and doors
 

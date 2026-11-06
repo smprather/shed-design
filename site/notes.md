@@ -3553,6 +3553,36 @@ the tables below.
   > Timing: utility locates and moving a buried power line come first. I'd like to build in
   > [month].
 
+### The sprinklers, from the 2017 irrigation plan (owner, Nov 6 2026)
+
+- **The owner sent the house's irrigation plan:** Feb 8 2017, 1" = 20', drawn and sealed by a
+  licensed irrigator.
+  - It names the owner of the time and carries a signature, so the photo is in the private
+    repo (`property/irrigation-plan-2017.webp`).
+  - Here are only the lines: `tools/irrigation_plan.py` fits the photo to the site frame on the
+    lot's and the house's corners (residuals 1–6 ft) and writes `site/irrigation-2017.json`.
+  - The plan's own note 5: it's schematic, and the piping could differ. Read ±5–10 ft.
+- **What it shows:**
+  - Hunter PGP rotors in the back yard, and Pro-S pop-ups with MP3 nozzles in front and down
+    the south side.
+  - 1" PGV valves, a master valve, and a ¾" double check with a Y-strainer at the 5/8" meter.
+  - A 1¼" mainline up the south side; the valve wire laid in the trench under the pipe.
+  - Eight zones, 8–14 GPM each.
+  - The back yard's four rotor zones: 7 (the row nearest the back line), 6, 5 (behind the house
+    and along its north side) and 4 (by the back deck). Their valves sit along the south side.
+  - The controller is on the house's back wall by its NW corner; the rain sensor is on the
+    north fence, north of the house.
+- **Against building A's groundwork** (`a_groundwork.py`, blue on `a-groundwork.png`):
+  - zone 7's last rotor is ~3 ft off the building's SW (boat-door) corner, the end of its pipe
+    in the dig and the apron: cap it ~10 ft back and move the head;
+  - zone 6's last rotor is 13 ft in front of the doors, in the boat's lane: re-arc it;
+  - the power trench crosses zones 7, 6 and 5 once each, and its last ~35 ft passes the
+    controller and its wires: hand-dig there;
+  - the drain's outlet crosses zone 7;
+  - the mainline is 80 ft from the dig and 44 ft from the trench.
+- **The guide has the steps and the repair parts** (~$60–100): `site/building-a-groundwork.md`,
+  "The sprinklers in the way".
+
 ### Windows and doors
 
 - Traffic noise is heavy in low frequencies. Compare windows by **OITC** (made for traffic

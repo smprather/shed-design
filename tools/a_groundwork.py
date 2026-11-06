@@ -24,6 +24,7 @@ All from the 2017 lidar (+/-0.5 ft) and the survey and field shots (+/-2 ft). Wr
 Run: uv run tools/a_groundwork.py
 """
 
+import json
 import math
 from itertools import pairwise
 
@@ -43,6 +44,8 @@ from site_plan import (CYAN, GREEN, MAGENTA, ORANGE, RED, REPO, WHITE, YELLOW, P
                        site, st)
 
 OUT = REPO / "site" / "a-groundwork.png"
+IRRIGATION = REPO / "site" / "irrigation-2017.json"   # the sprinklers, from the 2017 plan (irrigation_plan.py)
+BLUE = (90, 170, 255)
 VIEW = (40, 88, 200, 212)
 SIZE = 30.0          # ft: the 30 x 30 kit
 SLAB = 4 / 12        # ft: the slab
@@ -80,6 +83,12 @@ def bends(pts: list[tuple[float, float]]) -> float:
         h1, h2 = math.atan2(b[1] - a[1], b[0] - a[0]), math.atan2(c[1] - b[1], c[0] - b[0])
         out += abs(math.degrees((h2 - h1 + math.pi) % (2 * math.pi) - math.pi))
     return out
+
+
+def crossings(a, b) -> int:
+    """How many times two lines cross."""
+    x = a.intersection(b)
+    return 0 if x.is_empty else len(getattr(x, "geoms", [x]))
 
 
 def table(rows: list[dict]) -> None:
@@ -248,6 +257,26 @@ def main(base_in: float, strip_in: float, soil: float) -> None:
                f"and {outlet:.0f} ft solid out to daylight past the SW corner: ~{perf + SIZE + SWALE + outlet:.0f} ft of pipe, "
                f"~{stone:.1f} cu yd ({stone * STONE_TONS * WASTE:.1f} tons) of stone.")
 
+    # --- The sprinklers: the 2017 plan's back-yard zones against the dig, the power run, the feeder and the drain ---
+    drain = [at(SIZE + SWALE / 2, east_from), at(SIZE + SWALE / 2, SIZE + SWALE / 2), at(-SWALE / 2, SIZE + SWALE / 2), start, out_pt]
+    irr = json.loads(IRRIGATION.read_text()) if IRRIGATION.exists() else None
+    if irr:
+        near = work.buffer(3.0)
+        rows = []
+        for z in irr["zones"]:
+            lines = unary_union([LineString(q) for q in z["pipes"]])
+            rows.append({"zone": z["zone"], "what": z["what"],
+                         "heads within 3 ft of the dig, slab or aprons": sum(near.contains(Point(h)) for h in z["heads"]),
+                         "pipe there (ft)": f"{lines.intersection(near).length:.0f}",
+                         "nearest head to the building (ft)": f"{min(bldg.distance(Point(h)) for h in z['heads']):.0f}",
+                         "crosses the power run": crossings(lines, route), "the feeder": crossings(lines, LineString(feeder)),
+                         "the drain": crossings(lines, LineString(drain))})
+        main_line = LineString(irr["mainline"])
+        click.echo("\nThe sprinklers (the 2017 plan, schematic, digitized +/-5-10 ft; irrigation_plan.py). The mainline runs up the "
+                   f"lot's south side, {main_line.distance(work):.0f} ft from the dig and {main_line.distance(route):.0f} ft from the power "
+                   "run; the back-yard valves sit along it. Cut lines get capped or rejoined with slip couplings.")
+        table(rows)
+
     # --- Map ---
     plan = Plan(view=VIEW)
     plan.grid()
@@ -266,8 +295,20 @@ def main(base_in: float, strip_in: float, soil: float) -> None:
         plan.d.ellipse([px - 5, py - 5, px + 5, py + 5], outline=GREEN, width=2)
     plan.line([pole, ROUTE[-1]], RED, width=3, dash=True)
     plan.line(feeder, (255, 120, 40), width=5)
-    plan.line([at(-SWALE / 2, east_from), at(SIZE + SWALE / 2, east_from)][1:] + [at(SIZE + SWALE / 2, SIZE + SWALE / 2),
-              at(-SWALE / 2, SIZE + SWALE / 2), start, out_pt], CYAN, width=3, dash=True)
+    if irr:
+        for z in irr["zones"]:
+            for q in z["pipes"]:
+                plan.line(q, BLUE, width=3)
+            for hx, hy in z["heads"]:
+                px, py = plan.p(hx, hy)
+                plan.d.ellipse([px - 6, py - 6, px + 6, py + 6], fill=BLUE, outline=(20, 40, 90), width=2)
+            lines = unary_union([LineString(q) for q in z["pipes"]]).intersection(Polygon([(VIEW[0], VIEW[1]), (VIEW[2], VIEW[1]),
+                                                                                       (VIEW[2], VIEW[3] - 12), (VIEW[0], VIEW[3] - 12)]))
+            if not lines.is_empty:   # the label beside the zone's pipe, at its point nearest the building
+                q = lines.interpolate(lines.project(bldg.centroid))
+                plan.label(q.x + 1.5, q.y + 3.0, f"zone {z['zone']}", fill=BLUE, size=15)
+        plan.line(irr["mainline"], BLUE, width=3, dash=True)
+    plan.line(drain, CYAN, width=3, dash=True)
     plan.line(ROUTE, WHITE, width=6)
     bx, by = plan.p(*ROUTE[PULL_BOX])
     plan.d.rectangle([bx - 9, by - 9, bx + 9, by + 9], outline=(20, 20, 20), fill=WHITE, width=2)
@@ -290,7 +331,7 @@ def main(base_in: float, strip_in: float, soil: float) -> None:
     plan.label(42, 201.5, "Building A's groundwork (Nov 2 2026). White: the house's new power run (the box: a pull box). Orange line: "
                           "the building's feeder. Red dashed: the old line if straight.", size=15)
     plan.label(42, 205.5, "Orange area: the dig, slab and aprons. Grey dashed: the base, 1 ft past the slab. Cyan dashed: the drain. "
-                          "Yellow dashed: corner ties square to the line. Grid 10 ft; up NNE.", size=15)
+                          "Blue: sprinkler pipes and heads (2017 plan, +/-5-10 ft). Yellow dashed: corner ties. Grid 10 ft; up NNE.", size=15)
     plan.scale_bar()
     plan.img.save(OUT)
     click.echo(f"\nwrote {OUT.relative_to(REPO)} {plan.img.size}")

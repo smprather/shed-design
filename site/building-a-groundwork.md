@@ -30,9 +30,9 @@ Prices are rough Central Texas figures, not local quotes.
     - the house's power line, pole to house;
     - the house's sewer, from the house to the septic tank;
     - the well's pipe and pump wire, if the well is still in use;
-    - the sprinkler lines (send the sprinkler plan; its lines get capped or moved where the
-      dig and the trench go).
   - Mark each with paint and flags, and photograph them with a tape in the picture.
+- **The sprinklers you find yourself.** The house's 2017 irrigation plan shows where they
+  should be ("The sprinklers in the way", below), and 811 doesn't mark them.
 
 ### Worth measuring this afternoon
 
@@ -55,6 +55,44 @@ Prices are rough Central Texas figures, not local quotes.
    AC unit or hose bib near the house's NW corner.
 4. **The well:** is it in use, or capped? Does any pipe or wire run from it?
 5. **The septic tank's lids,** and where the sewer leaves the house (look for a cleanout).
+
+### The sprinklers in the way (the 2017 irrigation plan)
+
+- **The source:** the house's irrigation plan from Feb 2017, a photo kept in the private repo.
+  It's drawn on our site map by `tools/irrigation_plan.py` (blue on `site/a-groundwork.png`).
+  - The plan says it's schematic, and the fit to our map is good to a few feet. Read every
+    position as ±5–10 ft until the lines are found.
+- **The back yard has four rotor zones** (Hunter PGP heads):
+  - **zone 7:** the row nearest the back line;
+  - **zone 6:** the middle row;
+  - **zone 5:** behind the house and along its north side;
+  - **zone 4:** by the back deck.
+
+  Each runs north from its valve on the lot's south side. The mainline (1¼ in) runs up the
+  south side from the meter at the street, 80 ft from the dig and 44 ft from the power trench.
+- **The controller** is on the house's back wall by its NW corner. That's where the new power
+  line rises, so its valve wires come in there too. **The rain sensor** is on the north fence,
+  north of the house.
+
+| Where | What the plan shows | What to do |
+|---|---|---|
+| Building A's boat-door corner (SW) | Zone 7's last rotor, ~3 ft off the corner; the end of its pipe is in the dig and the apron | Before the dig, cut the pipe back ~10 ft and cap it. Move the head south, out of the apron and the boat's way in, on a ¾ in swing joint. Set its arc to throw away from the building |
+| In front of the doors | Zone 6's last rotor, 13 ft out | Re-arc it so it doesn't spray the doors. It's in the lane the boat backs down, so a pop-up head there may get run over |
+| The power trench, leg 3 | Crosses zone 7's pipe | Find it by hand first, cut it cleanly, and rejoin it once the conduit is in |
+| The power trench, leg 4 | Crosses zones 6 and 5 | The same |
+| The power trench's last ~35 ft, along the house's west wall | Zone 5's pipe, and the controller's wires at the NW corner | Hand-dig that stretch. Keep the controller's wires whole, or mark and splice them in a valve box |
+| The drain's outlet | Crosses zone 7's pipe | Pass under it; the drain is deeper |
+
+- **Finding the lines:**
+  - Run each zone and flag its heads, a flag color per zone.
+  - The pipe runs head to head in nearly straight lines, 6–12 in down.
+  - Where a trench will cross, dig a small hole across the expected line by hand and expose
+    the pipe before the trencher comes.
+  - A wire tracer (~$50–100) clipped to a valve's wire follows the mainline.
+- **Afterwards:**
+  - Run every zone.
+  - Check each rejoined pipe for leaks before you backfill it.
+  - Set the arcs of the rotors near the building so they don't spray its walls or doors.
 
 ## Part 1: move the house's power line
 
@@ -152,20 +190,27 @@ electrician confirms them once the house's wire size is known.
 | Red "buried electric line" warning tape, 6 in wide | 300 ft | ~$25 |
 | Sand or screened fines for bedding, if the trench is rocky | 1–3 cu yd | ~$50–150 |
 | Walk-behind trencher with a rock chain, 36 in boom | 1 day | ~$200–300 |
+| Sprinkler repairs: 1 in and ¾ in PVC slip-fix (telescoping) repair couplings, 2–3 of each; two ¾ in slip caps; a ¾ in swing joint; a spare Hunter PGP rotor; a few feet of 1 in and ¾ in Schedule 40 PVC; purple primer and cement | | ~$60–100 |
+| Marking flags in three colors | 100 | ~$15 |
 
 The shared leg is three conduits side by side, 12 in wide. Dig it with the loader's or a mini
 excavator's bucket when they're on site for the dig.
 
-Your part comes to ~$1.7–2.1k. The electrician's work and the new wire are another ~$2–4k,
+Your part comes to ~$1.8–2.2k, with the sprinkler repairs. The electrician's work and the new wire are another ~$2–4k,
 depending on the wire size. The budget now carries $3.5–6k for the whole new run. It was
 $1–2.5k for a spliced detour, which raises the turnkey total from $82k to $85k.
 
 ### Steps
 
 1. **Locate, mark and photograph** everything buried (above). Set out the route with paint.
-   Check it against the marks and against the sprinkler plan.
+   Check it against the marks.
+   - Flag the sprinkler heads, and expose by hand the pipes the trench crosses: zones 7, 6
+     and 5.
+   - Switch the controller off for the job.
 2. **Trench** 27–30 in deep and flat-bottomed.
-   - Hand-dig within 2 ft of any marked line.
+   - Hand-dig within 2 ft of any marked line, and the last ~35 ft along the house's west
+     wall, where the controller's wires and zone 5's pipe are.
+   - Cut each sprinkler pipe cleanly where the trench crosses it.
    - Pick out rocks bigger than a fist.
    - In rock, lay 2 in of sand in the bottom.
 3. **Lay the conduit.**
@@ -183,6 +228,8 @@ $1–2.5k for a spliced detour, which raises the turnkey total from $82k to $85k
    - The warning tape 12 in below the grade.
    - Then the rest of the soil, tamped in 6–8 in layers.
    - Leave the shared leg's branch to the building capped and staked at the dig's edge.
+   - Rejoin each cut sprinkler pipe over the conduit with a repair coupling before you
+     backfill that spot. Run the zone and check for leaks.
 7. **The electrician pulls and cuts over.**
    - Open the house's disconnect at the pole.
    - Take off the old run.
@@ -292,16 +339,18 @@ contractor, plus whatever the concrete crew charges for the base.
 
 **Dig**
 
-5. **Clear and strip** 4 in of topsoil and roots over the pad, 1 ft past it, and the aprons.
+5. **Move zone 7's end.** Cap the sprinkler pipe ~10 ft short of the building's SW corner, and
+   move the head out of the apron (see "The sprinklers in the way").
+6. **Clear and strip** 4 in of topsoil and roots over the pad, 1 ft past it, and the aprons.
    Stockpile the topsoil.
-6. **Dig the high side** to the base's bottom, checking with the laser every few feet.
+7. **Dig the high side** to the base's bottom, checking with the laser every few feet.
    - Cut the swale and lay the slope back, 2:1 (or 3:1).
    - Don't over-dig: fill a hole with base, never with loose soil.
-7. **Proof-roll** the dug ground. Drive the loaded track loader over it in lanes.
+8. **Proof-roll** the dug ground. Drive the loaded track loader over it in lanes.
    - Mark anything that pumps or ruts more than ½ in.
    - Dig those spots out 6–12 in, and refill with base.
    - Then run the plate over the bare ground, wetting it if it's dusty.
-8. **The building's conduits.** Extend the feeder (1½ in) and data (1 in) conduits from the dig's
+9. **The building's conduits.** Extend the feeder (1½ in) and data (1 in) conduits from the dig's
    edge to the panel's spot.
    - The panel goes inside the west wall, ~20 ft from the SW corner. The electrician picks
      the exact spot.
@@ -312,32 +361,32 @@ contractor, plus whatever the concrete crew charges for the base.
 
 **Build the base**
 
-9. **Place the base in layers about 5 in deep, loose,** which compacts to about 4 in.
+10. **Place the base in layers about 5 in deep, loose,** which compacts to about 4 in.
    - The SW (low) side takes two layers before the whole pad gets its last one.
    - Dump in piles, and spread with the loader.
-10. **Wet each layer** until it's damp right through, like sand for a sandcastle: it holds a
+11. **Wet each layer** until it's damp right through, like sand for a sandcastle: it holds a
     squeeze without dripping. Don't leave puddles.
-11. **Compact each layer** with the reversible plate.
+12. **Compact each layer** with the reversible plate.
     - 3–4 passes each way, overlapping by half a plate.
     - Do the edges and corners first.
     - It's done when the plate rides instead of sinking, and your boot leaves no print.
-12. **Finish the top.**
+13. **Finish the top.**
     - Spread the last layer a little high, compact it, and read it with the laser on a 5 ft
       grid.
     - It should be within ±½ in of the base's top.
     - Shave the highs with the lute rake, fill the lows with fines, wet, and compact again.
     - Check it with the straight 12 ft board for ridges.
-13. **Check it all again from the batter boards:**
+14. **Check it all again from the batter boards:**
     - the slab's edges, 1 ft inside the base's edge all round;
     - the diagonals;
     - the conduit stub where the panel goes.
 
 **After**
 
-14. **Keep it.** No traffic on it.
+15. **Keep it.** No traffic on it.
     - If rain softens it, let it dry, then compact again.
     - In heat, mist it until the forms go on.
-15. **For the pour** (the concrete crew, or you with them):
+16. **For the pour** (the concrete crew, or you with them):
     - forms;
     - the thickened-edge trenches cut down through the base at the engineer's size, their
       spoil cleared out;
@@ -346,9 +395,9 @@ contractor, plus whatever the concrete crew charges for the base.
     - the kit's anchors per the dealer's anchor plan;
     - a boot on the conduit stub;
     - then the inspection, then the pour.
-16. **The aprons' base** goes in after the building is up, the same way, following each apron's
+17. **The aprons' base** goes in after the building is up, the same way, following each apron's
     fall.
-17. **The French drain** goes in after the slab, so equipment doesn't crush it.
+18. **The French drain** goes in after the slab, so equipment doesn't crush it.
     - A trench 12 in wide and 1 ft under the swale's floor, falling at least 1% (⅛ in per
       ft) to the outlet. Check it with the laser.
     - Fabric in the trench, 2 in of stone, the pipe with its holes down, stone to 2 in over

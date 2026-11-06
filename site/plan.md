@@ -78,7 +78,8 @@ before its first dig.
 See project 1. In order:
 1. Locate everything buried (811, and a private locator for our own lines), then move the
    house's power line: a new 207 ft run in conduit round the building's back and door
-   sides, the building's feeder and a data conduit in its first leg. The owner digs and
+   sides (the sprinklers' zones 7, 6 and 5 cross it, and zone 7's last rotor moves out of the
+   boat door's apron: notes, "The sprinklers"), the building's feeder and a data conduit in its first leg. The owner digs and
    lays the conduit; an electrician pulls the wire and cuts over. Step by step in
    `site/building-a-groundwork.md`.
 2. Clear the site and lay it out from the pins.

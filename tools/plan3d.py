@@ -40,6 +40,7 @@ from envelope_plan import SITE_A
 
 SPEC = REPO / "property_total_plan.jsonc"
 TERRAIN = REPO / "site" / "terrain-lidar.json"
+IRRIGATION = REPO / "site" / "irrigation-2017.json"   # the sprinklers, from the 2017 plan (irrigation_plan.py)
 TERRAIN_FINE = REPO / "site" / "terrain-lidar-shed.json"   # fetch_terrain.py: the 1 m DEM round building A; optional
 FEATHER = 3.0  # m: the fine patch blends into the 5 m grid over this much of its edge, so the two meet without a seam
 DUG = 0.03     # m: ground cut deeper than this below the lidar's is drawn as the excavation
@@ -253,6 +254,19 @@ class Obj:
         out.append(ring[-1])
         self.polyline([(x, y, self.ground(x, y) + lift) for x, y in out])
 
+    def strip(self, pts: list[Pt], width: float, lift: float = 0.04) -> None:
+        """A narrow flat band on the ground along a polyline (a buried pipe, drawn so it shows)."""
+        for a, b in zip(pts, pts[1:]):
+            seg = math.dist(a, b)
+            if seg < 1e-6:
+                continue
+            nx, ny = -(b[1] - a[1]) / seg * width / 2, (b[0] - a[0]) / seg * width / 2
+            n = max(1, math.ceil(seg / 0.5))   # finer than DRAPE_STEP, so the band stays on the 0.2 m ground
+            st = [(a[0] + (b[0] - a[0]) * k / n, a[1] + (b[1] - a[1]) * k / n) for k in range(n + 1)]
+            for (x0, y0), (x1, y1) in zip(st, st[1:]):
+                self.face([(x, y, self.ground(x, y) + lift) for x, y in ((x0 + nx, y0 + ny), (x0 - nx, y0 - ny),
+                                                                         (x1 - nx, y1 - ny), (x1 + nx, y1 + ny))])
+
     def ribbon(self, left: list[Pt], right: list[Pt], lift: float = 0.08) -> None:
         """A paved strip on the ground between two matching edge lines, one quad per station."""
         for (a, b), (c, d) in zip(zip(left, left[1:]), zip(right, right[1:])):
@@ -436,6 +450,10 @@ def contours(obj: "Obj", ground: Terrain, box: list[Pt], skip: list[Pt], step: f
 def ccw(poly: list[Pt]) -> list[Pt]:
     area = sum(a[0] * b[1] - b[0] * a[1] for a, b in zip(poly, poly[1:] + poly[:1]))
     return poly if area > 0 else poly[::-1]
+
+
+def np_mean(pts: list[Pt]) -> Pt:
+    return (sum(p[0] for p in pts) / len(pts), sum(p[1] for p in pts) / len(pts))
 
 
 def circle(c: Pt, r: float, n: int = 36) -> list[Pt]:
@@ -851,6 +869,40 @@ def main(spec: Path, out: Path | None, focus: bool) -> None:
     for name, (c, r) in {**keep_outs, "oak_drip_line": (oak, 25.1), "oak_no_dig_12ft": (oak, 12.0)}.items():
         obj.obj(name)
         obj.drape([to_m(p) for p in circle(c, r)], closed=True)
+    # The septic access pipe (field shots, +/-2 ft): a white capped 4 in PVC riser, its height above the ground assumed.
+    sx, sy = to_m(pipe)
+    obj.obj("septic_access_pipe")
+    obj.prism(circle((sx, sy), 0.057, 16), ground(sx, sy) - 0.3, ground(sx, sy) + 0.3)
+    obj.prism(circle((sx, sy), 0.066, 16), ground(sx, sy) + 0.3, ground(sx, sy) + 0.36)
+    # The sprinklers from the house's 2017 irrigation plan (irrigation_plan.py; schematic, +/-5-10 ft): the pipes as bands
+    # on the ground's surface, ~5 in wide so they show (they're 1 in PVC, 6-12 in down), the heads drawn ~6 in across, the
+    # valve boxes, the controller.
+    irrigation = json.loads(IRRIGATION.read_text()) if IRRIGATION.exists() else None
+    if irrigation:
+        obj.obj("sprinkler_pipes_2017_plan")
+        for z in irrigation["zones"]:
+            for line in z["pipes"]:
+                obj.strip([to_m(tuple(p)) for p in line], 0.13)
+        obj.obj("sprinkler_mainline_2017_plan")
+        obj.strip([to_m(tuple(p)) for p in irrigation["mainline"]], 0.18)
+        obj.obj("sprinkler_heads_2017_plan")
+        for z in irrigation["zones"]:
+            for h in z["heads"]:
+                hx, hy = to_m(tuple(h))
+                obj.prism(circle((hx, hy), 0.075, 12), ground(hx, hy) - 0.05, ground(hx, hy) + 0.05)
+            vx, vy = to_m(tuple(z["valve"]))
+            obj.prism([(vx - 0.18, vy - 0.13), (vx + 0.18, vy - 0.13), (vx + 0.18, vy + 0.13), (vx - 0.18, vy + 0.13)],
+                      ground(vx, vy) - 0.05, ground(vx, vy) + 0.03)
+        # the controller, on the nearest stretch of the house's wall, ~3 1/2 ft up
+        from shapely.geometry import LineString as SLine, Point as SPt
+        ring = SLine([*HOUSE, HOUSE[0]])
+        ctl = ring.interpolate(ring.project(SPt(irrigation["points"]["controller"])))
+        cx, cy = to_m((ctl.x, ctl.y))
+        mx, my = to_m(np_mean(HOUSE))
+        away = math.hypot(cx - mx, cy - my)
+        cx, cy = cx + (cx - mx) / away * 0.08, cy + (cy - my) / away * 0.08
+        obj.prism([(cx - 0.13, cy - 0.13), (cx + 0.13, cy - 0.13), (cx + 0.13, cy + 0.13), (cx - 0.13, cy + 0.13)],
+                  ground(cx, cy) + 1.0, ground(cx, cy) + 1.35)
 
     # --- The plan's entities ---
     for e in plan["spatial_entities"]:
@@ -1019,7 +1071,9 @@ def main(spec: Path, out: Path | None, focus: bool) -> None:
                 ],
                 "tags": [["Meter pole: the power", tag((22.6, -1.0), 22.0)],   # electric_meter_pole in the spec
                          ["Well", tag(to_m(well))], ["Septic access pipe (tank?)", tag(to_m(pipe))],
-                         ["US-290 →", tag((nw_lot[0] + 1.5, nw_lot[1] - 28.0), 12.0)], ["NW corner of the lot", tag(nw_lot, 10.0)]]}
+                         ["US-290 →", tag((nw_lot[0] + 1.5, nw_lot[1] - 28.0), 12.0)], ["NW corner of the lot", tag(nw_lot, 10.0)]]
+                + ([["Sprinkler head, zone 7: moves before the dig", tag(to_m(tuple(z7[-1])), 3.0)]]
+                   if (z7 := next((z["heads"] for z in (irrigation or {}).get("zones", []) if z["zone"] == 7), None)) else [])}
         house = building_b = None
         poles = []
     write_viewer(html, out.read_text(), plan, checks, view, poles, tree_view, existing, ground.z0, building_b, house, building_a, shed)

@@ -3567,7 +3567,8 @@ the tables below.
     the south side.
   - 1" PGV valves, a master valve, and a ¾" double check with a Y-strainer at the 5/8" meter.
   - A 1¼" mainline up the south side; the valve wire laid in the trench under the pipe.
-  - Eight zones, 8–14 GPM each.
+  - Eight zones on 1" valves: 1 (11.4 GPM), 2 (11.5), 3 (8.4), 4 (14), 5, 6 and 7 (12 each), and 8, whose
+    flow reads "0 GPM": maybe a spare valve, or a digit the photo lost.
   - The back yard's four rotor zones: 7 (the row nearest the back line), 6, 5 (behind the house
     and along its north side) and 4 (by the back deck). Their valves sit along the south side.
   - The controller is on the house's back wall by its NW corner; the rain sensor is on the
@@ -3582,6 +3583,24 @@ the tables below.
   - the mainline is 80 ft from the dig and 44 ft from the trench.
 - **The guide has the steps and the repair parts** (~$60–100): `site/building-a-groundwork.md`,
   "The sprinklers in the way".
+- **What the photo didn't settle** (owner's question, Nov 7):
+  - It was taken at an angle and reached us at 1387 × 1035, so the small print is ~6–8 px tall.
+  - Legible: the legend, the notes, the pipe-sizing table, the title block and nearly every
+    head and pipe label.
+  - Uncertain:
+    - zone 8's flow;
+    - the blurred zone digits in the 5 and 6 boxes (their order settles them);
+    - one head by the back deck, "PGP6" or "PGP8";
+    - a few rotated pipe sizes half-hidden under the valve symbols;
+    - an "S" mark by a front-yard head;
+    - the box borders cut off at the photo's left edge;
+    - the signature.
+  - A straight-on photo at full resolution, or a scan, would settle them. None changes a
+    position, and positions are what the dig and the trench need.
+- **In the 3D pages** (Nov 7): the back yard's pipes as ~5 in blue bands on the ground, the
+  mainline, the heads, the valve boxes and the controller (layer group "Pipes and
+  sprinklers"); in the close-up, a label on zone 7's last head. The septic access pipe is
+  drawn too: a white 4 in riser, its height assumed (~1 ft).
 
 ### Windows and doors
 

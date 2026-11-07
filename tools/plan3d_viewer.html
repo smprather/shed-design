@@ -39,6 +39,9 @@
   --cut: #c48a4a;         /* the excavation: dug soil and caliche */
   --contour: #7d6c55;     /* the ground's 1 ft contours */
   --contour-5: #3e3226;   /* every 5 ft */
+  --irrigation: #1a78cc;  /* sprinkler pipes and heads (2017 plan) */
+  --irrigation-main: #0b3f78; /* the sprinklers' 1-1/4 in mainline */
+  --pipe: #f6f5ef;        /* the white septic access pipe */
   --pavers: #a98f78;      /* pavers under the porte-cochere */
   --curb: #d4d1ca;        /* concrete curbs */
   --porte: #b9ae9b;       /* the porte-cochere (stone) */
@@ -64,7 +67,7 @@
     --bg: #111714; --panel: #171f1b; --ink: #e2eae5; --muted: #95a59c; --rule: #2a3530;
     --accent: #f0675b; --stage: #0d1310; --terrain-lo: #2f4655; --terrain-hi: #6b6450;
     --house: #8fb0ea; --shed: #f0a93a; --steel: #50555b; --jd: #4f9a3f; --barn: #b0565c; --boat: #a9c3de; --site-a: #f2c14e; --fence: #c09468; --easement: #b48ae0; --septic: #f05cbf;
-    --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --paving: #b9ab98; --gravel: #b8a785; --asphalt: #303134; --road-line: #d9d7d0; --block: #b2a996; --cut: #a8743c; --contour: #8f8571; --contour-5: #d8ccb2; --pavers: #ad937c; --curb: #d8d5ce; --porte: #c3baab; --concrete: #8e8a80; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
+    --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --paving: #b9ab98; --gravel: #b8a785; --asphalt: #303134; --road-line: #d9d7d0; --block: #b2a996; --cut: #a8743c; --contour: #8f8571; --contour-5: #d8ccb2; --irrigation: #4fb0ff; --irrigation-main: #a6d6ff; --pipe: #f6f5ef; --pavers: #ad937c; --curb: #d8d5ce; --porte: #c3baab; --concrete: #8e8a80; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
     --water: #6aa6f5; --apt: #79c174; --apt-bldg: #8fa2d6; --apt-new: #f08a4a; --context: #56625b; --lot: #e2eae5; --ok: #5ccf7c; --warn: #f0b13a; --bad: #f0675b;
     --unknown: #95a59c; color-scheme: dark;
   }
@@ -73,7 +76,7 @@
   --bg: #111714; --panel: #171f1b; --ink: #e2eae5; --muted: #95a59c; --rule: #2a3530;
   --accent: #f0675b; --stage: #0d1310; --terrain-lo: #2f4655; --terrain-hi: #6b6450;
   --house: #8fb0ea; --shed: #f0a93a; --steel: #50555b; --jd: #4f9a3f; --barn: #b0565c; --boat: #a9c3de; --site-a: #f2c14e; --fence: #c09468; --easement: #b48ae0; --septic: #f05cbf;
-  --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --paving: #b9ab98; --gravel: #b8a785; --asphalt: #303134; --road-line: #d9d7d0; --block: #b2a996; --cut: #a8743c; --contour: #8f8571; --contour-5: #d8ccb2; --pavers: #ad937c; --curb: #d8d5ce; --porte: #c3baab; --concrete: #8e8a80; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
+  --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --paving: #b9ab98; --gravel: #b8a785; --asphalt: #303134; --road-line: #d9d7d0; --block: #b2a996; --cut: #a8743c; --contour: #8f8571; --contour-5: #d8ccb2; --irrigation: #4fb0ff; --irrigation-main: #a6d6ff; --pipe: #f6f5ef; --pavers: #ad937c; --curb: #d8d5ce; --porte: #c3baab; --concrete: #8e8a80; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
   --water: #6aa6f5; --apt: #79c174; --apt-bldg: #8fa2d6; --apt-new: #f08a4a; --context: #56625b; --lot: #e2eae5; --ok: #5ccf7c; --warn: #f0b13a; --bad: #f0675b;
   --unknown: #95a59c; color-scheme: dark;
 }
@@ -357,6 +360,18 @@ details li b { font-weight: 600; }
       status: "laser, ±2 ft", source: "Field shots from A and F1.", notes: "Kept 10 ft clear in case the pipe marks the tank. The tank lids and drainfield trenches haven't been found yet." },
     well_keepout_10ft: { label: "Well, 10 ft keep-out", group: "Keep-outs", token: "well",
       status: "plat, ±3 ft", source: "1991 plat; the owner confirmed the well is there.", notes: "Keep pump-service access." },
+    septic_access_pipe: { label: "Septic access pipe", group: "Pipes and sprinklers", token: "pipe", solid: true,
+      status: "laser, ±2 ft; its height assumed", source: "Field shots from A and F1 (the white_pipe point); the owner confirmed it, Oct 11 2026.",
+      notes: "The white capped pipe in the north strip, 4 in PVC, drawn standing ~1 ft. It may be the tank's riser or an inspection port: the tank lids, the house's sewer line and the drainfield haven't been found, so they aren't drawn." },
+    sprinkler_pipes_2017_plan: { label: "Sprinkler pipes, back yard (2017 plan)", group: "Pipes and sprinklers", token: "irrigation", solid: true,
+      status: "2017 plan, schematic, ±5–10 ft", source: "The house's irrigation plan (Feb 2017), digitized by tools/irrigation_plan.py: a projective fit on the lot's and house's corners.",
+      notes: "Zones 7, 6, 5 and 4: 1 in and ¾ in PVC from their valves on the lot's south side, drawn as ~5 in bands on the ground so they show; they're buried 6–12 in. Zone 7's last rotor is ~3 ft off building A's boat-door corner and moves before the dig. The new power trench crosses zones 7, 6 and 5 (site/building-a-groundwork.md). The front and south-side zones aren't drawn." },
+    sprinkler_mainline_2017_plan: { label: "Sprinkler mainline, 1¼ in", group: "Pipes and sprinklers", token: "irrigation-main", solid: true,
+      status: "2017 plan, schematic, ±5–10 ft", source: "tools/irrigation_plan.py.",
+      notes: "From the meter at the street up the lot's south side to the back yard's valves, the valve wires in its trench. 80 ft from building A's dig, 44 ft from the power trench." },
+    sprinkler_heads_2017_plan: { label: "Sprinkler heads, valve boxes, controller", group: "Pipes and sprinklers", token: "irrigation", solid: true,
+      status: "2017 plan, schematic, ±5–10 ft", source: "tools/irrigation_plan.py.",
+      notes: "Hunter PGP rotors, drawn ~6 in across so they show; 1 in valve boxes along the south side; the controller on the house's back wall by its NW corner, where the new power line rises. The rain sensor on the north fence isn't drawn." },
     oak_drip_line: { label: "Twin oak drip line", group: "Keep-outs", token: "oak",
       status: "laser", source: "Near trunk located by laser; drip line ~25 ft.", notes: "Stay outside it where possible. Prune only July–January (oak wilt)." },
     oak_no_dig_12ft: { label: "Oak no-dig core, 12 ft", group: "Keep-outs", token: "oak-core",
@@ -1295,7 +1310,7 @@ details li b { font-weight: 600; }
   // ---- Layer list ----
   const groups = {};
   for (const [id, it] of Object.entries(items)) (groups[it.meta.group] ||= []).push(id);
-  const order = ["Your lot", "Proposed", "Existing trees", "Keep-outs", "Lines", "Next door", "Apartments", "Context", "Ground"];
+  const order = ["Your lot", "Proposed", "Existing trees", "Keep-outs", "Pipes and sprinklers", "Lines", "Next door", "Apartments", "Context", "Ground"];
   const layersEl = document.getElementById("layers");
   for (const g of order.filter(g => groups[g])) {
     const wrap = document.createElement("div"); wrap.className = "layer-group";

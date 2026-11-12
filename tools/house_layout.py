@@ -144,7 +144,7 @@ def house_spec(ground_rel: Callable[[float, float], float]) -> dict:
         a, b = s0 - oh_s[0], s1 + oh_s[1]
         quad((a, t0 - oh_t[0], eave - oh_t[0] * k), (b, t0 - oh_t[0], eave - oh_t[0] * k), (b, tm, zr), (a, tm, zr))
         quad((a, t1 + oh_t[1], eave - oh_t[1] * k), (b, t1 + oh_t[1], eave - oh_t[1] * k), (b, tm, zr), (a, tm, zr))
-        box(a, b, tm - 0.4, tm + 0.4, zr - 0.05, zr + 0.2, "trim")   # ridge cap
+        box(a, b, tm - 0.4, tm + 0.4, zr - 0.05, zr + 0.2, "ridge")   # ridge cap
 
     # South rooms: a gable roof hipped at the front, with the small front gable set back on the hip.
     f0, f1, g0, g1 = SOUTH
@@ -155,7 +155,7 @@ def house_spec(ground_rel: Callable[[float, float], float]) -> dict:
     quad(sw, rb, rf, fs); quad(sw, fs, se, se)        # south slope
     quad(nw, rb, rf, fn); quad(nw, fn, ne, ne)        # north slope
     quad(se, ne, fn, fs)                              # hipped front
-    box(f0 + GABLET, f1 + OH, tm_s - 0.4, tm_s + 0.4, zr - 0.05, zr + 0.2, "trim")   # ridge cap
+    box(f0 + GABLET, f1 + OH, tm_s - 0.4, tm_s + 0.4, zr - 0.05, zr + 0.2, "ridge")   # ridge cap
     gable_roof(MIDDLE, EAVE1, rise_m, oh_s=(0.0, OH), oh_t=(0.0, 0.0))
     gable_roof(TWO, EAVE2, rise_2, oh_s=(0.6, OH))
     # Porch + garage: one plane rising west to the two-story's eave.
@@ -169,7 +169,7 @@ def house_spec(ground_rel: Callable[[float, float], float]) -> dict:
     box(PORCH[0], PORCH[1], PORCH[2], PORCH[3], min(ground_rel(PORCH[0], 75), 0) - 0.3, -0.3, "concrete", walk=True)
     for t in (58.4, 69.0, 79.4, 89.4):
         box(PORCH[0] + 0.1, PORCH[0] + 1.6, t - 0.75, t + 0.75, -0.3, PORCH_EAVE - 0.6, "stone")
-    box(PORCH[0], PORCH[0] + 0.6, PORCH[2] - 0.5, PORCH[3] + 0.5, PORCH_EAVE - 0.6, PORCH_EAVE, "trim")
+    box(PORCH[0], PORCH[0] + 0.6, PORCH[2] - 0.5, PORCH[3] + 0.5, PORCH_EAVE - 0.6, PORCH_EAVE, "fascia")   # the porch beam
 
     # Deck (240 sq ft): low, with no railing and a step down to the lawn (Oct 18 photos).
     s0, s1, t0, t1 = DECK
@@ -213,7 +213,7 @@ def house_spec(ground_rel: Callable[[float, float], float]) -> dict:
     opening(face_s=56.7, out=E, span=(28.4, 31.9), z=(2.8, 7.4), shutters=True)    # front, two shuttered windows (photo 18)
     opening(face_s=56.7, out=E, span=(41.2, 44.7), z=(2.8, 7.4), shutters=True)
     opening(face_s=SOUTH[0] + GABLET, out=E, span=(tm_s - 0.8, tm_s + 0.8), z=(EAVE1 + rise_s - 2.4, EAVE1 + rise_s - 1.2),
-            mat="trim", frame=False)                                               # front gable vent (street photo)
+            mat="vent", frame=False)                                               # front gable vent (street photo)
     opening(face_s=69.2, out=E, span=(52.6, 55.6), z=(0, 6.8), mat="door", frame=True)   # front door, in the recess
     opening(face_s=64.2, out=E, span=(60.7, 66.7), z=(3.0, 7.0))                   # kitchen window (floor plan)
     opening(face_s=64.2, out=E, span=(73.8, 79.8), z=(3.0, 7.0))                   # garage window (owner's markup)
@@ -226,7 +226,7 @@ def house_spec(ground_rel: Callable[[float, float], float]) -> dict:
         opening(face_t=68.8, out=S_, span=(s - 1.5, s + 1.5), z=(12.2, 17.0))
     opening(face_s=126.2, out=W_, span=(70.4, 73.0), z=(12.2, 17.0))             # back gable, by the south corner (Oct 18)
     opening(face_s=100.8, out=W_, span=(55.5, 61.5), z=(0, 6.8))                   # door to the deck (guess)
-    opening(face_s=126.2, out=W_, span=(78.4, 80.5), z=(EAVE2 + 1.0, EAVE2 + 2.6), mat="trim", frame=False)   # gable vent
+    opening(face_s=126.2, out=W_, span=(78.4, 80.5), z=(EAVE2 + 1.0, EAVE2 + 2.6), mat="vent", frame=False)   # gable vent
 
     return {"ff_ft": FF_FT, "walls": walls, "roofs": roofs, "boxes": boxes,
             "notes": "First pass from the plat, county record, kitchen measurements and photos; most heights, the middle roof and unseen windows are guesses."}
@@ -265,9 +265,9 @@ def porte_spec(ground_rel: Callable[[float, float], float]) -> dict:
     for cs, ct in COVER_COLUMNS:
         box(cs - h - 0.12, cs + h + 0.12, ct - h - 0.12, ct + h + 0.12, ground_rel(cs, ct) - 0.3, ground_rel(cs, ct) + 0.6, "stone")   # plinth
         box(cs - h, cs + h, ct - h, ct + h, ground_rel(cs, ct), beam, "stone")
-        box(cs - h - 0.1, cs + h + 0.1, ct - h - 0.1, ct + h + 0.1, beam - 0.25, beam, "trim")                                  # cap
+        box(cs - h - 0.1, cs + h + 0.1, ct - h - 0.1, ct + h + 0.1, beam - 0.25, beam, "fascia")                                # cap
     for a, b, c, d in ((s0, s0 + 0.6, t0, t1), (s1 - 0.6, s1, t0, t1), (s0, s1, t0, t0 + 0.6), (s0, s1, t1 - 0.6, t1)):
-        box(a, b, c, d, beam, eave, "trim")                                                                               # beams, fascia
+        box(a, b, c, d, beam, eave, "fascia")                                                                             # beams, fascia
     box(s0 + 0.6, s1 - 0.6, t0 + 0.6, t1 - 0.6, beam + 0.15, beam + 0.2, "frame")                                         # ceiling
     rise = (s1 - s0) / 2 * COVER_PITCH
     sm, r = (s0 + s1) / 2, eave + rise
@@ -276,5 +276,5 @@ def porte_spec(ground_rel: Callable[[float, float], float]) -> dict:
     quad((s1, t1, eave), (s1, t0, eave), (sm, ta, r), (sm, tb, r))
     quad((s1, t0, eave), (s0, t0, eave), (sm, ta, r), (sm, ta, r))
     quad((s0, t1, eave), (s1, t1, eave), (sm, tb, r), (sm, tb, r))
-    box(sm - 0.3, sm + 0.3, ta, tb, r - 0.05, r + 0.15, "trim")                                                           # ridge cap
+    box(sm - 0.3, sm + 0.3, ta, tb, r - 0.05, r + 0.15, "ridge")                                                          # ridge cap
     return {"walls": [], "roofs": roofs, "boxes": boxes}

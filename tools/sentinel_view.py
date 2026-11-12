@@ -71,7 +71,7 @@ def main(before: str, series: bool, out: Path) -> None:
     plan = read_jsonc(SPEC)
     ents = {e["entity_id"]: e for e in plan["spatial_entities"]}
     to_m = Frame()
-    view, _ = backyard(Terrain(TERRAIN), to_m)
+    view = backyard(Terrain(TERRAIN), to_m)
     (x0, x1), (y0, y1) = PLAN_BOX
     corners = [utm((x, y)) for x in (x0, x1) for y in (y0, y1)]
     e0, e1 = min(c[0] for c in corners), max(c[0] for c in corners)

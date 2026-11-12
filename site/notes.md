@@ -3731,6 +3731,33 @@ the tables below.
     ~25 ft low whatever the rules say. The HOA's map shows Candelaria ending at the highway
     right-of-way.
 
+### 3D: the building line, fewer controls, the house's colors (owner, Nov 12 2026)
+
+- **The 45 ft front building line** is drawn across the lot in the whole-site viewer.
+  - A purple band, above the drive's surfaces like a painted line, with the label "45 ft
+    building line: no fence or building past it".
+  - It's under Keep-outs. The close-up's box doesn't reach it.
+- **Taken out (owner):**
+  - the 6 ft range poles behind the back-yard view;
+  - the vertical exaggeration slider. The models are true to scale now; the viewer keeps the
+    factor at 1 internally.
+- **The house's colors, matched to the owner's photo of the garage end:**
+  - pale cream-grey limestone with light mortar and a few darker tan stones;
+  - cream siding;
+  - white fascia, vents and frames (they were dark grey "trim"; the ridge caps keep a shingle
+    color);
+  - the garage door a medium navy (#34567f). The shutters take the same blue, a guess.
+  - The house's light surfaces glow a little, so they read as in daylight; the scene's lights
+    alone made a shaded wall grey.
+- **A new view, "The garage":** on the apron, ~29 ft out, facing the garage door, to compare
+  with the photo.
+- **Still wrong in the model:**
+  - The garage end has a single slope where the photo shows a gable, with a louvered vent.
+  - The gable's siding looks like horizontal lap, where the model has vertical siding.
+- **The photo itself** (a screenshot with the browser alongside) didn't reach the
+  container's disk, so it isn't in the private repo. Re-send it, or push it there, to keep
+  it.
+
 ### Windows and doors
 
 - Traffic noise is heavy in low frequencies. Compare windows by **OITC** (made for traffic

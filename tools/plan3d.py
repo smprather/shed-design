@@ -97,8 +97,6 @@ DRAPE_STEP = 2.0  # m between draped vertices
 BACK_WALL_ST = ((100.8, 22.9), (100.8, 68.8))  # the main block's back wall, facing the back lawn (survey s, t)
 BACKYARD_EYE = (10.0, 5.0)  # ft out from that wall's midpoint, and ft above the ground there (the owner's camera)
 BACKYARD_GAZE = (15.0, 4.0)  # degrees left of straight back (toward the apartments), and below level
-POLES = (25.0, 50.0, 100.0)  # ft straight back from the back-yard eye: 6 ft range poles for scale
-POLE_INSET = 2.0  # ft inside the back line for one more pole
 
 Pt = tuple[float, float]
 
@@ -600,31 +598,23 @@ def planting(canopy: Canopy | None = None) -> tuple[list[dict], dict[str, int]]:
     return gaps, {"keep_out": kept_out, "existing": len(trees) - len(gaps)}
 
 
-def backyard(ground: Terrain, to_m: Frame) -> tuple[dict, list[dict]]:
-    """The back-yard view (eye and gaze target, plan m) and the range poles straight back from the eye."""
+def backyard(ground: Terrain, to_m: Frame) -> dict:
+    """The back-yard view: the eye and the gaze target, plan m."""
     (s0, t0), (s1, t1) = BACK_WALL_ST
     s_eye, t_eye = (s0 + s1) / 2 + BACKYARD_EYE[0], (t0 + t1) / 2
     eye_xy = to_m(site([st(s_eye, t_eye)])[0])
-
-    def back(d: float) -> Pt:  # d ft straight back from the eye (square off the back wall)
-        return to_m(site([st(s_eye + d, t_eye)])[0])
-
-    y0, y1 = back(0.0)[1], back(1.0)[1]  # the back line is plan y = 0
-    pole_ft = [*POLES, (-POLE_INSET * FT - y0) / (y1 - y0)]
-    poles = [{"xy": [round(c, 2) for c in back(d)], "ft": round(d),
-              "drop_ft": round((ground(*eye_xy) - ground(*back(d))) / FT, 1)} for d in pole_ft]
     eye = [round(eye_xy[0], 2), round(eye_xy[1], 2), round(ground(*eye_xy) + BACKYARD_EYE[1] * FT, 2)]
     left, down, reach = math.radians(BACKYARD_GAZE[0]), math.radians(BACKYARD_GAZE[1]), 200.0  # ft
     at_xy = to_m(site([st(s_eye + reach * math.cos(left), t_eye - reach * math.sin(left))])[0])
     at = [round(at_xy[0], 2), round(at_xy[1], 2), round(eye[2] - reach * FT * math.tan(down), 2)]
     spot = {"along_ft": round((t1 - t0) / 2, 1), "out_ft": BACKYARD_EYE[0], "eye_ft": BACKYARD_EYE[1], "gaze_deg": BACKYARD_GAZE[0]}
-    return {"eye": eye, "at": at, "spot": spot}, poles
+    return {"eye": eye, "at": at, "spot": spot}
 
 
 def write_viewer(path: Path, obj_text: str, plan: dict, checks: list[dict], backyard: dict,
-                 poles: list[dict], trees: dict, canopy: dict | None, z0_ft: float, building_b: dict | None,
+                 trees: dict, canopy: dict | None, z0_ft: float, building_b: dict | None,
                  house: dict | None, building_a: dict, focus: dict | None = None) -> None:
-    """Fill the viewer template with the model, the plan's entity notes, the checks, the back-yard view, the poles,
+    """Fill the viewer template with the model, the plan's entity notes, the checks, the back-yard view,
     the trees, buildings B's and A's placement and the house (the viewer draws them in detail). `focus` makes it the
     close-up page: its title, views, labels and stored-view key."""
     spec = {"entities": [{k: e.get(k) for k in ("entity_id", "status", "source", "notes", "facade_toward_us")}
@@ -635,7 +625,6 @@ def write_viewer(path: Path, obj_text: str, plan: dict, checks: list[dict], back
             .replace("/*SPEC*/", json.dumps(spec).replace("</", "<\\/"))
             .replace("/*CHECKS*/", json.dumps(checks).replace("</", "<\\/"))
             .replace("/*BACKYARD*/", json.dumps(backyard)[1:-1])
-            .replace("/*POLES*/", json.dumps(poles))
             .replace("/*TREES*/", json.dumps(trees))
             .replace("/*CANOPY*/", json.dumps(canopy))
             .replace("/*Z0_FT*/", json.dumps(z0_ft))
@@ -869,6 +858,12 @@ def main(spec: Path, out: Path | None, focus: bool) -> None:
     for name, (c, r) in {**keep_outs, "oak_drip_line": (oak, 25.1), "oak_no_dig_12ft": (oak, 12.0)}.items():
         obj.obj(name)
         obj.drape([to_m(p) for p in circle(c, r)], closed=True)
+    # The plat's 45 ft front building line (deed restrictions, sec. 3: no structure, and no fence, past it), above the
+    # drive's surfaces like a painted line.
+    bl = [to_m(p) for p in site(BUILDING_LINE)]
+    obj.obj("front_building_line_45ft")
+    obj.strip(bl, 0.3, lift=0.18)
+    bm = ((bl[0][0] + bl[1][0]) / 2, (bl[0][1] + bl[1][1]) / 2)
     # The septic access pipe (field shots, +/-2 ft): a white capped 4 in PVC riser, its height above the ground assumed.
     sx, sy = to_m(pipe)
     obj.obj("septic_access_pipe")
@@ -1031,16 +1026,21 @@ def main(spec: Path, out: Path | None, focus: bool) -> None:
                   f"# Origin: midpoint of the platted back line, z = 0 at {ground.z0} ft NAVD88; "
                   "+x toward US-290 along the line, +y away from the lot.\n")
     html = out.with_suffix(".html")
-    view, poles = backyard(ground, to_m)
+    view = backyard(ground, to_m)
     # Front-yard view: from above the street, looking back at the house over loop C.
     fx, fy = to_m(site([st(25, 57)])[0])   # middle of the front lawn
     sx, sy = to_m(site([st(-75, 57)])[0])  # 75 ft out past the front line
+    view["building_line_tag"] = [round(bm[0], 2), round(bm[1], 2), round(ground(*bm) + 3.0, 2)]
     view["front"] = {"eye": [round(sx, 1), round(sy, 1), round(ground(fx, fy) + 28.0, 1)],
                      "at": [round(fx, 1), round(fy, 1), round(ground(fx, fy), 1)]}
     # Building A in the yard: from the SE and above, turning round its middle halfway up the walls (as the close-up's).
     se_eye = a_pt(a_len + 70, -80)
     view["shed"] = {"eye": [round(se_eye[0], 2), round(se_eye[1], 2), round(ground(*se_eye) + 75 * FT, 2)],
                     "at": [round(c, 2) for c in (*a_pt(a_len / 2, a_wid / 2), a_top + A_EAVE / 2 * FT)]}
+    # The garage end, as in the owner's photo (Nov 12 2026): standing on the apron, facing the garage door.
+    ge, gd = to_m(site([st(74.7, 119.0)])[0]), to_m(site([st(74.7, 90.1)])[0])
+    view["garage"] = {"eye": [round(ge[0], 2), round(ge[1], 2), round(ground(*ge) + 5.2 * FT, 2)],
+                      "at": [round(gd[0], 2), round(gd[1], 2), round(ground(*gd) + 7.0 * FT, 2)]}
     tree_view = {"plants": PLANTS, "stages": ["Planted", "~8 years", "Mature"], "dropped": dropped,
                  "rows_ft": TREE_ROWS, "spacing_ft": TREE_SPACING,
                  "trees": [{"xy": [round(c, 2) for c in to_m(tr["site"])], "plant": tr["plant"]} for tr in trees
@@ -1066,7 +1066,7 @@ def main(spec: Path, out: Path | None, focus: bool) -> None:
     shed = None
     if focus:
         # The close-up page's views (plan m, from points in building A's frame, ft) and labels; the house, building B
-        # and the back-yard poles are outside the box.
+        # are outside the box.
         at = lambda x, y, h: [round(c, 2) for c in (*a_pt(x, y), ground(*a_pt(x, y)) + h * FT)]  # noqa: E731
         mid = at(a_len / 2, a_wid / 2, 0)
         bmx, bmy = (FOCUS_BOX[0] + FOCUS_BOX[2]) / 2, (FOCUS_BOX[1] + FOCUS_BOX[3]) / 2
@@ -1096,8 +1096,7 @@ def main(spec: Path, out: Path | None, focus: bool) -> None:
                 + ([["Sprinkler head, zone 7: moves before the dig", tag(to_m(tuple(z7[-1])), 3.0)]]
                    if (z7 := next((z["heads"] for z in (irrigation or {}).get("zones", []) if z["zone"] == 7), None)) else [])}
         house = building_b = None
-        poles = []
-    write_viewer(html, out.read_text(), plan, checks, view, poles, tree_view, existing, ground.z0, building_b, house, building_a, shed)
+    write_viewer(html, out.read_text(), plan, checks, view, tree_view, existing, ground.z0, building_b, house, building_a, shed)
     click.echo(f"wrote {out.relative_to(REPO)} ({obj.nv} vertices) and {html.relative_to(REPO)}; "
                f"building B slab at z = {slab:.2f} m")
     with pl.Config(tbl_rows=-1, tbl_hide_dataframe_shape=True, tbl_hide_column_data_types=True,

@@ -49,7 +49,7 @@ def scene(stage: str) -> dict:
     plan = read_jsonc(SPEC)
     ground = Terrain(TERRAIN)
     to_m = Frame()
-    view, _ = backyard(ground, to_m)
+    view = backyard(ground, to_m)
     canopy = Canopy() if CANOPY.exists() else None
     trees, _ = planting(canopy)
     ents = {e["entity_id"]: e for e in plan["spatial_entities"]}

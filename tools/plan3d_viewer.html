@@ -43,6 +43,7 @@
   --irrigation-main: #0b3f78; /* the sprinklers' 1-1/4 in mainline */
   --pipe: #f6f5ef;        /* the white septic access pipe */
   --power: #c2410c;       /* the house's new power run (planned) */
+  --setback: #7a3fb0;     /* the 45 ft front building line */
   --power-feeder: #a87400; /* building A's feeder and data */
   --pavers: #a98f78;      /* pavers under the porte-cochere */
   --curb: #d4d1ca;        /* concrete curbs */
@@ -69,7 +70,7 @@
     --bg: #111714; --panel: #171f1b; --ink: #e2eae5; --muted: #95a59c; --rule: #2a3530;
     --accent: #f0675b; --stage: #0d1310; --terrain-lo: #2f4655; --terrain-hi: #6b6450;
     --house: #8fb0ea; --shed: #f0a93a; --steel: #50555b; --jd: #4f9a3f; --barn: #b0565c; --boat: #a9c3de; --site-a: #f2c14e; --fence: #c09468; --easement: #b48ae0; --septic: #f05cbf;
-    --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --paving: #b9ab98; --gravel: #b8a785; --asphalt: #303134; --road-line: #d9d7d0; --block: #b2a996; --cut: #a8743c; --contour: #8f8571; --contour-5: #d8ccb2; --irrigation: #4fb0ff; --irrigation-main: #a6d6ff; --pipe: #f6f5ef; --power: #ff8a3d; --power-feeder: #ffd166; --pavers: #ad937c; --curb: #d8d5ce; --porte: #c3baab; --concrete: #8e8a80; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
+    --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --paving: #b9ab98; --gravel: #b8a785; --asphalt: #303134; --road-line: #d9d7d0; --block: #b2a996; --cut: #a8743c; --contour: #8f8571; --contour-5: #d8ccb2; --irrigation: #4fb0ff; --irrigation-main: #a6d6ff; --pipe: #f6f5ef; --power: #ff8a3d; --power-feeder: #ffd166; --setback: #c9a2f0; --pavers: #ad937c; --curb: #d8d5ce; --porte: #c3baab; --concrete: #8e8a80; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
     --water: #6aa6f5; --apt: #79c174; --apt-bldg: #8fa2d6; --apt-new: #f08a4a; --context: #56625b; --lot: #e2eae5; --ok: #5ccf7c; --warn: #f0b13a; --bad: #f0675b;
     --unknown: #95a59c; color-scheme: dark;
   }
@@ -78,7 +79,7 @@
   --bg: #111714; --panel: #171f1b; --ink: #e2eae5; --muted: #95a59c; --rule: #2a3530;
   --accent: #f0675b; --stage: #0d1310; --terrain-lo: #2f4655; --terrain-hi: #6b6450;
   --house: #8fb0ea; --shed: #f0a93a; --steel: #50555b; --jd: #4f9a3f; --barn: #b0565c; --boat: #a9c3de; --site-a: #f2c14e; --fence: #c09468; --easement: #b48ae0; --septic: #f05cbf;
-  --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --paving: #b9ab98; --gravel: #b8a785; --asphalt: #303134; --road-line: #d9d7d0; --block: #b2a996; --cut: #a8743c; --contour: #8f8571; --contour-5: #d8ccb2; --irrigation: #4fb0ff; --irrigation-main: #a6d6ff; --pipe: #f6f5ef; --power: #ff8a3d; --power-feeder: #ffd166; --pavers: #ad937c; --curb: #d8d5ce; --porte: #c3baab; --concrete: #8e8a80; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
+  --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --paving: #b9ab98; --gravel: #b8a785; --asphalt: #303134; --road-line: #d9d7d0; --block: #b2a996; --cut: #a8743c; --contour: #8f8571; --contour-5: #d8ccb2; --irrigation: #4fb0ff; --irrigation-main: #a6d6ff; --pipe: #f6f5ef; --power: #ff8a3d; --power-feeder: #ffd166; --setback: #c9a2f0; --pavers: #ad937c; --curb: #d8d5ce; --porte: #c3baab; --concrete: #8e8a80; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
   --water: #6aa6f5; --apt: #79c174; --apt-bldg: #8fa2d6; --apt-new: #f08a4a; --context: #56625b; --lot: #e2eae5; --ok: #5ccf7c; --warn: #f0b13a; --bad: #f0675b;
   --unknown: #95a59c; color-scheme: dark;
 }
@@ -194,7 +195,7 @@ details li b { font-weight: 600; }
       <h1>Candelaria 3D Plan</h1>
       <p class="sub">8400 Candelaria Dr, building B, and the retail and apartment lots behind it.</p>
       <dl>
-        <dt>Units</dt><dd>meters; z × exaggeration</dd>
+        <dt>Units</dt><dd>meters, true to scale</dd>
         <dt>Origin</dt><dd>back-line midpoint, 1048.7 ft</dd>
         <dt>Ground</dt><dd>USGS lidar, Feb 2017</dd>
         <dt>Rev</dt><dd>Oct 15 2026</dd>
@@ -209,6 +210,7 @@ details li b { font-weight: 600; }
         <button class="view" id="v-house" data-view="house" aria-pressed="false">From the back yard</button>
         <button class="view" id="v-front" data-view="front" aria-pressed="false">Front yard</button>
         <button class="view" id="v-shed" data-view="shed" aria-pressed="false">Building A</button>
+        <button class="view" id="v-garage" data-view="garage" aria-pressed="false">The garage</button>
         <button class="view" id="v-area" data-view="area" aria-pressed="false">Whole area</button>
       </div>
       <p style="margin: 6px 0 0; color: var(--muted); font-size: 12px">Everything on this panel (the view, mode, sliders, tree size, layers and selection) is saved as you go and comes back when you reload. A view button resets the camera.</p>
@@ -227,13 +229,6 @@ details li b { font-weight: 600; }
         <output id="fly-speed-out" for="fly-speed" style="margin-top: 6px">59 ft/s</output>
         <input type="range" id="fly-speed" min="0" max="100" step="1" value="62" aria-describedby="fly-speed-out">
       </div>
-    </section>
-
-    <section class="exag" aria-labelledby="h-exag">
-      <h2 id="h-exag" style="grid-column: 1 / -1; margin: 0">Height</h2>
-      <label for="exag">Vertical exaggeration</label>
-      <output id="exag-out" for="exag">1×</output>
-      <input type="range" id="exag" min="1" max="4" step="0.5" value="1">
     </section>
 
     <section class="exag" aria-labelledby="h-fence">
@@ -372,6 +367,9 @@ details li b { font-weight: 600; }
     septic_access_pipe: { label: "Septic access pipe", group: "Utilities", token: "pipe", solid: true,
       status: "laser, ±2 ft; its height assumed", source: "Field shots from A and F1 (the white_pipe point); the owner confirmed it, Oct 11 2026.",
       notes: "The white capped pipe in the north strip, 4 in PVC, drawn standing ~1 ft. It may be the tank's riser or an inspection port: the tank lids, the house's sewer line and the drainfield haven't been found, so they aren't drawn." },
+    front_building_line_45ft: { label: "45 ft front building line", group: "Keep-outs", token: "setback", solid: true,
+      status: "plat and deed restrictions (1971)", source: "The 1991 survey's 45 ft B.L. (site_plan.BUILDING_LINE); the Granada Hills Amended restrictions, sec. 3.",
+      notes: "45 ft in from the front property line, ~64.5 ft from Candelaria's pavement. No dwelling or structure nearer the street, and \"no fences shall extend beyond the front building setback line\": the north fence ends here. Plantings aren't fences." },
     power_new_run_house: { label: "New power run to the house (planned)", group: "Utilities", token: "power", solid: true,
       status: "planned (Nov 2 2026); the route waits on the locate", source: "tools/a_groundwork.py (ROUTE); site/building-a-groundwork.md.",
       notes: "207 ft of 2½ in conduit with 24 in of cover, from the meter pole round building A's back strip and door side to the house's NW corner, drawn as an ~8 in band (the trench). Schedule 80 risers up the pole and the house's wall. It replaces the old line, which runs under the building if it's straight. It crosses sprinkler zones 7, 6 and 5, and its last ~35 ft passes the sprinkler controller: hand-dig there." },
@@ -478,7 +476,6 @@ details li b { font-weight: 600; }
   const FOCUS = /*FOCUS*/;
   const HOUSE = /*HOUSE*/;   // the house, a first pass (plan3d.py, tools/house_layout.py)
   const solids = [], walkables = [];   // for walking: what stops you, and what you can stand on
-  const POLES = /*POLES*/;   // range poles straight back from the back-yard eye (plan3d.py)
   const BACKYARD = { /*BACKYARD*/ };   // the back-yard eye and gaze, and how to find the spot (plan3d.py)
   // One texture tile, ten lines across: the whole site's is 50 ft (lines every 5 ft, heavier every 25 ft); the
   // close-up's is 20 ft (every 2 ft, heavier every 10 ft), so the draped lines show the ground's shape.
@@ -563,23 +560,6 @@ details li b { font-weight: 600; }
     const hit = downRay.intersectObjects(nodes, true)[0];
     return hit ? hit.point.y / root.scale.y : 0;
   }
-  // Surveyor's range poles for scale: 6 ft, red and white bands every foot.
-  {
-    const node = new THREE.Group(); node.userData.id = "range_poles"; root.add(node);
-    const band = 0.3048, red = new THREE.MeshLambertMaterial({ color: 0xc8261e }), white = new THREE.MeshLambertMaterial({ color: 0xf2f2ee });
-    const geo = new THREE.CylinderGeometry(0.05, 0.05, band, 10);
-    for (const { xy: [x, y] } of POLES) {
-      const z0 = groundAt(x, y);
-      for (let k = 0; k < 6; k++) {
-        const m = new THREE.Mesh(geo, k % 2 ? white : red);
-        m.position.copy(P([x, y, z0 + band * (k + 0.5)])); m.userData.id = "range_poles"; node.add(m);
-      }
-    }
-    items.range_poles = { node, mats: [], meta: { label: "Range poles (6 ft, 1 ft bands)", group: "Your lot", token: "accent",
-      status: "scale reference", source: "Drawn by the viewer on the lidar ground.",
-      notes: `6 ft poles in a line straight back from the back-yard eye, square off the house's back wall, at ${POLES.map(p => p.ft).join(", ")} ft (the last just inside the back line). Turn about 15° right from the starting view to sight down them. The ground under them is ${POLES.map(p => p.drop_ft).join(", ")} ft below the ground at the eye (2017 lidar), so every top sits below eye level, and the far tops peek over the near ones.` } };
-  }
-
   // The house (plan3d.py HOUSE, from tools/house_layout.py), a first pass: stone first story, vertical
   // siding above, shingle roofs, the porch, deck and chimney, and the windows and doors we know. Built in
   // the house's own frame (x east = -s, y north = t, z up from the finished floor, feet), then placed.
@@ -598,14 +578,15 @@ details li b { font-weight: 600; }
       const tx = new THREE.CanvasTexture(c); tx.wrapS = tx.wrapT = THREE.RepeatWrapping; tx.repeat.set(1 / tileU, 1 / tileV);
       tx.anisotropy = renderer.capabilities.getMaxAnisotropy(); return tx;
     };
-    // Austin stone: long, flat, chopped limestone in uneven courses (one tile = 4 x 2 ft).
+    // Austin stone: long, flat, chopped limestone in uneven courses (one tile = 4 x 2 ft). Colors from the owner's photo
+    // of the garage end (Nov 12 2026): pale cream-grey stones, a few darker tan ones, grey mortar.
     const stoneTex = tex(256, 128, (c, w, h) => {
-      c.fillStyle = "#c3baab"; c.fillRect(0, 0, w, h);
+      c.fillStyle = "#cdc6b8"; c.fillRect(0, 0, w, h);
       for (let y = 0; y < h;) {
         const rh = 9 + Math.floor(rnd() * 8);
         for (let x = -Math.floor(rnd() * 40); x < w;) {
-          const sw = 28 + Math.floor(rnd() * 70), l = 86 + rnd() * 10;
-          c.fillStyle = `hsl(${38 + rnd() * 8} ${12 + rnd() * 14}% ${l}%)`;
+          const sw = 28 + Math.floor(rnd() * 70), l = rnd() < 0.15 ? 72 + rnd() * 8 : 82 + rnd() * 11;
+          c.fillStyle = `hsl(${36 + rnd() * 10} ${6 + rnd() * 10}% ${l}%)`;
           c.fillRect(x + 1, y + 1, sw - 2, rh - 2);
           for (let k = 0; k < 2; k++) { c.fillStyle = `rgba(255,255,255,${0.15 * rnd()})`; c.fillRect(x + 1 + rnd() * sw, y + 1, 3 + rnd() * 10, rh - 3); }
           x += sw;
@@ -615,8 +596,8 @@ details li b { font-weight: 600; }
     }, 4, 2);
     // Vertical siding with grooves every 8 in (one tile = 32 in x 8 ft).
     const sidingTex = tex(64, 256, (c, w, h) => {
-      c.fillStyle = "#e6e2d8"; c.fillRect(0, 0, w, h);
-      c.fillStyle = "rgba(60,55,45,0.35)"; for (let x = 0; x < w; x += 16) c.fillRect(x, 0, 1.5, h);
+      c.fillStyle = "#e7dfca"; c.fillRect(0, 0, w, h);   // cream (owner's photo)
+      c.fillStyle = "rgba(60,55,45,0.22)"; for (let x = 0; x < w; x += 16) c.fillRect(x, 0, 1.5, h);
     }, 32 / 12, 8);
     // Composition shingles: two courses per tile, tabs staggered (one tile = 40 x 10 in).
     const roofTex = tex(256, 64, (c, w, h) => {
@@ -629,11 +610,16 @@ details li b { font-weight: 600; }
     const M = {
       stone: new THREE.MeshLambertMaterial({ map: stoneTex }), siding: new THREE.MeshLambertMaterial({ map: sidingTex }),
       roof: new THREE.MeshLambertMaterial({ map: roofTex, side: THREE.DoubleSide }),
-      trim: lam(0x46494d), glass: new THREE.MeshPhongMaterial({ color: 0x27323b, shininess: 90, specular: 0x8899aa }),
-      frame: lam(0xebe8e1), shutter: lam(0x34465e), door: lam(0x4a3426), "garage-door": lam(0x2e3d5c),
-      concrete: lam(0xb8b3a8), deck: lam(0x8b5e48), "deck-skirt": lam(0x5e4434),
+      trim: lam(0x46494d), ridge: lam(0x45413d), fascia: lam(0xece6d6), vent: lam(0xefeae0),
+      glass: new THREE.MeshPhongMaterial({ color: 0x27323b, shininess: 90, specular: 0x8899aa }),
+      frame: lam(0xf1eee6), shutter: lam(0x34567f), door: lam(0x4a3426), "garage-door": lam(0x34567f),   // the door's blue (photo)
+      concrete: lam(0xc2beb5), deck: lam(0x8b5e48), "deck-skirt": lam(0x5e4434),
       post: lam(0x9a7656), "metal-roof": lam(0x7d7368, { side: THREE.DoubleSide }),
     };
+    // The scene's lights alone grey the walls (a wall out of the sun gets about half its color), so the house's light
+    // surfaces glow a little to read as they do in daylight (owner's photo, Nov 12 2026).
+    for (const [k, tx] of [["stone", stoneTex], ["siding", sidingTex]]) { M[k].emissive.set(0xffffff); M[k].emissiveMap = tx; M[k].emissiveIntensity = 0.32; }
+    for (const k of ["fascia", "vent", "frame", "garage-door"]) M[k].emissive.copy(M[k].color).multiplyScalar(0.3);
     // Box faces get UVs in feet, so the textures keep their size on every box.
     const worldUV = (geo) => {
       const pos = geo.attributes.position, nor = geo.attributes.normal, uv = geo.attributes.uv;
@@ -1321,7 +1307,8 @@ details li b { font-weight: 600; }
     const c = box.getCenter(new THREE.Vector3());
     return { id, el, local: new THREE.Vector3(c.x, box.max.y + 0.6, c.z) };
   });
-  const extraTags = (FOCUS ? FOCUS.tags : [["toward US-290 →", [36, -8, 6]], ["Candelaria Dr", [-6, -84, 6]]]).map(([text, p]) => {
+  const extraTags = (FOCUS ? FOCUS.tags : [["toward US-290 →", [36, -8, 6]], ["Candelaria Dr", [-6, -84, 6]],
+                                           ...(BACKYARD.building_line_tag ? [["45 ft building line: no fence or building past it", BACKYARD.building_line_tag]] : [])]).map(([text, p]) => {
     const el = document.createElement("div"); el.className = "tag"; el.textContent = text; el.style.setProperty("--tag", "var(--muted)");
     labelLayer.appendChild(el); return { id: null, el, local: P(p) };
   });
@@ -1397,6 +1384,7 @@ details li b { font-weight: 600; }
     oblique: { eye: [230, -330, 250], at: [-160, 90, 0] },
     house:   { ...BACKYARD, exag: 1, mode: "look" },   // the photo spot (plan3d.py)
     front:   { ...BACKYARD.front },   // from above the street, over the front lawn (plan3d.py)
+    garage:  { ...BACKYARD.garage, exag: 1, mode: "look" },   // on the apron, facing the garage door (plan3d.py)
     shed:    { ...BACKYARD.shed },    // building A from the SE, in the yard (plan3d.py)
     area:    { eye: [-250, 129, 760], at: [-250, 130, 0] },
   };
@@ -1567,9 +1555,8 @@ details li b { font-weight: 600; }
     }));
   }
   document.querySelectorAll("button.view").forEach(b => b.addEventListener("click", () => setView(b.dataset.view)));
-  const exagIn = document.getElementById("exag"), exagOut = document.getElementById("exag-out");
-  function setExag(value) {
-    const k = value / exag; exag = value; exagIn.value = String(value); exagOut.textContent = exag + "×";
+  function setExag(value) {   // the heights' scale: kept at 1 since the slider went (owner, Nov 12 2026)
+    const k = value / exag; exag = value;
     root.scale.y = exag; camera.position.y *= k; controls.target.y *= k; controls.update(); updateEye();
   }
   const eyeEl = document.getElementById("eye");
@@ -1581,7 +1568,6 @@ details li b { font-weight: 600; }
     eyeEl.textContent = `Eye elevation ${Math.round(elev).toLocaleString()} ft${pace}`;
     eyeEl.hidden = false;
   }
-  exagIn.addEventListener("input", () => setExag(+exagIn.value));
   root.scale.y = exag;
 
   // ---- The north-line fence's height, 6-10 ft (owner, Nov 12 2026): its top moves, its foot stays on the ground ----
@@ -1745,7 +1731,7 @@ details li b { font-weight: 600; }
   // restarts; if that's blocked, sessionStorage keeps it across reloads; if both are, nothing is saved and the page
   // opens on the overhead view as before. Layers added later keep their defaults.
   const VIEW_KEY = FOCUS ? FOCUS.key : "candelaria-3d-plan:view:v1";
-  const SLIDERS = ["exag", "sens", "fence-h", "tree-op", "canopy-op"];   // restored through their own handlers; fly speed is kept exactly
+  const SLIDERS = ["sens", "fence-h", "tree-op", "canopy-op"];   // restored through their own handlers; fly speed is kept exactly
   const viewStore = (() => {
     for (const name of ["localStorage", "sessionStorage"]) {
       try { const st = window[name]; st.setItem(VIEW_KEY + ":test", "1"); st.removeItem(VIEW_KEY + ":test"); return st; } catch (e) { /* blocked: try the next */ }

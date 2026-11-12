@@ -121706,6 +121706,16 @@ l 97431 97432 97433 97434 97435 97436 97437 97438 97439
       c.fillStyle = "#e7dfca"; c.fillRect(0, 0, w, h);   // cream (owner's photo)
       c.fillStyle = "rgba(60,55,45,0.22)"; for (let x = 0; x < w; x += 16) c.fillRect(x, 0, 1.5, h);
     }, 32 / 12, 8);
+    // Horizontal lap siding, 7 in to the weather (one tile = 8 ft x 7 in): the garage's north face (owner's photo, Nov 12 2026).
+    const lapTex = tex(64, 32, (c, w, h) => {
+      c.fillStyle = "#e7dfca"; c.fillRect(0, 0, w, h);
+      c.fillStyle = "rgba(60,55,45,0.28)"; c.fillRect(0, h - 3, w, 3);   // the shadow under each board's lap
+    }, 8, 7 / 12);
+    // Louvered vents: a slat every 3 in (one tile = 1 ft x 3 in).
+    const ventTex = tex(16, 16, (c, w, h) => {
+      c.fillStyle = "#efeae0"; c.fillRect(0, 0, w, h);
+      c.fillStyle = "rgba(50,45,38,0.45)"; c.fillRect(0, h - 4, w, 4);
+    }, 1, 0.25);
     // Composition shingles: two courses per tile, tabs staggered (one tile = 40 x 10 in).
     const roofTex = tex(256, 64, (c, w, h) => {
       for (let row = 0; row < 2; row++) for (let x = (row ? -16 : 0); x < w; x += 32) {
@@ -121716,8 +121726,9 @@ l 97431 97432 97433 97434 97435 97436 97437 97438 97439
     const lam = (color, extra = {}) => new THREE.MeshLambertMaterial({ color, ...extra });
     const M = {
       stone: new THREE.MeshLambertMaterial({ map: stoneTex }), siding: new THREE.MeshLambertMaterial({ map: sidingTex }),
+      lap: new THREE.MeshLambertMaterial({ map: lapTex }),
       roof: new THREE.MeshLambertMaterial({ map: roofTex, side: THREE.DoubleSide }),
-      trim: lam(0x46494d), ridge: lam(0x45413d), fascia: lam(0xece6d6), vent: lam(0xefeae0),
+      trim: lam(0x46494d), ridge: lam(0x45413d), fascia: lam(0xece6d6), vent: new THREE.MeshLambertMaterial({ map: ventTex }),
       glass: new THREE.MeshPhongMaterial({ color: 0x27323b, shininess: 90, specular: 0x8899aa }),
       frame: lam(0xf1eee6), shutter: lam(0x34567f), door: lam(0x4a3426), "garage-door": lam(0x34567f),   // the door's blue (photo)
       concrete: lam(0xc2beb5), deck: lam(0x8b5e48), "deck-skirt": lam(0x5e4434),
@@ -121725,8 +121736,9 @@ l 97431 97432 97433 97434 97435 97436 97437 97438 97439
     };
     // The scene's lights alone grey the walls (a wall out of the sun gets about half its color), so the house's light
     // surfaces glow a little to read as they do in daylight (owner's photo, Nov 12 2026).
-    for (const [k, tx] of [["stone", stoneTex], ["siding", sidingTex]]) { M[k].emissive.set(0xffffff); M[k].emissiveMap = tx; M[k].emissiveIntensity = 0.32; }
-    for (const k of ["fascia", "vent", "frame", "garage-door"]) M[k].emissive.copy(M[k].color).multiplyScalar(0.3);
+    for (const [k, tx] of [["stone", stoneTex], ["siding", sidingTex], ["lap", lapTex]]) { M[k].emissive.set(0xffffff); M[k].emissiveMap = tx; M[k].emissiveIntensity = 0.32; }
+    for (const k of ["fascia", "frame", "garage-door"]) M[k].emissive.copy(M[k].color).multiplyScalar(0.3);
+    M.vent.emissive.set(0xffffff); M.vent.emissiveMap = ventTex; M.vent.emissiveIntensity = 0.3;
     // Box faces get UVs in feet, so the textures keep their size on every box.
     const worldUV = (geo) => {
       const pos = geo.attributes.position, nor = geo.attributes.normal, uv = geo.attributes.uv;
@@ -121744,7 +121756,7 @@ l 97431 97432 97433 97434 97435 97436 97437 97438 97439
         if (!w[key] || w[key].length < 3) continue;
         const geo = new THREE.ExtrudeGeometry(new THREE.Shape(w[key].map(([u, z]) => new THREE.Vector2(u, z))), { depth: w.thick, bevelEnabled: false });
         geo.applyMatrix4(m);
-        const mesh = new THREE.Mesh(geo, M[key]); mesh.userData.id = id; g.add(mesh); solids.push(mesh);
+        const mesh = new THREE.Mesh(geo, M[key === "siding" && w.lap ? "lap" : key]); mesh.userData.id = id; g.add(mesh); solids.push(mesh);
       }
     }
     for (const r of H.roofs) {

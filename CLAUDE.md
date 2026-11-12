@@ -128,3 +128,7 @@ the data:
   - prune only July–January (oak wilt).
 - Keep the septic tank, drainfield and pump-truck lane clear. The septic system is in the
   strip along US-290.
+- **Keep the house model accurate (owner, Nov 12 2026):** whenever a photo, measurement or
+  document shows something about the house (shape, openings, materials, colors), update
+  `tools/house_layout.py` and the house's colors in `tools/plan3d_viewer.html` to match, without
+  waiting to be asked, and republish the 3D page.

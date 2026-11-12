@@ -18,6 +18,9 @@ What the photos settle:
   covers the deck's inside corner (size and heights guessed from photos).
 - **The porch and the garage share one roof plane** that rises west from the porch eave to the
   two-story's eave. The garage's north wall is the tall sloped face over the door.
+- **The garage's north face** (owner's photo from the apron, Nov 12 2026): stone up to the door's
+  header, horizontal lap siding above it (cream), and a louvered vent high on the sloped face near
+  its west end.
 - **The south rooms** face the street with a hipped front and a small gable set back on it
   (street photo, Oct 18). The stone back wing with the
   chimney sits south of the deck.
@@ -81,16 +84,17 @@ def house_spec(ground_rel: Callable[[float, float], float]) -> dict:
     L = lambda s, t: [round(-s, 3), round(t, 3)]  # noqa: E731
     walls, boxes, roofs = [], [], []
 
-    def wall(a, b, out, top, stone=STONE):
+    def wall(a, b, out, top, stone=STONE, lap=False):
         """A wall from a to b (s, t), outward normal `out` (local x, y), with its top as (u, z) points.
 
         top: [(u, z), ...] from u = 0 at a to u = |ab| at b, the wall's upper edge. Stone runs up to `stone`
-        (feet above FF), siding above it; 0 is a sided wall on a stone foundation.
+        (feet above FF), siding above it; 0 is a sided wall on a stone foundation. lap: horizontal lap siding,
+        not the vertical boards.
         """
         ab = ((b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2) ** 0.5
         bottom = min(ground_rel(*a), ground_rel(*b), ground_rel((a[0] + b[0]) / 2, (a[1] + b[1]) / 2), 0.0) - 0.3
         poly = [(0.0, bottom), (ab, bottom)] + [(round(u, 3), round(z - TUCK, 3)) for u, z in reversed(top)]
-        walls.append({"a": L(*a), "b": L(*b), "out": out, "thick": WALL,
+        walls.append({"a": L(*a), "b": L(*b), "out": out, "thick": WALL, **({"lap": True} if lap else {}),
                       "stone": _clip(poly, stone, True), "siding": _clip(poly, stone, False)})
 
     def flat(a, b, h):
@@ -121,7 +125,7 @@ def house_spec(ground_rel: Callable[[float, float], float]) -> dict:
     wall((69.2, 57.6), (64.2, 57.6), S_, flat((69.2, 57.6), (64.2, 57.6), EAVE1))
     wall((64.2, 57.6), (64.2, 68.8), E, flat((64.2, 57.6), (64.2, 68.8), EAVE1))      # kitchen, under the porch
     wall((64.2, 68.8), (64.2, 90.1), E, flat((64.2, 68.8), (64.2, 90.1), shed_z(64.2)))   # garage, under the porch
-    wall((64.2, 90.1), (85.2, 90.1), N, [(0, shed_z(64.2)), (21.0, shed_z(85.2))])   # garage door wall, sloped top
+    wall((64.2, 90.1), (85.2, 90.1), N, [(0, shed_z(64.2)), (21.0, shed_z(85.2))], stone=7.3, lap=True)   # garage door wall, sloped top: stone to the door's header, lap siding above (photo, Nov 12)
     wall((85.2, 90.1), (126.2, 90.1), N, flat((85.2, 90.1), (126.2, 90.1), EAVE2))    # two-story, north
     wall((126.2, 90.1), (126.2, 68.8), W_, gable_top((126.2, 90.1), (126.2, 68.8), EAVE2, EAVE2 + rise_2), stone=0.0)   # back gable, sided
     wall((126.2, 68.8), (100.8, 68.8), S_, flat((126.2, 68.8), (100.8, 68.8), EAVE2), stone=0.0)  # two-story, over the deck, sided
@@ -218,6 +222,7 @@ def house_spec(ground_rel: Callable[[float, float], float]) -> dict:
     opening(face_s=64.2, out=E, span=(60.7, 66.7), z=(3.0, 7.0))                   # kitchen window (floor plan)
     opening(face_s=64.2, out=E, span=(73.8, 79.8), z=(3.0, 7.0))                   # garage window (owner's markup)
     opening(face_t=90.1, out=N, span=(66.7, 82.7), z=(-0.4, 7.0), mat="garage-door", frame=True)   # 16 x 7 (photo 16)
+    opening(face_t=90.1, out=N, span=(78.9, 81.1), z=(shed_z(80.0) - 3.7, shed_z(80.0) - 1.2), mat="vent", frame=False)   # louvered vent high on the garage face (photo, Nov 12)
     for s in (96.5, 103.0, 109.5):                                                 # two-story north (photo 12)
         opening(face_t=90.1, out=N, span=(s - 1.9, s + 1.9), z=(5.2, 7.3))
         opening(face_t=90.1, out=N, span=(s - 1.9, s + 1.9), z=(14.8, 16.8))

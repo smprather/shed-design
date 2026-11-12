@@ -3751,9 +3751,15 @@ the tables below.
     alone made a shaded wall grey.
 - **A new view, "The garage":** on the apron, ~29 ft out, facing the garage door, to compare
   with the photo.
-- **Still wrong in the model:**
-  - The garage end has a single slope where the photo shows a gable, with a louvered vent.
-  - The gable's siding looks like horizontal lap, where the model has vertical siding.
+- **The garage's north face, read again** (same day): the roofline rises from the porch on the left
+  across the whole frame, with no peak in view. That's the model's one plane rising west to the
+  two-story's eave, not a gable; an earlier note (Oct 13) called it "a gable".
+  - The model now has what the photo shows: stone only to the door's header, horizontal lap siding
+    above (the two-story's north face keeps its vertical boards), and a louvered vent high near
+    the west end.
+- **Standing instruction (owner, Nov 12 2026):** whenever a photo, measurement or document shows
+  something about the house, update the house model and its colors to match, without waiting to
+  be asked (CLAUDE.md, Conventions).
 - **The photo itself** (a screenshot with the browser alongside) didn't reach the
   container's disk, so it isn't in the private repo. Re-send it, or push it there, to keep
   it.

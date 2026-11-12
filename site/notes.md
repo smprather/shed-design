@@ -3696,6 +3696,40 @@ the tables below.
     - Make it two wide, or ask the attorney the same day.
   - **Fences on the back and south lines** are fine. They're inside the setbacks, which sec. 3
     allows.
+- **Relief for the front 45 ft of the north fence?** (owner's question, Nov 12 2026: we're the
+  edge lot on a 70+ mph highway; the street wouldn't mind.)
+  - **No variance route:** the committee's variances (sec. 13) don't reach fences, and the HOA
+    has no say.
+  - **An amendment (sec. 14):** covenants change "by a vote of a majority of the then owners of
+    the lots ... in whole or in part".
+    - That's a majority of every lot under these restrictions, not just the street: roughly half
+      of the section's lots.
+    - The amendment would be a narrow one, signed and recorded in the county records. For
+      example: on lots abutting the US-290 right-of-way, a wood or rock fence or wall may run
+      along that line to the front property line.
+    - **For the attorney:**
+      - Can it take effect mid-term, or only at a renewal date (next Nov 1 2033)?
+      - Can it treat the edge lots differently from the rest?
+  - **Texas Property Code ch. 216** (2023, amending old restrictions by 66.6%) doesn't apply. It
+    covers plats filed before 1947 in a city of 2 million or more.
+  - **Changed conditions:** a Texas court can stop enforcing a restriction when conditions
+    around a lot have changed so much that the restriction can no longer do its job. A freeway
+    rebuilt beside an edge lot is the classic setting. Courts apply it narrowly, case by case:
+    a question for the attorney, and a lawsuit if it came to that.
+  - **Practical cover:**
+    - Written consents from the nearest owners: across Candelaria, and next door on the
+      south. They're the likeliest to object. A consent doesn't bind the other owners, all of
+      whom can sue (sec. 15).
+    - Photos of other fences already past building lines in the section, for a waiver argument.
+  - **What it would buy:** running the fence to the front corner adds ~2 dB at the kitchen end,
+    ~1 dB mid-house and ~0.5 dB at the west end (`noise_model.py`, Oct 18; see "An 8 ft fence
+    on the north line").
+  - **Allowed meanwhile:**
+    - Dense evergreen planting in that stretch: it isn't a fence.
+    - Perhaps a planted earth berm; ask the attorney whether it counts as a structure.
+  - **Sight lines:** if Candelaria opens onto the frontage road at our corner, keep the last
+    ~25 ft low whatever the rules say. The HOA's map shows Candelaria ending at the highway
+    right-of-way.
 
 ### Windows and doors
 

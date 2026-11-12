@@ -903,6 +903,26 @@ def main(spec: Path, out: Path | None, focus: bool) -> None:
         cx, cy = cx + (cx - mx) / away * 0.08, cy + (cy - my) / away * 0.08
         obj.prism([(cx - 0.13, cy - 0.13), (cx + 0.13, cy - 0.13), (cx + 0.13, cy + 0.13), (cx - 0.13, cy + 0.13)],
                   ground(cx, cy) + 1.0, ground(cx, cy) + 1.35)
+    # The house's power line in its new run round building A (a_groundwork.py; owner, Nov 2 2026): a band ~8 in wide,
+    # the trench; risers up the meter pole to 8 ft and up the house's wall at its NW corner; the pull box; and the
+    # building's feeder and data beside it in the shared first leg, then on to the panel inside the west wall.
+    from a_groundwork import FEEDER_BRANCH, PANEL_AT, PULL_BOX, ROUTE, a_frame
+    run = [to_m(p) for p in ROUTE]
+    obj.obj("power_new_run_house")
+    obj.strip(run, 0.2, lift=0.05)
+    for (rx, ry), up in ((run[0], 2.44), (run[-1], 1.2)):
+        obj.prism(circle((rx, ry), 0.037, 12), ground(rx, ry) - 0.1, ground(rx, ry) + up)
+    obj.obj("power_pull_box")
+    (px_, py_), (qx_, qy_) = run[PULL_BOX], run[PULL_BOX + 1]
+    lb = math.hypot(qx_ - px_, qy_ - py_)
+    ux_, uy_ = (qx_ - px_) / lb, (qy_ - py_) / lb
+    obj.prism([(px_ + ux_ * a_ - uy_ * b_, py_ + uy_ * a_ + ux_ * b_) for a_, b_ in ((-0.3, -0.17), (0.3, -0.17), (0.3, 0.17), (-0.3, 0.17))],
+              ground(px_, py_) - 0.3, ground(px_, py_) + 0.03)
+    feed = [to_m(p) for p in (ROUTE[0], FEEDER_BRANCH, a_frame()(*PANEL_AT))]
+    lf = math.dist(feed[0], feed[1])
+    sx_, sy_ = -(feed[1][1] - feed[0][1]) / lf * 0.2, (feed[1][0] - feed[0][0]) / lf * 0.2   # beside the house's conduit
+    obj.obj("power_feeder_building_a")
+    obj.strip([(feed[0][0] + sx_, feed[0][1] + sy_), (feed[1][0] + sx_, feed[1][1] + sy_), feed[2]], 0.12, lift=0.06)
 
     # --- The plan's entities ---
     for e in plan["spatial_entities"]:
@@ -1072,6 +1092,7 @@ def main(spec: Path, out: Path | None, focus: bool) -> None:
                 "tags": [["Meter pole: the power", tag((22.6, -1.0), 22.0)],   # electric_meter_pole in the spec
                          ["Well", tag(to_m(well))], ["Septic access pipe (tank?)", tag(to_m(pipe))],
                          ["US-290 →", tag((nw_lot[0] + 1.5, nw_lot[1] - 28.0), 12.0)], ["NW corner of the lot", tag(nw_lot, 10.0)]]
+                + [["New power run to the house (planned)", tag(to_m((97.0, 178.0)), 3.0)]]
                 + ([["Sprinkler head, zone 7: moves before the dig", tag(to_m(tuple(z7[-1])), 3.0)]]
                    if (z7 := next((z["heads"] for z in (irrigation or {}).get("zones", []) if z["zone"] == 7), None)) else [])}
         house = building_b = None

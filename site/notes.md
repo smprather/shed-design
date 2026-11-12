@@ -3602,6 +3602,24 @@ the tables below.
   sprinklers"); in the close-up, a label on zone 7's last head. The septic access pipe is
   drawn too: a white 4 in riser, its height assumed (~1 ft).
 
+### 3D: the new power run, and the fence's height on a slider (owner, Nov 12 2026)
+
+- **The house's new power run** is in both 3D pages, from the same coordinates as the map and
+  the guide (`a_groundwork.py`'s `ROUTE`):
+  - an ~8 in band on the ground for the trench;
+  - Schedule 80 risers up the meter pole and the house's wall;
+  - the pull box;
+  - building A's feeder and data beside it in the shared first leg, then to the panel inside
+    the west wall.
+
+  It's in the layer group "Utilities", with the sprinklers and the septic access pipe. The
+  old line, drawn straight, stays under Keep-outs until it's cut back and capped.
+- **A slider for the north-line fence's height,** 6–10 ft in ½ ft steps, in both pages. The
+  fence is built at the spec's 8 ft. The slider moves its top and leaves its foot on the
+  ground, and it's saved with the rest of the panel. The back fence stays 8 ft.
+- **The noise numbers** (`noise_model.py`) are still for the 8 ft fence. Rerun them for
+  another height if one gets serious.
+
 ### Windows and doors
 
 - Traffic noise is heavy in low frequencies. Compare windows by **OITC** (made for traffic

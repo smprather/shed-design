@@ -1434,7 +1434,9 @@ as `north_line_fence` in `property_total_plan.jsonc`, drawn like the back fence.
 - **Corrected the same day:** the owner pulled it back to the 45 ft building line. It now
   runs 207.9 ft from the back-north corner to the building line, not the full 253.5 ft.
 - **The front 45.6 ft** waits on the deed restrictions. The owner may ask for a variance,
-  since that side faces US-290.
+  since that side faces US-290. (Settled Nov 12 2026: the 1971 restrictions bar any fence past
+  the front building line, and their variances don't cover fences. See "The deed
+  restrictions".)
 - **Noise** (`noise_model.py` geometry; an airtight 8 ft fence vs. none, 550 Hz, no ground
   effect; for comparison only):
 
@@ -1465,7 +1467,8 @@ as `north_line_fence` in `property_total_plan.jsonc`, drawn like the back fence.
   eave and gutter.
 - **The driveway** stays 4–13 ft inside the line, so the fence doesn't cross it.
 - **In front of the 45 ft building line,** the deed restrictions may cap fence height. Check
-  the title commitment before building the front stretch.
+  the title commitment before building the front stretch. (Nov 12 2026: they bar fences there
+  altogether, and set no height limit behind the line.)
 - **Viewer, same day (owner's asks):**
   - the back-yard photo-spot marker is gone, now that the photos are taken (the "From the
     back yard" view stays);
@@ -3620,6 +3623,80 @@ the tables below.
 - **The noise numbers** (`noise_model.py`) are still for the 8 ft fence. Rerun them for
   another height if one gets serious.
 
+### The deed restrictions: Granada Hills Amended, 1971 (found Nov 12 2026)
+
+- **Found while answering how close to the road the north fence can come** (owner, Nov 12):
+  - The Granada HOA's website posts the subdivision's deed restrictions by section
+    (granadahillshoa.org/deedrestrictions).
+  - Its section map puts 8400 Candelaria in "Granada Hills Amended", our plat, at the north
+    end on the US-290 right-of-way.
+  - The restrictions for that section are dated August 1971.
+  - The PDF names the developer's officers and a notary, so it's in the private repo
+    (`property/granada-hills-amended-restrictions-1971.pdf`, with the section map). The facts
+    are here.
+  - **Confirm against the title commitment's Schedule B,** which lists what's recorded against
+    the lot. These restrictions cite the plat as Book 54, Pages 69–70; the 1991 survey cites
+    the amended plat as Vol. 55 Pg. 69.
+- **They cover Lot 176.** Only Lots 1, 177, 178, 179, 180 and 181 are excluded.
+- **They're in force.** They ran to Nov 1 1993, then renew for 10 years at a time unless a
+  majority of the lot owners change them. The current term runs to Nov 1 2033.
+- **Who enforces them:** any lot owner, in court (sec. 15). The HOA doesn't (its neighborhood
+  guide, 2023).
+  - The architectural control committee (sec. 11) was three named people in 1971.
+  - Plans it doesn't act on within 30 days, or a building finished with no suit filed, count
+    as approved (sec. 12).
+- **The clauses that matter here:**
+  - **Sec. 1:** single-family homes only.
+  - **Sec. 2:** "No structures shall be erected, altered, placed or permitted to remain on
+    any of said lots other than One (1) detached dwelling not to exceed two (2) stories in
+    height and a private garage or carport for at least two (2) but not more than three (3)
+    cars, and such garage or carport shall be attached to the dwelling. Garages or carports
+    shall be at least two car spaces wide."
+  - **Sec. 3:**
+    - No dwelling, structure or well nearer than 45 ft to the front property line, 10 ft to a
+      side or rear line, or 25 ft to any side street.
+    - Utility lines and fences may go inside those setbacks.
+    - "All fences shall be constructed of either wood, rock or chain link and no fences shall
+      extend beyond the front building setback line."
+  - **Sec. 4:** no trade or commercial activity; no poultry, cattle or horses.
+  - **Sec. 5:** no barn, garage or other outbuilding used as a residence.
+  - **Sec. 7:** dwellings at least 50% masonry.
+  - **Sec. 9:** a septic tank and field lines to the county's rules.
+  - **Sec. 11–13:**
+    - Building plans go to the architectural control committee.
+    - Variances only for a structure's size and cost, its share of masonry, and minor changes
+      in its location.
+- **What they mean for the plan:**
+  - **The north fence ends at the 45 ft building line, as drawn.**
+    - The front 45.6 ft of the line can't be fenced, and no variance clause covers fences.
+    - Measured from the street: the front line is ~19.5 ft back from the asphalt's edge, so
+      the fence stops ~64.5 ft from the pavement.
+    - No height limit (the viewer's 6–10 ft slider stands). Travis County, outside the city,
+      sets none either, as far as I found.
+    - Board-on-board wood qualifies. A concrete-block wall isn't one of the three materials;
+      stone counts as "rock".
+    - A return along Candelaria (the noise study's best option) is out.
+    - Plantings aren't fences: hollies or cedars can screen the front 45 ft.
+  - **Building A, a detached 30 × 30, isn't allowed by sec. 2 on its face.** It allows one
+    dwelling and a garage or carport attached to it.
+    - **Sec. 3:** at 10.2 ft from the north line, it clears the 10 ft side setback by 0.2 ft,
+      and the line is only known to ~±2 ft.
+    - If US-290 counts as a "side street" (Candelaria ends at its right-of-way at our corner),
+      the 25 ft setback would put the building ~15 ft too close.
+    - **Before ordering a kit or paying for groundwork:**
+      - Have a real-estate attorney read secs. 2 and 3 against this lot.
+      - Count the detached buildings already standing in the subdivision. Texas courts can
+        hold a restriction waived when violations are widespread, but that's for the
+        attorney.
+      - Weigh asking the neighbors first, since they're the ones who can sue.
+  - **A personal woodshop** isn't a trade. Sec. 4 rules out running a business from it.
+  - **The garage conversion and the porte-cochère:** sec. 2 wants a garage or carport "at
+    least two car spaces wide", attached to the house.
+    - The porte-cochère as drawn parks two cars nose to tail: one space wide.
+    - Make it two wide, or ask the attorney the same day.
+  - **Fences on the back and south lines** are fine. They're inside the setbacks, which sec. 3
+    allows.
+
 ### Windows and doors
 
 - Traffic noise is heavy in low frequencies. Compare windows by **OITC** (made for traffic
@@ -3641,6 +3718,8 @@ the tables below.
   continuous trench. No root or branch cuts Feb–June (oak wilt).
 - **Rules:** check the Granada Hills deed restrictions for wall height and material. A
   masonry wall over ~8 ft needs an engineered footing, and possibly a Travis County permit.
+  (Nov 12 2026: the 1971 restrictions set no fence height, allow wood, rock or chain link, and
+  bar fences past the front building line, which rules out a return along Candelaria.)
 
 ## Goal
 

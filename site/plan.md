@@ -5,13 +5,13 @@ sources, corrections and dates. This file says what we're doing, in what order, 
 still undecided. Update it when a decision changes; record the facts behind the change in
 `notes.md`.
 
-Last updated: Nov 2 2026 (building A's groundwork: the house's power line moved to a new 207 ft run in conduit round the building, and the slab's crushed-rock base, for the owner to do themselves; `site/building-a-groundwork.md`. $85k all in. Oct 31: building A drawn turned 22.5° counter-clockwise and 4.75 ft off the fence, so a boat can drive out in one move; $82k all in; not settled. Oct 30: towing a boat in and out. Oct 28: the doors in the south gable end, a 12 × 12 for a boat and a 10 × 8, burgundy with black trim; on 14 ft legs and a slab dug into its high side, with power and closed-cell foam insulation: ~$83k all in, $51k of it the building on its slab; it comes first, and the drive much later).
+Last updated: Nov 12 2026 (the 1971 deed restrictions found: no fence past the 45 ft line, and a detached building A isn't allowed on its face; an attorney's read comes before the kit. Nov 2: building A's groundwork: the house's power line moved to a new 207 ft run in conduit round the building, and the slab's crushed-rock base, for the owner to do themselves; `site/building-a-groundwork.md`. $85k all in. Oct 31: building A drawn turned 22.5° counter-clockwise and 4.75 ft off the fence, so a boat can drive out in one move; $82k all in; not settled. Oct 30: towing a boat in and out. Oct 28: the doors in the south gable end, a 12 × 12 for a boat and a 10 × 8, burgundy with black trim; on 14 ft legs and a slab dug into its high side, with power and closed-cell foam insulation: ~$83k all in, $51k of it the building on its slab; it comes first, and the drive much later).
 
 ## The four projects
 
 | Project | What it is now | Status | Blocked on |
 |---|---|---|---|
-| **1. The building, at site A** (first: owner, Oct 24 2026) | A common 30 × 30 tube-frame kit on 14 ft legs, with a 12 × 12 door for a boat (owner, Oct 25 2026), on a concrete slab dug into its high side (owner, Oct 24), on the north strip between the well and the septic pipe. Site B is dropped (owner, Oct 18 2026): it had no slack between the septic pipe and the twin oak, cut into the oak's roots, wasn't a standard kit size, crowded the house and the septic truck's lane, and blocked little noise (notes, "Site B dropped"). A 30 × 30 there with east doors (Nov 1) can't be dug in, since its doors would be on the high side, and a towed boat can't get past the oak: too close to the oaks, in too narrow a gap, on too sloped a part of the yard, with no cheap or easy way out of the slope (owner; `tools/site_b_east.py`) | Modeled and priced: ~$85k likely all in, with power and closed-cell foam insulation ($49k of it the building on its slab); the doors in its front gable end at grade, with short concrete aprons. The groundwork, step by step: `site/building-a-groundwork.md` (Nov 2) | The buried service line; the septic layout (the drainfield may be under it) |
+| **1. The building, at site A** (first: owner, Oct 24 2026) | A common 30 × 30 tube-frame kit on 14 ft legs, with a 12 × 12 door for a boat (owner, Oct 25 2026), on a concrete slab dug into its high side (owner, Oct 24), on the north strip between the well and the septic pipe. Site B is dropped (owner, Oct 18 2026): it had no slack between the septic pipe and the twin oak, cut into the oak's roots, wasn't a standard kit size, crowded the house and the septic truck's lane, and blocked little noise (notes, "Site B dropped"). A 30 × 30 there with east doors (Nov 1) can't be dug in, since its doors would be on the high side, and a towed boat can't get past the oak: too close to the oaks, in too narrow a gap, on too sloped a part of the yard, with no cheap or easy way out of the slope (owner; `tools/site_b_east.py`) | Modeled and priced: ~$85k likely all in, with power and closed-cell foam insulation ($49k of it the building on its slab); the doors in its front gable end at grade, with short concrete aprons. The groundwork, step by step: `site/building-a-groundwork.md` (Nov 2) | **The deed restrictions** (sec. 2 allows no detached building on its face; an attorney's read first); the buried service line; the septic layout (the drainfield may be under it) |
 | **2. Screening** (noise and views) | US-290 side: the 8 ft fence, building B, maybe a taller wall. Back line: 21 new trees in the gaps | Back-line planting ready to buy; US-290 side needs re-modeling | Fence gaps and ownership; septic layout |
 | **3. Garage → kitchen** | Join the 21 × 21 ft attached garage, the hall beside it and the old kitchen into one ~680 sq ft kitchen. Its own repo: `smprather/kitchen-garage-renovation` | Idea stage (~90% likely); layout mocked up | Parking must move first; septic capacity question; structure (see its repo) |
 | **4. The drive + porte-cochère** | Redesigned from scratch: loop D, a forecourt with a porte-cochère (2 cars nose to tail) and a passing lane, the service drive and north court, the shop lane to building A. Estate gravel, concrete-curbed | Designed, drawn in the renders; not priced: it comes much later (owner, Oct 24 2026) | Trunk tapes; buried lines; the septic layout; county permits |
@@ -65,9 +65,15 @@ before its first dig.
    - the Ashe junipers at the NW corner: which are male (pollen). That check is best in
      December–January.
 5. **Paperwork:**
-   - the title commitment's deed restrictions: outbuildings (and their height: the ridge is
-     ~17.75 ft), boats and trailers, materials, walls, fences, the
-     45 ft building line;
+   - **the deed restrictions** (found Nov 12 2026: Granada Hills Amended, 1971; notes, "The
+     deed restrictions"). Sec. 2 allows only one dwelling with an attached garage or carport,
+     so a detached building A isn't allowed on its face. Sec. 3 sets 10 ft from side lines
+     (building A is at 10.2 ft) and 25 ft from a side street (if US-290 counts, it's ~15 ft
+     too close).
+     - **Have a real-estate attorney read them against this lot before ordering a kit or
+       doing groundwork.**
+     - Confirm them on the title commitment's Schedule B.
+     - Fences: none past the 45 ft line; wood, rock or chain link; no height limit;
    - Travis County's accessory-building permit, and whether OSSF reviews a new building (or,
      later, a garage conversion) on a septic lot;
    - the kit dealer's drawings stamped for the county's wind load, and the slab's design for
@@ -427,8 +433,9 @@ house's west end, ~1 dB or less elsewhere.
   model.
   - **Length:** from the back corner to the 45 ft building line, 207.9 ft. It was pulled back
     from the front corner the same day.
-  - **The front 45.6 ft** could follow if the deed restrictions allow a variance, since that
-    side faces US-290.
+  - **The front 45.6 ft can't be fenced:** the 1971 deed restrictions (sec. 3) bar any fence
+    past the front building line, and allow no variance for it. The fence stops ~64.5 ft from
+    Candelaria's pavement. Plantings can screen that stretch instead.
   - **What it buys (`noise_model.py` geometry, airtight 8 ft fence vs. none):**
     - ~4 dB at the house's west end and middle, ~2.5–3 dB at the kitchen end;
     - running it to the front corner adds ~2 dB at the kitchen end.
@@ -441,8 +448,8 @@ house's west end, ~1 dB or less elsewhere.
     inside the 12 ft no-dig zone. Hand-dig or air-spade those posts, or bridge that stretch,
     and do any cutting July–January.
   - **Building B:** its north wall is 5.1 ft from the line (~4 ft clear under the eave).
-  - **Front yard:** the deed restrictions may limit fence height in front of the 45 ft
-    building line.
+  - **Height and material:** the restrictions set no height limit behind the line (the 3D
+    viewer's slider runs 6–10 ft). Fences must be wood, rock or chain link.
 - **Wall constraints, if we go further:**
   - The footing must be fully on our side of the line.
   - It conflicts with the septic pipe (6 ft from a footing at the line); the wall would jog
@@ -487,6 +494,10 @@ measurements. What ties it to the rest of this plan:
   the garage stops holding cars.
 - **Septic:** ask Travis County OSSF whether ~440 sq ft of added living area changes the
   required capacity. The same question goes for building B.
+- **The deed restrictions (sec. 2)** want a garage or carport for 2–3 cars, attached to the
+  house and "at least two car spaces wide". Converting the garage leaves the porte-cochère to
+  be that carport, and as drawn it parks two cars nose to tail, one space wide. Make it two
+  wide, or ask the attorney (notes, "The deed restrictions").
 - **The apron stays a drive lane.** The old garage door becomes glass onto the apron. The
   apron is still the way to the north gate, for the septic truck and building B's
   construction.

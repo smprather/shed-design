@@ -6,8 +6,10 @@ limits:
   legs with a 12 × 12 door for a boat (Oct 25 2026), its doors in the front gable end (Oct 28), on a
   concrete slab dug into its high side, so its doors are at grade (Oct 24 2026; site B was dropped Oct 18);
   drawn turned 22.5° counter-clockwise, its doors facing SSE, so a towed boat can drive out in one move
-  (Oct 31, not settled; `A_TURN` in `tools/envelope_plan.py`);
-- traffic-noise and visual screening;
+  (Oct 31, not settled; `A_TURN` in `tools/envelope_plan.py`). The 1971 deed restrictions (Granada
+  Hills Amended; notes, "The deed restrictions") allow only one dwelling with an attached garage or
+  carport, so a detached building needs an attorney's read first;
+- traffic-noise and visual screening (no fence past the 45 ft front building line: deed restrictions, sec. 3);
 - a garage-to-kitchen conversion;
 - the drive, redesigned from scratch (Oct 18 2026): loop D, a forecourt with a porte-cochère, the
   service drive and north court, and the shop lane to building A. It comes much later: the building

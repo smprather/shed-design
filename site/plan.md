@@ -12,7 +12,7 @@ Last updated: Nov 12 2026 (the 1971 deed restrictions found: no fence past the 4
 | Project | What it is now | Status | Blocked on |
 |---|---|---|---|
 | **1. The building, at site A** (first: owner, Oct 24 2026) | A common 30 × 30 tube-frame kit on 14 ft legs, with a 12 × 12 door for a boat (owner, Oct 25 2026), on a concrete slab dug into its high side (owner, Oct 24), on the north strip between the well and the septic pipe. Site B is dropped (owner, Oct 18 2026): it had no slack between the septic pipe and the twin oak, cut into the oak's roots, wasn't a standard kit size, crowded the house and the septic truck's lane, and blocked little noise (notes, "Site B dropped"). A 30 × 30 there with east doors (Nov 1) can't be dug in, since its doors would be on the high side, and a towed boat can't get past the oak: too close to the oaks, in too narrow a gap, on too sloped a part of the yard, with no cheap or easy way out of the slope (owner; `tools/site_b_east.py`) | Modeled and priced: ~$85k likely all in, with power and closed-cell foam insulation ($49k of it the building on its slab); the doors in its front gable end at grade, with short concrete aprons. The groundwork, step by step: `site/building-a-groundwork.md` (Nov 2) | **The deed restrictions** (sec. 2 allows no detached building on its face; an attorney's read first); the buried service line; the septic layout (the drainfield may be under it) |
-| **2. Screening** (noise and views) | US-290 side: the 8 ft fence, building B, maybe a taller wall. Back line: 21 new trees in the gaps | Back-line planting ready to buy; US-290 side needs re-modeling | Fence gaps and ownership; septic layout |
+| **2. Screening** (noise and views) | US-290 side: the 8 ft fence, maybe a 10 ft wall on the line (for the view and the north yard: ~2 dB at the house, ~3 dB in the yard), and window upgrades (~5–7.5 dB indoors). Back line: 21 new trees in the gaps | Back-line planting ready to buy; US-290 side modeled (`fence_noise.py`, Nov 13) | Fence gaps and ownership; septic layout |
 | **3. Garage → kitchen** | Join the 21 × 21 ft attached garage, the hall beside it and the old kitchen into one ~680 sq ft kitchen. Its own repo: `smprather/kitchen-garage-renovation` | Idea stage (~90% likely); layout mocked up | Parking must move first; septic capacity question; structure (see its repo) |
 | **4. The drive + porte-cochère** | Redesigned from scratch: loop D, a forecourt with a porte-cochère (2 cars nose to tail) and a passing lane, the service drive and north court, the shop lane to building A. Estate gravel, concrete-curbed | Designed, drawn in the renders; not priced: it comes much later (owner, Oct 24 2026) | Trunk tapes; buried lines; the septic layout; county permits |
 
@@ -459,6 +459,18 @@ house's west end, ~1 dB or less elsewhere.
 - **Inside the house:** north- and west-facing windows are often the cheapest big gain.
   Laminated glass with unequal panes (compare by OITC), or interior acoustic inserts; seal
   the frames.
+- **The 10 ft sealed wall (picket–MLV–picket, ~$30k): worth it for the view and the north yard,
+  not for noise** (`fence_noise.py`, Nov 13 2026; notes, "The 10 ft sealed wall: worth it?"):
+  - Against today's 8 ft fence it buys ~2 dB outside the ground-floor windows, ~0.5 dB upstairs
+    and ~3 dB in the north yard. 3 dB is just noticeable. Most of the sound is the main lanes,
+    already behind the cut's barrier, and the upstairs windows see over any fence.
+  - The MLV adds nothing: a wall this size is limited by sound bending over its top, and sealed
+    board-on-board already stops what goes through. Sealing today's fence gains ~0.2 dB.
+  - The windows do more indoors: laminated double-pane ~4.7 dB, interior acoustic inserts
+    ~7.5 dB. The wall adds ~1.5 dB on top downstairs, ~0.4 upstairs.
+  - What the wall does do: from the ground floor and the north yard it hides nearly all the
+    traffic on both frontage roads (today about half shows). From upstairs it hides nothing.
+  - If it's built for the view, build it sealed board-on-board, without the MLV.
 
 ### Back line (the retail and apartments)
 

@@ -3911,6 +3911,81 @@ blocked the request), so the highway is drawn from what we have. A new layer gro
 - **±:** ~10 ft across, ~4 ft in height (the main lanes ~6 ft), straight and level along its length. A newer lidar
   (TxGIO 2021 or later) or the TxDOT plan set for the Oak Hill Parkway would replace it.
 
+### The 10 ft sealed wall: worth it? (owner, Nov 13 2026)
+
+The owner asked whether a 10 ft wall on the north line, picket–MLV–picket with every gap sealed
+(~$30k), is worth it over today's fence: 8 ft of leaky horizontal pickets, mostly to the ground.
+They're upgrading the windows upstairs and down anyway, and the wall would also hide the
+highway. `tools/fence_noise.py` models it on the rebuilt US-290 section (`us290_layout.py`):
+- **Sources:** the eastbound frontage road by our fence; the main lanes in their cut, taken as
+  11 dB louder than one frontage road (more traffic, faster); and the westbound frontage road
+  up the bank.
+- **Barriers:** ISO 9613-2's over-the-top term in octave bands, one edge or two. Each fence's own
+  transmission loss, its gaps included.
+- **Spectrum:** the standard A-weighted traffic spectrum.
+- **Absolute levels:** pinned to TxDOT's 64 dB(A) for this house (2040 peak hour, no fence).
+- **Left out:** ground effect, trees and wind, so read it as a comparison. Real gains at the
+  ground floor run ~1–3 dB under these, since a wall also takes away some of the lawn's own
+  attenuation.
+
+**Outdoors, dB quieter than today's fence:**
+
+| At the north wall | Today, dB(A) | No fence | Today's, sealed | 8 ft on the line, MLV | 10 ft, leaky pickets | 10 ft, board-on-board | 10 ft, picket–MLV–picket |
+|---|---|---|---|---|---|---|---|
+| West end, ground floor / upstairs | 61.6 / 64.7 | −2.0 / −0.1 | 0.2 / 0.0 | 1.1 / 0.0 | 1.5 / 0.4 | 1.9 / 0.4 | 1.9 / 0.4 |
+| Middle, ground floor / upstairs | 61.8 / 64.6 | −1.8 / −0.1 | 0.1 / 0.0 | 1.4 / 0.0 | 1.7 / 0.4 | 2.0 / 0.4 | 2.0 / 0.4 |
+| Garage/kitchen end, ground floor | 62.3 | −1.2 | 0.1 | 1.6 | 1.8 | 2.1 | 2.1 |
+| North yard, 15 ft off the wall | 61.5 | −2.5 | 0.2 | 1.9 | 2.4 | 2.9 | 3.0 |
+
+- **~2 dB at the ground floor, ~0.5 upstairs, ~3 in the north yard.** For scale: 3 dB is just
+  noticeable, 5 clearly, 10 half as loud. The range is 1.7–2.4 dB at the ground floor whether
+  the main lanes are 6 or 14 dB over a frontage road, and with today's fence 3% or 8% open.
+- **Why so little:** over half the sound is the main lanes, already behind the cut's barrier.
+  The eastbound frontage road is about a third. Upstairs, the windows see over any fence. And
+  the wall stops at the 45 ft building line, so traffic past its east end still arrives.
+- **The MLV adds nothing.** A wall this size is limited by what bends over its top. Sealed
+  board-on-board (two layers of 3/4 in boards, ~14 kg/m²) already blocks 20–40 dB going through,
+  far more than the ~2–10 dB the top lets past. Even today's 3% gaps cost only ~0.2 dB.
+- **By band** (middle, 10 ft sealed vs today): 1.6–2.5 dB at the ground floor from 125 Hz to
+  4 kHz, ~0.3–0.5 dB upstairs. The low truck rumble gets the least.
+
+**Indoors, windows shut** (dB quieter than today's fence and windows; the windows ~12% of the
+wall, the rest an insulated sided wall):
+
+| Room on the north wall | Today, dB(A) | Laminated double-pane | + 10 ft wall | Interior acoustic inserts | + 10 ft wall |
+|---|---|---|---|---|---|
+| Ground floor (west, middle, kitchen end) | ~28 | 4.6–4.7 | 6.1–6.5 | 7.2–7.3 | 8.7–9.1 |
+| Upstairs (west, middle) | ~29.5 | 4.8 | 5.2 | 7.6–7.7 | 8.0 |
+
+- The window and wall gains add up. Most of the indoor gain is the windows; the wall adds
+  ~1.5 dB downstairs and ~0.4 upstairs.
+- Today's windows are assumed builder double-pane (OITC ~22); laminated asymmetric double-pane
+  ~30; interior inserts ~38. Air leaks at the frames, doors and vents can cap any of it. Seal
+  them in the same job.
+
+**What the wall hides** (share of each road showing within 60° of straight out, to 800 ft):
+
+| View from | Fence | Cars, eastbound / westbound frontage road | Trucks, eastbound / westbound |
+|---|---|---|---|
+| Ground floor (west, middle) | today's 8 ft | 44–53% / 60–65% | 69–74% / 71–75% |
+| | 10 ft on the line | 1–2% / 3–15% | 13–18% / 22–32% |
+| Upstairs | either | 100% / 100% | 100% / 100% |
+| North yard | today's 8 ft | 40% / 33% | 49% / 43% |
+| | 10 ft on the line | 0% / 0% | 1% / 0% |
+
+- The main lanes are hidden from the ground floor and yard either way (the cut). From upstairs
+  their trucks show over the barrier.
+- Today's fence is counted as opaque here. Its gaps show glimpses on top of this.
+
+**Verdict:**
+- **For noise, the wall isn't worth $30k.** The windows are.
+- **For the view, it is the only thing that does it.** It hides nearly all the traffic from the
+  ground-floor rooms and the yard, and gives the yard ~3 dB.
+- **If it's built for that, build it sealed board-on-board, without the MLV.** It costs less and
+  sounds the same.
+- **For the record:** TxDOT's own test for a noise wall is ≥5 dB at a home for ≤$25k a home.
+  This one is ~2 dB at the house.
+
 ### Windows and doors
 
 - Traffic noise is heavy in low frequencies. Compare windows by **OITC** (made for traffic

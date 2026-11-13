@@ -3820,6 +3820,35 @@ positions off the photos as ±1–2 ft):
 - A label shows while its layer and its object are both ticked. Both pages remember the boxes
   with the rest of the panel.
 
+### From the upstairs windows (owner, Nov 13 2026)
+
+The owner sent five photos from the two-story's north windows: three from window 1 (the westmost
+of four upstairs) and two from window 3 (the third from the west). They're in the private repo,
+`photos/2026-11-13_upstairs-north-windows/`.
+
+- **The north face has four upstairs windows** (owner), as drawn: three over the stone
+  windows and one near the garage. The photos and IMG_3470 show grey frames on the upstairs
+  windows; the model has them now.
+- **The US-290 fence ends sooner than drawn.** On the window 1 photo, the owner marked where the
+  fence stops, just right of the twin oak's trunks.
+  - From window 1 (s ~109.5, ±2 ft) both trunks sit on nearly the same bearing (37° right of
+    the map's up). That sight line meets the fence at x ~230 in the site frame (±4 ft): level
+    with the garage door's west half (s ~78).
+  - The trace ran on to x 243.5, the house's front corner, a guess; `FENCE_TRACE` in
+    `site_plan.py` now stops at x 230. The maps that draw it are re-rendered (`north-yard.png`,
+    `envelope.png`, `site-b.png`, `site-b-east.png`). Building B's clearances and building A's
+    groundwork don't change.
+  - Its end stands ~4.5 ft on the highway side of the surveyed line, and ~35 ft short of where
+    the line meets the 45 ft building line. A fence on the line could run that much further
+    than today's (deed restrictions, sec. 3).
+- **From upstairs, the existing ~8 ft fence hides little of US-290.** The frontage road's lanes
+  and traffic show over it, and the raised main lanes beyond. A fence on the line screens the
+  yard at ground level; from the upstairs windows, only trees would screen the road.
+- **Two new views in the 3D page:** "Upstairs, window 1" (looking NE past the twin oak to where
+  the fence ends) and "Upstairs, window 3" (looking north). The eye is ~16 ft over the floor
+  below, just outside the glass. The model's ground is the 2017 lidar, from before the main
+  lanes were raised, so the highway isn't there to compare.
+
 ### Windows and doors
 
 - Traffic noise is heavy in low frequencies. Compare windows by **OITC** (made for traffic

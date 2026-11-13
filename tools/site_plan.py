@@ -242,7 +242,10 @@ FIELD_POINTS = REPO / "site" / "field-points.json"
 # canopy corners, residuals <= 2 ft). At that gap it bends and runs along the highway side
 # of the house-side canopy, roughly parallel to the house; laser shot 4 (B -> fence 42.0 ft)
 # fits that line. Shot 3 hit near the bend and read long. To be checked with a tape.
-FENCE_TRACE = [(62.9, 102.7), (183.0, 128.0), (205.0, 128.3), (243.5, 128.7)]
+# Its east end (owner, Nov 13 2026): the owner marked where it stops on a photo from the westmost upstairs window,
+# just right of the twin oak's trunks; that sight line meets the fence at x ~230 (+/-4 ft), level with the middle of
+# the garage door, not at the house's front corner (x 243.5) as first drawn.
+FENCE_TRACE = [(62.9, 102.7), (183.0, 128.0), (205.0, 128.3), (230.0, 128.6)]
 
 # Building B (owner, Oct 11 2026): 23 x 43 ft, square to the house. The north wall stays
 # where the 20 x 40 had it (5 ft inside the surveyed line at the NE corner); the west end

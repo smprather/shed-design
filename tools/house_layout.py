@@ -15,7 +15,8 @@ What the photos settle:
 - **The north face** (photos 12 and 16, Nov 13 scan): the stone runs level at the garage door's header
   (~7.3 ft) all along, with a cream band board on it, and the cream board-and-batten siding above
   (vertical boards, a batten every 8 in). Three short windows sit in the stone and three more right
-  under the eave, over them. Gutters and downspouts are dark charcoal: a downspout at the garage's
+  under the eave, over them, and a fourth near the garage (four upstairs, owner, Nov 13). The
+  upstairs windows have grey frames (IMG_3470; the owner's photos from inside). Gutters and downspouts are dark charcoal: a downspout at the garage's
   corner and one at the NW corner. The AC condenser stands on a pad by the west gable, near its north
   end (photos 10 and 12).
 - **The south face, over the deck** (IMG_3465, 3469, 3470): the second floor overhangs the first by
@@ -75,6 +76,7 @@ DECK2 = (110.8, 125.4, 61.4, 68.8)   # its arm along the two-story's south face 
 PERGOLA = (100.8, 111.6, 54.4, 10.2, 8.6)   # s0, s1, t0 (its low, outer edge), roof at the two-story, at t0 (IMG_3465, 3470)
 PERGOLA_POSTS = ((102.6, 110.2), (56.4, 66.0))   # s, t of its four posts
 AC = (126.9, 129.7, 81.4, 84.2)      # the AC condenser by the west gable (photos 10 and 12; +/-2 ft)
+NORTH_UP = (109.5, 103.0, 96.5, 88.2)   # s of the north face's four upstairs windows, west to east (photos 12, 16; owner, Nov 13)
 CHIMNEY = (99.3, 102.3, 38.0, 43.0, 17.5)   # stone; on the back of the south rooms (photo 02); size a guess
 
 
@@ -283,13 +285,13 @@ def house_spec(ground_rel: Callable[[float, float], float]) -> dict:
     opening(face_s=64.2, out=E, span=(73.8, 79.8), z=(3.0, 7.0))                   # garage window (owner's markup)
     opening(face_t=90.1, out=N, span=(66.7, 82.7), z=(-0.4, 7.0), mat="garage-door", frame=True)   # 16 x 7 (photo 16)
     opening(face_t=90.1, out=N, span=(74.0, 75.5), z=(12.6, 14.1), mat="vent", frame=False)   # louvered vent over the door's middle (photo 16)
-    for s in (96.5, 103.0, 109.5):                                                 # two-story north (photo 12): short windows in the stone,
+    for s in NORTH_UP[:3]:                                                         # two-story north (photo 12): short windows in the stone,
         opening(face_t=90.1, out=N, span=(s - 1.9, s + 1.9), z=(5.0, 6.8))         # and the same right under the eave
-        opening(face_t=90.1, out=N, span=(s - 1.9, s + 1.9), z=(15.0, 17.2))
-    opening(face_t=90.1, out=N, span=(86.8, 89.6), z=(15.0, 17.2))                # photo 16, upper right
+        opening(face_t=90.1, out=N, span=(s - 1.9, s + 1.9), z=(15.0, 17.2), frame_mat="frame-grey")
+    opening(face_t=90.1, out=N, span=(NORTH_UP[3] - 1.4, NORTH_UP[3] + 1.4), z=(15.0, 17.2), frame_mat="frame-grey")   # photo 16
     for s in (123.9, 120.5, 117.1, 113.7):                                         # over the deck: a band of four from the SW corner (IMG_3470)
-        opening(face_t=t_up, out=S_, span=(s - 1.5, s + 1.5), z=(12.3, 16.9))
-    opening(face_s=126.2, out=W_, span=(68.7, 71.3), z=(12.3, 16.9))             # back gable, by the south corner (IMG_3470)
+        opening(face_t=t_up, out=S_, span=(s - 1.5, s + 1.5), z=(12.3, 16.9), frame_mat="frame-grey")
+    opening(face_s=126.2, out=W_, span=(68.7, 71.3), z=(12.3, 16.9), frame_mat="frame-grey")   # back gable, by the south corner (IMG_3470)
     # The two-story's first floor, over the deck, from the west (IMG_3465, 3470): a small window over a pet door, a tall
     # window, French doors and a tall window by the inside corner; the doors' frames are dark.
     opening(face_t=68.8, out=S_, span=(118.4, 120.0), z=(4.1, 6.6))

@@ -35,7 +35,7 @@ from drive_layout import (
     layout as drive_layout,
 )
 from front_layout import EXISTING_DRIVE, FRONT_WALK, offset
-from house_layout import FF_FT, house_spec, porte_spec
+from house_layout import FF_FT, NORTH_UP, house_spec, porte_spec
 from envelope_plan import SITE_A
 
 SPEC = REPO / "property_total_plan.jsonc"
@@ -1041,6 +1041,13 @@ def main(spec: Path, out: Path | None, focus: bool) -> None:
     ge, gd = to_m(site([st(74.7, 119.0)])[0]), to_m(site([st(74.7, 90.1)])[0])
     view["garage"] = {"eye": [round(ge[0], 2), round(ge[1], 2), round(ground(*ge) + 5.2 * FT, 2)],
                       "at": [round(gd[0], 2), round(gd[1], 2), round(ground(*gd) + 7.0 * FT, 2)]}
+    # Upstairs at the north face's windows, as in the owner's photos (Nov 13 2026): window 1 is the westmost of the
+    # four, looking NE past the twin oak to where the US-290 fence ends; window 3, the third from the west, looks north.
+    # The eye ~16 ft over the floor below, just outside the glass.
+    for key, s_w, at in (("up1", NORTH_UP[0], (226.0, 128.6)), ("up3", NORTH_UP[2], site([st(NORTH_UP[2], 150.0)])[0])):
+        e, a = to_m(site([st(s_w, 90.5)])[0]), to_m(at)
+        view[key] = {"eye": [round(e[0], 2), round(e[1], 2), round((FF_FT + 16.0 - ground.z0) * FT, 2)],
+                     "at": [round(a[0], 2), round(a[1], 2), round(ground(*a) + 3.0 * FT, 2)]}
     # Building labels the objects' own boxes can't give (the viewer's "Building labels" layer): the garage end of the house.
     gt = to_m(site([st(74.7, 79.5)])[0])
     view["building_tags"] = [["Garage (to be the kitchen)", [round(gt[0], 2), round(gt[1], 2), round((FF_FT + 16.5 - ground.z0) * FT, 2)]]]

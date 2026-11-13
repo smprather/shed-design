@@ -213,6 +213,8 @@ details li b { font-weight: 600; }
         <button class="view" id="v-front" data-view="front" aria-pressed="false">Front yard</button>
         <button class="view" id="v-shed" data-view="shed" aria-pressed="false">Building A</button>
         <button class="view" id="v-garage" data-view="garage" aria-pressed="false">The garage</button>
+        <button class="view" id="v-up1" data-view="up1" aria-pressed="false">Upstairs, window 1</button>
+        <button class="view" id="v-up3" data-view="up3" aria-pressed="false">Upstairs, window 3</button>
         <button class="view" id="v-area" data-view="area" aria-pressed="false">Whole area</button>
       </div>
       <p style="margin: 6px 0 0; color: var(--muted); font-size: 12px">Everything on this panel (the view, mode, sliders, tree size, layers and selection) is saved as you go and comes back when you reload. A view button resets the camera.</p>
@@ -623,7 +625,7 @@ details li b { font-weight: 600; }
       roof: new THREE.MeshLambertMaterial({ map: roofTex, side: THREE.DoubleSide }),
       trim: lam(0x46494d), ridge: lam(0x45413d), fascia: lam(0xece6d6), vent: new THREE.MeshLambertMaterial({ map: ventTex }),
       glass: new THREE.MeshPhongMaterial({ color: 0x27323b, shininess: 90, specular: 0x8899aa }),
-      frame: lam(0xf1eee6), shutter: lam(0x34567f), door: lam(0x4a3426), "garage-door": lam(0x34567f),   // the door's blue (photo)
+      frame: lam(0xf1eee6), "frame-grey": lam(0x7f8388), shutter: lam(0x34567f), door: lam(0x4a3426), "garage-door": lam(0x34567f),   // the door's blue (photo)
       concrete: lam(0xc2beb5), deck: lam(0x7e4a3b), "deck-skirt": lam(0x5a3128),   // dark red-brown stain (IMG_3465)
       ac: lam(0x8d9093),   // the AC condenser's grey cabinet
       post: lam(0x9a7656), "metal-roof": lam(0x7d7368, { side: THREE.DoubleSide }),
@@ -1414,6 +1416,8 @@ details li b { font-weight: 600; }
     house:   { ...BACKYARD, exag: 1, mode: "look" },   // the photo spot (plan3d.py)
     front:   { ...BACKYARD.front },   // from above the street, over the front lawn (plan3d.py)
     garage:  { ...BACKYARD.garage, exag: 1, mode: "look" },   // on the apron, facing the garage door (plan3d.py)
+    up1:     { ...BACKYARD.up1, exag: 1, mode: "look" },      // upstairs, the westmost north window, looking NE (owner's photos)
+    up3:     { ...BACKYARD.up3, exag: 1, mode: "look" },      // upstairs, the third north window from the west, looking north
     shed:    { ...BACKYARD.shed },    // building A from the SE, in the yard (plan3d.py)
     area:    { eye: [-250, 129, 760], at: [-250, 130, 0] },
   };

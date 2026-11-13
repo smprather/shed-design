@@ -22,7 +22,7 @@
   --jd: #367c2b;
   --barn: #6b2a2e;
   --boat: #8aa6c4;
-  --fence: #7a5a3a; --fence-old: #857d72;
+  --fence: #7a5a3a; --fence-old: #857d72; --hwy-grass: #a3a06e; --hwy-concrete: #c9c4b8; --wood-pole: #6b5440;
   --easement: #7b4fa6;
   --septic: #c2268f;
   --well: #138a9e;
@@ -69,7 +69,7 @@
   :root:not([data-theme="light"]) {
     --bg: #111714; --panel: #171f1b; --ink: #e2eae5; --muted: #95a59c; --rule: #2a3530;
     --accent: #f0675b; --stage: #0d1310; --terrain-lo: #2f4655; --terrain-hi: #6b6450;
-    --house: #8fb0ea; --shed: #f0a93a; --steel: #50555b; --jd: #4f9a3f; --barn: #b0565c; --boat: #a9c3de; --site-a: #f2c14e; --fence: #c09468; --fence-old: #a69d90; --easement: #b48ae0; --septic: #f05cbf;
+    --house: #8fb0ea; --shed: #f0a93a; --steel: #50555b; --jd: #4f9a3f; --barn: #b0565c; --boat: #a9c3de; --site-a: #f2c14e; --fence: #c09468; --fence-old: #a69d90; --hwy-grass: #8f8c5e; --hwy-concrete: #b5b0a5; --wood-pole: #8a7058; --easement: #b48ae0; --septic: #f05cbf;
     --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --paving: #b9ab98; --gravel: #b8a785; --asphalt: #303134; --road-line: #d9d7d0; --block: #b2a996; --cut: #a8743c; --contour: #8f8571; --contour-5: #d8ccb2; --irrigation: #4fb0ff; --irrigation-main: #a6d6ff; --pipe: #f6f5ef; --power: #ff8a3d; --power-feeder: #ffd166; --setback: #c9a2f0; --pavers: #ad937c; --curb: #d8d5ce; --porte: #c3baab; --concrete: #8e8a80; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
     --water: #6aa6f5; --apt: #79c174; --apt-bldg: #8fa2d6; --apt-new: #f08a4a; --context: #56625b; --lot: #e2eae5; --ok: #5ccf7c; --warn: #f0b13a; --bad: #f0675b;
     --unknown: #95a59c; color-scheme: dark;
@@ -78,7 +78,7 @@
 :root[data-theme="dark"] {
   --bg: #111714; --panel: #171f1b; --ink: #e2eae5; --muted: #95a59c; --rule: #2a3530;
   --accent: #f0675b; --stage: #0d1310; --terrain-lo: #2f4655; --terrain-hi: #6b6450;
-  --house: #8fb0ea; --shed: #f0a93a; --steel: #50555b; --jd: #4f9a3f; --barn: #b0565c; --boat: #a9c3de; --site-a: #f2c14e; --fence: #c09468; --fence-old: #a69d90; --easement: #b48ae0; --septic: #f05cbf;
+  --house: #8fb0ea; --shed: #f0a93a; --steel: #50555b; --jd: #4f9a3f; --barn: #b0565c; --boat: #a9c3de; --site-a: #f2c14e; --fence: #c09468; --fence-old: #a69d90; --hwy-grass: #8f8c5e; --hwy-concrete: #b5b0a5; --wood-pole: #8a7058; --easement: #b48ae0; --septic: #f05cbf;
   --well: #3cc6d8; --oak: #5ccf7c; --oak-core: #e6c93a; --tree: #4f9e6e; --tree-2: #9bcb5a; --canopy: #7fa865; --paving: #b9ab98; --gravel: #b8a785; --asphalt: #303134; --road-line: #d9d7d0; --block: #b2a996; --cut: #a8743c; --contour: #8f8571; --contour-5: #d8ccb2; --irrigation: #4fb0ff; --irrigation-main: #a6d6ff; --pipe: #f6f5ef; --power: #ff8a3d; --power-feeder: #ffd166; --setback: #c9a2f0; --pavers: #ad937c; --curb: #d8d5ce; --porte: #c3baab; --concrete: #8e8a80; --retail-lot: #f07a5c; --retail-bldg: #e2604f;
   --water: #6aa6f5; --apt: #79c174; --apt-bldg: #8fa2d6; --apt-new: #f08a4a; --context: #56625b; --lot: #e2eae5; --ok: #5ccf7c; --warn: #f0b13a; --bad: #f0675b;
   --unknown: #95a59c; color-scheme: dark;
@@ -409,6 +409,23 @@ details li b { font-weight: 600; }
     buried_service_line_assumed: { label: "Buried electric line (owner's endpoints; drawn straight)", group: "Keep-outs", token: "warn",
       status: "endpoints from the owner; route not located",
       notes: "The house's line as it is now, drawn straight between its ends; the real route bends, at least round the well. Straight, it runs ~24 ft under building A. It's to be replaced by the new run round the building (Utilities), then cut back, capped and left dead." },
+    us290_frontage_road: { label: "Frontage road, ~42 ft (rough)", group: "US-290 (rough)", token: "asphalt",
+      status: "rough: ±10 ft across, ±4 ft in height", source: "The frontage road\u2019s near edge off the base aerial (±5 ft); the rest scaled from the owner\u2019s photos out of the upstairs north windows (Nov 13 2026) by the 8 ft fence and the cars. plan3d.py HWY_*.",
+      notes: "Three lanes and shoulders, its near edge where the aerial shows it: ~33 ft past our north line at the back corner, ~100 ft out by Candelaria (it isn\u2019t parallel to our line). About level with our fence line (~1,058 ft), as the photos show it just over the fence. Drawn straight; it must curve somewhere west of our lot. The ground beyond our line is lowered to meet it (the 2017 lidar predates the rebuild)." },
+    us290_main_lanes: { label: "Main lanes, ~100 ft (rough)", group: "US-290 (rough)", token: "asphalt",
+      status: "rough: ±10 ft across, ±4 ft in height", source: "The frontage road\u2019s near edge off the base aerial (±5 ft); the rest scaled from the owner\u2019s photos out of the upstairs north windows (Nov 13 2026) by the 8 ft fence and the cars. plan3d.py HWY_*.",
+      notes: "On fill ~16 ft above the frontage road (~1,074.5 ft), about eye level from the upstairs windows, as the photos show the guardrail. Three lanes each way and a median barrier, a guess; the far side isn\u2019t in the photos." },
+    us290_bank: { label: "Grass bank up to the main lanes (rough)", group: "US-290 (rough)", token: "hwy-grass",
+      status: "rough", source: "The frontage road\u2019s near edge off the base aerial (±5 ft); the rest scaled from the owner\u2019s photos out of the upstairs north windows (Nov 13 2026) by the 8 ft fence and the cars. plan3d.py HWY_*.", notes: "About 2:1 from behind the frontage road\u2019s barrier up to the main lanes\u2019 guardrail; the far bank mirrors it." },
+    us290_barriers: { label: "Concrete barrier and guardrails (rough)", group: "US-290 (rough)", token: "hwy-concrete",
+      status: "rough", source: "The frontage road\u2019s near edge off the base aerial (±5 ft); the rest scaled from the owner\u2019s photos out of the upstairs north windows (Nov 13 2026) by the 8 ft fence and the cars. plan3d.py HWY_*.", notes: "The concrete barrier along the frontage road\u2019s far side, the guardrails on the main lanes\u2019 edges and the median barrier." },
+    us290_lane_lines: { label: "Lane lines (rough)", group: "US-290 (rough)", token: "road-line",
+      status: "schematic", source: "The frontage road\u2019s near edge off the base aerial (±5 ft); the rest scaled from the owner\u2019s photos out of the upstairs north windows (Nov 13 2026) by the 8 ft fence and the cars. plan3d.py HWY_*.", notes: "Edge lines and dashed lane lines at 12 ft, drawn so the lanes read; not surveyed." },
+    us290_light_poles: { label: "Light poles (rough)", group: "US-290 (rough)", token: "steel",
+      status: "rough: spacing and heights guessed", source: "The frontage road\u2019s near edge off the base aerial (±5 ft); the rest scaled from the owner\u2019s photos out of the upstairs north windows (Nov 13 2026) by the 8 ft fence and the cars. plan3d.py HWY_*.", notes: "~40 ft poles on the frontage road\u2019s far side and ~45 ft twin-arm poles in the median, every ~200 ft." },
+    us290_pole_line: { label: "Wood utility poles and lines (rough)", group: "US-290 (rough)", token: "wood-pole",
+      status: "one pole off the aerial and one from the photos (±10 ft); the rest every ~150 ft, assumed", source: "The frontage road\u2019s near edge off the base aerial (±5 ft); the rest scaled from the owner\u2019s photos out of the upstairs north windows (Nov 13 2026) by the 8 ft fence and the cars. plan3d.py HWY_*.",
+      notes: "A pole line on our side of the frontage road, ~54 ft from it, with three wires: ~30 ft past our line by the garage, ~12 ft past it toward the back, where the photos from window 1 show two tall poles." },
     candelaria_dr: { label: "Candelaria Dr", group: "Context", token: "asphalt",
       status: "asphalt measured off the aerial, ±1.5 ft; drawn straight past our frontage (assumed)", source: "Plat (50 ft right-of-way); the aerial (edge lines); drive_layout.py ROAD",
       notes: "About 19 ft of asphalt with white edge lines, off-center in the plat's 50 ft right-of-way: its near edge is ~19.5 ft out from our front line. That strip is the county's, so both drives cross it to reach the street, as the old drive does; the driveway permits cover it." },
@@ -660,10 +677,21 @@ details li b { font-weight: 600; }
       }
     }
     for (const r of H.roofs) {
-      const p = r.pts.map(([x, y, z]) => Q(x, y, z)), lu = p[0].distanceTo(p[1]), lv = p[1].distanceTo(p[2]);
+      // Any flat polygon, drawn as a fan. Its UVs are feet on its own plane, u level and v up the slope (Newell's
+      // normal), so the shingle courses run level on hips and odd shapes too.
+      const p = r.pts.map(([x, y, z]) => Q(x, y, z)), nrm = new THREE.Vector3();
+      p.forEach((a, i) => { const c = p[(i + 1) % p.length]; nrm.x += (a.y - c.y) * (a.z + c.z); nrm.y += (a.z - c.z) * (a.x + c.x); nrm.z += (a.x - c.x) * (a.y + c.y); });
+      nrm.normalize();
+      const lev = new THREE.Vector3().crossVectors(up, nrm);
+      if (lev.lengthSq() < 1e-6) lev.set(1, 0, 0);
+      lev.normalize();
+      const upSlope = new THREE.Vector3().crossVectors(nrm, lev);
+      if (upSlope.y < 0) upSlope.negate();
+      const pos = [], uvs = [];
+      for (let i = 1; i < p.length - 1; i++) for (const q of [p[0], p[i], p[i + 1]]) { pos.push(q.x, q.y, q.z); uvs.push(q.dot(lev), q.dot(upSlope)); }
       const geo = new THREE.BufferGeometry();
-      geo.setAttribute("position", new THREE.Float32BufferAttribute([0, 1, 2, 0, 2, 3].flatMap(i => p[i].toArray()), 3));
-      geo.setAttribute("uv", new THREE.Float32BufferAttribute([0, 0, lu, 0, lu, lv, 0, 0, lu, lv, 0, lv], 2));
+      geo.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+      geo.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
       geo.computeVertexNormals();
       const mesh = new THREE.Mesh(geo, M[r.mat] || M.roof); mesh.userData.id = id; g.add(mesh);
     }
@@ -1343,7 +1371,7 @@ details li b { font-weight: 600; }
   // ---- Layer list ----
   const groups = {};
   for (const [id, it] of Object.entries(items)) (groups[it.meta.group] ||= []).push(id);
-  const order = ["Your lot", "Proposed", "Existing trees", "Keep-outs", "Utilities", "Lines", "Next door", "Apartments", "Context", "Ground"];
+  const order = ["Your lot", "Proposed", "Existing trees", "Keep-outs", "Utilities", "Lines", "Next door", "Apartments", "US-290 (rough)", "Context", "Ground"];
   const layersEl = document.getElementById("layers");
   {
     const wrap = document.createElement("div"); wrap.className = "layer-group"; wrap.innerHTML = "<h3>Labels</h3>";

@@ -31,8 +31,12 @@ What the photos settle:
   corner, with its steps where the two arms meet. Dark red-brown stain. A cedar-post pergola on four
   posts, with a corrugated metal roof sloping down away from the two-story, covers the inside
   corner (size and heights from the photos, +/-2 ft).
-- **The porch and the garage share one roof plane** that rises west from the porch eave to the
-  two-story's eave. The garage's north wall is the tall sloped face over the door.
+- **One main roof across the front** (owner's street photo, Nov 13 2026): a single eave runs the
+  whole front, from the SE bedroom wing (its gablet) across the entry and the porch to the garage
+  end, and one slope rises west from it, the porch under it. Its south end is hipped: the hip
+  climbs from the front corner by the bedroom wing to the two-story. Over the entry and kitchen a
+  back slope comes down to the level back eave. The garage's north wall is the tall sloped face
+  over the door.
 - **The garage's north face** (owner's photo from the apron, Nov 12 2026; corrected Nov 13 from
   photo 16 and IMG_3473 at full size): stone up to the door's header, the same vertical
   board-and-batten as the rest above it (not lap siding), and a small louvered vent high on the
@@ -136,9 +140,8 @@ def house_spec(ground_rel: Callable[[float, float], float]) -> dict:
 
     E, N, W_, S_ = [1, 0], [0, 1], [-1, 0], [0, -1]   # outward normals in local (x east, y north)
     rise_s = (SOUTH[3] - SOUTH[2]) / 2 * PITCH
-    rise_m = (MIDDLE[3] - MIDDLE[2]) / 2 * PITCH
     rise_2 = (TWO[3] - TWO[2]) / 2 * PITCH
-    tm_s, tm_m, tm_2 = (SOUTH[2] + SOUTH[3]) / 2, (MIDDLE[2] + MIDDLE[3]) / 2, (TWO[2] + TWO[3]) / 2
+    tm_s = (SOUTH[2] + SOUTH[3]) / 2
 
     # Walls, going round the outside (the plat's outline), then the faces that show above lower roofs.
     wall((56.7, 22.7), (56.7, 50.4), E, flat((56.7, 22.7), (56.7, 50.4), EAVE1))   # front of the south rooms, under the hipped front
@@ -162,9 +165,7 @@ def house_spec(ground_rel: Callable[[float, float], float]) -> dict:
     box(100.8, 126.2, t_up, TWO[2], SOFFIT - 0.15, SOFFIT, "frame")                                       # soffit
     # Faces above the lower roofs.
     walls.append(_upper((100.8, 68.8), (85.2, 68.8), S_, EAVE1, flat((100.8, 68.8), (85.2, 68.8), EAVE2), L))
-    walls.append(_upper((85.2, 68.8), (64.2, 68.8), S_, EAVE1, [(0, shed_z(85.2)), (21.0, shed_z(64.2))], L))
-    walls.append(_upper((85.2, 68.8), (85.2, 90.1), E, EAVE2 - 0.6, gable_top((85.2, 68.8), (85.2, 90.1), EAVE2, EAVE2 + rise_2), L))
-    walls.append(_upper((64.2, 50.4), (64.2, 68.8), E, EAVE1, gable_top((64.2, 50.4), (64.2, 68.8), EAVE1, EAVE1 + rise_m), L))
+    walls.append(_upper((85.2, 68.8), (85.2, 90.1), E, 15.0, gable_top((85.2, 68.8), (85.2, 90.1), EAVE2, EAVE2 + rise_2), L))   # down to where the main roof's hip meets it
     ga, gb = (SOUTH[0] + GABLET, SOUTH[2] + GABLET), (SOUTH[0] + GABLET, SOUTH[3] - GABLET)
     walls.append(_upper(ga, gb, E, EAVE1 + GABLET * PITCH, gable_top(ga, gb, EAVE1 + GABLET * PITCH, EAVE1 + rise_s), L))   # front gable
 
@@ -190,27 +191,33 @@ def house_spec(ground_rel: Callable[[float, float], float]) -> dict:
     quad(se, ne, fn, fs)                              # hipped front
     quad(nw, sw, rb, rb)                              # hipped back
     box(f0 + GABLET, rb[0], tm_s - 0.4, tm_s + 0.4, zr - 0.05, zr + 0.2, "ridge")   # ridge cap
-    # Entry and kitchen block: a gable along s, hipped at the back over the deck (IMG_3465), its back eave level with
-    # the south rooms'; its side eaves sit at the walls, where it meets the south rooms' roof and the two-story.
-    m0, m1, n0, n1 = MIDDLE
-    hb = (m1 + OH - (rise_m + OH * PITCH) / PITCH, tm_m, EAVE1 + rise_m)           # the ridge's back end
-    for t_e in (n0, n1):
-        quad((m0, t_e, EAVE1), (m1 + OH, t_e, lo), hb, (m0, tm_m, EAVE1 + rise_m))
-    quad((m1 + OH, n0, lo), (m1 + OH, n1, lo), hb, hb)                              # hipped back
-    box(m0, hb[0], tm_m - 0.4, tm_m + 0.4, hb[2] - 0.05, hb[2] + 0.2, "ridge")
     gable_roof(TWO, EAVE2, rise_2, oh_s=(0.6, OH), oh_t=(OH + OVERHANG, OH))
-    # Porch + garage: one plane rising west to the two-story's eave.
+    # The main roof over the entry, kitchen, porch and garage (owner's street photo, Nov 13 2026): one front slope
+    # rising west from a single eave along the whole front, from the SE bedroom wing to the garage end, the porch
+    # under it. Over the entry and kitchen a back slope comes down to the level back eave (IMG_3465), and the south end
+    # is hipped, so the hip climbs from the front corner by the bedroom wing up to the two-story (the street photo's
+    # diagonal). Each slope is drawn where it's the lowest of the three, which is how a hipped roof's planes meet.
     p0 = PORCH[0] - 0.5
-    quad((p0, PORCH[2] - OH, shed_z(p0)), (p0, PORCH[3] + OH, shed_z(p0)),
-         (GARAGE[0], PORCH[3] + OH, shed_z(GARAGE[0])), (GARAGE[0], PORCH[2] - OH, shed_z(GARAGE[0])))
-    quad((GARAGE[0], GARAGE[2], shed_z(GARAGE[0])), (GARAGE[0], GARAGE[3] + OH, shed_z(GARAGE[0])),
-         (GARAGE[1], GARAGE[3] + OH, shed_z(GARAGE[1])), (GARAGE[1], GARAGE[2], shed_z(GARAGE[1])))
+    m0, m1, n0, n1 = MIDDLE
+    front = lambda s_, t_: shed_z(s_)  # noqa: E731
+    back = lambda s_, t_: lo + (m1 + OH - s_) * PITCH  # noqa: E731
+    hip = lambda s_, t_: shed_z(p0) + (t_ - n0) * PITCH  # noqa: E731
+    entry = [(p0, n0), (m1 + OH, n0), (m1 + OH, n1), (p0, n1)]                    # entry and kitchen, with the eaves
+    garage = [(p0, n1), (TWO[0], n1), (TWO[0], PORCH[3] + OH), (p0, PORCH[3] + OH)]   # porch and garage, to the two-story
+    for zone, planes in ((entry, (front, back, hip)), (garage, (front, hip))):
+        for pl in planes:
+            poly = zone
+            for other in planes:
+                if other is not pl:
+                    poly = _cut(poly, lambda s_, t_, a=pl, b=other: a(s_, t_) - b(s_, t_))
+            if len(poly) >= 3:
+                quad(*[(s_, t_, pl(s_, t_)) for s_, t_ in poly])
 
     # Porch: floor, stone columns and the beam.
     box(PORCH[0], PORCH[1], PORCH[2], PORCH[3], min(ground_rel(PORCH[0], 75), 0) - 0.3, -0.3, "concrete", walk=True)
     for t in (58.4, 69.0, 79.4, 89.4):
         box(PORCH[0] + 0.1, PORCH[0] + 1.6, t - 0.75, t + 0.75, -0.3, PORCH_EAVE - 0.6, "stone")
-    box(PORCH[0], PORCH[0] + 0.6, PORCH[2] - 0.5, PORCH[3] + 0.5, PORCH_EAVE - 0.6, PORCH_EAVE, "fascia")   # the porch beam
+    box(PORCH[0], PORCH[0] + 0.6, MIDDLE[2], PORCH[3] + 0.5, PORCH_EAVE - 0.6, PORCH_EAVE, "fascia")   # the beam, on to the bedroom wing
 
     # Deck: an L, low, with no railing; the steps down to the lawn where its arms meet (IMG_3465, 3470).
     for s0, s1, t0, t1 in (DECK, DECK2):
@@ -247,7 +254,7 @@ def house_spec(ground_rel: Callable[[float, float], float]) -> dict:
     box(TWO[0] - 0.6, TWO[1] + OH, TWO[3] + OH - 0.05, TWO[3] + OH + 0.4, z_n - 0.45, z_n + 0.05, "trim")   # two-story, north
     box(TWO[0] - 0.6, TWO[1] + OH, TWO[2] - OH - OVERHANG - 0.4, TWO[2] - OH - OVERHANG + 0.05, z_s - 0.45, z_s + 0.05, "trim")  # south
     box(SOUTH[1] + OH - 0.05, SOUTH[1] + OH + 0.4, SOUTH[2] - OH, MIDDLE[3], lo - 0.45, lo + 0.05, "trim")      # the back's level eave
-    box(PORCH[0] - 0.95, PORCH[0] - 0.5, PORCH[2] - OH, PORCH[3] + OH, shed_z(PORCH[0] - 0.5) - 0.45, shed_z(PORCH[0] - 0.5) + 0.05, "trim")  # porch
+    box(PORCH[0] - 0.95, PORCH[0] - 0.5, MIDDLE[2], PORCH[3] + OH, shed_z(PORCH[0] - 0.5) - 0.45, shed_z(PORCH[0] - 0.5) + 0.05, "trim")  # the front eave
     for s_, t_, ztop in ((85.6, 90.35, z_n), (125.8, 90.35, z_n), (126.45, t_up + 0.3, z_s), (101.05, 46.6, lo),
                          (PORCH[0] - 0.7, PORCH[3] + 0.3, shed_z(PORCH[0] - 0.5))):
         box(s_ - 0.13, s_ + 0.13, t_ - 0.18, t_ + 0.18, min(ground_rel(s_, t_), 0) - 0.1, ztop - 0.2, "trim")
@@ -307,6 +314,20 @@ def house_spec(ground_rel: Callable[[float, float], float]) -> dict:
 
     return {"ff_ft": FF_FT, "walls": walls, "roofs": roofs, "boxes": boxes,
             "notes": "First pass from the plat, county record, kitchen measurements and photos; most heights, the middle roof and unseen windows are guesses."}
+
+
+def _cut(poly: list[tuple[float, float]], f: Callable[[float, float], float]) -> list[tuple[float, float]]:
+    """Clip an (s, t) polygon to where the linear function f(s, t) <= 0."""
+    out = []
+    for i, p in enumerate(poly):
+        q = poly[(i + 1) % len(poly)]
+        fp, fq = f(*p), f(*q)
+        if fp <= 0:
+            out.append(p)
+        if (fp <= 0) != (fq <= 0):
+            k = fp / (fp - fq)
+            out.append((p[0] + (q[0] - p[0]) * k, p[1] + (q[1] - p[1]) * k))
+    return out
 
 
 def _upper(a, b, out, z0, top, L) -> dict:

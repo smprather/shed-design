@@ -3863,6 +3863,50 @@ of four upstairs) and two from window 3 (the third from the west). They're in th
   corner; the upstairs photos (Nov 13) put its house end between windows 1 and 3, ~20 ft
   further east. Tape both ends (see Open questions) and it goes in.
 
+### The main roof, from the street photo (owner, Nov 13 2026)
+
+- **The owner's photo from the front lawn:** the roof is continuous across the front until it meets
+  the SE bedroom wing (the "bump" with the small gable). One eave runs level along the whole front
+  and the porch sits under the main roof. The roof's top edge climbs diagonally from the bedroom
+  wing's gable up to the two-story.
+- **The model had** the bedroom wing's roof, then a separate small gable over the entry, then the
+  porch and garage's roof starting only at the porch. Now (`house_layout.py`):
+  - one front slope (the old porch and garage plane, ~4:12) from a single eave along the whole
+    front, from the bedroom wing to the garage end;
+  - over the entry and kitchen, a back slope down to the level back eave;
+  - the south end hipped, so the hip climbs from the front corner by the bedroom wing up to the
+    two-story, as the photo's diagonal does;
+  - the porch's beam and gutter run on to the bedroom wing.
+- The viewer now draws any flat roof polygon, with the shingle courses running level on hips too.
+
+### US-290 in the 3D page, rough (owner, Nov 13 2026)
+
+The 2017 lidar predates the rebuilt highway and the newer lidar couldn't be downloaded (TxGIO
+blocked the request), so the highway is drawn from what we have. A new layer group, "US-290
+(rough)", in the whole-site page (`plan3d.py`, the `HWY_*` constants):
+
+- **The frontage road's near edge** is off the base aerial (±5 ft): ~33 ft past our north line at
+  the back corner, ~100 ft past it by Candelaria. It isn't parallel to our line: it angles away
+  from it eastward by ~18°, so it must curve somewhere west of our lot.
+- **The cross-section** is scaled from the upstairs photos, against the 8 ft fence (~43 ft from
+  window 3; the cross fence, ~4.5 ft, comes out about half its height) and the cars:
+  - frontage road ~42 ft wide (three lanes and shoulders), about level with our fence line,
+    ~1,058 ft;
+  - a concrete barrier along its far side;
+  - a grass bank at ~2:1 up to the main lanes, ~16 ft higher (~1,074.5 ft): about eye level from
+    the upstairs windows, as the photos show the guardrail;
+  - ~100 ft of main lanes with a median barrier (lane count a guess; the far side isn't in the
+    photos), and a far bank back down;
+  - light poles every ~200 ft on the frontage road's far side and in the median;
+  - a wood pole line ~54 ft from the frontage road, with three wires. One pole is on the aerial
+    (~30 ft past our line by the garage); two tall poles toward the back in the window 1 photos
+    sit on the same offset.
+- **The ground** beyond our north line is lowered to the highway's grade at the lidar grid's
+  nodes: blended from our line down to the frontage road, level across it, kept under the bank.
+  Nothing on our lot changes. Building A's and the fence's checks print the same with and without it.
+- **±:** ~10 ft across, ~4 ft in height, straight and level along its length. A newer lidar
+  (TxGIO 2021 or later) or the TxDOT plan set for the Oak Hill Parkway would replace it.
+
 ### Windows and doors
 
 - Traffic noise is heavy in low frequencies. Compare windows by **OITC** (made for traffic

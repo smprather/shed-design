@@ -598,6 +598,146 @@ def planting(canopy: Canopy | None = None) -> tuple[list[dict], dict[str, int]]:
     return gaps, {"keep_out": kept_out, "existing": len(trees) - len(gaps)}
 
 
+# US-290 beyond our north line, rough (owner, Nov 13 2026). The 2017 lidar predates the rebuilt highway, so it's drawn
+# from what we have: the frontage road's near edge off the base aerial (8400_candelaria_78737.png, +/-5 ft), and the rest
+# from the owner's photos out of the upstairs north windows, scaled by the 8 ft fence and the cars: ~42 ft of frontage
+# road (three lanes and shoulders) about level with our fence line, a concrete barrier, a grass bank at ~2:1 up to the
+# main lanes ~16 ft higher (about eye level from upstairs), ~100 ft of main lanes with a median barrier, light poles,
+# and a wood pole line on our side (a pole on the aerial). Straight and level along its length; +/-10 ft across and
+# +/-4 ft in height.
+HWY_EDGE = ((173.2, 52.7), (287.8, 36.0))   # site ft: two points on the frontage road's near edge, off the aerial
+HWY_STATIONS = (-180.0, 480.0)             # ft along it from the first point (it closes on our line going west, so it must curve)
+HWY_ROAD = 42.0                            # ft of frontage road
+HWY_BARRIER = (42.0, 44.0, 2.7)            # its far-side concrete barrier: from, to (ft out), height (ft)
+HWY_TOP = 80.0                             # ft out: the main lanes' near edge, at the top of the bank
+HWY_MAIN = 100.0                           # ft of main lanes
+HWY_FAR = 40.0                             # ft: the far bank, back down to the frontage road's level
+HWY_Z = (1058.0, 1074.5)                   # ft NAVD88: the frontage road, the main lanes
+HWY_POLES = (-54.0, (-180.0, -30.0, 43.8, 194.0, 344.0, 494.0))   # wood poles: ft out, stations (one on the aerial at
+                                                                    # 43.8, one by the NW in the photos at ~-30; ~150 ft apart)
+
+
+def hwy_frame():
+    """(site point of (station, offset)), (station, offset of a site point): the highway's frame, offsets away from our lot."""
+    (ax, ay), (bx, by) = HWY_EDGE
+    n = math.hypot(bx - ax, by - ay)
+    ux, uy = (bx - ax) / n, (by - ay) / n
+    mx, my = uy, -ux
+    return (lambda s_, o: (ax + ux * s_ + mx * o, ay + uy * s_ + my * o),
+            lambda p: ((p[0] - ax) * ux + (p[1] - ay) * uy, (p[0] - ax) * mx + (p[1] - ay) * my))
+
+
+def hwy_profile(o: float) -> float:
+    """The rebuilt cross-section's height (ft NAVD88) at o ft out from the frontage road's near edge."""
+    zr, zm = HWY_Z
+    far = HWY_TOP + HWY_MAIN
+    if o <= HWY_BARRIER[1]:
+        return zr
+    if o <= HWY_TOP:
+        return zr + (o - HWY_BARRIER[1]) / (HWY_TOP - HWY_BARRIER[1]) * (zm - zr)
+    if o <= far:
+        return zm
+    return max(zr, zm - (o - far) / HWY_FAR * (zm - zr))
+
+
+def us290_regrade(ground: Terrain, to_m: Frame) -> None:
+    """Bring the 2017 lidar to the rebuilt highway's grade at the grids' own nodes (the 5 m grid and the fine patch), so
+    the mesh stays light: only beyond our north line, blended from the line down to the frontage road, level across it,
+    and kept just under the bank and the main lanes."""
+    _, local = hwy_frame()
+    s0, s1 = HWY_STATIONS
+    grids = [(ground.xs, ground.ys, ground.z)] + ([ground.fine] if ground.fine else [])
+    for xs, ys, zs in grids:
+        for j, y in enumerate(ys):
+            for i, x in enumerate(xs):
+                p = to_m.to_site((x, y))
+                beyond = north_line_y(p[0]) - p[1]           # ft past our north line, toward US-290
+                st_, o = local(p)
+                ends = min(st_ - (s0 - 50), (s1 + 50) - st_) / 50
+                if beyond <= 0 or ends <= 0:
+                    continue
+                z = zs[j][i]
+                target = (hwy_profile(o) - ground.z0) * FT
+                if o < 0:
+                    new = z + beyond / (beyond - o) * (target - z)
+                elif o <= HWY_BARRIER[1]:
+                    new = target
+                else:
+                    new = min(z, target - 0.3)
+                zs[j][i] = z + min(ends, 1.0) * (new - z)
+
+
+def us290_draw(obj: "Obj", ground: Terrain, to_m: Frame) -> None:
+    """The highway's pieces as their own objects (see the HWY_ constants)."""
+    at, _ = hwy_frame()
+    zr, zm = ((z - ground.z0) * FT for z in HWY_Z)
+    s0, s1 = HWY_STATIONS
+    sts = [s0 + (s1 - s0) * k / 80 for k in range(81)]
+    m = lambda s_, o: to_m(at(s_, o))  # noqa: E731
+
+    def band(o0, o1, z0=None, z1=None, lift=0.1, runs=None):
+        """A strip from o0 to o1 ft out, on the ground (z None) or at fixed heights, over the stations or the given runs."""
+        for a_, b_ in runs or zip(sts, sts[1:]):
+            pts = [(m(a_, o0), z0), (m(b_, o0), z0), (m(b_, o1), z1), (m(a_, o1), z1)]
+            obj.face([(x, y, ground(x, y) + lift if z is None else z) for (x, y), z in pts])
+
+    def wall(o0, o1, z0, z1):
+        obj.prism([m(s0, o0), m(s1, o0), m(s1, o1), m(s0, o1)], z0, z1)
+
+    far = HWY_TOP + HWY_MAIN
+    obj.obj("us290_frontage_road")
+    band(0.0, HWY_ROAD)
+    obj.obj("us290_main_lanes")
+    band(HWY_TOP, far, zm + 0.02, zm + 0.02)
+    obj.obj("us290_bank")
+    band(HWY_BARRIER[1], HWY_TOP, zr - 0.05, zm)
+    band(far, far + HWY_FAR, zm, zr - 0.05)
+    obj.obj("us290_barriers")
+    wall(*HWY_BARRIER[:2], zr - 0.1, zr + HWY_BARRIER[2] * FT)                      # the frontage road's barrier
+    for o0, o1, h in ((HWY_TOP + 0.3, HWY_TOP + 0.7, 2.3), (far - 0.7, far - 0.3, 2.3), (HWY_TOP + 49.5, HWY_TOP + 50.5, 2.7)):
+        wall(o0, o1, zm, zm + h * FT)                                                # guardrails and the median barrier
+    obj.obj("us290_lane_lines")
+    dashes = [(a_, a_ + 10.0) for a_ in [s0 + 40.0 * k for k in range(int((s1 - s0) / 40))]]
+    for o in (2.0, 38.0):
+        band(o - 0.25, o + 0.25, lift=0.13)
+    for o in (14.0, 26.0):
+        band(o - 0.25, o + 0.25, lift=0.13, runs=dashes)
+    for o in (HWY_TOP + 2, HWY_TOP + 46, HWY_TOP + 54, far - 2):
+        band(o - 0.25, o + 0.25, zm + 0.05, zm + 0.05)
+    for o in (HWY_TOP + 14, HWY_TOP + 26, HWY_TOP + 38, HWY_TOP + 62, HWY_TOP + 74, HWY_TOP + 86):
+        band(o - 0.25, o + 0.25, zm + 0.05, zm + 0.05, runs=dashes)
+    obj.obj("us290_light_poles")
+    for k in range(int((s1 - s0) / 200) + 1):
+        for o, base, h, arms in ((HWY_ROAD + 4.0, zr, 40.0, (-8.0,)), (HWY_TOP + 50.0, zm + 0.8, 45.0, (-8.0, 8.0))):
+            st_ = s0 + 100.0 + 200.0 * k if o < HWY_TOP else s0 + 200.0 * k
+            if st_ > s1:
+                continue
+            x, y = m(st_, o)
+            obj.prism(circle((x, y), 0.1, 8), base - 0.1, base + h * FT)
+            for arm in arms:
+                ax_, ay_ = m(st_, o + arm)
+                dx, dy = (ax_ - x) / math.dist((x, y), (ax_, ay_)) * 0.06, (ay_ - y) / math.dist((x, y), (ax_, ay_)) * 0.06
+                top = base + (h - 1.0) * FT
+                obj.prism([(x - dy, y + dx), (ax_ - dy, ay_ + dx), (ax_ + dy, ay_ - dx), (x + dy, y - dx)], top - 0.08, top)
+                obj.prism(circle((ax_, ay_), 0.25, 8), top - 0.2, top)
+    obj.obj("us290_pole_line")
+    off, poles = HWY_POLES
+    tops = []
+    for st_ in poles:
+        x, y = m(st_, off)
+        g_ = ground(x, y)
+        obj.prism(circle((x, y), 0.14, 8), g_ - 0.2, g_ + 40.0 * FT)
+        (cx0, cy0), (cx1, cy1) = m(st_, off - 4.0), m(st_, off + 4.0)
+        nx_, ny_ = (m(st_ + 1, off)[0] - x) * 0.06 / FT, (m(st_ + 1, off)[1] - y) * 0.06 / FT
+        obj.prism([(cx0 - nx_, cy0 - ny_), (cx1 - nx_, cy1 - ny_), (cx1 + nx_, cy1 + ny_), (cx0 + nx_, cy0 + ny_)],
+                  g_ + 38.0 * FT, g_ + 38.4 * FT)
+        tops.append((st_, g_ + 38.4 * FT))
+    for (sa, za), (sb, zb) in zip(tops, tops[1:]):                                   # three wires a span, sagging 4 ft
+        for o in (off - 3.5, off, off + 3.5):
+            obj.polyline([(*m(sa + (sb - sa) * k / 10, o), za + (zb - za) * k / 10 - 4.0 * FT * 4 * (k / 10) * (1 - k / 10))
+                          for k in range(11)])
+
+
 def backyard(ground: Terrain, to_m: Frame) -> dict:
     """The back-yard view: the eye and the gaze target, plan m."""
     (s0, t0), (s1, t1) = BACK_WALL_ST
@@ -662,6 +802,8 @@ def main(spec: Path, out: Path | None, focus: bool) -> None:
     ground = Terrain(TERRAIN)
     pipe, oak, well = field_features()
     to_m = Frame()
+    if not focus:
+        us290_regrade(ground, to_m)   # before anything reads the ground or meshes it
     obj = Obj(ground)
     checks: list[dict] = []
 
@@ -854,6 +996,8 @@ def main(spec: Path, out: Path | None, focus: bool) -> None:
     obj.obj("candelaria_dr_edge_lines")
     for s_line in ROAD_LINES:
         obj.ribbon([sv(s_line + 0.2, t) for t in ts], [sv(s_line - 0.2, t) for t in ts], lift=0.13)
+    if not focus:
+        us290_draw(obj, ground, to_m)
     keep_outs = {"septic_pipe_keepout_10ft": (pipe, KEEP_OUT), "well_keepout_10ft": (well, KEEP_OUT)}
     for name, (c, r) in {**keep_outs, "oak_drip_line": (oak, 25.1), "oak_no_dig_12ft": (oak, 12.0)}.items():
         obj.obj(name)

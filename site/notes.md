@@ -3888,23 +3888,27 @@ blocked the request), so the highway is drawn from what we have. A new layer gro
 - **The frontage road's near edge** is off the base aerial (±5 ft): ~33 ft past our north line at
   the back corner, ~100 ft past it by Candelaria. It isn't parallel to our line: it angles away
   from it eastward by ~18°, so it must curve somewhere west of our lot.
-- **The cross-section** is scaled from the upstairs photos, against the 8 ft fence (~43 ft from
-  window 3; the cross fence, ~4.5 ft, comes out about half its height) and the cars:
-  - frontage road ~42 ft wide (three lanes and shoulders), about level with our fence line,
-    ~1,058 ft;
-  - a concrete barrier along its far side;
-  - a grass bank at ~2:1 up to the main lanes, ~16 ft higher (~1,074.5 ft): about eye level from
-    the upstairs windows, as the photos show the guardrail;
-  - ~100 ft of main lanes with a median barrier (lane count a guess; the far side isn't in the
-    photos), and a far bank back down;
-  - light poles every ~200 ft on the frontage road's far side and in the median;
-  - a wood pole line ~54 ft from the frontage road, with three wires. One pole is on the aerial
-    (~30 ft past our line by the garage); two tall poles toward the back in the window 1 photos
-    sit on the same offset.
+- **The cross-section** (corrected the same day: the owner says the main lanes drop below the
+  eastbound frontage road, and the ground rises sharply to the westbound one; the first draft had
+  the main lanes on a bank). The upstairs photos, scaled against the 8 ft fence (~43 ft from window
+  3; the ~4.5 ft cross fence comes out about half its height) and the cars, line up with it:
+  - the **eastbound frontage road**, ~42 ft (three lanes and shoulders), about level with our fence
+    line, ~1,058 ft, with a concrete barrier along its far side;
+  - a slope down into a cut, and the **main lanes** ~12 ft below the eastbound frontage road
+    (~1,046 ft), ~100 ft wide with a median barrier. They're hidden from the house, so their depth
+    and lane count are guesses (±6 ft);
+  - a **concrete wall** at the cut's far side: the light strip seen just over the barrier;
+  - a **grass bank** rising sharply (~2:1) to the **westbound frontage road**, ~1,074.5 ft. Its
+    guardrail is about eye level from the upstairs windows, where the photos put it;
+  - light poles every ~200 ft along the eastbound barrier and the westbound guardrail;
+  - a wood pole line ~54 ft from the eastbound frontage road, with three wires. One pole is on the
+    aerial (~30 ft past our line by the garage); two tall poles toward the back in the window 1
+    photos sit on the same offset.
 - **The ground** beyond our north line is lowered to the highway's grade at the lidar grid's
-  nodes: blended from our line down to the frontage road, level across it, kept under the bank.
+  nodes: blended from our line down to the eastbound frontage road, and kept just under the roads,
+  slopes and main lanes beyond, which are drawn at their own heights.
   Nothing on our lot changes. Building A's and the fence's checks print the same with and without it.
-- **±:** ~10 ft across, ~4 ft in height, straight and level along its length. A newer lidar
+- **±:** ~10 ft across, ~4 ft in height (the main lanes ~6 ft), straight and level along its length. A newer lidar
   (TxGIO 2021 or later) or the TxDOT plan set for the Oak Hill Parkway would replace it.
 
 ### Windows and doors

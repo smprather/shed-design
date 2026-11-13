@@ -599,20 +599,22 @@ def planting(canopy: Canopy | None = None) -> tuple[list[dict], dict[str, int]]:
 
 
 # US-290 beyond our north line, rough (owner, Nov 13 2026). The 2017 lidar predates the rebuilt highway, so it's drawn
-# from what we have: the frontage road's near edge off the base aerial (8400_candelaria_78737.png, +/-5 ft), and the rest
-# from the owner's photos out of the upstairs north windows, scaled by the 8 ft fence and the cars: ~42 ft of frontage
-# road (three lanes and shoulders) about level with our fence line, a concrete barrier, a grass bank at ~2:1 up to the
-# main lanes ~16 ft higher (about eye level from upstairs), ~100 ft of main lanes with a median barrier, light poles,
-# and a wood pole line on our side (a pole on the aerial). Straight and level along its length; +/-10 ft across and
-# +/-4 ft in height.
-HWY_EDGE = ((173.2, 52.7), (287.8, 36.0))   # site ft: two points on the frontage road's near edge, off the aerial
+# from what we have: the eastbound frontage road's near edge off the base aerial (8400_candelaria_78737.png, +/-5 ft);
+# the owner's description (the main lanes drop below the eastbound frontage road, and the ground rises sharply to the
+# westbound one); and the upstairs photos, scaled by the 8 ft fence and the cars, which line up with this section: the
+# eastbound frontage road about level with our fence line, its barrier, the light strip of the far wall over it, the
+# grass bank above and the westbound frontage road's guardrail at about eye level from upstairs. The main lanes are
+# hidden from the house, so their depth is a guess. Straight and level along its length; +/-10 ft across, +/-4 ft in
+# height (the main lanes +/-6 ft).
+HWY_EDGE = ((173.2, 52.7), (287.8, 36.0))   # site ft: two points on the eastbound frontage road's near edge, off the aerial
 HWY_STATIONS = (-180.0, 480.0)             # ft along it from the first point (it closes on our line going west, so it must curve)
-HWY_ROAD = 42.0                            # ft of frontage road
-HWY_BARRIER = (42.0, 44.0, 2.7)            # its far-side concrete barrier: from, to (ft out), height (ft)
-HWY_TOP = 80.0                             # ft out: the main lanes' near edge, at the top of the bank
-HWY_MAIN = 100.0                           # ft of main lanes
-HWY_FAR = 40.0                             # ft: the far bank, back down to the frontage road's level
-HWY_Z = (1058.0, 1074.5)                   # ft NAVD88: the frontage road, the main lanes
+HWY_ROAD = 42.0                            # ft of each frontage road (three lanes and shoulders)
+HWY_BARRIER = (42.0, 44.0, 2.7)            # the eastbound frontage road's barrier: from, to (ft out), height (ft)
+HWY_CUT = 62.0                             # ft out: the foot of the slope down from the barrier, where the main lanes start
+HWY_MAIN = 100.0                           # ft of main lanes, in the cut
+HWY_WALL = 12.0                            # ft: the concrete wall at the far side of the main lanes
+HWY_BANK = 33.0                            # ft: the grass bank's run from the wall's top up to the westbound frontage road
+HWY_Z = (1058.0, 1046.0, 1074.5)           # ft NAVD88: the eastbound frontage road, the main lanes, the westbound one
 HWY_POLES = (-54.0, (-180.0, -30.0, 43.8, 194.0, 344.0, 494.0))   # wood poles: ft out, stations (one on the aerial at
                                                                     # 43.8, one by the NW in the photos at ~-30; ~150 ft apart)
 
@@ -627,23 +629,31 @@ def hwy_frame():
             lambda p: ((p[0] - ax) * ux + (p[1] - ay) * uy, (p[0] - ax) * mx + (p[1] - ay) * my))
 
 
+def hwy_offsets() -> dict:
+    """The cross-section's breaks, ft out from the eastbound frontage road's near edge."""
+    main1 = HWY_CUT + HWY_MAIN
+    return {"barrier": HWY_BARRIER[1], "cut": HWY_CUT, "wall": main1, "wb": main1 + HWY_BANK, "wb_end": main1 + HWY_BANK + HWY_ROAD}
+
+
 def hwy_profile(o: float) -> float:
-    """The rebuilt cross-section's height (ft NAVD88) at o ft out from the frontage road's near edge."""
-    zr, zm = HWY_Z
-    far = HWY_TOP + HWY_MAIN
-    if o <= HWY_BARRIER[1]:
+    """The rebuilt cross-section's ground (ft NAVD88) at o ft out from the eastbound frontage road's near edge."""
+    zr, zm, zw = HWY_Z
+    k = hwy_offsets()
+    if o <= k["barrier"]:
         return zr
-    if o <= HWY_TOP:
-        return zr + (o - HWY_BARRIER[1]) / (HWY_TOP - HWY_BARRIER[1]) * (zm - zr)
-    if o <= far:
+    if o <= k["cut"]:
+        return zr + (o - k["barrier"]) / (k["cut"] - k["barrier"]) * (zm - zr)
+    if o <= k["wall"]:
         return zm
-    return max(zr, zm - (o - far) / HWY_FAR * (zm - zr))
+    if o <= k["wb"]:
+        return zm + HWY_WALL + (o - k["wall"]) / HWY_BANK * (zw - zm - HWY_WALL)
+    return zw
 
 
 def us290_regrade(ground: Terrain, to_m: Frame) -> None:
     """Bring the 2017 lidar to the rebuilt highway's grade at the grids' own nodes (the 5 m grid and the fine patch), so
-    the mesh stays light: only beyond our north line, blended from the line down to the frontage road, level across it,
-    and kept just under the bank and the main lanes."""
+    the mesh stays light: only beyond our north line, blended from the line down to the eastbound frontage road, and
+    kept just under the roads, slopes and main lanes beyond, which us290_draw() draws at their own heights."""
     _, local = hwy_frame()
     s0, s1 = HWY_STATIONS
     grids = [(ground.xs, ground.ys, ground.z)] + ([ground.fine] if ground.fine else [])
@@ -657,69 +667,75 @@ def us290_regrade(ground: Terrain, to_m: Frame) -> None:
                 if beyond <= 0 or ends <= 0:
                     continue
                 z = zs[j][i]
-                target = (hwy_profile(o) - ground.z0) * FT
+                # Under the lowest point of the section within a grid cell (5 m), so the ground between nodes never
+                # rises through the slopes and roads drawn over it (those are drawn at their own heights).
+                low = (min(hwy_profile(o + d) for d in range(-17, 18)) - ground.z0) * FT - 0.3
                 if o < 0:
-                    new = z + beyond / (beyond - o) * (target - z)
+                    new = z + beyond / (beyond - o) * (min((hwy_profile(0.0) - ground.z0) * FT, low + 0.3) - z)
                 elif o <= HWY_BARRIER[1]:
-                    new = target
+                    new = low
                 else:
-                    new = min(z, target - 0.3)
+                    new = min(z, low)
                 zs[j][i] = z + min(ends, 1.0) * (new - z)
 
 
 def us290_draw(obj: "Obj", ground: Terrain, to_m: Frame) -> None:
-    """The highway's pieces as their own objects (see the HWY_ constants)."""
+    """The highway's pieces as their own objects (see the HWY_ constants), at fixed heights so the 5 m ground's slopes
+    across the cut don't bend them."""
     at, _ = hwy_frame()
-    zr, zm = ((z - ground.z0) * FT for z in HWY_Z)
+    zr, zm, zw = ((z - ground.z0) * FT for z in HWY_Z)
+    zt = zm + HWY_WALL * FT                                                          # the far wall's top
+    k = hwy_offsets()
     s0, s1 = HWY_STATIONS
-    sts = [s0 + (s1 - s0) * k / 80 for k in range(81)]
+    sts = [s0 + (s1 - s0) * j / 80 for j in range(81)]
     m = lambda s_, o: to_m(at(s_, o))  # noqa: E731
 
-    def band(o0, o1, z0=None, z1=None, lift=0.1, runs=None):
-        """A strip from o0 to o1 ft out, on the ground (z None) or at fixed heights, over the stations or the given runs."""
+    def band(o0, o1, z0, z1, runs=None):
+        """A strip from o0 to o1 ft out, from height z0 to z1 (plan m), over the stations or the given runs."""
         for a_, b_ in runs or zip(sts, sts[1:]):
-            pts = [(m(a_, o0), z0), (m(b_, o0), z0), (m(b_, o1), z1), (m(a_, o1), z1)]
-            obj.face([(x, y, ground(x, y) + lift if z is None else z) for (x, y), z in pts])
+            obj.face([(*m(a_, o0), z0), (*m(b_, o0), z0), (*m(b_, o1), z1), (*m(a_, o1), z1)])
 
     def wall(o0, o1, z0, z1):
         obj.prism([m(s0, o0), m(s1, o0), m(s1, o1), m(s0, o1)], z0, z1)
 
-    far = HWY_TOP + HWY_MAIN
     obj.obj("us290_frontage_road")
-    band(0.0, HWY_ROAD)
+    band(0.0, HWY_ROAD, zr + 0.03, zr + 0.03)                                         # eastbound, by our fence
+    band(k["wb"], k["wb_end"], zw + 0.03, zw + 0.03)                                  # westbound, up the far bank
     obj.obj("us290_main_lanes")
-    band(HWY_TOP, far, zm + 0.02, zm + 0.02)
+    band(k["cut"], k["wall"], zm + 0.02, zm + 0.02)
     obj.obj("us290_bank")
-    band(HWY_BARRIER[1], HWY_TOP, zr - 0.05, zm)
-    band(far, far + HWY_FAR, zm, zr - 0.05)
+    band(k["barrier"], k["cut"], zr, zm)                                             # down into the cut
+    band(k["wall"] + 1.0, k["wb"], zt, zw)                                           # up to the westbound frontage road
     obj.obj("us290_barriers")
-    wall(*HWY_BARRIER[:2], zr - 0.1, zr + HWY_BARRIER[2] * FT)                      # the frontage road's barrier
-    for o0, o1, h in ((HWY_TOP + 0.3, HWY_TOP + 0.7, 2.3), (far - 0.7, far - 0.3, 2.3), (HWY_TOP + 49.5, HWY_TOP + 50.5, 2.7)):
-        wall(o0, o1, zm, zm + h * FT)                                                # guardrails and the median barrier
+    wall(*HWY_BARRIER[:2], zr - 0.1, zr + HWY_BARRIER[2] * FT)                      # the eastbound frontage road's barrier
+    mid = (k["cut"] + k["wall"]) / 2
+    wall(mid - 0.5, mid + 0.5, zm, zm + 2.7 * FT)                                    # the median barrier
+    wall(k["wall"], k["wall"] + 1.0, zm - 0.1, zt + 0.1)                             # the far wall
+    wall(k["wb"] + 0.3, k["wb"] + 0.7, zw, zw + 2.3 * FT)                            # the westbound frontage road's guardrail
     obj.obj("us290_lane_lines")
-    dashes = [(a_, a_ + 10.0) for a_ in [s0 + 40.0 * k for k in range(int((s1 - s0) / 40))]]
-    for o in (2.0, 38.0):
-        band(o - 0.25, o + 0.25, lift=0.13)
-    for o in (14.0, 26.0):
-        band(o - 0.25, o + 0.25, lift=0.13, runs=dashes)
-    for o in (HWY_TOP + 2, HWY_TOP + 46, HWY_TOP + 54, far - 2):
-        band(o - 0.25, o + 0.25, zm + 0.05, zm + 0.05)
-    for o in (HWY_TOP + 14, HWY_TOP + 26, HWY_TOP + 38, HWY_TOP + 62, HWY_TOP + 74, HWY_TOP + 86):
-        band(o - 0.25, o + 0.25, zm + 0.05, zm + 0.05, runs=dashes)
+    dashes = [(a_, a_ + 10.0) for a_ in [s0 + 40.0 * j for j in range(int((s1 - s0) / 40))]]
+    for base, z in ((0.0, zr), (k["wb"], zw)):                                       # each frontage road: edges, two dashed lines
+        for o in (2.0, 38.0):
+            band(base + o - 0.25, base + o + 0.25, z + 0.06, z + 0.06)
+        for o in (14.0, 26.0):
+            band(base + o - 0.25, base + o + 0.25, z + 0.06, z + 0.06, runs=dashes)
+    for o in (2.0, HWY_MAIN / 2 - 4, HWY_MAIN / 2 + 4, HWY_MAIN - 2):                 # main lanes: edges by the shoulders
+        band(k["cut"] + o - 0.25, k["cut"] + o + 0.25, zm + 0.05, zm + 0.05)
+    for o in (14.0, 26.0, 38.0, HWY_MAIN - 38, HWY_MAIN - 26, HWY_MAIN - 14):
+        band(k["cut"] + o - 0.25, k["cut"] + o + 0.25, zm + 0.05, zm + 0.05, runs=dashes)
     obj.obj("us290_light_poles")
-    for k in range(int((s1 - s0) / 200) + 1):
-        for o, base, h, arms in ((HWY_ROAD + 4.0, zr, 40.0, (-8.0,)), (HWY_TOP + 50.0, zm + 0.8, 45.0, (-8.0, 8.0))):
-            st_ = s0 + 100.0 + 200.0 * k if o < HWY_TOP else s0 + 200.0 * k
+    for j in range(int((s1 - s0) / 200) + 1):
+        for o, base, arm, st_ in ((k["barrier"] + 1.0, zr, -8.0, s0 + 100.0 + 200.0 * j), (k["wb"] - 0.5, zw, 8.0, s0 + 200.0 * j)):
             if st_ > s1:
                 continue
             x, y = m(st_, o)
-            obj.prism(circle((x, y), 0.1, 8), base - 0.1, base + h * FT)
-            for arm in arms:
-                ax_, ay_ = m(st_, o + arm)
-                dx, dy = (ax_ - x) / math.dist((x, y), (ax_, ay_)) * 0.06, (ay_ - y) / math.dist((x, y), (ax_, ay_)) * 0.06
-                top = base + (h - 1.0) * FT
-                obj.prism([(x - dy, y + dx), (ax_ - dy, ay_ + dx), (ax_ + dy, ay_ - dx), (x + dy, y - dx)], top - 0.08, top)
-                obj.prism(circle((ax_, ay_), 0.25, 8), top - 0.2, top)
+            obj.prism(circle((x, y), 0.1, 8), base - 0.1, base + 40.0 * FT)
+            ax_, ay_ = m(st_, o + arm)
+            d = math.dist((x, y), (ax_, ay_))
+            dx, dy = (ax_ - x) / d * 0.06, (ay_ - y) / d * 0.06
+            top = base + 39.0 * FT
+            obj.prism([(x - dy, y + dx), (ax_ - dy, ay_ + dx), (ax_ + dy, ay_ - dx), (x + dy, y - dx)], top - 0.08, top)
+            obj.prism(circle((ax_, ay_), 0.25, 8), top - 0.2, top)
     obj.obj("us290_pole_line")
     off, poles = HWY_POLES
     tops = []
@@ -734,8 +750,8 @@ def us290_draw(obj: "Obj", ground: Terrain, to_m: Frame) -> None:
         tops.append((st_, g_ + 38.4 * FT))
     for (sa, za), (sb, zb) in zip(tops, tops[1:]):                                   # three wires a span, sagging 4 ft
         for o in (off - 3.5, off, off + 3.5):
-            obj.polyline([(*m(sa + (sb - sa) * k / 10, o), za + (zb - za) * k / 10 - 4.0 * FT * 4 * (k / 10) * (1 - k / 10))
-                          for k in range(11)])
+            obj.polyline([(*m(sa + (sb - sa) * j / 10, o), za + (zb - za) * j / 10 - 4.0 * FT * 4 * (j / 10) * (1 - j / 10))
+                          for j in range(11)])
 
 
 def backyard(ground: Terrain, to_m: Frame) -> dict:

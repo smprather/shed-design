@@ -3949,19 +3949,36 @@ highway. `tools/fence_noise.py` models it on the rebuilt US-290 section (`us290_
 - **By band** (middle, 10 ft sealed vs today): 1.6–2.5 dB at the ground floor from 125 Hz to
   4 kHz, ~0.3–0.5 dB upstairs. The low truck rumble gets the least.
 
-**Indoors, windows shut** (dB quieter than today's fence and windows; the windows ~12% of the
-wall, the rest an insulated sided wall):
+**Indoors, windows shut.** Every window in the house is a single pane of ordinary glass (owner,
+Nov 13 2026; this replaces an assumed double-pane). The table gives dB quieter than today's fence
+and windows. Assumptions: windows ~12% of the north wall, the rest an insulated sided wall;
+today's old sashes leak ~0.3% of their area; the upgrades are sealed.
 
-| Room on the north wall | Today, dB(A) | Laminated double-pane | + 10 ft wall | Interior acoustic inserts | + 10 ft wall |
-|---|---|---|---|---|---|
-| Ground floor (west, middle, kitchen end) | ~28 | 4.6–4.7 | 6.1–6.5 | 7.2–7.3 | 8.7–9.1 |
-| Upstairs (west, middle) | ~29.5 | 4.8 | 5.2 | 7.6–7.7 | 8.0 |
+| Room on the north wall | Today, dB(A) | 10 ft wall alone | Standard double-pane | + wall | Laminated double-pane | + wall | Insert over the single pane | + wall |
+|---|---|---|---|---|---|---|---|---|
+| Ground floor (west, middle, kitchen end) | ~31.3 | 1.7–1.9 | 3.4–3.5 | 5.0–5.3 | 8.0–8.2 | 9.6–9.9 | 10.5–10.7 | 12.0–12.4 |
+| Upstairs (west, middle) | ~33.5 | 0.4 | 4.0 | 4.3 | 8.8 | 9.1 | 11.5 | 11.8 |
 
-- The window and wall gains add up. Most of the indoor gain is the windows; the wall adds
-  ~1.5 dB downstairs and ~0.4 upstairs.
-- Today's windows are assumed builder double-pane (OITC ~22); laminated asymmetric double-pane
-  ~30; interior inserts ~38. Air leaks at the frames, doors and vents can cap any of it. Seal
-  them in the same job.
+- **Through the north wall,** for the traffic spectrum:
+  - today's single panes ~30.5 dB(A) (~33 if they were airtight);
+  - standard double-pane ~34;
+  - laminated double-pane ~38.6;
+  - a sealed insert 3–4 in inside the single pane ~41.
+- **Standard double-pane barely beats one pane.** Two thin panes on a narrow air gap resonate
+  in the 200–300 Hz rumble. The ~3.5 dB it gains here is mostly the new seals: with airtight
+  old sashes it would be ~1.2 dB. Don't buy standard double-pane for noise.
+- **What works:**
+  - **laminated, unequal panes** (e.g. 1/4 in laminated + 1/8 in on a 1/2 in gap; compare by
+    OITC, ~30 or more): ~8–9 dB;
+  - **an acoustic insert inside the existing single pane,** a second sealed pane with a 3–4 in
+    gap: ~10.5–11.5 dB, the most of any option, and usually cheaper than replacing the windows.
+    Thin acrylic inserts closer to the glass do less, more like the laminated units.
+- **How leaky the old sashes are moves everything:**
+  - airtight: the insert gains ~8.5 dB;
+  - 1% open: it gains ~13.5–14.5;
+  - weatherstripping and caulking the frames is worth doing whatever else is done.
+- **The wall's share indoors** is the same as outdoors: ~1.5–2 dB downstairs, ~0.4 upstairs, on
+  top of any window.
 
 **What the wall hides** (share of each road showing within 60° of straight out, to 800 ft):
 
@@ -3978,7 +3995,8 @@ wall, the rest an insulated sided wall):
 - Today's fence is counted as opaque here. Its gaps show glimpses on top of this.
 
 **Verdict:**
-- **For noise, the wall isn't worth $30k.** The windows are.
+- **For noise, the wall isn't worth $30k.** The windows are: an insert over each single pane, or
+  laminated double-pane, gives ~8–11.5 dB indoors, against the wall's ~2.
 - **For the view, it is the only thing that does it.** It hides nearly all the traffic from the
   ground-floor rooms and the yard, and gives the yard ~3 dB.
 - **If it's built for that, build it sealed board-on-board, without the MLV.** It costs less and

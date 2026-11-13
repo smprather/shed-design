@@ -16,13 +16,14 @@ comparisons between options; a barrier also takes away some of the soft ground's
 ground floor run ~1-3 dB under these.
 
 Indoors, each fence option is combined with window options: the north wall's sound insulation is the windows' and the
-wall's, by area, so a window upgrade and a fence add up in dB, band by band. Absolute levels are pinned to TxDOT's
+wall's, by area, so a window upgrade and a fence add up in dB, band by band. Today's windows are single panes of
+ordinary glass in old sashes (owner), which leak some air. Absolute levels are pinned to TxDOT's
 Oak Hill Parkway noise study, which predicted 64 dB(A) (2040 peak hour) at this house (receiver R234), with no fence.
 
 Sight lines: the share of each road, within each window's view (60 degrees either side of straight out, out to 800
 ft), where a car's roof (5 ft) or a truck's top (13 ft) shows over everything in between.
 
-Run: uv run tools/fence_noise.py [--gaps 0.03] [--main-db 11]
+Run: uv run tools/fence_noise.py [--gaps 0.03] [--main-db 11] [--window-leak 0.003]
 """
 
 import math
@@ -47,12 +48,16 @@ TXDOT_DBA = 64.0                                                  # R234, 2040 p
 PICKETS = 7.0
 MLV = 4.9
 
-# Windows and walls, sound transmission loss by octave (dB), typical published values. The north rooms' windows are
-# small (the high bands upstairs, the short windows in the stone): ~12% of the exposed wall.
+# Windows and walls, sound transmission loss by octave (dB), typical published values. Today's windows are single
+# panes of ordinary glass (owner, Nov 13 2026), in old sashes that leak some air (--window-leak); the upgrades are taken
+# as sealed. The north rooms' windows are small (the high bands upstairs, the short windows in the stone): ~12% of the
+# exposed wall.
+TODAY_GLAZING = "today's single pane"
 GLAZING = {
-    "today's double-pane (assumed)": np.array([21, 19, 26, 35, 38, 33]),      # 1/8-1/2 air-1/8, OITC ~22
+    TODAY_GLAZING: np.array([17, 20, 25, 29, 32, 27]),                        # 1/8 in glass, OITC ~23 sealed
+    "standard double-pane": np.array([21, 19, 26, 35, 38, 33]),               # 1/8-1/2 air-1/8, OITC ~22-24
     "laminated double-pane": np.array([24, 27, 33, 39, 41, 45]),              # 1/4 lam-1/2-1/8, OITC ~30
-    "interior acoustic insert": np.array([28, 35, 44, 50, 52, 54]),           # second pane 3-4 in in, OITC ~38
+    "insert over the single pane": np.array([27, 35, 44, 50, 52, 53]),        # a sealed second pane 3-4 in inside, OITC ~38-40
 }
 WALL = np.array([33, 38, 45, 50, 52, 53])                                    # sided frame wall, insulated
 WINDOW_SHARE = 0.12
@@ -68,8 +73,10 @@ def panel_tl(mass: float, open_frac: float) -> np.ndarray:
     return -10 * np.log10((1 - open_frac) * 10 ** (-tl / 10) + open_frac)
 
 
-def facade_tl(glazing: np.ndarray) -> np.ndarray:
-    return -10 * np.log10(WINDOW_SHARE * 10 ** (-glazing / 10) + (1 - WINDOW_SHARE) * 10 ** (-WALL / 10))
+def facade_tl(glazing: np.ndarray, leak: float = 0.0) -> np.ndarray:
+    """The north wall's transmission loss: the windows (with `leak` of their area open) and the wall, by area."""
+    window = -10 * np.log10((1 - leak) * 10 ** (-glazing / 10) + leak)
+    return -10 * np.log10(WINDOW_SHARE * 10 ** (-window / 10) + (1 - WINDOW_SHARE) * 10 ** (-WALL / 10))
 
 
 def iso_dz(z: np.ndarray, lam: float, e: np.ndarray | None = None) -> np.ndarray:
@@ -230,7 +237,8 @@ def table(rows: list[dict], title: str) -> None:
 @click.command()
 @click.option("--gaps", default=0.03, show_default=True, help="Open fraction of today's fence (and the rear fence).")
 @click.option("--main-db", default=11.0, show_default=True, help="Main lanes (both ways) louder than one frontage road, dB.")
-def main(gaps: float, main_db: float) -> None:
+@click.option("--window-leak", default=0.003, show_default=True, help="Open fraction of today's old single-pane windows (air leaks).")
+def main(gaps: float, main_db: float, window_leak: float) -> None:
     """Fence options vs today's fence: outdoor and indoor dB, window upgrades, and what each hides of the highway."""
     site_ = Site()
     S, W, G = sources(site_, main_db)
@@ -290,21 +298,28 @@ def main(gaps: float, main_db: float) -> None:
         fband.append({"receiver": rname, **{f"{int(f)} Hz": round(float(10 * np.log10(today[i] / plan_[i])), 1) for i, f in enumerate(BANDS)}})
     table(fband, "The 10 ft sealed wall vs today's fence, by octave band (dB quieter)")
     # Indoors: today's fence and windows vs each combination.
+    spectrum_out = out_levels[("middle, ground floor", "today: 8 ft, leaky")]
+    trows = []
+    for gname, glz in GLAZING.items():
+        leak = window_leak if gname == TODAY_GLAZING else 0.0
+        trows.append({"windows": gname + (f" ({leak:.1%} open)" if leak else ", sealed"),
+                      "traffic noise through the north wall, dB(A)": round(a_level(spectrum_out) - a_level(spectrum_out * 10 ** (-facade_tl(glz, leak) / 10)), 1),
+                      **{f"{int(f)} Hz": int(round(float(v))) for f, v in zip(BANDS, -10 * np.log10((1 - leak) * 10 ** (-glz / 10) + leak))}})
+    table(trows, "The windows alone (sound transmission loss by octave, dB), and the whole north wall's drop for traffic noise")
     irows = []
-    base_tl = facade_tl(GLAZING["today's double-pane (assumed)"])
+    base_tl = facade_tl(GLAZING[TODAY_GLAZING], window_leak)
     for rname in [r for r in receivers if "yard" not in r]:
         today_in = a_level(out_levels[(rname, "today: 8 ft, leaky")] * 10 ** (-base_tl / 10))
-        row = {"room (indoors, north wall)": rname, "today, dB(A)": round(today_in + cal, 1)}
-        for gname, glz in GLAZING.items():
+        row = {"room (indoors, north wall)": rname, "today, dB(A)": round(today_in + cal, 1),
+               "10 ft wall alone": round(today_in - a_level(out_levels[(rname, "10 ft line, board-on-board")] * 10 ** (-base_tl / 10)), 1)}
+        for gname, glz in list(GLAZING.items())[1:]:
             ftl = facade_tl(glz)
-            for oname in ("today: 8 ft, leaky", "10 ft line, board-on-board", "10 ft line, picket-MLV-picket"):
-                if gname.startswith("today") and oname.startswith("today"):
-                    continue
-                lev = a_level(out_levels[(rname, oname)] * 10 ** (-ftl / 10))
-                row[f"{gname.split(' (')[0]} + {oname.split(':')[0].replace('10 ft line, ', '10 ft ')}"] = round(today_in - lev, 1)
+            for oname, tag in (("today: 8 ft, leaky", ""), ("10 ft line, board-on-board", " + 10 ft wall")):
+                row[gname + tag] = round(today_in - a_level(out_levels[(rname, oname)] * 10 ** (-ftl / 10)), 1)
         irows.append(row)
-    table(irows, f"Indoors, windows shut: today's level, and dB quieter for windows and fence together (windows "
-                 f"{WINDOW_SHARE:.0%} of the wall; the rest an insulated sided wall)")
+    table(irows, f"Indoors, windows shut: today's level (single panes {window_leak:.1%} open), and dB quieter for each window "
+                 f"upgrade, alone and with the 10 ft wall (windows {WINDOW_SHARE:.0%} of the wall; the rest an insulated "
+                 "sided wall)")
     # Sight lines.
     vrows = []
     for rname, (p, z) in receivers.items():

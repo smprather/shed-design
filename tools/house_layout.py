@@ -45,6 +45,8 @@ What the photos settle:
   (street photo, Oct 18). The stone back wing with the
   chimney sits south of the deck.
 
+- **The windows** are all single panes of ordinary glass (owner, Nov 13 2026).
+
 Everything else (roof pitches, heights, the middle roof, windows on the walls nobody has
 photographed) is a guess, to be tightened with tape and photos.
 

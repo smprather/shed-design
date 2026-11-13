@@ -137,6 +137,8 @@ button:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px 
 .layer input { margin: 0; accent-color: var(--ink); }
 .swatch { width: 18px; height: 0; border-top: 3px solid; flex: none; }
 .swatch.solid { height: 10px; border: 0; border-radius: 1px; }
+.swatch.tagmark { height: auto; border: 0; border-left: 2px solid var(--ink); font: 600 9px var(--font-display); line-height: 1.2;
+  text-align: center; color: var(--ink); background: color-mix(in srgb, var(--ink) 10%, transparent); }
 .layer.selected span.name { font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 
 .card { border-left: 3px solid var(--accent); padding: 2px 0 2px 12px; display: grid; gap: 6px; }
@@ -121458,7 +121460,7 @@ l 97431 97432 97433 97434 97435 97436 97437 97438 97439
       notes: "Dark grey steel on every surface, with two roll-up doors on the south wall (drawn rolled up) and a solid north wall toward US-290. Drawn with 12 × 12 ft doors at the quarter points, a 3:12 gable and a 14 ft eave. None of those is decided yet. The slab is level with its high NE corner by the oak. The ground falls ~3.8 ft across it, so the west side needs fill or a stem wall rather than a cut toward the oak. The east door is 15 ft from the house's NW corner." },
     house_3d_first_pass: { label: "House (first pass)", group: "Your lot", token: "house", solid: true,
       status: "first pass; to be measured", source: "Walls from the 1991 plat; floor areas from the county; the two-story part, the porch and garage roof, the front gable and the materials from the Oct 13 2026 photos; garage and kitchen from the Oct 15 measurements.",
-      notes: "Stone first story, vertical siding above. The two-story part runs along the north wall from just west of the garage through the NW wing (~873 sq ft; the county says 882). The porch and garage share one roof rising west to the two-story eave. Guesses: the floor level (1,055.5 ft), the roof pitches (5:12), the wall heights, the roof over the entry and kitchen, the deck's position, the chimney, and every window on a wall not yet photographed." },
+      notes: "Stone first story, vertical siding above. The two-story part runs along the north wall from just west of the garage through the NW wing (~873 sq ft; the county says 882). The porch and garage share one roof rising west to the two-story eave. The north face's stone stops level at the garage door's header, with a band board; the second floor overhangs the deck by about a foot; the main block's back is hipped, its eave level with a gutter; the deck is an L under a four-post pergola (photo scan, Nov 13 2026). Guesses: the floor level (1,055.5 ft), the roof pitches (5:12), the wall heights, the roof over the entry and kitchen, the chimney, and every window on a wall not yet photographed." },
     mower_john_deere_s130: { label: "Riding mower (John Deere S130), for scale", group: "Your lot", token: "jd", solid: true,
       status: "for scale", source: "TractorData: 73.3 in long, 45.5 in tall; dealer: 48.9 in wheelbase. The width with the deck and chute (~54 in) is an estimate.",
       notes: "Low-poly model of the owner's S130, parked in building A's east bay, nose to the door." },
@@ -121583,7 +121585,7 @@ l 97431 97432 97433 97434 97435 97436 97437 97438 97439
   const FOCUS = {"title": "Building A close up", "sub": "The shed at site A on its dug-in slab, and the ground round it out to the lot's NW corner (2017 lidar, 1 m; 1 ft contours).", "key": "candelaria-shed-3d:view:v1", "fly_m_s": 4.0, "center": [11.86, -15.89, 2.79], "views": [{"id": "top", "label": "Overhead", "eye": [7.95, -18.5, 58.36200000000001], "at": [8.0, -18.5, 0.45], "exag": 1, "mode": "fly"}, {"id": "oblique", "label": "From the SE", "eye": [-2.09, -36.4, 19.56], "at": [11.86, -15.89, 2.79], "mode": "orbit"}, {"id": "doors", "label": "At the doors", "eye": [-0.9, -18.9, 2.04], "at": [16.31, -14.84, 2.13], "exag": 1, "mode": "look"}, {"id": "cut", "label": "The cut, from the east", "eye": [24.03, -28.99, 9.33], "at": [11.86, -15.89, 2.79], "mode": "orbit"}, {"id": "north", "label": "Along the north cut", "eye": [16.64, -6.93, 3.28], "at": [18.09, -19.74, 0.63], "exag": 1, "mode": "look"}, {"id": "west", "label": "From the SW", "eye": [1.09, -8.72, 4.75], "at": [11.86, -15.89, 2.79], "mode": "orbit"}, {"id": "corner", "label": "The NW corner", "eye": [17.52862079864088, -33.0, 5.391504723885127], "at": [23.628620798640878, -6.767919558114955e-17, 1.5373203619425704], "exag": 1, "mode": "look"}], "tags": [["Meter pole: the power", [22.6, -1.0, 7.27]], ["Well", [18.54, -8.53, 2.78]], ["Septic access pipe (tank?)", [17.02, -25.45, 3.66]], ["US-290 \u2192", [25.13, -28.0, 5.71]], ["NW corner of the lot", [23.63, -0.0, 3.59]], ["New power run to the house (planned)", [0.71, -12.11, 1.15]], ["Sprinkler head, zone 7: moves before the dig", [5.73, -11.74, 1.3]]]};
   const HOUSE = null;   // the house, a first pass (plan3d.py, tools/house_layout.py)
   const solids = [], walkables = [];   // for walking: what stops you, and what you can stand on
-  const BACKYARD = { "eye": [-9.75, -42.48, 3.05], "at": [-25.39, 16.44, -1.21], "spot": {"along_ft": 22.9, "out_ft": 10.0, "eye_ft": 5.0, "gaze_deg": 15.0}, "building_line_tag": [-5.16, -62.53, 4.92], "front": {"eye": [-6.5, -99.1, 29.9], "at": [-6.4, -68.6, 1.9]}, "shed": {"eye": [-10.38, -47.75, 24.62], "at": [11.86, -15.89, 2.79]}, "garage": {"eye": [12.52, -53.53, 4.08], "at": [3.71, -53.51, 4.14]} };   // the back-yard eye and gaze, and how to find the spot (plan3d.py)
+  const BACKYARD = { "eye": [-9.75, -42.48, 3.05], "at": [-25.39, 16.44, -1.21], "spot": {"along_ft": 22.9, "out_ft": 10.0, "eye_ft": 5.0, "gaze_deg": 15.0}, "building_line_tag": [-5.16, -62.53, 4.92], "front": {"eye": [-6.5, -99.1, 29.9], "at": [-6.4, -68.6, 1.9]}, "shed": {"eye": [-10.38, -47.75, 24.62], "at": [11.86, -15.89, 2.79]}, "garage": {"eye": [12.52, -53.53, 4.08], "at": [3.71, -53.51, 4.14]}, "building_tags": [["Garage (to be the kitchen)", [0.48, -53.5, 7.1]]] };   // the back-yard eye and gaze, and how to find the spot (plan3d.py)
   // One texture tile, ten lines across: the whole site's is 50 ft (lines every 5 ft, heavier every 25 ft); the
   // close-up's is 20 ft (every 2 ft, heavier every 10 ft), so the draped lines show the ground's shape.
   const GRID_TILE = (FOCUS ? 20 : 50) * 0.3048;
@@ -121701,16 +121703,15 @@ l 97431 97432 97433 97434 97435 97436 97437 97438 97439
         y += rh;
       }
     }, 4, 2);
-    // Vertical siding with grooves every 8 in (one tile = 32 in x 8 ft).
+    // Board-and-batten: a 1.5 in batten every 8 in, lit on one edge and shadowed on the other (one tile = 32 in x 8 ft;
+    // photos 12 and 16, IMG_3473).
     const sidingTex = tex(64, 256, (c, w, h) => {
       c.fillStyle = "#e7dfca"; c.fillRect(0, 0, w, h);   // cream (owner's photo)
-      c.fillStyle = "rgba(60,55,45,0.22)"; for (let x = 0; x < w; x += 16) c.fillRect(x, 0, 1.5, h);
+      for (let x = 0; x < w; x += 16) {
+        c.fillStyle = "rgba(255,252,242,0.55)"; c.fillRect(x, 0, 1, h);
+        c.fillStyle = "rgba(60,55,45,0.28)"; c.fillRect(x + 3, 0, 1.5, h);
+      }
     }, 32 / 12, 8);
-    // Horizontal lap siding, 7 in to the weather (one tile = 8 ft x 7 in): the garage's north face (owner's photo, Nov 12 2026).
-    const lapTex = tex(64, 32, (c, w, h) => {
-      c.fillStyle = "#e7dfca"; c.fillRect(0, 0, w, h);
-      c.fillStyle = "rgba(60,55,45,0.28)"; c.fillRect(0, h - 3, w, 3);   // the shadow under each board's lap
-    }, 8, 7 / 12);
     // Louvered vents: a slat every 3 in (one tile = 1 ft x 3 in).
     const ventTex = tex(16, 16, (c, w, h) => {
       c.fillStyle = "#efeae0"; c.fillRect(0, 0, w, h);
@@ -121726,17 +121727,17 @@ l 97431 97432 97433 97434 97435 97436 97437 97438 97439
     const lam = (color, extra = {}) => new THREE.MeshLambertMaterial({ color, ...extra });
     const M = {
       stone: new THREE.MeshLambertMaterial({ map: stoneTex }), siding: new THREE.MeshLambertMaterial({ map: sidingTex }),
-      lap: new THREE.MeshLambertMaterial({ map: lapTex }),
       roof: new THREE.MeshLambertMaterial({ map: roofTex, side: THREE.DoubleSide }),
       trim: lam(0x46494d), ridge: lam(0x45413d), fascia: lam(0xece6d6), vent: new THREE.MeshLambertMaterial({ map: ventTex }),
       glass: new THREE.MeshPhongMaterial({ color: 0x27323b, shininess: 90, specular: 0x8899aa }),
       frame: lam(0xf1eee6), shutter: lam(0x34567f), door: lam(0x4a3426), "garage-door": lam(0x34567f),   // the door's blue (photo)
-      concrete: lam(0xc2beb5), deck: lam(0x8b5e48), "deck-skirt": lam(0x5e4434),
+      concrete: lam(0xc2beb5), deck: lam(0x7e4a3b), "deck-skirt": lam(0x5a3128),   // dark red-brown stain (IMG_3465)
+      ac: lam(0x8d9093),   // the AC condenser's grey cabinet
       post: lam(0x9a7656), "metal-roof": lam(0x7d7368, { side: THREE.DoubleSide }),
     };
     // The scene's lights alone grey the walls (a wall out of the sun gets about half its color), so the house's light
     // surfaces glow a little to read as they do in daylight (owner's photo, Nov 12 2026).
-    for (const [k, tx] of [["stone", stoneTex], ["siding", sidingTex], ["lap", lapTex]]) { M[k].emissive.set(0xffffff); M[k].emissiveMap = tx; M[k].emissiveIntensity = 0.32; }
+    for (const [k, tx] of [["stone", stoneTex], ["siding", sidingTex]]) { M[k].emissive.set(0xffffff); M[k].emissiveMap = tx; M[k].emissiveIntensity = 0.32; }
     for (const k of ["fascia", "frame", "garage-door"]) M[k].emissive.copy(M[k].color).multiplyScalar(0.3);
     M.vent.emissive.set(0xffffff); M.vent.emissiveMap = ventTex; M.vent.emissiveIntensity = 0.3;
     // Box faces get UVs in feet, so the textures keep their size on every box.
@@ -121756,7 +121757,7 @@ l 97431 97432 97433 97434 97435 97436 97437 97438 97439
         if (!w[key] || w[key].length < 3) continue;
         const geo = new THREE.ExtrudeGeometry(new THREE.Shape(w[key].map(([u, z]) => new THREE.Vector2(u, z))), { depth: w.thick, bevelEnabled: false });
         geo.applyMatrix4(m);
-        const mesh = new THREE.Mesh(geo, M[key === "siding" && w.lap ? "lap" : key]); mesh.userData.id = id; g.add(mesh); solids.push(mesh);
+        const mesh = new THREE.Mesh(geo, M[key]); mesh.userData.id = id; g.add(mesh); solids.push(mesh);
       }
     }
     for (const r of H.roofs) {
@@ -122412,31 +122413,50 @@ l 97431 97432 97433 97434 97435 97436 97437 97438 97439
   }
 
   // ---- Labels ----
+  // Two layers at the top of the list (owner, Nov 13 2026): "Building labels" names every building, ours and the
+  // neighbors'; "Other labels" carries the rest (the road, the lines, the way to US-290, the close-up's notes).
+  // A label shows while its layer is ticked and its object is.
   const LABELS = [
-    [HOUSE ? "house_3d_first_pass" : "house_footprint_survey", "Your house"], ["building_A_30x30_eave_14ft_assumed", "Building A"], ["building_B_23x43_eave_14ft_assumed", "Building B"],
-    ["scenic_brook_plaza_building_3", "Retail Bldg 3"], ["retail_east_end_stormwater", "Retail ponds"],
-    ["platted_back_line", "Back line"], ["granada_ridge_buildings_7_8", "Apts 7/8 · 639 ft"],
-    ["granada_ridge_buildings_1_6", "Apts 1-6"], ["scenic_brook_plaza_buildings_1_2", "Retail 1-2"],
+    [HOUSE ? "house_3d_first_pass" : "house_footprint_survey", "Your house", "buildings"], ["building_A_30x30_eave_14ft_assumed", "Building A", "buildings"],
+    ["building_B_23x43_eave_14ft_assumed", "Building B (dropped)", "buildings"], ["proposed_porte_cochere", "Porte-cochère", "buildings"],
+    ["scenic_brook_plaza_building_3", "Retail Bldg 3", "buildings"], ["granada_ridge_buildings_7_8", "Apts 7/8 · 639 ft", "buildings"],
+    ["granada_ridge_buildings_1_6", "Apts 1-6", "buildings"], ["scenic_brook_plaza_buildings_1_2", "Retail 1-2", "buildings"],
+    ["retail_east_end_stormwater", "Retail ponds", "other"], ["platted_back_line", "Back line", "other"],
   ];
   const labelLayer = document.getElementById("labels");
-  const tags = LABELS.filter(([id]) => items[id]).map(([id, text]) => {
+  const labelOn = { buildings: true, other: true };
+  function makeTag(text, token) {
     const el = document.createElement("div"); el.className = "tag"; el.textContent = text;
-    el.style.setProperty("--tag", "var(--" + items[id].meta.token + ")"); labelLayer.appendChild(el);
+    el.style.setProperty("--tag", "var(--" + token + ")"); labelLayer.appendChild(el); return el;
+  }
+  const tags = LABELS.filter(([id]) => items[id]).map(([id, text, kind]) => {
     const box = new THREE.Box3().setFromObject(items[id].node);
     const c = box.getCenter(new THREE.Vector3());
-    return { id, el, local: new THREE.Vector3(c.x, box.max.y + 0.6, c.z) };
+    return { id, kind, el: makeTag(text, items[id].meta.token), local: new THREE.Vector3(c.x, box.max.y + 0.6, c.z) };
   });
-  const extraTags = (FOCUS ? FOCUS.tags : [["toward US-290 →", [36, -8, 6]], ["Candelaria Dr", [-6, -84, 6]],
-                                           ...(BACKYARD.building_line_tag ? [["45 ft building line: no fence or building past it", BACKYARD.building_line_tag]] : [])]).map(([text, p]) => {
-    const el = document.createElement("div"); el.className = "tag"; el.textContent = text; el.style.setProperty("--tag", "var(--muted)");
-    labelLayer.appendChild(el); return { id: null, el, local: P(p) };
-  });
+  const extraTags = [
+    ...(FOCUS ? FOCUS.tags : [["toward US-290 →", [36, -8, 6]], ["Candelaria Dr", [-6, -84, 6]],
+                              ...(BACKYARD.building_line_tag ? [["45 ft building line: no fence or building past it", BACKYARD.building_line_tag]] : [])])
+      .map(([text, p]) => ({ id: null, kind: "other", el: makeTag(text, "muted"), local: P(p) })),
+    ...(FOCUS ? [] : BACKYARD.building_tags || []).map(([text, p]) => ({ id: null, kind: "buildings", el: makeTag(text, "house"), local: P(p) })),
+  ];
 
   // ---- Layer list ----
   const groups = {};
   for (const [id, it] of Object.entries(items)) (groups[it.meta.group] ||= []).push(id);
   const order = ["Your lot", "Proposed", "Existing trees", "Keep-outs", "Utilities", "Lines", "Next door", "Apartments", "Context", "Ground"];
   const layersEl = document.getElementById("layers");
+  {
+    const wrap = document.createElement("div"); wrap.className = "layer-group"; wrap.innerHTML = "<h3>Labels</h3>";
+    for (const [kind, name] of [["buildings", "Building labels"], ["other", "Other labels (roads, lines, notes)"]]) {
+      if (![...tags, ...extraTags].some(t => t.kind === kind)) continue;
+      const lab = document.createElement("label"); lab.className = "layer";
+      lab.innerHTML = `<input type="checkbox" id="layer-labels_${kind}" checked><span class="swatch tagmark" aria-hidden="true">Aa</span><span class="name">${name}</span>`;
+      lab.querySelector("input").addEventListener("change", (ev) => { labelOn[kind] = ev.target.checked; });
+      wrap.appendChild(lab);
+    }
+    layersEl.appendChild(wrap);
+  }
   for (const g of order.filter(g => groups[g])) {
     const wrap = document.createElement("div"); wrap.className = "layer-group";
     wrap.innerHTML = `<h3>${g}</h3>`;
@@ -122444,12 +122464,9 @@ l 97431 97432 97433 97434 97435 97436 97437 97438 97439
       const it = items[id];
       const lab = document.createElement("label"); lab.className = "layer"; lab.dataset.id = id;
       const solid = it.meta.solid ? " solid" : "", on = !it.meta.hidden;   // meta.hidden: off until ticked (a dropped option)
-      if (!on) { it.node.visible = false; tags.filter(t => t.id === id).forEach(t => t.el.hidden = true); }
+      if (!on) it.node.visible = false;
       lab.innerHTML = `<input type="checkbox" id="layer-${id}"${on ? " checked" : ""}><span class="swatch${solid}" style="${solid ? "background" : "border-top-color"}: var(--${it.meta.token})"></span><span class="name">${it.meta.label}</span>`;
-      lab.querySelector("input").addEventListener("change", (ev) => {
-        it.node.visible = ev.target.checked;
-        tags.filter(t => t.id === id).forEach(t => t.el.hidden = !ev.target.checked);
-      });
+      lab.querySelector("input").addEventListener("change", (ev) => { it.node.visible = ev.target.checked; });
       lab.addEventListener("dblclick", (ev) => { ev.preventDefault(); select(id); });
       wrap.appendChild(lab);
     }
@@ -122828,7 +122845,7 @@ l 97431 97432 97433 97434 97435 97436 97437 97438 97439
     const w = stage.clientWidth, h = stage.clientHeight;
     for (const t of [...tags, ...extraTags]) {
       if (mode === "walk") { t.el.hidden = true; continue; }   // no labels at eye level
-      if (t.id && !items[t.id].node.visible) continue;
+      if (!labelOn[t.kind] || (t.id && !items[t.id].node.visible)) { t.el.hidden = true; continue; }
       tmp.copy(t.local); tmp.y *= exag; tmp.project(camera);
       const off = tmp.z > 1 || tmp.x < -1.1 || tmp.x > 1.1 || tmp.y < -1.1 || tmp.y > 1.1;
       t.el.hidden = off;

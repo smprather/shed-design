@@ -30,7 +30,7 @@ from envelope_plan import SITE_A
 from drive_layout import COVER, CURB, layout
 from front_layout import EXISTING_DRIVE, FRONT_WALK
 from front_plan import SurveyFrame
-from house_layout import DECK
+from house_layout import DECK, DECK2
 from site_plan import HOUSE_ST, PARCEL, PORCH_ST
 from shed_cost import DEPTH, LENGTH
 
@@ -50,7 +50,7 @@ def main(limit: float) -> None:
     existing = {
         "House (plat walls, garage included)": on_lot(Polygon(HOUSE_ST)),
         "Covered front porch": on_lot(Polygon(PORCH_ST)),
-        "Back deck and pergola (wood deck; may not count)": on_lot(rect(*DECK)),
+        "Back deck and pergola (wood deck; may not count)": on_lot(unary_union([rect(*DECK), rect(*DECK2)])),
         "Existing drive and garage apron (plat, +/-3 ft)": on_lot(Polygon(EXISTING_DRIVE)),
         "Front walk (plat)": on_lot(Polygon(FRONT_WALK)),
     }

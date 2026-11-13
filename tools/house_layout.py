@@ -11,16 +11,31 @@ What the photos settle:
   the NW wing (s 85.2-126.2 x t 68.8-90.1 = 873 sq ft, close to the county's 882). Its north
   face has a stone first story with vertical siding above; its back gable and its south face
   over the deck are siding from the ground up (Oct 18). An eave runs along the north, and the
-  gable faces the back yard. Upstairs, a band of three tall windows sits at the west end of the
-  south face, with one more window round the corner on the gable.
+  gable faces the back yard, with a louvered vent at its peak.
+- **The north face** (photos 12 and 16, Nov 13 scan): the stone runs level at the garage door's header
+  (~7.3 ft) all along, with a cream band board on it, and the cream board-and-batten siding above
+  (vertical boards, a batten every 8 in). Three short windows sit in the stone and three more right
+  under the eave, over them. Gutters and downspouts are dark charcoal: a downspout at the garage's
+  corner and one at the NW corner. The AC condenser stands on a pad by the west gable, near its north
+  end (photos 10 and 12).
+- **The south face, over the deck** (IMG_3465, 3469, 3470): the second floor overhangs the first by
+  about a foot (a soffit at ~8.4 ft). Upstairs, a band of four tall windows starts at the SW corner,
+  with one more window round the corner on the gable. Downstairs, from the west: a small window over
+  a pet door, a tall window, dark-framed French doors and a tall window by the inside corner.
 - **The back of the main block:** the stone south rooms (with the chimney) and, north of
-  them, a sided wall with a sliding door onto the deck. A cedar-post pergola with a metal roof
-  covers the deck's inside corner (size and heights guessed from photos).
+  them, a sided wall with a window and a dark-framed sliding door onto the deck. Its eave runs
+  level the whole way, with a gutter (IMG_3465): the roofs are hipped at the back, not gabled. A
+  window in the stone, near its north end.
+- **The deck** is an L: along the back wall, and on along the two-story's south face nearly to its
+  corner, with its steps where the two arms meet. Dark red-brown stain. A cedar-post pergola on four
+  posts, with a corrugated metal roof sloping down away from the two-story, covers the inside
+  corner (size and heights from the photos, +/-2 ft).
 - **The porch and the garage share one roof plane** that rises west from the porch eave to the
   two-story's eave. The garage's north wall is the tall sloped face over the door.
-- **The garage's north face** (owner's photo from the apron, Nov 12 2026): stone up to the door's
-  header, horizontal lap siding above it (cream), and a louvered vent high on the sloped face near
-  its west end.
+- **The garage's north face** (owner's photo from the apron, Nov 12 2026; corrected Nov 13 from
+  photo 16 and IMG_3473 at full size): stone up to the door's header, the same vertical
+  board-and-batten as the rest above it (not lap siding), and a small louvered vent high on the
+  sloped face, centered over the door.
 - **The south rooms** face the street with a hipped front and a small gable set back on it
   (street photo, Oct 18). The stone back wing with the
   chimney sits south of the deck.
@@ -37,6 +52,9 @@ from typing import Callable
 
 FF_FT = 1055.5      # finished floor, ft NAVD88: just under the lidar ground at the garage's NE corner (1055.6); a guess
 STONE = 8.0         # Austin stone up to here on the first story; vertical siding above (photos)
+STONE_N = 7.3       # the north face's stone: level with the garage door's header, all along (photos 12 and 16)
+OVERHANG = 1.2      # the second floor's overhang on the south face, over the deck (IMG_3465, 3470; +/-0.5)
+SOFFIT = 8.4        # the overhang's underside, ft above FF (IMG_3465: the doors' heads at 6.8)
 PITCH = 5 / 12      # main gables (guess)
 EAVE1 = 8.5         # first-story eave
 EAVE2 = 18.0        # two-story eave (photo scale)
@@ -52,8 +70,11 @@ PORCH = (54.5, 64.2, 57.6, 90.1)
 PORCH_EAVE = 7.6                     # porch roof at its front edge (photo scale)
 GABLET = 5.5                         # the south rooms' front gable sits this far back on a hipped front (street photo, Oct 18)
 SHED_K = (EAVE2 - PORCH_EAVE) / (TWO[0] - PORCH[0])   # porch + garage plane, rise per ft going west (~4:12)
-DECK = (100.8, 110.8, 44.8, 68.8)    # 240 sq ft (county), off the middle of the back wall; position a guess
-PERGOLA = (100.8, 110.4, 51.0, 68.8, 9.6, 8.2)   # s0, s1, t0, t1, roof at the house, at its outer edge (guess, Oct 18 photos)
+DECK = (100.8, 110.8, 44.8, 68.8)    # along the back wall (the county's 240 sq ft); position from IMG_3465, +/-2 ft
+DECK2 = (110.8, 125.4, 61.4, 68.8)   # its arm along the two-story's south face (IMG_3465, 3470)
+PERGOLA = (100.8, 111.6, 54.4, 10.2, 8.6)   # s0, s1, t0 (its low, outer edge), roof at the two-story, at t0 (IMG_3465, 3470)
+PERGOLA_POSTS = ((102.6, 110.2), (56.4, 66.0))   # s, t of its four posts
+AC = (126.9, 129.7, 81.4, 84.2)      # the AC condenser by the west gable (photos 10 and 12; +/-2 ft)
 CHIMNEY = (99.3, 102.3, 38.0, 43.0, 17.5)   # stone; on the back of the south rooms (photo 02); size a guess
 
 
@@ -84,17 +105,16 @@ def house_spec(ground_rel: Callable[[float, float], float]) -> dict:
     L = lambda s, t: [round(-s, 3), round(t, 3)]  # noqa: E731
     walls, boxes, roofs = [], [], []
 
-    def wall(a, b, out, top, stone=STONE, lap=False):
+    def wall(a, b, out, top, stone=STONE):
         """A wall from a to b (s, t), outward normal `out` (local x, y), with its top as (u, z) points.
 
         top: [(u, z), ...] from u = 0 at a to u = |ab| at b, the wall's upper edge. Stone runs up to `stone`
-        (feet above FF), siding above it; 0 is a sided wall on a stone foundation. lap: horizontal lap siding,
-        not the vertical boards.
+        (feet above FF), siding above it; 0 is a sided wall on a stone foundation.
         """
         ab = ((b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2) ** 0.5
         bottom = min(ground_rel(*a), ground_rel(*b), ground_rel((a[0] + b[0]) / 2, (a[1] + b[1]) / 2), 0.0) - 0.3
         poly = [(0.0, bottom), (ab, bottom)] + [(round(u, 3), round(z - TUCK, 3)) for u, z in reversed(top)]
-        walls.append({"a": L(*a), "b": L(*b), "out": out, "thick": WALL, **({"lap": True} if lap else {}),
+        walls.append({"a": L(*a), "b": L(*b), "out": out, "thick": WALL,
                       "stone": _clip(poly, stone, True), "siding": _clip(poly, stone, False)})
 
     def flat(a, b, h):
@@ -125,13 +145,19 @@ def house_spec(ground_rel: Callable[[float, float], float]) -> dict:
     wall((69.2, 57.6), (64.2, 57.6), S_, flat((69.2, 57.6), (64.2, 57.6), EAVE1))
     wall((64.2, 57.6), (64.2, 68.8), E, flat((64.2, 57.6), (64.2, 68.8), EAVE1))      # kitchen, under the porch
     wall((64.2, 68.8), (64.2, 90.1), E, flat((64.2, 68.8), (64.2, 90.1), shed_z(64.2)))   # garage, under the porch
-    wall((64.2, 90.1), (85.2, 90.1), N, [(0, shed_z(64.2)), (21.0, shed_z(85.2))], stone=7.3, lap=True)   # garage door wall, sloped top: stone to the door's header, lap siding above (photo, Nov 12)
-    wall((85.2, 90.1), (126.2, 90.1), N, flat((85.2, 90.1), (126.2, 90.1), EAVE2))    # two-story, north
+    wall((64.2, 90.1), (85.2, 90.1), N, [(0, shed_z(64.2)), (21.0, shed_z(85.2))], stone=STONE_N)   # garage door wall, sloped top: stone to the door's header, siding above (photos)
+    wall((85.2, 90.1), (126.2, 90.1), N, flat((85.2, 90.1), (126.2, 90.1), EAVE2), stone=STONE_N)    # two-story, north
     wall((126.2, 90.1), (126.2, 68.8), W_, gable_top((126.2, 90.1), (126.2, 68.8), EAVE2, EAVE2 + rise_2), stone=0.0)   # back gable, sided
-    wall((126.2, 68.8), (100.8, 68.8), S_, flat((126.2, 68.8), (100.8, 68.8), EAVE2), stone=0.0)  # two-story, over the deck, sided
-    wall((100.8, 68.8), (100.8, 50.4), W_, [(0, EAVE1), ((68.8 - tm_m), EAVE1 + rise_m), (68.8 - 50.4, EAVE1)], stone=0.0)   # back wall, sided
-    wall((100.8, 50.4), (100.8, 22.7), W_, [(0, EAVE1), ((50.4 - tm_s), EAVE1 + rise_s), (50.4 - 22.7, EAVE1)])   # back of the stone south rooms
+    wall((126.2, 68.8), (100.8, 68.8), S_, flat((126.2, 68.8), (100.8, 68.8), SOFFIT), stone=0.0)  # two-story's first floor, over the deck, sided
+    wall((100.8, 68.8), (100.8, 50.4), W_, flat((100.8, 68.8), (100.8, 50.4), EAVE1), stone=0.0)   # back wall, sided, under the hip
+    wall((100.8, 50.4), (100.8, 22.7), W_, flat((100.8, 50.4), (100.8, 22.7), EAVE1))   # back of the stone south rooms, under the hip
     wall((100.8, 22.7), (56.7, 22.7), S_, flat((100.8, 22.7), (56.7, 22.7), EAVE1))   # south wall
+    # The second floor over the deck, out OVERHANG ft past the first (its top under the roof, which keeps its ridge).
+    t_up, z_up = TWO[2] - OVERHANG, EAVE2 - OVERHANG * PITCH
+    walls.append(_upper((126.2, t_up), (100.8, t_up), S_, SOFFIT, flat((126.2, t_up), (100.8, t_up), z_up), L))
+    walls.append(_upper((126.2, TWO[2]), (126.2, t_up), W_, SOFFIT, [(0, EAVE2), (OVERHANG, z_up)], L))   # the gable's overhanging edge
+    walls.append(_upper((100.8, t_up), (100.8, TWO[2]), E, SOFFIT, [(0, z_up), (OVERHANG, EAVE2)], L))    # its east end, over the hip
+    box(100.8, 126.2, t_up, TWO[2], SOFFIT - 0.15, SOFFIT, "frame")                                       # soffit
     # Faces above the lower roofs.
     walls.append(_upper((100.8, 68.8), (85.2, 68.8), S_, EAVE1, flat((100.8, 68.8), (85.2, 68.8), EAVE2), L))
     walls.append(_upper((85.2, 68.8), (64.2, 68.8), S_, EAVE1, [(0, shed_z(85.2)), (21.0, shed_z(64.2))], L))
@@ -150,18 +176,27 @@ def house_spec(ground_rel: Callable[[float, float], float]) -> dict:
         quad((a, t1 + oh_t[1], eave - oh_t[1] * k), (b, t1 + oh_t[1], eave - oh_t[1] * k), (b, tm, zr), (a, tm, zr))
         box(a, b, tm - 0.4, tm + 0.4, zr - 0.05, zr + 0.2, "ridge")   # ridge cap
 
-    # South rooms: a gable roof hipped at the front, with the small front gable set back on the hip.
+    # South rooms: hipped front and back (the back's eave runs level, IMG_3465), with the small front gable set back on
+    # the front hip.
     f0, f1, g0, g1 = SOUTH
     lo, zb, zr = EAVE1 - OH * PITCH, EAVE1 + GABLET * PITCH, EAVE1 + rise_s
     sw, se, nw, ne = (f1 + OH, g0 - OH, lo), (f0 - OH, g0 - OH, lo), (f1 + OH, g1 + OH, lo), (f0 - OH, g1 + OH, lo)   # eave corners
-    rb, rf = (f1 + OH, tm_s, zr), (f0 + GABLET, tm_s, zr)                           # ridge, back to front
+    rb, rf = (f1 + OH - (tm_s - g0 + OH), tm_s, zr), (f0 + GABLET, tm_s, zr)        # ridge, back to front
     fs, fn = (f0 + GABLET, g0 + GABLET, zb), (f0 + GABLET, g1 - GABLET, zb)          # the front gable's feet
     quad(sw, rb, rf, fs); quad(sw, fs, se, se)        # south slope
     quad(nw, rb, rf, fn); quad(nw, fn, ne, ne)        # north slope
     quad(se, ne, fn, fs)                              # hipped front
-    box(f0 + GABLET, f1 + OH, tm_s - 0.4, tm_s + 0.4, zr - 0.05, zr + 0.2, "ridge")   # ridge cap
-    gable_roof(MIDDLE, EAVE1, rise_m, oh_s=(0.0, OH), oh_t=(0.0, 0.0))
-    gable_roof(TWO, EAVE2, rise_2, oh_s=(0.6, OH))
+    quad(nw, sw, rb, rb)                              # hipped back
+    box(f0 + GABLET, rb[0], tm_s - 0.4, tm_s + 0.4, zr - 0.05, zr + 0.2, "ridge")   # ridge cap
+    # Entry and kitchen block: a gable along s, hipped at the back over the deck (IMG_3465), its back eave level with
+    # the south rooms'; its side eaves sit at the walls, where it meets the south rooms' roof and the two-story.
+    m0, m1, n0, n1 = MIDDLE
+    hb = (m1 + OH - (rise_m + OH * PITCH) / PITCH, tm_m, EAVE1 + rise_m)           # the ridge's back end
+    for t_e in (n0, n1):
+        quad((m0, t_e, EAVE1), (m1 + OH, t_e, lo), hb, (m0, tm_m, EAVE1 + rise_m))
+    quad((m1 + OH, n0, lo), (m1 + OH, n1, lo), hb, hb)                              # hipped back
+    box(m0, hb[0], tm_m - 0.4, tm_m + 0.4, hb[2] - 0.05, hb[2] + 0.2, "ridge")
+    gable_roof(TWO, EAVE2, rise_2, oh_s=(0.6, OH), oh_t=(OH + OVERHANG, OH))
     # Porch + garage: one plane rising west to the two-story's eave.
     p0 = PORCH[0] - 0.5
     quad((p0, PORCH[2] - OH, shed_z(p0)), (p0, PORCH[3] + OH, shed_z(p0)),
@@ -175,20 +210,45 @@ def house_spec(ground_rel: Callable[[float, float], float]) -> dict:
         box(PORCH[0] + 0.1, PORCH[0] + 1.6, t - 0.75, t + 0.75, -0.3, PORCH_EAVE - 0.6, "stone")
     box(PORCH[0], PORCH[0] + 0.6, PORCH[2] - 0.5, PORCH[3] + 0.5, PORCH_EAVE - 0.6, PORCH_EAVE, "fascia")   # the porch beam
 
-    # Deck (240 sq ft): low, with no railing and a step down to the lawn (Oct 18 photos).
-    s0, s1, t0, t1 = DECK
-    box(s0, s1, t0, t1, min(ground_rel(s1, (t0 + t1) / 2), 0) - 0.3, -0.45, "deck-skirt")
-    box(s0, s1, t0, t1, -0.45, -0.3, "deck", walk=True)
-    g = min(ground_rel(s1 + 0.6, t0 + 6), -0.6)
-    box(s1, s1 + 1.1, t0 + 4, t0 + 8, g - 0.2, (g - 0.3) / 2, "deck", walk=True)
+    # Deck: an L, low, with no railing; the steps down to the lawn where its arms meet (IMG_3465, 3470).
+    for s0, s1, t0, t1 in (DECK, DECK2):
+        box(s0, s1, t0, t1, min(ground_rel(s1, (t0 + t1) / 2), 0) - 0.3, -0.45, "deck-skirt")
+        box(s0, s1, t0, t1, -0.45, -0.3, "deck", walk=True)
+    s0, t0 = DECK[1] + 0.2, DECK2[2]
+    g = min(ground_rel(s0 + 2, t0 - 2), -0.6)
+    box(s0, s0 + 3.6, t0 - 1.1, t0, (g - 0.3) / 2 - 0.15, (g - 0.3) / 2, "deck", walk=True)
+    box(s0, s0 + 3.6, t0 - 1.1, t0, g - 0.2, (g - 0.3) / 2 - 0.15, "deck-skirt")
 
-    # Pergola over the deck's inside corner: cedar posts and beams, a metal roof sloping away from the house.
-    p0, p1, q0, q1, zh, zl = PERGOLA
-    for t in (q0 + 0.4, (q0 + q1) / 2, q1 - 0.4):
-        box(p1 - 0.7, p1 - 0.1, t - 0.3, t + 0.3, -0.3, zl - 0.5, "post")
-    box(p1 - 0.75, p1 - 0.05, q0, q1, zl - 0.6, zl - 0.1, "post")   # beam on the posts
-    k = (zh - zl) / (p1 - p0)
-    quad((p0, q0 - 0.8, zh), (p1 + 1.0, q0 - 0.8, zl - 1.0 * k), (p1 + 1.0, q1, zl - 1.0 * k), (p0, q1, zh), mat="metal-roof")
+    # Pergola over the deck's inside corner: four cedar posts, beams along s, and a corrugated metal roof sloping down
+    # away from the two-story, its high edge against the overhang's wall.
+    p0, p1, q0, zh, zl = PERGOLA
+    k = (zh - zl) / (t_up - q0)
+    roof_z = lambda t: zl + (t - q0) * k  # noqa: E731
+    (sa, sb), (ta, tb) = PERGOLA_POSTS
+    for t in (ta, tb):
+        zb_ = roof_z(t - 0.25) - 0.05
+        for s_ in (sa, sb):
+            box(s_ - 0.3, s_ + 0.3, t - 0.3, t + 0.3, -0.3, zb_ - 0.7, "post")
+        box(p0 + 0.3, p1 - 0.3, t - 0.25, t + 0.25, zb_ - 0.7, zb_, "post")   # beam
+    quad((p0, q0, zl), (p1, q0, zl), (p1, t_up, zh), (p0, t_up, zh), mat="metal-roof")
+
+    # The AC condenser on its pad by the west gable.
+    a0, a1, b0, b1 = AC
+    g = ground_rel((a0 + a1) / 2, (b0 + b1) / 2)
+    box(a0 - 0.3, a1 + 0.3, b0 - 0.3, b1 + 0.3, g - 0.2, g + 0.25, "concrete", walk=True)
+    box(a0, a1, b0, b1, g + 0.25, g + 3.1, "ac")
+    box(a0 + 0.2, a1 - 0.2, b0 + 0.2, b1 - 0.2, g + 3.1, g + 3.2, "trim")
+
+    # Band board on the north face's stone, and the gutters and downspouts (dark charcoal; photos 12, 16, IMG_3465).
+    box(64.2, 126.2, 90.1 - 0.05, 90.1 + 0.15, STONE_N - 0.05, STONE_N + 0.55, "frame")
+    z_n, z_s = EAVE2 - OH * PITCH, EAVE2 - (OH + OVERHANG) * PITCH
+    box(TWO[0] - 0.6, TWO[1] + OH, TWO[3] + OH - 0.05, TWO[3] + OH + 0.4, z_n - 0.45, z_n + 0.05, "trim")   # two-story, north
+    box(TWO[0] - 0.6, TWO[1] + OH, TWO[2] - OH - OVERHANG - 0.4, TWO[2] - OH - OVERHANG + 0.05, z_s - 0.45, z_s + 0.05, "trim")  # south
+    box(SOUTH[1] + OH - 0.05, SOUTH[1] + OH + 0.4, SOUTH[2] - OH, MIDDLE[3], lo - 0.45, lo + 0.05, "trim")      # the back's level eave
+    box(PORCH[0] - 0.95, PORCH[0] - 0.5, PORCH[2] - OH, PORCH[3] + OH, shed_z(PORCH[0] - 0.5) - 0.45, shed_z(PORCH[0] - 0.5) + 0.05, "trim")  # porch
+    for s_, t_, ztop in ((85.6, 90.35, z_n), (125.8, 90.35, z_n), (126.45, t_up + 0.3, z_s), (101.05, 46.6, lo),
+                         (PORCH[0] - 0.7, PORCH[3] + 0.3, shed_z(PORCH[0] - 0.5))):
+        box(s_ - 0.13, s_ + 0.13, t_ - 0.18, t_ + 0.18, min(ground_rel(s_, t_), 0) - 0.1, ztop - 0.2, "trim")
 
     # Chimney.
     c = CHIMNEY
@@ -196,13 +256,13 @@ def house_spec(ground_rel: Callable[[float, float], float]) -> dict:
     box(c[0] - 0.2, c[1] + 0.2, c[2] - 0.2, c[3] + 0.2, c[4], c[4] + 0.35, "trim")
 
     # Openings: proud of the wall face by 0.1 ft.
-    def opening(face_s=None, face_t=None, out=None, span=(0, 0), z=(0, 0), mat="glass", frame=True, shutters=False):
+    def opening(face_s=None, face_t=None, out=None, span=(0, 0), z=(0, 0), mat="glass", frame=True, shutters=False, frame_mat="frame"):
         d = 0.1
         if face_s is not None:   # wall at constant s; out is east (+x, smaller s) or west
             sgn = 1 if out == E else -1
             sa, sb = face_s - sgn * d, face_s + sgn * 0.15
             if frame:
-                box(sa + sgn * 0.03, sb, span[0] - 0.25, span[1] + 0.25, z[0] - 0.25, z[1] + 0.25, "frame")
+                box(sa + sgn * 0.03, sb, span[0] - 0.25, span[1] + 0.25, z[0] - 0.25, z[1] + 0.25, frame_mat)
             box(sa, sb, span[0], span[1], z[0], z[1], mat)
             if shutters:
                 for t0_, t1_ in ((span[0] - 1.6, span[0] - 0.35), (span[1] + 0.35, span[1] + 1.6)):
@@ -211,7 +271,7 @@ def house_spec(ground_rel: Callable[[float, float], float]) -> dict:
             sgn = 1 if out == N else -1
             ta, tb = face_t + sgn * d, face_t - sgn * 0.15
             if frame:
-                box(span[0] - 0.25, span[1] + 0.25, ta - sgn * 0.03, tb, z[0] - 0.25, z[1] + 0.25, "frame")
+                box(span[0] - 0.25, span[1] + 0.25, ta - sgn * 0.03, tb, z[0] - 0.25, z[1] + 0.25, frame_mat)
             box(span[0], span[1], ta, tb, z[0], z[1], mat)
 
     opening(face_s=56.7, out=E, span=(28.4, 31.9), z=(2.8, 7.4), shutters=True)    # front, two shuttered windows (photo 18)
@@ -222,15 +282,25 @@ def house_spec(ground_rel: Callable[[float, float], float]) -> dict:
     opening(face_s=64.2, out=E, span=(60.7, 66.7), z=(3.0, 7.0))                   # kitchen window (floor plan)
     opening(face_s=64.2, out=E, span=(73.8, 79.8), z=(3.0, 7.0))                   # garage window (owner's markup)
     opening(face_t=90.1, out=N, span=(66.7, 82.7), z=(-0.4, 7.0), mat="garage-door", frame=True)   # 16 x 7 (photo 16)
-    opening(face_t=90.1, out=N, span=(78.9, 81.1), z=(shed_z(80.0) - 3.7, shed_z(80.0) - 1.2), mat="vent", frame=False)   # louvered vent high on the garage face (photo, Nov 12)
-    for s in (96.5, 103.0, 109.5):                                                 # two-story north (photo 12)
-        opening(face_t=90.1, out=N, span=(s - 1.9, s + 1.9), z=(5.2, 7.3))
-        opening(face_t=90.1, out=N, span=(s - 1.9, s + 1.9), z=(14.8, 16.8))
-    opening(face_t=90.1, out=N, span=(86.8, 89.6), z=(14.8, 16.8))                # photo 16, upper right
-    for s in (116.0, 119.4, 122.8):                                                # two-story, over the deck: a band of three (Oct 18)
-        opening(face_t=68.8, out=S_, span=(s - 1.5, s + 1.5), z=(12.2, 17.0))
-    opening(face_s=126.2, out=W_, span=(70.4, 73.0), z=(12.2, 17.0))             # back gable, by the south corner (Oct 18)
-    opening(face_s=100.8, out=W_, span=(55.5, 61.5), z=(0, 6.8))                   # door to the deck (guess)
+    opening(face_t=90.1, out=N, span=(74.0, 75.5), z=(12.6, 14.1), mat="vent", frame=False)   # louvered vent over the door's middle (photo 16)
+    for s in (96.5, 103.0, 109.5):                                                 # two-story north (photo 12): short windows in the stone,
+        opening(face_t=90.1, out=N, span=(s - 1.9, s + 1.9), z=(5.0, 6.8))         # and the same right under the eave
+        opening(face_t=90.1, out=N, span=(s - 1.9, s + 1.9), z=(15.0, 17.2))
+    opening(face_t=90.1, out=N, span=(86.8, 89.6), z=(15.0, 17.2))                # photo 16, upper right
+    for s in (123.9, 120.5, 117.1, 113.7):                                         # over the deck: a band of four from the SW corner (IMG_3470)
+        opening(face_t=t_up, out=S_, span=(s - 1.5, s + 1.5), z=(12.3, 16.9))
+    opening(face_s=126.2, out=W_, span=(68.7, 71.3), z=(12.3, 16.9))             # back gable, by the south corner (IMG_3470)
+    # The two-story's first floor, over the deck, from the west (IMG_3465, 3470): a small window over a pet door, a tall
+    # window, French doors and a tall window by the inside corner; the doors' frames are dark.
+    opening(face_t=68.8, out=S_, span=(118.4, 120.0), z=(4.1, 6.6))
+    opening(face_t=68.8, out=S_, span=(118.9, 119.7), z=(0.6, 2.5), mat="frame", frame=False)   # pet door
+    opening(face_t=68.8, out=S_, span=(113.2, 116.4), z=(1.4, 6.7))
+    opening(face_t=68.8, out=S_, span=(104.0, 110.0), z=(0, 6.8), frame_mat="trim")
+    opening(face_t=68.8, out=S_, span=(101.6, 103.4), z=(1.5, 6.8), frame_mat="trim")
+    # The back wall: a window by the inside corner and a sliding door onto the deck (IMG_3465), and a window in the stone.
+    opening(face_s=100.8, out=W_, span=(64.3, 66.8), z=(3.0, 6.8))
+    opening(face_s=100.8, out=W_, span=(56.5, 62.5), z=(0, 6.8), frame_mat="trim")
+    opening(face_s=100.8, out=W_, span=(45.6, 48.6), z=(3.0, 7.3))
     opening(face_s=126.2, out=W_, span=(78.4, 80.5), z=(EAVE2 + 1.0, EAVE2 + 2.6), mat="vent", frame=False)   # gable vent
 
     return {"ff_ft": FF_FT, "walls": walls, "roofs": roofs, "boxes": boxes,

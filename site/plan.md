@@ -318,7 +318,7 @@ Tube frame, dealer-installed (owner, Oct 18 2026: red-iron is out).
   building at site A costs", have the breakdown, the sources and the owner work that cuts the
   cost.
 - **Impervious cover: confirm the limit applies before anything else.**
-  - Against 15%, the lot is already at ~16% (5,502 sq ft of 5,065 allowed). The building and
+  - Against 15%, the lot is already at ~17% (5,610 sq ft of 5,065 allowed; the deck is an L, Nov 13). The building and
     its aprons make it ~20%. With the new drive (old drive out), ~19% if gravel isn't counted,
     ~30% if it is.
   - But 15% is the City's SOS number, and the 1992 ordinance exempted single-family

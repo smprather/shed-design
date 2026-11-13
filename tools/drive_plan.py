@@ -36,7 +36,7 @@ from drive_layout import (
 from envelope_plan import SITE_A
 from front_layout import BULGE_OAK, EXISTING_DRIVE, FRONT_ELECTRIC, FRONT_WALK, LONE_OAK_PHOTO, catmull_rom
 from front_plan import SurveyFrame, canopy_in_st
-from house_layout import DECK
+from house_layout import DECK, DECK2
 from plan3d import CANOPY, FT, TERRAIN, Canopy, Frame, Terrain, field_features
 from site_plan import (
     CYAN, GREEN, ORANGE, PARCEL, RED, REPO, WHITE, YELLOW, Plan, draw_survey, site, st,
@@ -217,7 +217,7 @@ def main() -> None:
     lot = Polygon([sf.from_site(p) for p in PARCEL])
     on = lambda g: g.intersection(lot)  # noqa: E731
     cover = L["cover"]
-    deck = box(DECK[0], DECK[2], DECK[1], DECK[3])
+    deck = unary_union([box(d[0], d[2], d[1], d[3]) for d in (DECK, DECK2)])   # the L (yard photos, Nov 13 2026)
     curb_len = L["curbs"].length
     curb_area = curb_len * CURB
     areas = {"gravel": on(L["gravel"]).area, "pavers": on(L["paved"]).area, "concrete": on(L["concrete"]).area,

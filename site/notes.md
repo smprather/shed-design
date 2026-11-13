@@ -3754,15 +3754,71 @@ the tables below.
 - **The garage's north face, read again** (same day): the roofline rises from the porch on the left
   across the whole frame, with no peak in view. That's the model's one plane rising west to the
   two-story's eave, not a gable; an earlier note (Oct 13) called it "a gable".
-  - The model now has what the photo shows: stone only to the door's header, horizontal lap siding
-    above (the two-story's north face keeps its vertical boards), and a louvered vent high near
-    the west end.
+  - The model now has stone only to the door's header, with siding above it and a louvered vent.
+    (Corrected Nov 13: the siding there is the same vertical board-and-batten as the rest, not lap
+    siding, and the vent is centered over the door, not near the west end. See "The house from
+    the yard photos".)
 - **Standing instruction (owner, Nov 12 2026):** whenever a photo, measurement or document shows
   something about the house, update the house model and its colors to match, without waiting to
   be asked (CLAUDE.md, Conventions).
 - **The photo itself** (a screenshot with the browser alongside) didn't reach the
   container's disk, so it isn't in the private repo. Re-send it, or push it there, to keep
   it.
+
+### The house from the yard photos (Nov 13 2026)
+
+The owner asked for a pass over every photo in the private repo (Oct 13 and Oct 18 walks, and
+IMG_3473) for details of the house. What they show, now in `tools/house_layout.py` (read
+positions off the photos as ±1–2 ft):
+
+- **Siding:** cream board-and-batten everywhere above the stone, a batten every 8 in. The
+  garage's north face has the same. The Nov 12 note's "lap siding" was wrong. The viewer's
+  siding texture now draws battens (a lit edge and a shadow), not grooves.
+- **The north face:**
+  - The stone stops level at the garage door's header, ~7.3 ft, all along the garage and the
+    two-story (it was 8 ft on the two-story). A cream band board sits on it.
+  - The garage's vent is small and centered over the door, high under the roof.
+  - The two-story's three short windows in the stone sit just under it (~5.0–6.8 ft), and its
+    three upstairs windows sit right under the eave (~15.0–17.2 ft).
+- **Gutters and downspouts** are dark charcoal:
+  - on the two-story's eaves, the back eave of the main block and the porch's front;
+  - downspouts at the garage's west corner, the two-story's NW and SW corners, on the stone at
+    the back and at the porch's north end.
+- **The AC condenser** stands on a pad by the west gable, ~7 ft from its north corner (photos
+  10 and 12).
+- **The two-story's south face, over the deck** (IMG_3465, 3469, 3470):
+  - The second floor overhangs the first by about a foot (drawn 1.2 ft), with a soffit at
+    ~8.4 ft. The roof's south eave reaches out over it; the ridge stays put.
+  - Upstairs: a band of four tall windows from the SW corner (it was three), and one window
+    round the corner on the gable, near the corner. The gable has a louvered vent at its peak.
+  - Downstairs, from the west: a small window over a pet door, a tall window, French doors with
+    dark frames, and a tall window by the inside corner.
+- **The back of the main block:** its eave runs level with a gutter from the inside corner past
+  the stone rooms, so the roofs over the entry/kitchen block and the stone south rooms are
+  **hipped at the back**, not gabled as drawn before. The sided wall has a window by the inside
+  corner and a dark-framed sliding door; the stone has a window near its north end.
+- **The deck is an L:** along the back wall (as before) and on along the two-story's south face
+  nearly to its corner, with the steps where the arms meet. Dark red-brown stain.
+  - With its second arm the deck covers ~348 sq ft, not 240, so impervious cover now is 5,610 sq ft,
+    16.6% (was 5,502, 16.3%), and 20.1% with building A and its aprons (`impervious_cover.py`). A
+    wood deck over soil may not count at all.
+- **The pergola:** four rough cedar posts, beams, a corrugated metal roof sloping down away from
+  the two-story, its high side against the overhang (~10 ft), its low edge ~8.6 ft.
+- **Not changed (the photos don't settle them):** the kitchen's east window under the porch
+  looks taller than drawn (to be taped: see the kitchen repo's plan); the two-story's east gable
+  over the garage roof; the front, which the street photos already set.
+
+### 3D: label layers (owner, Nov 13 2026)
+
+- The layer list starts with a **Labels** group:
+  - **Building labels:** the house, building A, building B (when shown), the porte-cochère, the
+    retail buildings and the apartments, and a new label on the house's garage end, "Garage (to
+    be the kitchen)".
+  - **Other labels:** the road, the back line, the building line, the way to US-290, the retail
+    ponds; on the close-up, its notes (the meter pole, the well, the septic pipe, the corner, the
+    power run, the sprinkler head).
+- A label shows while its layer and its object are both ticked. Both pages remember the boxes
+  with the rest of the panel.
 
 ### Windows and doors
 

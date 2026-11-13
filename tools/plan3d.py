@@ -1041,6 +1041,9 @@ def main(spec: Path, out: Path | None, focus: bool) -> None:
     ge, gd = to_m(site([st(74.7, 119.0)])[0]), to_m(site([st(74.7, 90.1)])[0])
     view["garage"] = {"eye": [round(ge[0], 2), round(ge[1], 2), round(ground(*ge) + 5.2 * FT, 2)],
                       "at": [round(gd[0], 2), round(gd[1], 2), round(ground(*gd) + 7.0 * FT, 2)]}
+    # Building labels the objects' own boxes can't give (the viewer's "Building labels" layer): the garage end of the house.
+    gt = to_m(site([st(74.7, 79.5)])[0])
+    view["building_tags"] = [["Garage (to be the kitchen)", [round(gt[0], 2), round(gt[1], 2), round((FF_FT + 16.5 - ground.z0) * FT, 2)]]]
     tree_view = {"plants": PLANTS, "stages": ["Planted", "~8 years", "Mature"], "dropped": dropped,
                  "rows_ft": TREE_ROWS, "spacing_ft": TREE_SPACING,
                  "trees": [{"xy": [round(c, 2) for c in to_m(tr["site"])], "plant": tr["plant"]} for tr in trees

@@ -3849,6 +3849,20 @@ of four upstairs) and two from window 3 (the third from the west). They're in th
   below, just outside the glass. The model's ground is the 2017 lidar, from before the main
   lanes were raised, so the highway isn't there to compare.
 
+### 3D: the fence as it stands, and the proposed one under Proposed (owner, Nov 13 2026)
+
+- **The proposed fence** (`north_line_fence`: 8 ft on the surveyed line, out to the 45 ft
+  building line, its height on the Fence slider) moved from "Your lot" to the **Proposed** group.
+- **New layer, "Fence along US-290 (existing, as it stands)"**, under Your lot: the owner's
+  trace (`FENCE_TRACE`), 8 ft (from the notes, not measured), ending where the owner marked it,
+  just past the twin oak. Where it runs off the line, the two fences show side by side.
+- Existing fences (this one and the rear fence) are drawn in weathered grey; the proposed fence
+  keeps the cedar brown.
+- **Not drawn yet: the cross fence** east of site B, with its chain-link double gate. Its
+  position is still an open question. The site B photo (Oct 18) puts it near the house's NW
+  corner; the upstairs photos (Nov 13) put its house end between windows 1 and 3, ~20 ft
+  further east. Tape both ends (see Open questions) and it goes in.
+
 ### Windows and doors
 
 - Traffic noise is heavy in low frequencies. Compare windows by **OITC** (made for traffic

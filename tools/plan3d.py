@@ -28,7 +28,7 @@ import numpy as np
 import polars as pl
 import rich_click as click
 
-from site_plan import BUILDING_LINE, HOUSE, PARCEL, REPO, SITE_B, WELL, en_to_site, north_line_y, site, st
+from site_plan import BUILDING_LINE, FENCE_TRACE, HOUSE, PARCEL, REPO, SITE_B, WELL, en_to_site, north_line_y, site, st
 from site_b_plan import HOSE, house_north_y
 from drive_layout import (
     CURB, CUT_SLOPE, ROAD, ROAD_LINES, ROAD_T, SLAB_OVER_LOW, SLAB_SECTION, SWALE, SWALE_DROP, aprons_a,
@@ -864,6 +864,12 @@ def main(spec: Path, out: Path | None, focus: bool) -> None:
     obj.obj("front_building_line_45ft")
     obj.strip(bl, 0.3, lift=0.18)
     bm = ((bl[0][0] + bl[1][0]) / 2, (bl[0][1] + bl[1][1]) / 2)
+    # The US-290 fence as it stands (site_plan.FENCE_TRACE: the owner's trace, off the surveyed line in places, ending
+    # where the owner marked it, Nov 13 2026). 8 ft of horizontal boards (notes; not measured). The proposed fence on the
+    # line is north_line_fence in the spec.
+    obj.obj("us290_fence_existing")
+    for a_, c_ in zip(FENCE_TRACE, FENCE_TRACE[1:]):
+        obj.wall(to_m(a_), to_m(c_), 2.44, 0.12)
     # The septic access pipe (field shots, +/-2 ft): a white capped 4 in PVC riser, its height above the ground assumed.
     sx, sy = to_m(pipe)
     obj.obj("septic_access_pipe")

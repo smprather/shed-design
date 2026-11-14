@@ -16,8 +16,8 @@ comparisons between options; a barrier also takes away some of the soft ground's
 ground floor run ~1-3 dB under these.
 
 Indoors, each fence option is combined with window options: the north wall's sound insulation is the windows' and the
-wall's, by area, so a window upgrade and a fence add up in dB, band by band. Today's windows are single panes of
-ordinary glass in old sashes (owner), which leak some air. Absolute levels are pinned to TxDOT's
+wall's, by area, so a window upgrade and a fence add up in dB, band by band. Today's north and upstairs windows are
+double-pane with a thin air gap, in old sashes that leak some air (owner). Absolute levels are pinned to TxDOT's
 Oak Hill Parkway noise study, which predicted 64 dB(A) (2040 peak hour) at this house (receiver R234), with no fence.
 
 Sight lines: the share of each road, within each window's view (60 degrees either side of straight out, out to 800
@@ -48,16 +48,17 @@ TXDOT_DBA = 64.0                                                  # R234, 2040 p
 PICKETS = 7.0
 MLV = 4.9
 
-# Windows and walls, sound transmission loss by octave (dB), typical published values. Today's windows are single
-# panes of ordinary glass (owner, Nov 13 2026), in old sashes that leak some air (--window-leak); the upgrades are taken
-# as sealed. The north rooms' windows are small (the high bands upstairs, the short windows in the stone): ~12% of the
-# exposed wall.
-TODAY_GLAZING = "today's single pane"
+# Windows and walls, sound transmission loss by octave (dB), typical published values. Every window facing US-290, and
+# every upstairs window, is double-pane with a thin air gap (owner, Nov 14 2026; the rest are single panes): two 1/8 in
+# panes on ~1/4 in of air, whose mass-air-mass dip falls near 400 Hz, in the middle of the traffic noise. The old sashes
+# leak some air (--window-leak); the upgrades are taken as sealed. The north rooms' windows are small (the high bands
+# upstairs, the short windows in the stone): ~12% of the exposed wall.
+TODAY_GLAZING = "today's thin-gap double-pane"
 GLAZING = {
-    TODAY_GLAZING: np.array([17, 20, 25, 29, 32, 27]),                        # 1/8 in glass, OITC ~23 sealed
-    "standard double-pane": np.array([21, 19, 26, 35, 38, 33]),               # 1/8-1/2 air-1/8, OITC ~22-24
+    TODAY_GLAZING: np.array([22, 22, 21, 30, 37, 31]),                        # 1/8-1/4 air-1/8, OITC ~22 sealed
+    "new standard double-pane": np.array([21, 19, 26, 35, 38, 33]),           # 1/8-1/2 air-1/8, OITC ~22-24
     "laminated double-pane": np.array([24, 27, 33, 39, 41, 45]),              # 1/4 lam-1/2-1/8, OITC ~30
-    "insert over the single pane": np.array([27, 35, 44, 50, 52, 53]),        # a sealed second pane 3-4 in inside, OITC ~38-40
+    "insert inside today's window": np.array([28, 36, 45, 51, 53, 53]),       # a sealed pane 3-4 in in, OITC ~38-40
 }
 WALL = np.array([33, 38, 45, 50, 52, 53])                                    # sided frame wall, insulated
 WINDOW_SHARE = 0.12
@@ -237,7 +238,7 @@ def table(rows: list[dict], title: str) -> None:
 @click.command()
 @click.option("--gaps", default=0.03, show_default=True, help="Open fraction of today's fence (and the rear fence).")
 @click.option("--main-db", default=11.0, show_default=True, help="Main lanes (both ways) louder than one frontage road, dB.")
-@click.option("--window-leak", default=0.003, show_default=True, help="Open fraction of today's old single-pane windows (air leaks).")
+@click.option("--window-leak", default=0.003, show_default=True, help="Open fraction of today's old windows (air leaks).")
 def main(gaps: float, main_db: float, window_leak: float) -> None:
     """Fence options vs today's fence: outdoor and indoor dB, window upgrades, and what each hides of the highway."""
     site_ = Site()
@@ -317,7 +318,7 @@ def main(gaps: float, main_db: float, window_leak: float) -> None:
             for oname, tag in (("today: 8 ft, leaky", ""), ("10 ft line, board-on-board", " + 10 ft wall")):
                 row[gname + tag] = round(today_in - a_level(out_levels[(rname, oname)] * 10 ** (-ftl / 10)), 1)
         irows.append(row)
-    table(irows, f"Indoors, windows shut: today's level (single panes {window_leak:.1%} open), and dB quieter for each window "
+    table(irows, f"Indoors, windows shut: today's level (today's windows {window_leak:.1%} open), and dB quieter for each window "
                  f"upgrade, alone and with the 10 ft wall (windows {WINDOW_SHARE:.0%} of the wall; the rest an insulated "
                  "sided wall)")
     # Sight lines.

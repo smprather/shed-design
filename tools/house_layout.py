@@ -45,7 +45,8 @@ What the photos settle:
   (street photo, Oct 18). The stone back wing with the
   chimney sits south of the deck.
 
-- **The windows** are all single panes of ordinary glass (owner, Nov 13 2026).
+- **The windows:** every one facing US-290, and every one upstairs, is double-pane with a thin air
+  gap; the rest are single panes (owner, Nov 14 2026; corrects Nov 13's all single-pane).
 
 Everything else (roof pitches, heights, the middle roof, windows on the walls nobody has
 photographed) is a guess, to be tightened with tape and photos.

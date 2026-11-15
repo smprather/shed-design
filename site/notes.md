@@ -4008,6 +4008,14 @@ sided wall; today's old sashes leak ~0.3% of their area; the upgrades are sealed
     - sealed perimeter;
     - an OITC test report for the exact build.
   - **Bedrooms** need an insert that opens or comes out easily, for egress.
+  - **Magnetic inserts** snap onto a steel strip on the window's casing. That gives a continuous
+    seal and lets them come off without tools, which suits the bedrooms.
+    - **Climate Seal's Acoustic Series** (sold by Acoustical Surfaces) uses a magnetic bellows
+      seal. ASTM E90: a double-hung window went from STC 24 to 37 with it. The vendors give a
+      maximum of STC 49–51 with a deep air gap.
+    - **CitiQuiet** (NYC) is magnetic too.
+    - **Magnetite** is mainly acrylic, for drafts.
+    - The same rules apply: glass rather than acrylic, the deepest gap, and an OITC report.
 
 **What the wall hides** (share of each road showing within 60° of straight out, to 800 ft):
 

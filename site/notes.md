@@ -4016,6 +4016,25 @@ sided wall; today's old sashes leak ~0.3% of their area; the upgrades are sealed
     - **CitiQuiet** (NYC) is magnetic too.
     - **Magnetite** is mainly acrylic, for drafts.
     - The same rules apply: glass rather than acrylic, the deepest gap, and an OITC report.
+- **Indow Acoustic Grade on every window but the east side, priced** (owner's question, Nov 15
+  2026):
+  - **Count, from the house model:** 17 windows, ~172 sq ft.
+    - North: 3 short ones downstairs, 4 upstairs.
+    - South over the deck: 4 upstairs, 3 downstairs.
+    - West gable: 1 upstairs.
+    - The back wall: 2 downstairs.
+  - **Not counted:** the doors (the French doors and the slider), the gable vents, and whatever
+    windows the south bedrooms have on their outside wall. No photo shows that wall; allow 3–5
+    more windows, ~40–60 sq ft.
+  - **Price:** Indow's Acoustic Grade listed at $40/sq ft MSRP ($480 for a 3 × 4 ft window), with
+    10+ orders lower ($384), and prices rose 10% on July 1 2026. Call it ~$44/sq ft list,
+    ~$35/sq ft at the 10+ price. The site wouldn't load for a current quote.
+  - **Total:** ~$6–7.5k for the 17 counted; **~$7.5–10k** with the south bedrooms', before tax and
+    shipping. They're DIY: they press into the window frame, no installer.
+  - **What it buys,** with the model's assumptions: 1/4 in acrylic, ~2 in in front of the glass.
+    - Indoors at the north wall, ~9 dB downstairs and ~10 upstairs.
+    - A glass insert with a 3–4 in gap gives ~10.5–11.5; the wall caps everything near 12.
+    - The gap depends on how deep each window's frame is: the deeper, the better.
 
 **What the wall hides** (share of each road showing within 60° of straight out, to 800 ft):
 

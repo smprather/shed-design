@@ -439,6 +439,9 @@ house's west end, ~1 dB or less elsewhere.
   - Both laminated and an insert: ~11–12 dB, only ~0.6 dB over the insert alone. The wall around
     the windows is the limit by then (~12–12.5 dB for windows that passed nothing), so pick one.
   - Seal the frames, doors and vents in the same job: leaks move every result by several dB.
+  - **Indow Acoustic Grade on everything but the east side:** ~17 counted windows (~172 sq ft)
+    plus the south bedrooms' (not in the model yet), ~$7.5–10k before tax and shipping, DIY.
+    About ~9–10 dB indoors on the north side.
 - **The front 45.6 ft can't be fenced** (deed restrictions, sec. 3). Plantings can screen that
   stretch.
 

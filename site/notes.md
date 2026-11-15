@@ -1428,6 +1428,9 @@ Oct 13 photos (02, 12, 16, 18).
 
 ### An 8 ft fence on the north line, drawn (Oct 18 2026)
 
+(Dropped Nov 15 2026, with the 10 ft version: see "The north-line wall dropped". It stays in the
+3D page for reference.)
+
 The owner asked for an 8 ft fence on the north (US-290) property line. It's in the 3D model
 as `north_line_fence` in `property_total_plan.jsonc`, drawn like the back fence.
 
@@ -4005,6 +4008,16 @@ sided wall; today's old sashes leak ~0.3% of their area; the upgrades are sealed
   sounds the same.
 - **For the record:** TxDOT's own test for a noise wall is ≥5 dB at a home for ≤$25k a home.
   This one is ~2 dB at the house.
+
+### The north-line wall dropped (owner, Nov 15 2026)
+
+- **Decision:** no new wall or fence on the north line. It's too expensive for what it does.
+  The 10 ft sealed wall (~$30k) would have bought ~2 dB at the ground floor, ~0.5 dB upstairs
+  and ~3 dB in the north yard. The analysis is above, in "The 10 ft sealed wall: worth it?".
+- **The 3D page keeps it** under Proposed, for reference only (owner).
+- **The existing 8 ft fence stays as it is.** Sealing its gaps (~0.2 dB) is dropped too.
+- **The noise plan is the window upgrades,** upstairs and down: acoustic inserts or laminated
+  double-pane, with the frames sealed. See "Indoors, windows shut" above.
 
 ### Windows and doors
 

@@ -3,6 +3,8 @@
 # dependencies = ["rich-click", "polars", "pillow", "numpy", "shapely", "contourpy"]
 # ///
 """Is a 10 ft sealed wall on the north line worth it? Traffic noise and sight lines from US-290 (owner, Nov 13 2026).
+The answer was no: ~2 dB at the house for ~$30k, and the owner dropped it (Nov 15 2026). The window comparisons are the
+noise plan.
 
 The highway is the rebuilt section in us290_layout.py: the eastbound frontage road by our fence, the main lanes down in
 a cut behind its barrier, and the westbound frontage road up the far bank. Each lane is a row of incoherent point

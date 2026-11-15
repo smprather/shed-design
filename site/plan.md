@@ -5,14 +5,14 @@ sources, corrections and dates. This file says what we're doing, in what order, 
 still undecided. Update it when a decision changes; record the facts behind the change in
 `notes.md`.
 
-Last updated: Nov 12 2026 (the 1971 deed restrictions found: no fence past the 45 ft line, and a detached building A isn't allowed on its face; an attorney's read comes before the kit. Nov 2: building A's groundwork: the house's power line moved to a new 207 ft run in conduit round the building, and the slab's crushed-rock base, for the owner to do themselves; `site/building-a-groundwork.md`. $85k all in. Oct 31: building A drawn turned 22.5° counter-clockwise and 4.75 ft off the fence, so a boat can drive out in one move; $82k all in; not settled. Oct 30: towing a boat in and out. Oct 28: the doors in the south gable end, a 12 × 12 for a boat and a 10 × 8, burgundy with black trim; on 14 ft legs and a slab dug into its high side, with power and closed-cell foam insulation: ~$83k all in, $51k of it the building on its slab; it comes first, and the drive much later).
+Last updated: Nov 15 2026 (the north-line wall dropped: ~$30k for ~2 dB; the window upgrades are the noise plan. Nov 13–14: the rebuilt US-290 in the 3D page, and the fence and window study, `fence_noise.py`). Nov 12 2026 (the 1971 deed restrictions found: no fence past the 45 ft line, and a detached building A isn't allowed on its face; an attorney's read comes before the kit. Nov 2: building A's groundwork: the house's power line moved to a new 207 ft run in conduit round the building, and the slab's crushed-rock base, for the owner to do themselves; `site/building-a-groundwork.md`. $85k all in. Oct 31: building A drawn turned 22.5° counter-clockwise and 4.75 ft off the fence, so a boat can drive out in one move; $82k all in; not settled. Oct 30: towing a boat in and out. Oct 28: the doors in the south gable end, a 12 × 12 for a boat and a 10 × 8, burgundy with black trim; on 14 ft legs and a slab dug into its high side, with power and closed-cell foam insulation: ~$83k all in, $51k of it the building on its slab; it comes first, and the drive much later).
 
 ## The four projects
 
 | Project | What it is now | Status | Blocked on |
 |---|---|---|---|
 | **1. The building, at site A** (first: owner, Oct 24 2026) | A common 30 × 30 tube-frame kit on 14 ft legs, with a 12 × 12 door for a boat (owner, Oct 25 2026), on a concrete slab dug into its high side (owner, Oct 24), on the north strip between the well and the septic pipe. Site B is dropped (owner, Oct 18 2026): it had no slack between the septic pipe and the twin oak, cut into the oak's roots, wasn't a standard kit size, crowded the house and the septic truck's lane, and blocked little noise (notes, "Site B dropped"). A 30 × 30 there with east doors (Nov 1) can't be dug in, since its doors would be on the high side, and a towed boat can't get past the oak: too close to the oaks, in too narrow a gap, on too sloped a part of the yard, with no cheap or easy way out of the slope (owner; `tools/site_b_east.py`) | Modeled and priced: ~$85k likely all in, with power and closed-cell foam insulation ($49k of it the building on its slab); the doors in its front gable end at grade, with short concrete aprons. The groundwork, step by step: `site/building-a-groundwork.md` (Nov 2) | **The deed restrictions** (sec. 2 allows no detached building on its face; an attorney's read first); the buried service line; the septic layout (the drainfield may be under it) |
-| **2. Screening** (noise and views) | US-290 side: the 8 ft fence, maybe a 10 ft wall on the line (for the view and the north yard: ~2 dB at the house, ~3 dB in the yard), and window upgrades (today thin-gap double-pane: ~8–11.5 dB indoors with laminated units or acoustic inserts). Back line: 21 new trees in the gaps | Back-line planting ready to buy; US-290 side modeled (`fence_noise.py`, Nov 13) | Fence gaps and ownership; septic layout |
+| **2. Screening** (noise and views) | US-290 side: window upgrades (today thin-gap double-pane: ~8–11.5 dB indoors with laminated units or acoustic inserts); the 8 ft fence stays as it is; no new wall (dropped Nov 15 2026: ~$30k for ~2 dB). Back line: 21 new trees in the gaps | Back-line planting ready to buy; US-290 side modeled (`fence_noise.py`) | Septic layout |
 | **3. Garage → kitchen** | Join the 21 × 21 ft attached garage, the hall beside it and the old kitchen into one ~680 sq ft kitchen. Its own repo: `smprather/kitchen-garage-renovation` | Idea stage (~90% likely); layout mocked up | Parking must move first; septic capacity question; structure (see its repo) |
 | **4. The drive + porte-cochère** | Redesigned from scratch: loop D, a forecourt with a porte-cochère (2 cars nose to tail) and a passing lane, the service drive and north court, the shop lane to building A. Estate gravel, concrete-curbed | Designed, drawn in the renders; not priced: it comes much later (owner, Oct 24 2026) | Trunk tapes; buried lines; the septic layout; county permits |
 
@@ -31,8 +31,7 @@ before its first dig.
    - The slab comes within 13.4 ft of the septic access pipe, and the short block wall by
      it stands on the 10 ft keep-out's edge. Nothing gets dug, poured or driven over the tank.
    - The county's building permit wants a site plan showing the septic system anyway.
-   - The US-290 wall footing, the north end of the back-line trees and the septic truck's
-     route wait on it too.
+   - The north end of the back-line trees and the septic truck's route wait on it too.
    - If there's no drawing, have the septic company locate and probe the tank lids and
      trenches next time it pumps.
 2. **Locate the buried electric line.** It runs underground from the meter pole at the NW
@@ -109,7 +108,8 @@ oak.
 - **Plant the back-line trees.** October to February is the planting window; see project 2.
 - **Mulch the twin oak**, 3–4 in deep out to the drip line where it isn't paved. Keep cars,
   bins and storage off its root zone.
-- **Seal the US-290 fence's gaps** if we own it (project 2). It's the cheapest noise step.
+- **Window upgrades** on the north and upstairs windows (project 2): acoustic inserts or laminated
+  double-pane, with the frames sealed. They're the noise plan.
 - **Pruning:** any oak pruning over the building or the crews' route goes July–January only
   (oak wilt). Finish it by the end of January, or wait until July.
 
@@ -420,61 +420,25 @@ house's west end, ~1 dB or less elsewhere.
 
 ### US-290 side (traffic noise and view)
 
-- **The fence is already 8 ft** (horizontal boards; correction Oct 13 2026). The earlier
-  noise estimates assumed no fence, so part of what they credit to new walls already
-  exists.
-- **Next:**
-  1. Find out who owns the fence: it stands up to ~7 ft beyond the surveyed line.
-  2. If it's ours, seal the gaps between boards: battens over the joints, or a second layer
-     of boards on our side.
-  3. Re-run the noise model with the fence as the baseline, then decide whether a taller
-     wall or a return along Candelaria is still worth it.
-- **An 8 ft fence on the surveyed north line** (owner, Oct 18 2026) is drawn in the 3D
-  model.
-  - **Length:** from the back corner to the 45 ft building line, 207.9 ft. It was pulled back
-    from the front corner the same day.
-  - **The front 45.6 ft can't be fenced:** the 1971 deed restrictions (sec. 3) bar any fence
-    past the front building line, and allow no variance for it. The fence stops ~64.5 ft from
-    Candelaria's pavement. Plantings can screen that stretch instead.
-  - **What it buys (`noise_model.py` geometry, airtight 8 ft fence vs. none):**
-    - ~4 dB at the house's west end and middle, ~2.5–3 dB at the kitchen end;
-    - running it to the front corner adds ~2 dB at the kitchen end.
-  - **Sealing the gaps** (two layers of boards, offset half a board) is worth ~0.5 dB at 5%
-    open area in this model. That's because the fence's effect is modest here: the road sits
-    17.5 ft below.
-  - **A kickboard** closes the gap at the bottom of the fence.
-  - **Height, and how far the fence runs,** matter more than sealing the gaps.
-  - **The twin oak:** its second trunk is 5.8 ft from the line, so ~21 ft of fence falls
-    inside the 12 ft no-dig zone. Hand-dig or air-spade those posts, or bridge that stretch,
-    and do any cutting July–January.
-  - **Building B:** its north wall is 5.1 ft from the line (~4 ft clear under the eave).
-  - **Height and material:** the restrictions set no height limit behind the line (the 3D
-    viewer's slider runs 6–10 ft). Fences must be wood, rock or chain link.
-- **Wall constraints, if we go further:**
-  - The footing must be fully on our side of the line.
-  - It conflicts with the septic pipe (6 ft from a footing at the line); the wall would jog
-    in or stop there.
-  - Piers, not a trench, inside oak drip lines.
-  - A gate of ~12 ft for the septic truck if the wall returns along Candelaria.
-- **Inside the house:** north- and west-facing windows are often the cheapest big gain.
-  Laminated glass with unequal panes (compare by OITC), or interior acoustic inserts; seal
-  the frames.
-- **The 10 ft sealed wall (picket–MLV–picket, ~$30k): worth it for the view and the north yard,
-  not for noise** (`fence_noise.py`, Nov 13 2026; notes, "The 10 ft sealed wall: worth it?"):
-  - Against today's 8 ft fence it buys ~2 dB outside the ground-floor windows, ~0.5 dB upstairs
-    and ~3 dB in the north yard. 3 dB is just noticeable. Most of the sound is the main lanes,
-    already behind the cut's barrier, and the upstairs windows see over any fence.
-  - The MLV adds nothing: a wall this size is limited by sound bending over its top, and sealed
-    board-on-board already stops what goes through. Sealing today's fence gains ~0.2 dB.
-  - The windows do far more indoors. Today's north and upstairs windows are double-pane with a
-    thin air gap (owner, Nov 14), no better than one pane for traffic noise:
-    - a sealed acoustic insert inside each window (3–4 in gap): ~10.5–11.5 dB;
-    - laminated double-pane: ~8–8.5 dB;
-    - new standard double-pane: only ~3–4 dB, mostly from the new seals; don't buy it for noise.
-    - The wall adds ~1.5 dB on top downstairs, ~0.4 upstairs.
-  - What the wall does do: from the ground floor and the north yard it hides nearly all the
-    traffic on both frontage roads (today about half shows). From upstairs it hides nothing.
-  - If it's built for the view, build it sealed board-on-board, without the MLV.
+- **No new wall or fence on the north line** (owner, Nov 15 2026: too expensive for what it
+  does).
+  - A 10 ft sealed wall (~$30k) would have bought only ~2 dB at the ground floor, ~0.5 dB
+    upstairs and ~3 dB in the north yard (`fence_noise.py`; notes, "The north-line wall
+    dropped").
+  - It stays drawn in the 3D page under Proposed, for reference only.
+- **The existing 8 ft fence stays as it is.** Sealing its gaps would gain ~0.2 dB, so that's
+  dropped too. It stands partly beyond the surveyed line; who owns it matters only if it needs
+  repair.
+- **The noise plan is the windows** (owner: upgrading upstairs and down). Today's north and
+  upstairs windows are double-pane with a thin air gap, no better than one pane for traffic
+  noise. Indoor gains, from `fence_noise.py`:
+  - a sealed acoustic insert inside each window (3–4 in gap): ~10.5–11.5 dB, the most, and
+    it keeps the windows;
+  - laminated double-pane with unequal panes (compare by OITC, ~30 or more): ~8–8.5 dB;
+  - a new standard double-pane: only ~3–4 dB, mostly from its seals. Don't buy it for noise.
+  - Seal the frames, doors and vents in the same job: leaks move every result by several dB.
+- **The front 45.6 ft can't be fenced** (deed restrictions, sec. 3). Plantings can screen that
+  stretch.
 
 ### Back line (the retail and apartments)
 

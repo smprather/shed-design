@@ -3993,6 +3993,21 @@ sided wall; today's old sashes leak ~0.3% of their area; the upgrades are sealed
     downstairs it may sit a dB or two higher.
   - The roof and attic vents, the doors and the other walls set the limit after that.
   - Pick one: the insert, or laminated double-pane if the windows are being replaced anyway.
+- **What a top-tier insert looks like** (Nov 15 2026, makers' and lab data):
+  - **Soundproof Windows, Inc.:** a true second window in its own frame behind the existing one:
+    laminated glass, spring-loaded seals, a 2–4 in air gap, operable styles. The maker reports
+    combined STC 48–54; ask for the OITC test report for the exact glass and gap.
+  - **IndowPRO** with 5/16 in acoustic laminated glass. ASTM E90 lab reports over a storefront
+    window (STC 29 / OITC 25): a 1.25 in gap gives STC 43 / OITC 31, a 4 in gap STC 51 / OITC 36.
+    That's +11 OITC, in line with the ~+11 dB this model gives an insert.
+  - **Indow's residential Acoustic Grade** (acrylic, compression fit) is a step down: the maker
+    gives STC 42–45 over double-pane.
+  - **What to ask for:**
+    - laminated glass, 1/4 in or thicker, rather than acrylic;
+    - the deepest gap the frame allows, 3–4 in;
+    - sealed perimeter;
+    - an OITC test report for the exact build.
+  - **Bedrooms** need an insert that opens or comes out easily, for egress.
 
 **What the wall hides** (share of each road showing within 60° of straight out, to 800 ft):
 

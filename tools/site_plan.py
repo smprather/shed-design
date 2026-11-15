@@ -245,7 +245,9 @@ FIELD_POINTS = REPO / "site" / "field-points.json"
 # Its east end (owner, Nov 13 2026): the owner marked where it stops on a photo from the westmost upstairs window,
 # just right of the twin oak's trunks; that sight line meets the fence at x ~230 (+/-4 ft), level with the middle of
 # the garage door, not at the house's front corner (x 243.5) as first drawn.
-FENCE_TRACE = [(62.9, 102.7), (183.0, 128.0), (205.0, 128.3), (230.0, 128.6)]
+# Its west end meets the rear fence at the lot's NW corner, where the meter pole stands (owner, Nov 15 2026: the trace
+# stopped 4.3 ft short of it).
+FENCE_TRACE = [PARCEL[2], (62.9, 102.7), (183.0, 128.0), (205.0, 128.3), (230.0, 128.6)]
 
 # Building B (owner, Oct 11 2026): 23 x 43 ft, square to the house. The north wall stays
 # where the 20 x 40 had it (5 ft inside the surveyed line at the NE corner); the west end

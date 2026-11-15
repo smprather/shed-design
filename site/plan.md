@@ -436,6 +436,8 @@ house's west end, ~1 dB or less elsewhere.
     it keeps the windows;
   - laminated double-pane with unequal panes (compare by OITC, ~30 or more): ~8–8.5 dB;
   - a new standard double-pane: only ~3–4 dB, mostly from its seals. Don't buy it for noise.
+  - Both laminated and an insert: ~11–12 dB, only ~0.6 dB over the insert alone. The wall around
+    the windows is the limit by then (~12–12.5 dB for windows that passed nothing), so pick one.
   - Seal the frames, doors and vents in the same job: leaks move every result by several dB.
 - **The front 45.6 ft can't be fenced** (deed restrictions, sec. 3). Plantings can screen that
   stretch.

@@ -61,7 +61,9 @@ GLAZING = {
     "new standard double-pane": np.array([21, 19, 26, 35, 38, 33]),           # 1/8-1/2 air-1/8, OITC ~22-24
     "laminated double-pane": np.array([24, 27, 33, 39, 41, 45]),              # 1/4 lam-1/2-1/8, OITC ~30
     "insert inside today's window": np.array([28, 36, 45, 51, 53, 53]),       # a sealed pane 3-4 in in, OITC ~38-40
+    "laminated double-pane + insert": np.array([32, 40, 48, 53, 55, 56]),     # both, ~4 in apart, OITC ~42-45
 }
+PERFECT = np.full(6, 90.0)                                                    # windows that pass nothing: the wall's limit
 WALL = np.array([33, 38, 45, 50, 52, 53])                                    # sided frame wall, insulated
 WINDOW_SHARE = 0.12
 
@@ -320,6 +322,9 @@ def main(gaps: float, main_db: float, window_leak: float) -> None:
             for oname, tag in (("today: 8 ft, leaky", ""), ("10 ft line, board-on-board", " + 10 ft wall")):
                 row[gname + tag] = round(today_in - a_level(out_levels[(rname, oname)] * 10 ** (-ftl / 10)), 1)
         irows.append(row)
+    for row, rname in zip(irows, [r for r in receivers if "yard" not in r]):
+        today_in = a_level(out_levels[(rname, "today: 8 ft, leaky")] * 10 ** (-base_tl / 10))
+        row["ceiling: windows passing nothing"] = round(today_in - a_level(out_levels[(rname, "today: 8 ft, leaky")] * 10 ** (-facade_tl(PERFECT) / 10)), 1)
     table(irows, f"Indoors, windows shut: today's level (today's windows {window_leak:.1%} open), and dB quieter for each window "
                  f"upgrade, alone and with the 10 ft wall (windows {WINDOW_SHARE:.0%} of the wall; the rest an insulated "
                  "sided wall)")

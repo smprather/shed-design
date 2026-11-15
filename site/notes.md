@@ -3984,6 +3984,15 @@ sided wall; today's old sashes leak ~0.3% of their area; the upgrades are sealed
   - weatherstripping and caulking the frames is worth doing whatever else is done.
 - **The wall's share indoors** is the same as outdoors: ~1.5–2 dB downstairs, ~0.4 upstairs, on
   top of any window.
+- **Laminated double-pane and an insert together** (owner's question, Nov 15 2026): ~11–12 dB,
+  only ~0.6 dB more than the insert alone. At that point the windows pass less than the wall
+  around them:
+  - windows that passed nothing at all would give ~11.6–12.6 dB here (~9–10 if today's sashes
+    were airtight). That's the ceiling for any window work.
+  - The ceiling assumes an insulated sided wall everywhere. The stone first story is better, so
+    downstairs it may sit a dB or two higher.
+  - The roof and attic vents, the doors and the other walls set the limit after that.
+  - Pick one: the insert, or laminated double-pane if the windows are being replaced anyway.
 
 **What the wall hides** (share of each road showing within 60° of straight out, to 800 ft):
 
@@ -4018,6 +4027,13 @@ sided wall; today's old sashes leak ~0.3% of their area; the upgrades are sealed
 - **The existing 8 ft fence stays as it is.** Sealing its gaps (~0.2 dB) is dropped too.
 - **The noise plan is the window upgrades,** upstairs and down: acoustic inserts or laminated
   double-pane, with the frames sealed. See "Indoors, windows shut" above.
+
+### The US-290 fence reaches the NW corner (owner, Nov 15 2026)
+
+- In the 3D page the existing fence stopped 4.3 ft short of the lot's NW corner, leaving a gap
+  at its west end. It runs on to the corner now, where it meets the rear fence by the meter pole
+  (`FENCE_TRACE` in `site_plan.py`).
+- The maps that draw it are re-rendered.
 
 ### Windows and doors
 

@@ -4038,6 +4038,28 @@ sided wall; today's old sashes leak ~0.3% of their area; the upgrades are sealed
     - Indoors at the north wall, ~9 dB downstairs and ~10 upstairs.
     - A glass insert with a 3–4 in gap gives ~10.5–11.5; the wall caps everything near 12.
     - The gap depends on how deep each window's frame is: the deeper, the better.
+- **Replacing a window outright, without an insert** (owner's question, Nov 15 2026). It can match
+  an insert, but only with acoustic glazing. Indoors at the north wall, ground floor / upstairs,
+  dB quieter than today (`fence_noise.py`):
+
+  | Window | dB quieter | Matches |
+  |---|---|---|
+  | New standard double-pane | 3.1 / 3.8 | nothing: don't |
+  | Laminated double-pane (1/4 in laminated + 1/2 in air + 1/8 in; OITC ~30) | 7.7 / 8.6 | short of an insert |
+  | Heavy laminated double-pane (3/8 in laminated + 1 in air + 1/4 in laminated; OITC ~34–35) | 9.8 / 10.8 | Indow's acrylic insert (9.0 / 10.1) |
+  | Acoustic dual-sash window (two laminated glazings ~3 in apart in one frame; OITC ~40) | 10.9 / 11.9 | a glass insert (10.5 / 11.5) |
+  | Windows passing nothing at all (the wall's ceiling) | 11.6 / 12.6 | |
+
+  - **Spec it by OITC:** ~34 or more to match Indow's acrylic, ~38–40 to match a glass insert.
+  - **Unequal panes, at least one laminated, on as wide a gap as the frame allows.** Argon adds
+    next to nothing for sound.
+  - **Fixed, casement or awning sashes seal tighter than sliders and hung sashes.** For noise,
+    choose those where the room allows.
+  - **Seal the rough opening** with low-expansion foam and sealant: a leak undoes the glass.
+  - **Dual-sash acoustic windows** are mostly commercial and airport-program products. Ask for the
+    OITC test report for the exact unit.
+  - **The same goes for the kitchen's new north opening** (the garage door's), the biggest piece of
+    north-facing glass to come.
 
 **What the wall hides** (share of each road showing within 60° of straight out, to 800 ft):
 

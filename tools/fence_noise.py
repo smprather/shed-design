@@ -60,6 +60,8 @@ GLAZING = {
     TODAY_GLAZING: np.array([22, 22, 21, 30, 37, 31]),                        # 1/8-1/4 air-1/8, OITC ~22 sealed
     "new standard double-pane": np.array([21, 19, 26, 35, 38, 33]),           # 1/8-1/2 air-1/8, OITC ~22-24
     "laminated double-pane": np.array([24, 27, 33, 39, 41, 45]),              # 1/4 lam-1/2-1/8, OITC ~30
+    "heavy laminated double-pane": np.array([27, 32, 40, 45, 47, 50]),        # 3/8 lam-1 in air-1/4 lam, OITC ~34-35
+    "acoustic dual-sash window": np.array([30, 38, 47, 52, 54, 55]),          # two laminated glazings ~3 in apart in one frame, OITC ~40
     "Indow Acoustic (acrylic), ~2 in in": np.array([25, 30, 38, 44, 46, 46]),  # 1/4 in acrylic, compression fit, OITC ~33
     "insert inside today's window": np.array([28, 36, 45, 51, 53, 53]),       # a sealed pane 3-4 in in, OITC ~38-40
     "laminated double-pane + insert": np.array([32, 40, 48, 53, 55, 56]),     # both, ~4 in apart, OITC ~42-45

@@ -4026,11 +4026,14 @@ sided wall; today's old sashes leak ~0.3% of their area; the upgrades are sealed
   - **Not counted:** the doors (the French doors and the slider), the gable vents, and whatever
     windows the south bedrooms have on their outside wall. No photo shows that wall; allow 3–5
     more windows, ~40–60 sq ft.
-  - **Price:** Indow's Acoustic Grade listed at $40/sq ft MSRP ($480 for a 3 × 4 ft window), with
-    10+ orders lower ($384), and prices rose 10% on July 1 2026. Call it ~$44/sq ft list,
-    ~$35/sq ft at the 10+ price. The site wouldn't load for a current quote.
-  - **Total:** ~$6–7.5k for the 17 counted; **~$7.5–10k** with the south bedrooms', before tax and
-    shipping. They're DIY: they press into the window frame, no installer.
+  - **Price** (Indow's page, owner's screenshot, Nov 15 2026): ClearView Acoustic acrylic, $39/sq ft
+    for orders of 10 or more ($44 single, discounts from 3), shipping and sales tax extra.
+  - **Total at $39/sq ft:**
+    - ~$6.7k for the 17 counted;
+    - **~$8.3–9k with the south bedrooms'** (~$8.8–9.8k with 6.25–8.25% sales tax), plus shipping.
+    - They're DIY: they press into the window frame, no installer.
+    - The inserts are sized to each frame's opening, a bit bigger than the glass the model draws,
+      so read these ±20%.
   - **What it buys,** with the model's assumptions: 1/4 in acrylic, ~2 in in front of the glass.
     - Indoors at the north wall, ~9 dB downstairs and ~10 upstairs.
     - A glass insert with a 3–4 in gap gives ~10.5–11.5; the wall caps everything near 12.

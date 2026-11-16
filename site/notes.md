@@ -4060,6 +4060,22 @@ sided wall; today's old sashes leak ~0.3% of their area; the upgrades are sealed
     OITC test report for the exact unit.
   - **The same goes for the kitchen's new north opening** (the garage door's), the biggest piece of
     north-facing glass to come.
+- **Price: a heavy laminated replacement vs an insert** (owner's question, Nov 16 2026; national
+  cost guides, mostly vendor and lead-generation sites, so ±50%; get local quotes):
+  - **Indow acoustic insert:** $39/sq ft → ~$400–470 for a 10–12 sq ft window, DIY, plus shipping
+    and tax. All ~21 windows off the east side: ~$8.3–9k.
+  - **Heavy laminated double-pane replacement** (double-laminated, unequal panes, a wide gap):
+    ~$1,200–1,800 a window installed in the 2026 guides. Ordinary laminated acoustic
+    replacements run ~$700–2,000. All ~21: ~$25–38k.
+  - **Performance is about the same:** ~10–11 dB vs the insert's ~9–10 in the model. A lab-tested
+    OITC 35 is a stretch for a residential double-pane; a typical laminated double-pane tests
+    OITC ~30, closer to ~8–9 dB. Ask for the test report.
+  - **So for noise alone the insert is ~3–4× cheaper per dB.** If a window is being replaced for
+    looks anyway, what counts is the upgrade over ordinary glass: a laminated lite adds
+    ~$150–600 a window, about what an insert costs. Spec the acoustic glass in the new window
+    then, rather than adding an insert later.
+  - **The stone first story** may push the installed cost of a replacement toward the top of the
+    range.
 
 **What the wall hides** (share of each road showing within 60° of straight out, to 800 ft):
 

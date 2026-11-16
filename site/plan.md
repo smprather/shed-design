@@ -443,6 +443,9 @@ house's west end, ~1 dB or less elsewhere.
     plus the south bedrooms' (not in the model yet), ~$8.3–9k at Indow's $39/sq ft (10+ inserts),
     ~$8.8–9.8k with sales tax, plus shipping; DIY.
     About ~9–10 dB indoors on the north side.
+  - **A replacement window for looks:** spec heavy laminated glass (OITC ~34 or more, ~$1,200–1,800
+    a window installed, vs ~$400–470 for an insert). Its acoustic upgrade (~$150–600) is about an
+    insert's price, so it's worth it in a window being replaced anyway; for noise alone, inserts.
 - **The front 45.6 ft can't be fenced** (deed restrictions, sec. 3). Plantings can screen that
   stretch.
 

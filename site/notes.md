@@ -4076,6 +4076,28 @@ sided wall; today's old sashes leak ~0.3% of their area; the upgrades are sealed
     then, rather than adding an insert later.
   - **The stone first story** may push the installed cost of a replacement toward the top of the
     range.
+- **Energy savings from the inserts, Austin** (owner's question, Nov 16 2026; back of the envelope,
+  ±50%):
+  - **Assumptions:**
+    - ~222 sq ft of windows off the east side: the double-pane north and upstairs ones, the
+      single panes elsewhere, the south bedrooms' as an allowance.
+    - Whole-window U ~0.60 → ~0.35 (double) and ~1.05 → ~0.50 (single) with an insert.
+    - The clear acrylic cuts solar gain ~12%.
+    - Cooling against ~76 °F (~28,000 °F·h a year); the sun on each face after its overhangs and
+      trees.
+    - $0.14/kWh.
+  - **Cooling, through the glass alone:** ~4.5 million Btu a year less heat. That's ~280–460 kWh,
+    ~$40–65 a year, for an AC of SEER 16 down to 10.
+  - **If the old sashes leak:** stopping ~20–40 cfm of humid outside air adds ~2.5–5 million Btu,
+    most of it moisture. Total ~440–960 kWh, ~$60–135 a year.
+  - **Winter:** ~3.5–4.8 million Btu less heat. With a heat pump ~410–570 kWh (~$60–80); with gas
+    ~45–60 therms.
+  - **All in, ~$100–200 a year.** On ~$9k of inserts that's a ~45–90 year payback, so they're a
+    noise purchase with an energy bonus.
+  - **Indow's "average 20%"** of heating and cooling bills suits leakier, mostly single-pane houses.
+    Here it's more like ~5–10%.
+  - **The comfort gains** don't show in the bill: less heat radiating off the glass, fewer drafts,
+    less condensation in winter.
 
 **What the wall hides** (share of each road showing within 60° of straight out, to 800 ft):
 

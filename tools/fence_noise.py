@@ -242,11 +242,65 @@ def table(rows: list[dict], title: str) -> None:
         click.echo(pl.DataFrame(rows))
 
 
+def shown(site_: Site, eye: np.ndarray, out_dir: np.ndarray, bars: list[dict], road: str, top: float) -> float:
+    """Share of a road's length in view (60 deg either side of straight out, to 800 ft) where a vehicle's top (ft over
+    the road) shows over every barrier."""
+    lanes = [(o, z) for name, o, z in site_.lanes() if name == road]
+    pts = np.array([(*site_.road(s_, o), z + top) for o, z in lanes for s_ in np.arange(-800.0, 800.1, 5.0)])
+    v = pts[:, :2] - eye[None, :2]
+    dist = np.hypot(v[:, 0], v[:, 1])
+    inview = (np.degrees(np.arccos(np.clip((v @ out_dir) / dist, -1, 1))) <= 60) & (dist <= 800)
+    hidden = np.zeros(len(pts), bool)
+    for b in bars:
+        okb, tb, top_ = crossings(pts, eye, b["pts"])
+        hidden |= okb & (top_ > pts[:, 2] + tb * (eye[2] - pts[:, 2]))
+    return float((inview & ~hidden).sum() / max(inview.sum(), 1))
+
+
+def sweep(site_, S, W, edges, rear, today, line, receivers, heights) -> None:
+    """dB quieter than today's fence for a sealed wall on the north line at each height, heavy (masonry, so it's limited
+    only by what bends over the top) and wood board-on-board; and what it hides from upstairs."""
+    spec = 10 ** (TRAFFIC_A / 10)
+    heavy, wood = panel_tl(200.0, 0.0), panel_tl(2 * PICKETS, 0.0)
+
+    def level(R, fences):
+        return a_level((receiver_bands(S, W, R, edges + [rear] + fences) * spec[None, :]).sum(axis=0))
+
+    pts = {r: np.array([p[0], p[1], z]) for r, (p, z) in receivers.items()}
+    base = {r: level(R, today) for r, R in pts.items()}
+    rows, wrows, vrows = [], [], []
+    up = pts["middle, upstairs"]
+    out_dir = np.array(site([st(100.0, 200.0)])[0]) - np.array(site([st(100.0, 100.0)])[0])
+    out_dir = out_dir / np.linalg.norm(out_dir)
+    for h in heights:
+        tag = {"wall height (ft)": f"{h:g}"}
+        rows.append({**tag, **{r: round(base[r] - level(R, [site_.fence(line, h, heavy)]), 1) for r, R in pts.items()}})
+        wrows.append({**tag, **{r: round(base[r] - level(R, [site_.fence(line, h, wood)]), 1) for r, R in pts.items()}})
+        bars = edges + [rear, site_.fence(line, h, heavy)]
+        vrows.append({**tag, **{f"{kind}: {road.split(' ')[0]}": f"{shown(site_, up, out_dir, bars, road, top):.0%}"
+                                for kind, top in (("cars", 5.0), ("trucks", 13.0))
+                                for road in ("eastbound frontage road", "westbound frontage road")}})
+    # The same tallest wall run on along the line far past both ends of the lot, for what the ends cost.
+    (x0, y0), (x1, y1) = line
+    n = math.hypot(x1 - x0, y1 - y0)
+    ux, uy = (x1 - x0) / n, (y1 - y0) / n
+    endless = [(x0 - ux * 1500, y0 - uy * 1500), (x1 + ux * 1500, y1 + uy * 1500)]
+    rows.append({"wall height (ft)": f"{heights[-1]:g}, endless",
+                 **{r: round(base[r] - level(R, [site_.fence(endless, heights[-1], heavy, step=40.0)]), 1) for r, R in pts.items()}})
+    click.echo("A sealed wall on the north line, back corner to the 45 ft building line, replacing today's fence. "
+               "Comparisons, not predictions: no ground effect, trees or wind.")
+    table(rows, "Heavy wall (masonry, ~200 kg/m2: only what bends over the top gets past), dB quieter than today's fence")
+    table(wrows, "Wood board-on-board (two layers of 3/4 in, sealed), dB quieter than today's fence: its own transmission "
+                 "caps it as the wall grows")
+    table(vrows, "From the upstairs windows (middle): share of each frontage road showing over the heavy wall")
+
+
 @click.command()
 @click.option("--gaps", default=0.03, show_default=True, help="Open fraction of today's fence (and the rear fence).")
 @click.option("--main-db", default=11.0, show_default=True, help="Main lanes (both ways) louder than one frontage road, dB.")
 @click.option("--window-leak", default=0.003, show_default=True, help="Open fraction of today's old windows (air leaks).")
-def main(gaps: float, main_db: float, window_leak: float) -> None:
+@click.option("--sweep", default=None, help="Sweep a sealed wall's height on the north line, FROM:TO:STEP ft (e.g. 10:30:2), and stop.")
+def main(gaps: float, main_db: float, window_leak: float, sweep: str | None) -> None:
     """Fence options vs today's fence: outdoor and indoor dB, window upgrades, and what each hides of the highway."""
     site_ = Site()
     S, W, G = sources(site_, main_db)
@@ -272,6 +326,11 @@ def main(gaps: float, main_db: float, window_leak: float) -> None:
         "garage/kitchen end, ground floor": (site([st(75.0, north)])[0], FF_FT + 5.0),
         "north yard, 15 ft off the wall": (yard, site_.g(yard) + 5.0),
     }
+    if sweep:
+        h0, h1, dh = (float(v) for v in sweep.split(":"))
+        globals()["sweep"](site_, S, W, edges, rear, options["today: 8 ft, leaky"], line, receivers,
+                           [float(h) for h in np.arange(h0, h1 + 1e-6, dh)])
+        return
     spec = 10 ** (TRAFFIC_A / 10)
     out_levels: dict[tuple[str, str], np.ndarray] = {}
     shares = []

@@ -4140,6 +4140,37 @@ sided wall; today's old sashes leak ~0.3% of their area; the upgrades are sealed
   (`FENCE_TRACE` in `site_plan.py`).
 - The maps that draw it are re-rendered.
 
+### A taller wall, 10 to 30 ft: a sweep for curiosity (owner, Nov 20 2026)
+
+The wall is dropped (Nov 15). `uv run tools/fence_noise.py --sweep 10:30:2` puts a sealed wall on
+the north line, from the back corner to the 45 ft building line, in place of today's fence. The
+table gives dB quieter than today, outdoors; the windows' gains indoors add on top.
+
+| Height | Ground floor (west, middle, kitchen end) | Upstairs (west, middle) | North yard |
+|---|---|---|---|
+| 10 ft | 1.9–2.1 | 0.4 | 3.0 |
+| 14 ft | 2.8–3.0 | 1.8–1.9 | 4.4 |
+| 18 ft | 3.2–3.6 | 3.6 | 5.3 |
+| 20 ft | 3.2–3.7 | 4.1–4.2 | 5.5 |
+| 24 ft | 3.4–3.9 | 4.8–4.9 | 5.7 |
+| 30 ft | 3.5–4.1 | 5.4–5.6 | 6.0 |
+| 30 ft, run endlessly along the line | 9.5–10.7 | 10.1–10.2 | 10.0 |
+
+- **It levels off at ~4 dB at the ground floor, ~5.5 upstairs.** Past ~18 ft the extra height
+  buys little, because the sound comes round the wall's ends instead: east of the 45 ft building
+  line, which the deed restrictions won't let a fence pass, and west of the back corner.
+- **The endless row shows what the ends cost.** The same 30 ft wall run far past both ends of
+  the lot would give ~10 dB. That's out of reach here, which is TxDOT's own finding for the house
+  across Candelaria: a 20 ft wall couldn't reach 5 dB there.
+- **Wood is enough.** Sealed board-on-board comes within ~0.1 dB of a masonry wall at every
+  height, since the ends, not the panels, set the limit.
+- **For the view from upstairs:**
+  - a 14 ft wall hides nearly all of the eastbound frontage road's cars (6% show; 53% of truck
+    tops);
+  - ~20–22 ft hides the westbound frontage road too (14% of truck tops at 20 ft, none at 22).
+- **For scale:** a 20–30 ft wall is a highway sound wall, with engineered footings and a permit,
+  for less than the windows give indoors (~9–11 dB).
+
 ### Windows and doors
 
 - Traffic noise is heavy in low frequencies. Compare windows by **OITC** (made for traffic
